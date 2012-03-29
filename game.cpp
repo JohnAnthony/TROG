@@ -8,7 +8,7 @@ Game::Game(void) {
     this->cam.x = 0;
     this->cam.y = 0;
 
-    this->game_mode == GameMode::MAP_WALK;
+    this->game_mode = GameMode::MAP_WALK;
 }
 
 void
@@ -100,6 +100,10 @@ Game::HandleInput(int c) {
             else if (c == KEY_LEFT)
                 this->MoveCamera(Direction::WEST);
             break;
+        case GameMode::MAP_INFO:
+        case GameMode::CHARACTER_SCREEN:
+        default:
+            break;
     }
 }
 
@@ -146,4 +150,10 @@ Game::MoveCamera(Direction::Type d) {
     }
 
     this->ShowMap();
+}
+
+Game::~Game(void) {
+    delete character;
+    if (levels)
+        delete levels;
 }

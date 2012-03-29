@@ -9,6 +9,7 @@
 class Level {
     public:
     Level(Level* parent);
+    ~Level(void);
 
     int             depth;
     Tile            tiles[MAP_W][MAP_H];

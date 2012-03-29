@@ -11,11 +11,12 @@ namespace GameMode {
         MAP_INFO,
         CHARACTER_SCREEN
     } Type;
-};
+}
 
 class Game {
     public:
     Game(void);
+    ~Game(void);
     void Run(void);
     void ShowMap(void);
     void ShowMapInfo(void);

@@ -12,7 +12,7 @@ namespace Direction {
         EAST,
         WEST
     } Type;
-};
+}
 
 struct Rect {
     int x;

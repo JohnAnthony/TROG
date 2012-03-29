@@ -19,3 +19,8 @@ Level::Level(Level* parent) {
         }
     }
 }
+
+Level::~Level(void) {
+    if (this->next)
+        delete this->next;
+}

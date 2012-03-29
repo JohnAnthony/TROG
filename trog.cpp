@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
     g = new Game();
     g->ShowMap();
     g->Run();
-
+    delete g;
     endwin();
 
     return 0;
