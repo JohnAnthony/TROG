@@ -5,7 +5,7 @@
 #include "geometry.hpp"
 
 #define MAP_W   320
-#define MAP_H   320
+#define MAP_H   100
 
 #define EMPTY_CHAR          ' '
 #define FLOOR_CHAR          '.'
@@ -34,7 +34,9 @@ class Level {
     void ApplyRoom(Room *r);
     void ApplyCorridor(Corridor *c);
     bool CorridorFits(Corridor *c);
+    bool RoomFits(Room *r);
     Corridor FindRoomCorridorChild(Room *r);
+    Room RoomFromCorridor(Corridor *c);
 };
 
 #endif

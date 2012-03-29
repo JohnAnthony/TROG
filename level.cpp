@@ -1,8 +1,8 @@
 #include "level.hpp"
 #include <cstdlib>
 
-#define CORRIDOR_TRIES      5
-#define ROOM_TRIES          5
+#define CORRIDOR_TRIES      10
+#define ROOM_TRIES          3
 
 Level::Level(Level* parent) {
     Room r;
@@ -37,6 +37,7 @@ Level::~Level(void) {
 void
 Level::ApplyRoom(Room *r) {
     Corridor c;
+    Room r_child;
 
     //Floor
     for (int e = 0; e < r->h; ++e) {
@@ -47,8 +48,13 @@ Level::ApplyRoom(Room *r) {
 
     for (int i = 0; i < CORRIDOR_TRIES; ++i) {
         c = this->FindRoomCorridorChild(r);
-        if (this->CorridorFits(&c))
-            this->ApplyCorridor(&c);
+        if (!this->CorridorFits(&c))
+            continue;
+        r_child = this->RoomFromCorridor(&c);
+        if (!this->RoomFits(&r_child))
+            continue;
+        this->ApplyCorridor(&c);
+        this->ApplyRoom(&r_child);
     }
 }
 
@@ -60,6 +66,26 @@ Level::CorridorFits(Corridor *c) {
         return false;
     if (c->pos.y + c->pos.h >= MAP_H)
         return false;
+
+    return true;
+}
+
+bool
+Level::RoomFits(Room *r) {
+    if (r->x <= 0 || r->y <= 0)
+        return false;
+    if (r->x + r->w >= MAP_W)
+        return false;
+    if (r->y + r->h >= MAP_H)
+        return false;
+
+    for (int e = MAX(r->y - 1, 0); e <= r->y + r->h; ++e) {
+        for (int i = MAX(r->x - 1, 0); i <= r->x + r->w; ++i) {
+            if (this->tiles[i][e].c == FLOOR_CHAR)
+                return false;
+        }
+    }
+
     return true;
 }
 
@@ -77,13 +103,45 @@ Level::ApplyCorridor(Corridor *c) {
     }
 }
 
+Room
+Level::RoomFromCorridor(Corridor *c) {
+    Room r;
+    r.w = (rand() % 15) + 5;
+    r.h = (rand() % 5) + 5;
+
+    // Only add-sized rooms
+    if (r.w % 2 == 0)
+        r.w++;
+    if (r.h % 2 == 0)
+        r.h++;
+
+    if (c->direction == Direction::NORTH) {
+        r.x = c->pos.x - rand() % r.w;
+        r.y = c->pos.y - r.h;
+    }
+    else if (c->direction == Direction::SOUTH) {
+        r.x = c->pos.x - rand() % r.w;
+        r.y = c->pos.y + c->pos.h + 1;
+    }
+    else if (c->direction == Direction::EAST) {
+        r.x = c->pos.x + c->pos.w + 1;
+        r.y = c->pos.y - rand() % r.h;
+    }
+    else { //WEST
+        r.x = c->pos.x - r.w;
+        r.y = c->pos.y - rand() % r.h;
+    }
+
+    return r;
+}
+
 Corridor
 Level::FindRoomCorridorChild(Room *r) {
     Corridor c;
 
     if (rand() % 2) { //NORTH OR SOUTH
         c.pos.w = 0;
-        c.pos.h = rand() % 5 + 3;
+        c.pos.h = ((rand() % 3) + 1) * 3;
         c.pos.x = r->x + rand() % r->w;
         if (rand() % 2) { //NORTH
             c.direction = Direction::NORTH;
@@ -96,7 +154,7 @@ Level::FindRoomCorridorChild(Room *r) {
     }
     else { //EAST OR WEST
         c.pos.h = 0;
-        c.pos.w = rand() % 5 + 3;
+        c.pos.w = ((rand() % 3) + 1) * 3;
         c.pos.y = r->y + rand() % r->h;
         if (rand() % 2) { // WEST
             c.direction = Direction::WEST;
