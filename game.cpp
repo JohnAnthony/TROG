@@ -63,10 +63,8 @@ Game::ShowMap(void) {
         for (int i = 0; i < COLS; ++i) {
             i2 = i + this->cam.x;
             e2 = e + this->cam.y;
-            if (i2 >= MAP_W || i2 < 0)
-                c = 'z';
-            else if (e2 >= MAP_H || e2 < 0)
-                c = 'x';
+            if (i2 >= MAP_W || i2 < 0 || e2 >= MAP_H || e2 < 0)
+                c = 'X';
             else
                 c = cur_level->tiles[i2][e2].c;
 

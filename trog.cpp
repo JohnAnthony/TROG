@@ -1,9 +1,12 @@
 #include <ncurses.h>
+#include <cstdlib>
+#include <ctime>
 #include "game.hpp"
 
 int main(int argc, char** argv) {
     Game *g;
 
+    srand(time(NULL));
     initscr();
 	cbreak();
 	keypad(stdscr, TRUE);
