@@ -13,6 +13,10 @@ int main(int argc, char** argv) {
     noecho();
     raw();
     curs_set(0);
+    start_color();
+
+    init_pair(1, COLOR_WHITE, COLOR_BLACK);
+    init_pair(2, COLOR_RED, COLOR_BLACK);
 
     g = new Game();
     g->ShowMap();

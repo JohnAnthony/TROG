@@ -1,8 +1,7 @@
 #include "level.hpp"
 #include <cstdlib>
 
-#define CORRIDOR_TRIES      10
-#define ROOM_TRIES          3
+#define CORRIDOR_TRIES      30
 
 Level::Level(Level* parent) {
     Room r;
@@ -24,8 +23,8 @@ Level::Level(Level* parent) {
 
     r.w = (rand() % 15) + 5;
     r.h = (rand() % 5) + 5;
-    r.x = rand() % (MAP_W - r.w - 2);
-    r.y = rand() % (MAP_H - r.h - 2);
+    r.x = rand() % (MAP_W - r.w - 2) + 1;
+    r.y = rand() % (MAP_H - r.h - 2) + 1;
     this->ApplyRoom(&r);
 }
 
@@ -141,7 +140,7 @@ Level::FindRoomCorridorChild(Room *r) {
 
     if (rand() % 2) { //NORTH OR SOUTH
         c.pos.w = 0;
-        c.pos.h = ((rand() % 3) + 1) * 3;
+        c.pos.h = ((rand() % 2) + 1) * 3;
         c.pos.x = r->x + rand() % r->w;
         if (rand() % 2) { //NORTH
             c.direction = Direction::NORTH;

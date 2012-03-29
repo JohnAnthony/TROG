@@ -4,8 +4,8 @@
 #include "tile.hpp"
 #include "geometry.hpp"
 
-#define MAP_W   320
-#define MAP_H   100
+#define MAP_W   200
+#define MAP_H   50
 
 #define EMPTY_CHAR          ' '
 #define FLOOR_CHAR          '.'

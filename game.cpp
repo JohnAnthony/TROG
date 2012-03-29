@@ -64,9 +64,14 @@ Game::ShowMap(void) {
             i2 = i + this->cam.x;
             e2 = e + this->cam.y;
             if (i2 >= MAP_W || i2 < 0 || e2 >= MAP_H || e2 < 0)
-                c = 'X';
+                c = ' ';
             else
                 c = cur_level->tiles[i2][e2].c;
+
+            if (c == CLOSED_DOOR_CHAR || c == OPEN_DOOR_CHAR)
+                attron(COLOR_PAIR(2));
+            else
+                attron(COLOR_PAIR(1));
 
             mvaddch(e, i, c);
         }
