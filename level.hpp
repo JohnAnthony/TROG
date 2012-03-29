@@ -10,11 +10,15 @@
 #define EMPTY_CHAR          ' '
 #define FLOOR_CHAR          '.'
 #define WALL_CHAR           '#'
-#define CLOSED_DOOR_CHAR    'O'
+#define CLOSED_DOOR_CHAR    '+'
 #define OPEN_DOOR_CHAR      '/'
 
 typedef Rect Room;
-typedef Rect Corridor;
+
+struct Corridor {
+    Rect pos;
+    Direction::Type direction;
+};
 
 class Level {
     public:
@@ -29,6 +33,8 @@ class Level {
     private:
     void ApplyRoom(Room *r);
     void ApplyCorridor(Corridor *c);
+    bool CorridorFits(Corridor *c);
+    Corridor FindRoomCorridorChild(Room *r);
 };
 
 #endif
