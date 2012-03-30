@@ -96,6 +96,14 @@ Game::HandleInput(int c) {
                 this->MoveCharacter(Direction::EAST);
             else if (c == '4')
                 this->MoveCharacter(Direction::WEST);
+            else if (c == '7')
+                this->MoveCharacter(Direction::NW);
+            else if (c == '9')
+                this->MoveCharacter(Direction::NE);
+            else if (c == '1')
+                this->MoveCharacter(Direction::SW);
+            else if (c == '3')
+                this->MoveCharacter(Direction::SE);
             break;
         case GameMode::MAP_INFO:
         case GameMode::CHARACTER_SCREEN:
@@ -111,9 +119,10 @@ Game::GoUpALevel(void) {
 
     this->cur_level = this->cur_level->prev;
 
-    this->cur_level->cam.x = 0;
-    this->cur_level->cam.y = 0;
-    this->cur_level->Draw();
+    this->character->MoveTo(this->cur_level->stairs_up);
+    this->cur_level->RevealSight(this->character);
+    this->cur_level->CentreCam(this->character->pos);
+    this->DoRedraw();
 }
 
 void
@@ -123,9 +132,10 @@ Game::GoDownALevel(void) {
 
     this->cur_level = this->cur_level->next;
 
-    this->cur_level->cam.x = 0;
-    this->cur_level->cam.y = 0;
-    this->cur_level->Draw();
+    this->character->MoveTo(this->cur_level->stairs_up);
+    this->cur_level->RevealSight(this->character);
+    this->cur_level->CentreCam(this->character->pos);
+    this->DoRedraw();
 }
 
 void
@@ -150,9 +160,11 @@ Game::MoveCamera(Direction::Type d) {
         case Direction::WEST:
             l->cam.x -= step_x;
             break;
+        default:
+            break;
     }
 
-    l->Draw();
+    this->DoRedraw();
 }
 
 void
@@ -172,12 +184,28 @@ Game::MoveCharacter(Direction::Type d) {
 
     if (d == Direction::NORTH)
         target.y--;
-    if (d == Direction::SOUTH)
+    else if (d == Direction::SOUTH)
         target.y++;
-    if (d == Direction::EAST)
+    else if (d == Direction::EAST)
         target.x++;
-    if (d == Direction::WEST)
+    else if (d == Direction::WEST)
         target.x--;
+    else if (d == Direction::NW) {
+        target.x--;
+        target.y--;
+    }
+    else if (d == Direction::NE) {
+        target.x++;
+        target.y--;
+    }
+    else if (d == Direction::SW) {
+        target.x--;
+        target.y++;
+    }
+    else { // South East
+        target.x++;
+        target.y++;
+    }
 
     c->MoveTo(target);
     this->cur_level->RevealSight(c);

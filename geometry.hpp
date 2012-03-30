@@ -13,7 +13,11 @@ namespace Direction {
         NORTH,
         SOUTH,
         EAST,
-        WEST
+        WEST,
+        NW,
+        NE,
+        SW,
+        SE
     } Type;
 }
 

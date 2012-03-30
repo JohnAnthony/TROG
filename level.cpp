@@ -268,3 +268,9 @@ Level::RevealSight(Entity *e) {
         }
     }
 }
+
+void
+Level::CentreCam(Point p) {
+    this->cam.x = 0;
+    this->cam.y = 0;
+}

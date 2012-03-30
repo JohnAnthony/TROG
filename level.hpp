@@ -31,6 +31,7 @@ class Level {
     bool TileIsVisible(Point p);
     void ConditionallyShowObject(Point p, char c);
     void RevealSight(Entity* e);
+    void CentreCam(Point p);
 
     int             depth;
     Tile            tiles[MAP_W][MAP_H];
