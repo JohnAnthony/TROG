@@ -25,6 +25,7 @@ class Game {
     void SwitchGameMode(GameMode::Type gmt);
     void MoveCamera(Direction::Type d);
     void DoRedraw(void);
+    void MoveCharacter(Direction::Type d);
 
     Level*              levels;
     Level*              cur_level;

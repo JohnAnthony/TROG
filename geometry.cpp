@@ -46,7 +46,6 @@ BinaryChoice(std::string str, char a, char b) {
     str.append(1, a);
     str.append(1, '/');
     str.append(1, b);
-    str.append(1, '?');
 
     pos.w = str.length() + 4;
     pos.h = 3;

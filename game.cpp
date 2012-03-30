@@ -4,6 +4,13 @@
 Game::Game(void) {
     this->levels = this->cur_level = new Level(NULL);
     this->character = new Character();
+    this->levels->character = character;
+    this->character->MoveTo(this->cur_level->stairs_up);
+
+    this->character->sight_range = 5;   //TEMPORARY
+
+    this->levels->RevealSight(this->character);
+
 
     this->game_mode = GameMode::MAP_WALK;
     this->running = true;
@@ -81,6 +88,14 @@ Game::HandleInput(int c) {
                 this->MoveCamera(Direction::EAST);
             else if (c == KEY_LEFT)
                 this->MoveCamera(Direction::WEST);
+            else if (c == '8')
+                this->MoveCharacter(Direction::NORTH);
+            else if (c == '2')
+                this->MoveCharacter(Direction::SOUTH);
+            else if (c == '6')
+                this->MoveCharacter(Direction::EAST);
+            else if (c == '4')
+                this->MoveCharacter(Direction::WEST);
             break;
         case GameMode::MAP_INFO:
         case GameMode::CHARACTER_SCREEN:
@@ -142,8 +157,31 @@ Game::MoveCamera(Direction::Type d) {
 
 void
 Game::DoRedraw(void) {
-    if (this->game_mode == GameMode::MAP_WALK)
+    if (this->game_mode == GameMode::MAP_WALK) {
         this->cur_level->Draw();
+    }
+}
+
+void
+Game::MoveCharacter(Direction::Type d) {
+    Point target;
+    Character *c;
+
+    c = this->character;
+    target = c->pos;
+
+    if (d == Direction::NORTH)
+        target.y--;
+    if (d == Direction::SOUTH)
+        target.y++;
+    if (d == Direction::EAST)
+        target.x++;
+    if (d == Direction::WEST)
+        target.x--;
+
+    c->MoveTo(target);
+    this->cur_level->RevealSight(c);
+    this->DoRedraw();
 }
 
 Game::~Game(void) {

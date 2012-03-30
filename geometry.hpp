@@ -6,6 +6,7 @@
 #define NOISE_CHARACTER  '#'
 
 #define MAX(x, y) ((x > y) ? x : y )
+#define MIN(x, y) ((x < y) ? x : y )
 
 namespace Direction {
     typedef enum {

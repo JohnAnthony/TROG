@@ -5,6 +5,7 @@
 #define CORRIDOR_TRIES      30
 
 Point Level::cam;
+Character* Level::character;
 
 Level::Level(Level* parent) {
     Room r;
@@ -20,7 +21,7 @@ Level::Level(Level* parent) {
     //Blank everything
     for (int e = 0; e < MAP_H; ++e) {
         for (int i = 0; i < MAP_W; ++i) {
-            this->tiles[i][e] = Tile(true, WALL_CHAR);
+            this->tiles[i][e] = Tile(false, WALL_CHAR);
         }
     }
 
@@ -42,8 +43,9 @@ Level::~Level(void) {
 }
 
 void
-Level::Draw() {
+Level::Draw(void) {
     int e2, i2;
+    Tile *t;
     char c;
 
     move(0,0);
@@ -51,12 +53,15 @@ Level::Draw() {
     //Floor tiles
     for (int e = 0; e < LINES; ++e) {
         for (int i = 0; i < COLS; ++i) {
-            i2 = i + cam.x;
-            e2 = e + cam.y;
+            i2 = i + this->cam.x;
+            e2 = e + this->cam.y;
+            t = &this->tiles[i2][e2];
             if (i2 >= MAP_W || i2 < 0 || e2 >= MAP_H || e2 < 0)
                 c = ' ';
+            else if (!t->isVisible)
+                c = ' ';
             else
-                c = this->tiles[i2][e2].c;
+                c = t->c;
 
             if (c == CLOSED_DOOR_CHAR || c == OPEN_DOOR_CHAR)
                 attron(COLOR_PAIR(2));
@@ -70,11 +75,9 @@ Level::Draw() {
         attron(COLOR_PAIR(1));
     }
 
-    if (IsOnScreen(this->stairs_up))
-        DrawObjectRelative(this->stairs_up, '<');
-
-    if (IsOnScreen(this->stairs_down))
-        DrawObjectRelative(this->stairs_down, '>');
+    ConditionallyShowObject(stairs_up, '<');
+    ConditionallyShowObject(stairs_down, '>');
+    ConditionallyShowObject(character->pos, '@');
 
     refresh();
 }
@@ -230,6 +233,11 @@ Level::FindRoomCorridorChild(Room *r) {
 }
 
 bool
+Level::TileIsVisible(Point p) {
+    return this->tiles[p.x][p.y].isVisible;
+}
+
+bool
 Level::IsOnScreen(Point p) {
     if (p.x - this->cam.x < 0)
         return false;
@@ -241,4 +249,22 @@ Level::IsOnScreen(Point p) {
         return false;
 
     return true;
+}
+
+void
+Level::ConditionallyShowObject(Point p, char c) {
+    if (!this->IsOnScreen(p))
+        return;
+    if (!this->TileIsVisible(p))
+        return;
+    DrawObjectRelative(p, c);
+}
+
+void
+Level::RevealSight(Entity *e) {
+    for (int y = MAX(e->pos.y - e->sight_range, 0); y < MIN(e->pos.y + e->sight_range, MAP_H); ++y) {
+        for (int x = MAX(e->pos.x - e->sight_range, 0); x < MIN(e->pos.x + e->sight_range, MAP_W); ++x) {            
+            this->tiles[x][y].isVisible = true;
+        }
+    }
 }

@@ -3,9 +3,10 @@
 
 #include "tile.hpp"
 #include "geometry.hpp"
+#include "character.hpp"
 
-#define MAP_W   320
-#define MAP_H   100
+#define MAP_W   100
+#define MAP_H   50
 
 #define EMPTY_CHAR          ' '
 #define FLOOR_CHAR          '.'
@@ -27,6 +28,9 @@ class Level {
     void Draw();
     void DrawObjectRelative(Point p, char c);
     bool IsOnScreen(Point p);
+    bool TileIsVisible(Point p);
+    void ConditionallyShowObject(Point p, char c);
+    void RevealSight(Entity* e);
 
     int             depth;
     Tile            tiles[MAP_W][MAP_H];
@@ -34,7 +38,9 @@ class Level {
     Level*          next;
     Point           stairs_up;
     Point           stairs_down;
-    static Point    cam;
+
+    static Point        cam;
+    static Character    *character;
 
     private:
     void ApplyRoom(Room *r);
