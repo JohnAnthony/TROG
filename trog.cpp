@@ -19,7 +19,6 @@ int main(int argc, char** argv) {
     init_pair(2, COLOR_RED, COLOR_BLACK);
 
     g = new Game();
-    g->ShowMap();
     g->Run();
     delete g;
     endwin();

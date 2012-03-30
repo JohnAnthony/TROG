@@ -1,7 +1,10 @@
 #include "level.hpp"
 #include <cstdlib>
+#include <ncurses.h>
 
 #define CORRIDOR_TRIES      30
+
+Point Level::cam;
 
 Level::Level(Level* parent) {
     Room r;
@@ -25,6 +28,11 @@ Level::Level(Level* parent) {
     r.h = (rand() % 5) + 5;
     r.x = rand() % (MAP_W - r.w - 2) + 1;
     r.y = rand() % (MAP_H - r.h - 2) + 1;
+
+    this->stairs_up.x = r.x + rand() % (r.w - 2) + 1;
+    this->stairs_up.y = r.y + rand() % (r.h - 2) + 1;
+    this->stairs_down.x = -1;   //While this is -1 it means we haven't placed it
+
     this->ApplyRoom(&r);
 }
 
@@ -34,9 +42,53 @@ Level::~Level(void) {
 }
 
 void
+Level::Draw() {
+    int e2, i2;
+    char c;
+
+    //Floor tiles
+    for (int e = 0; e < LINES; ++e) {
+        for (int i = 0; i < COLS; ++i) {
+            i2 = i + cam.x;
+            e2 = e + cam.y;
+            if (i2 >= MAP_W || i2 < 0 || e2 >= MAP_H || e2 < 0)
+                c = ' ';
+            else
+                c = this->tiles[i2][e2].c;
+
+            if (c == CLOSED_DOOR_CHAR || c == OPEN_DOOR_CHAR)
+                attron(COLOR_PAIR(2));
+            else
+                attron(COLOR_PAIR(1));
+
+            mvaddch(e, i, c);
+        }
+
+        //Special objects
+        attron(COLOR_PAIR(1));
+
+        if (IsOnScreen(this->stairs_up))
+            DrawObjectRelative(this->stairs_up, '<');
+
+        if (IsOnScreen(this->stairs_down))
+            DrawObjectRelative(this->stairs_down, '>');
+    }
+
+    refresh();
+}
+
+void
+Level::DrawObjectRelative(Point p, char c) {
+    mvaddch(p.y - this->cam.y, p.x - this->cam.x, c);
+}
+
+void
 Level::ApplyRoom(Room *r) {
     Corridor c;
     Room r_child;
+    int exits;
+
+    exits = 0;
 
     //Floor
     for (int e = 0; e < r->h; ++e) {
@@ -52,8 +104,15 @@ Level::ApplyRoom(Room *r) {
         r_child = this->RoomFromCorridor(&c);
         if (!this->RoomFits(&r_child))
             continue;
+
+        exits++;
         this->ApplyCorridor(&c);
         this->ApplyRoom(&r_child);
+    }
+
+    if (this->stairs_down.x == -1 && exits == 0) { // We need to place stairs here
+        this->stairs_down.x = r->x + rand() % r->w;
+        this->stairs_down.y = r->y + rand() % r->h;
     }
 }
 
@@ -166,4 +225,18 @@ Level::FindRoomCorridorChild(Room *r) {
     }
 
     return c;
+}
+
+bool
+Level::IsOnScreen(Point p) {
+    if (p.x - this->cam.x < 0)
+        return false;
+    if (p.y - this->cam.y < 0)
+        return false;
+    if (p.x - this->cam.x > COLS)
+        return false;
+    if (p.y - this->cam.y < 0)
+        return false;
+
+    return true;
 }

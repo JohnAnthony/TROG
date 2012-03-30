@@ -4,8 +4,8 @@
 #include "tile.hpp"
 #include "geometry.hpp"
 
-#define MAP_W   200
-#define MAP_H   50
+#define MAP_W   30
+#define MAP_H   30
 
 #define EMPTY_CHAR          ' '
 #define FLOOR_CHAR          '.'
@@ -24,11 +24,17 @@ class Level {
     public:
     Level(Level* parent);
     ~Level(void);
+    void Draw();
+    void DrawObjectRelative(Point p, char c);
+    bool IsOnScreen(Point p);
 
     int             depth;
     Tile            tiles[MAP_W][MAP_H];
     Level*          prev;
     Level*          next;
+    Point           stairs_up;
+    Point           stairs_down;
+    static Point    cam;
 
     private:
     void ApplyRoom(Room *r);

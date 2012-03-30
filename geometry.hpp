@@ -27,5 +27,6 @@ struct Point {
 };
 
 void ScreenNoise(void);
+bool IsOnScreen(Point p);
 
 #endif

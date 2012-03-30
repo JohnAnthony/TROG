@@ -18,7 +18,6 @@ class Game {
     Game(void);
     ~Game(void);
     void Run(void);
-    void ShowMap(void);
     void ShowMapInfo(void);
     void HandleInput(int c);
     void GoUpALevel(void);
@@ -30,7 +29,6 @@ class Game {
     Level*              cur_level;
     Character*          character;
     int                 cur_floor;
-    Point               cam;
     GameMode::Type      game_mode;
 };
 

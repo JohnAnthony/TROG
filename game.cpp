@@ -5,9 +5,6 @@ Game::Game(void) {
     this->levels = this->cur_level = new Level(NULL);
     this->character = new Character();
 
-    this->cam.x = 0;
-    this->cam.y = 0;
-
     this->game_mode = GameMode::MAP_WALK;
 }
 
@@ -17,6 +14,7 @@ Game::Run(void) {
     GameMode::Type new_gamemode;
 
     new_gamemode = this->game_mode;
+    this->cur_level->Draw();
 
     while (1) {
         c = getch();
@@ -44,7 +42,7 @@ Game::SwitchGameMode(GameMode::Type gmt) {
 
     switch (gmt) {
         case (GameMode::MAP_WALK):
-            this->ShowMap();
+            this->cur_level->Draw();
             break;
         case (GameMode::MAP_INFO):
             this->ShowMapInfo();
@@ -52,32 +50,6 @@ Game::SwitchGameMode(GameMode::Type gmt) {
         case (GameMode::CHARACTER_SCREEN):
             break;
     }
-}
-
-void
-Game::ShowMap(void) {
-    int e2, i2;
-    char c;
-
-    for (int e = 0; e < LINES; ++e) {
-        for (int i = 0; i < COLS; ++i) {
-            i2 = i + this->cam.x;
-            e2 = e + this->cam.y;
-            if (i2 >= MAP_W || i2 < 0 || e2 >= MAP_H || e2 < 0)
-                c = ' ';
-            else
-                c = cur_level->tiles[i2][e2].c;
-
-            if (c == CLOSED_DOOR_CHAR || c == OPEN_DOOR_CHAR)
-                attron(COLOR_PAIR(2));
-            else
-                attron(COLOR_PAIR(1));
-
-            mvaddch(e, i, c);
-        }
-    }
-
-    refresh();
 }
 
 void
@@ -117,7 +89,9 @@ Game::GoUpALevel(void) {
 
     this->cur_level = this->cur_level->prev;
 
-    ShowMap();
+    this->cur_level->cam.x = 0;
+    this->cur_level->cam.y = 0;
+    this->cur_level->Draw();
 }
 
 void
@@ -126,33 +100,37 @@ Game::GoDownALevel(void) {
         this->cur_level->next = new Level(this->cur_level);
 
     this->cur_level = this->cur_level->next;
-    ShowMap();
+
+    this->cur_level->cam.x = 0;
+    this->cur_level->cam.y = 0;
+    this->cur_level->Draw();
 }
 
 void
 Game::MoveCamera(Direction::Type d) {
     int step_x;
     int step_y;
+    Level *l = this->cur_level;
 
     step_x = MAX(COLS / 3, 1);
     step_y = MAX(LINES / 3, 1);
 
     switch (d) {
         case Direction::NORTH:
-            this->cam.y -= step_y;
+            l->cam.y -= step_y;
             break;
         case Direction::SOUTH:
-            this->cam.y += step_y;
+            l->cam.y += step_y;
             break;
         case Direction::EAST:
-            this->cam.x += step_x;
+            l->cam.x += step_x;
             break;
         case Direction::WEST:
-            this->cam.x -= step_x;
+            l->cam.x -= step_x;
             break;
     }
 
-    this->ShowMap();
+    l->Draw();
 }
 
 Game::~Game(void) {
