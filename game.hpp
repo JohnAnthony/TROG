@@ -24,11 +24,13 @@ class Game {
     void GoDownALevel(void);
     void SwitchGameMode(GameMode::Type gmt);
     void MoveCamera(Direction::Type d);
+    void DoRedraw(void);
 
     Level*              levels;
     Level*              cur_level;
     Character*          character;
     int                 cur_floor;
+    bool                running;
     GameMode::Type      game_mode;
 };
 

@@ -7,7 +7,7 @@ trog: ${OBJECTS}
 	${CC} ${CFLAGS} -o $@ ${OBJECTS} ${LIBS}
 
 #Objects with a header file
-%.o: %.cpp %.hpp
+%.o: %.cpp *.hpp
 	${CC} ${CFLAGS} -c -o $@ $<
 
 clean:

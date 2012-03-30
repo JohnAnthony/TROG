@@ -1,6 +1,8 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
+#include <string>
+
 #define NOISE_CHARACTER  '#'
 
 #define MAX(x, y) ((x > y) ? x : y )
@@ -28,5 +30,7 @@ struct Point {
 
 void ScreenNoise(void);
 bool IsOnScreen(Point p);
+void Alert(std::string str);
+bool BinaryChoice(std::string str, char a, char b);
 
 #endif

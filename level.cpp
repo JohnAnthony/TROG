@@ -46,6 +46,8 @@ Level::Draw() {
     int e2, i2;
     char c;
 
+    move(0,0);
+
     //Floor tiles
     for (int e = 0; e < LINES; ++e) {
         for (int i = 0; i < COLS; ++i) {
@@ -61,18 +63,18 @@ Level::Draw() {
             else
                 attron(COLOR_PAIR(1));
 
-            mvaddch(e, i, c);
+            addch(c);
         }
 
         //Special objects
         attron(COLOR_PAIR(1));
-
-        if (IsOnScreen(this->stairs_up))
-            DrawObjectRelative(this->stairs_up, '<');
-
-        if (IsOnScreen(this->stairs_down))
-            DrawObjectRelative(this->stairs_down, '>');
     }
+
+    if (IsOnScreen(this->stairs_up))
+        DrawObjectRelative(this->stairs_up, '<');
+
+    if (IsOnScreen(this->stairs_down))
+        DrawObjectRelative(this->stairs_down, '>');
 
     refresh();
 }
@@ -111,8 +113,8 @@ Level::ApplyRoom(Room *r) {
     }
 
     if (this->stairs_down.x == -1 && exits == 0) { // We need to place stairs here
-        this->stairs_down.x = r->x + rand() % r->w;
-        this->stairs_down.y = r->y + rand() % r->h;
+        this->stairs_down.x = r->x + rand() % (r->w - 2) + 1;
+        this->stairs_down.y = r->y + rand() % (r->h - 2) + 1;
     }
 }
 

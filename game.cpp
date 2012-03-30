@@ -6,6 +6,7 @@ Game::Game(void) {
     this->character = new Character();
 
     this->game_mode = GameMode::MAP_WALK;
+    this->running = true;
 }
 
 void
@@ -16,12 +17,15 @@ Game::Run(void) {
     new_gamemode = this->game_mode;
     this->cur_level->Draw();
 
-    while (1) {
+    while (this->running) {
         c = getch();
 
         //Handle mode changes
-        if (c == KEY_F(1))
-            return;
+        if (c == KEY_F(12)) {
+            this->running = !BinaryChoice("Are you sure you want to quit?", 'y', 'n');
+            if (this->running)
+                this->DoRedraw();
+        }
         else if (c == 'm')
             new_gamemode = GameMode::MAP_INFO;
         else if (c == 'c')
@@ -38,6 +42,9 @@ Game::Run(void) {
 
 void
 Game::SwitchGameMode(GameMode::Type gmt) {
+    if(this->game_mode == gmt)
+        return;
+
     this->game_mode = gmt;
 
     switch (gmt) {
@@ -131,6 +138,12 @@ Game::MoveCamera(Direction::Type d) {
     }
 
     l->Draw();
+}
+
+void
+Game::DoRedraw(void) {
+    if (this->game_mode == GameMode::MAP_WALK)
+        this->cur_level->Draw();
 }
 
 Game::~Game(void) {
