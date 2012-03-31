@@ -1,6 +1,11 @@
 #include "geometry.hpp"
 #include <ncurses.h>
 
+bool
+Point::operator==(Point const& other) {
+    return this->x == other.x && this->y == other.y;
+}
+
 void
 ScreenNoise(void) {
     for (int e = 0; e < LINES; ++e) {

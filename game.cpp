@@ -77,10 +77,14 @@ void
 Game::HandleInput(int c) {
     switch (this->game_mode) {
         case GameMode::MAP_WALK:
-            if (c == '>')
-                this->GoDownALevel();
-            else if (c == '<')
-                this->GoUpALevel();
+            if (c == '>') {
+                if (this->character->pos == this->cur_level->stairs_down)
+                    this->GoDownALevel();
+            }
+            else if (c == '<') {
+                if (this->character->pos == this->cur_level->stairs_up)
+                    this->GoUpALevel();
+            }
             else if (c == KEY_UP)
                 this->MoveCamera(Direction::NORTH);
             else if (c == KEY_DOWN)

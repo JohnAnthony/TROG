@@ -28,7 +28,9 @@ struct Rect {
     int h;
 };
 
-struct Point {
+class Point {
+    public:
+    bool operator==(Point const& other);
     int x;
     int y;
 };
