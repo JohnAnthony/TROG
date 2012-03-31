@@ -27,12 +27,12 @@ class Level {
     void RevealSight(Entity* e);
     void CentreCam(Point p);
 
-    int             depth;
-    Tile            tiles[MAP_W][MAP_H];
-    Level*          prev;
-    Level*          next;
-    Point           stairs_up;
-    Point           stairs_down;
+    int     depth;
+    Tile    tiles[MAP_W][MAP_H];
+    Level*  prev;
+    Level*  next;
+    Point   stairs_up;
+    Point   stairs_down;
 
     static Point        cam;
     static Character    *character;

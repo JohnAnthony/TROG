@@ -218,8 +218,10 @@ Game::MoveCharacter(Direction::Type d) {
         this->DoRedraw();
     }
     else if (t->c == CLOSED_DOOR_CHAR) {
-        if (BinaryChoice("This door is closed. Open?", 'y', 'n'))
+        if (BinaryChoice("This door is closed. Open?", 'y', 'n')) {
             t->c = OPEN_DOOR_CHAR;
+            // c->TakeActionCost();
+        }
         this->DoRedraw();
     }
 }

@@ -1,0 +1,17 @@
+KEYBINDINGS
+===========
+
+Mode Independent / Mode Change
+------------------------------
+
+@   = Character Screen
+i   = Game Info
+`   = Switch to Movement Mode
+F12 = Quit
+
+Movement Mode
+-------------
+
+qwe 789
+asd 456 = Movement
+zxc 123
