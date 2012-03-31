@@ -247,9 +247,9 @@ Level::IsOnScreen(Point p) {
         return false;
     if (p.y - this->cam.y < 0)
         return false;
-    if (p.x - this->cam.x > COLS)
+    if (p.x - this->cam.x >= COLS)
         return false;
-    if (p.y - this->cam.y < 0)
+    if (p.y - this->cam.y >= LINES - 1) // -1 gives space for the status bar
         return false;
 
     return true;
