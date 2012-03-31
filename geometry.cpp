@@ -5,7 +5,7 @@ void
 ScreenNoise(void) {
     for (int e = 0; e < LINES; ++e) {
         for (int i = 0; i < COLS; ++i) {
-            mvaddch(e, i, NOISE_CHARACTER);
+            mvaddch(e, i, '#'); //Magic number here is bad but efficient
         }
     }
 }

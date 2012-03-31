@@ -8,12 +8,6 @@
 #define MAP_W   100
 #define MAP_H   50
 
-#define EMPTY_CHAR          ' '
-#define FLOOR_CHAR          '.'
-#define WALL_CHAR           '#'
-#define CLOSED_DOOR_CHAR    '+'
-#define OPEN_DOOR_CHAR      '/'
-
 typedef Rect Room;
 
 struct Corridor {

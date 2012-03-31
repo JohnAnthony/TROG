@@ -8,7 +8,7 @@
 namespace GameMode {
     typedef enum {
         MAP_WALK,
-        MAP_INFO,
+        INFO_SCREEN,
         CHARACTER_SCREEN
     } Type;
 }

@@ -6,6 +6,7 @@ Game::Game(void) {
     this->character = new Character();
     this->levels->character = character;
     this->character->MoveTo(this->cur_level->stairs_up);
+    this->levels->CentreCam(character->pos);
 
     this->character->sight_range = 5;   //TEMPORARY
 
@@ -33,11 +34,11 @@ Game::Run(void) {
             if (this->running)
                 this->DoRedraw();
         }
-        else if (c == 'm')
-            new_gamemode = GameMode::MAP_INFO;
-        else if (c == 'c')
+        else if (c == 'i')
+            new_gamemode = GameMode::INFO_SCREEN;
+        else if (c == '@')
             new_gamemode = GameMode::CHARACTER_SCREEN;
-        else if (c == 'z')
+        else if (c == '`')
             new_gamemode = GameMode::MAP_WALK;
         else    // Not a mode change. Handle input based upon mode
             this->HandleInput(c);
@@ -58,7 +59,7 @@ Game::SwitchGameMode(GameMode::Type gmt) {
         case (GameMode::MAP_WALK):
             this->cur_level->Draw();
             break;
-        case (GameMode::MAP_INFO):
+        case (GameMode::INFO_SCREEN):
             this->ShowMapInfo();
             break;
         case (GameMode::CHARACTER_SCREEN):
@@ -88,24 +89,24 @@ Game::HandleInput(int c) {
                 this->MoveCamera(Direction::EAST);
             else if (c == KEY_LEFT)
                 this->MoveCamera(Direction::WEST);
-            else if (c == '8')
+            else if (c == '8' || c == 'w')
                 this->MoveCharacter(Direction::NORTH);
-            else if (c == '2')
+            else if (c == '2' || c == 's')
                 this->MoveCharacter(Direction::SOUTH);
-            else if (c == '6')
+            else if (c == '6' || c == 'd')
                 this->MoveCharacter(Direction::EAST);
-            else if (c == '4')
+            else if (c == '4' || c == 'a')
                 this->MoveCharacter(Direction::WEST);
-            else if (c == '7')
+            else if (c == '7' || c == 'q')
                 this->MoveCharacter(Direction::NW);
-            else if (c == '9')
+            else if (c == '9' || c == 'e')
                 this->MoveCharacter(Direction::NE);
-            else if (c == '1')
+            else if (c == '1' || c == 'z')
                 this->MoveCharacter(Direction::SW);
-            else if (c == '3')
+            else if (c == '3' || c == 'c')
                 this->MoveCharacter(Direction::SE);
             break;
-        case GameMode::MAP_INFO:
+        case GameMode::INFO_SCREEN:
         case GameMode::CHARACTER_SCREEN:
         default:
             break;
@@ -178,6 +179,7 @@ void
 Game::MoveCharacter(Direction::Type d) {
     Point target;
     Character *c;
+    Tile *t;
 
     c = this->character;
     target = c->pos;
@@ -207,9 +209,19 @@ Game::MoveCharacter(Direction::Type d) {
         target.y++;
     }
 
-    c->MoveTo(target);
-    this->cur_level->RevealSight(c);
-    this->DoRedraw();
+    t = &this->cur_level->tiles[target.x][target.y];
+
+    // OK, we're ready to attempt a move!
+    if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR) {
+        c->MoveTo(target);
+        this->cur_level->RevealSight(c);
+        this->DoRedraw();
+    }
+    else if (t->c == CLOSED_DOOR_CHAR) {
+        if (BinaryChoice("This door is closed. Open?", 'y', 'n'))
+            t->c = OPEN_DOOR_CHAR;
+        this->DoRedraw();
+    }
 }
 
 Game::~Game(void) {

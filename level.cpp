@@ -271,6 +271,6 @@ Level::RevealSight(Entity *e) {
 
 void
 Level::CentreCam(Point p) {
-    this->cam.x = 0;
-    this->cam.y = 0;
+    this->cam.x = p.x - COLS / 2;
+    this->cam.y = p.y - LINES / 2;
 }
