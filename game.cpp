@@ -137,7 +137,7 @@ Game::GoDownALevel(void) {
 
     this->cur_level = this->cur_level->next;
 
-    this->character->MoveTo(this->cur_level->stairs_up);
+    this->character->MoveTo(this->cur_level->stairs_down);
     this->cur_level->RevealSight(this->character);
     this->cur_level->CentreCam(this->character->pos);
     this->DoRedraw();
