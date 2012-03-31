@@ -15,3 +15,7 @@ Movement Mode
 qwe 789
 asd 456 = Movement
 zxc 123
+
+Arrow Keys = Move Camera
+<  = Go up stairs
+>  = Go down stairs

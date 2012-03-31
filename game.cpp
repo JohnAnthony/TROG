@@ -9,9 +9,9 @@ Game::Game(void) {
     this->levels->CentreCam(character->pos);
 
     this->character->sight_range = 5;   //TEMPORARY
-
     this->levels->RevealSight(this->character);
 
+    this->status_line = "HP:100/100 MP:100/100";
 
     this->game_mode = GameMode::MAP_WALK;
     this->running = true;
@@ -23,7 +23,7 @@ Game::Run(void) {
     GameMode::Type new_gamemode;
 
     new_gamemode = this->game_mode;
-    this->cur_level->Draw();
+    this->cur_level->Draw(this);
 
     while (this->running) {
         c = getch();
@@ -57,7 +57,7 @@ Game::SwitchGameMode(GameMode::Type gmt) {
 
     switch (gmt) {
         case (GameMode::MAP_WALK):
-            this->cur_level->Draw();
+            this->cur_level->Draw(this);
             break;
         case (GameMode::INFO_SCREEN):
             this->ShowMapInfo();
@@ -170,9 +170,10 @@ Game::MoveCamera(Direction::Type d) {
 
 void
 Game::DoRedraw(void) {
-    if (this->game_mode == GameMode::MAP_WALK) {
-        this->cur_level->Draw();
-    }
+    if (this->game_mode == GameMode::MAP_WALK)
+        this->cur_level->Draw(this);
+    else if (this->game_mode == GameMode::INFO_SCREEN)
+        this->ShowMapInfo();
 }
 
 void

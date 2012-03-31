@@ -4,11 +4,14 @@
 #include "tile.hpp"
 #include "geometry.hpp"
 #include "character.hpp"
+#include "game.hpp"
 
 #define MAP_W   100
 #define MAP_H   50
 
 typedef Rect Room;
+
+class Game;
 
 struct Corridor {
     Rect pos;
@@ -19,7 +22,7 @@ class Level {
     public:
     Level(Level* parent);
     ~Level(void);
-    void Draw();
+    void Draw(Game *g);
     void DrawObjectRelative(Point p, char c);
     bool IsOnScreen(Point p);
     bool TileIsVisible(Point p);

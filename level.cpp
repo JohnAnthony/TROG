@@ -43,7 +43,7 @@ Level::~Level(void) {
 }
 
 void
-Level::Draw(void) {
+Level::Draw(Game *g) {
     int e2, i2;
     Tile *t;
     char c;
@@ -51,7 +51,7 @@ Level::Draw(void) {
     move(0,0);
 
     //Floor tiles
-    for (int e = 0; e < LINES; ++e) {
+    for (int e = 0; e < LINES - 1; ++e) { //Save space for the status line
         for (int i = 0; i < COLS; ++i) {
             i2 = i + this->cam.x;
             e2 = e + this->cam.y;
@@ -75,9 +75,13 @@ Level::Draw(void) {
         attron(COLOR_PAIR(1));
     }
 
+    //Objects
     ConditionallyShowObject(stairs_up, '<');
     ConditionallyShowObject(stairs_down, '>');
     ConditionallyShowObject(character->pos, '@');
+
+    // Status line
+    mvprintw(LINES -1, 0, g->status_line.c_str());
 
     refresh();
 }

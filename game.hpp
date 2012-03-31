@@ -1,9 +1,11 @@
 #ifndef GAME_H
-#define GAHE_H
+#define GAME_H
 
 #include "level.hpp"
 #include "character.hpp"
 #include "geometry.hpp"
+
+class Level;
 
 namespace GameMode {
     typedef enum {
@@ -33,6 +35,7 @@ class Game {
     int                 cur_floor;
     bool                running;
     GameMode::Type      game_mode;
+    std::string         status_line;
 };
 
 #endif
