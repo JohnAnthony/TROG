@@ -5,8 +5,9 @@ Mode Independent / Mode Change
 ------------------------------
 
 @   = Character Screen
-i   = Game Info
+i   = Game Info (Not implemented)
 `   = Switch to Movement Mode
+l   = Look around (Not implemented)
 F1  = Help text (Not implemented)
 F12 = Quit
 
