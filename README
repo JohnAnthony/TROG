@@ -7,7 +7,6 @@ Mode Independent / Mode Change
 @   = Character Screen
 i   = Game Info (Not implemented)
 `   = Switch to Movement Mode
-l   = Look around (Not implemented)
 F1  = Help text (Not implemented)
 F12 = Quit
 
@@ -21,3 +20,4 @@ zxc 123
 Arrow Keys = Move Camera
 <  = Go up stairs
 >  = Go down stairs
+l   = Look around (Not implemented)
