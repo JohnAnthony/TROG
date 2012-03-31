@@ -220,6 +220,7 @@ Game::MoveCharacter(Direction::Type d) {
     if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR) {
         c->MoveTo(target);
         this->cur_level->RevealSight(c);
+        this->cur_level->CentreCam(c->pos);
         this->DoRedraw();
     }
     else if (t->c == CLOSED_DOOR_CHAR) {
