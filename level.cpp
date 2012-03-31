@@ -266,11 +266,51 @@ Level::ConditionallyShowObject(Point p, char c) {
 
 void
 Level::RevealSight(Entity *e) {
-    for (int y = MAX(e->pos.y - e->sight_range, 0); y < MIN(e->pos.y + e->sight_range, MAP_H); ++y) {
-        for (int x = MAX(e->pos.x - e->sight_range, 0); x < MIN(e->pos.x + e->sight_range, MAP_W); ++x) {            
-            this->tiles[x][y].isVisible = true;
-        }
+    DoSightBeam(Direction::NORTH, e->pos.x, e->pos.y, e->sight_range);
+    DoSightBeam(Direction::SOUTH, e->pos.x, e->pos.y, e->sight_range);
+    DoSightBeam(Direction::EAST, e->pos.x, e->pos.y, e->sight_range);
+    DoSightBeam(Direction::WEST, e->pos.x, e->pos.y, e->sight_range);
+}
+
+void
+Level::DoSightBeam(Direction::Type d, int x, int y, float ttl) {
+    Tile *t;
+
+    if (ttl < 0)
+        return;
+    t = &this->tiles[x][y];
+    t->isVisible = true;
+    if (!t->SeeThrough())
+        return;
+
+    if (d == Direction::NORTH) {
+        DoSightBeam(Direction::NW, x - 1, y - 1, ttl - 1.41);
+        DoSightBeam(Direction::NORTH, x, y - 1, ttl - 1);
+        DoSightBeam(Direction::NE, x + 1, y - 1, ttl - 1.41);
     }
+    else if (d == Direction::SOUTH) {
+        DoSightBeam(Direction::SW, x - 1, y + 1, ttl - 1.41);
+        DoSightBeam(Direction::SOUTH, x, y + 1, ttl - 1);
+        DoSightBeam(Direction::SE, x + 1, y + 1, ttl - 1.41);
+    }
+    else if (d == Direction::EAST) {
+        DoSightBeam(Direction::NE, x + 1, y - 1, ttl - 1.41);
+        DoSightBeam(Direction::EAST, x + 1, y, ttl - 1);
+        DoSightBeam(Direction::SE, x + 1, y + 1, ttl - 1.41);
+    }
+    else if (d == Direction::WEST) {
+        DoSightBeam(Direction::NW, x - 1, y - 1, ttl - 1.41);
+        DoSightBeam(Direction::WEST, x - 1, y, ttl - 1);
+        DoSightBeam(Direction::SW, x - 1, y + 1, ttl - 1.41);
+    }
+    else if (d == Direction::NW)
+        DoSightBeam(Direction::NW, x - 1, y - 1, ttl - 1.41);
+    else if (d == Direction::NE)
+        DoSightBeam(Direction::NE, x + 1, y - 1, ttl - 1.41);
+    else if (d == Direction::SW)
+        DoSightBeam(Direction::SW, x - 1, y + 1, ttl - 1.41);
+    else if (d == Direction::SE)
+        DoSightBeam(Direction::SE, x + 1, y + 1, ttl - 1.41);
 }
 
 void

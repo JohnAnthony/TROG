@@ -29,6 +29,7 @@ class Level {
     void ConditionallyShowObject(Point p, char c);
     void RevealSight(Entity* e);
     void CentreCam(Point p);
+    void DoSightBeam(Direction::Type d, int x, int y, float ttl);
 
     int     depth;
     Tile    tiles[MAP_W][MAP_H];

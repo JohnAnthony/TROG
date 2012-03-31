@@ -11,6 +11,7 @@ class Tile {
     public:
     Tile(void);
     Tile(bool vis, char inC);
+    bool SeeThrough(void);
 
     char c;
     bool isVisible;
