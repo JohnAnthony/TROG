@@ -95,7 +95,7 @@ Game::HandleInput(int c) {
                 this->MoveCamera(Direction::WEST);
             else if (c == '8' || c == 'w')
                 this->MoveCharacter(Direction::NORTH);
-            else if (c == '2' || c == 's')
+            else if (c == '2' || c == 'x')
                 this->MoveCharacter(Direction::SOUTH);
             else if (c == '6' || c == 'd')
                 this->MoveCharacter(Direction::EAST);
