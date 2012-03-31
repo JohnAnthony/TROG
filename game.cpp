@@ -225,6 +225,7 @@ Game::MoveCharacter(Direction::Type d) {
     else if (t->c == CLOSED_DOOR_CHAR) {
         if (BinaryChoice("This door is closed. Open?", 'y', 'n')) {
             t->c = OPEN_DOOR_CHAR;
+            this->cur_level->RevealSight(c);
             // c->TakeActionCost();
         }
         this->DoRedraw();
