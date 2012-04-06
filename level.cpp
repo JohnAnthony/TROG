@@ -79,9 +79,12 @@ Level::Draw(Game *g) {
     }
 
     //Special objects
-    ConditionallyShowObject(stairs_up, '<', CustColour::WHITE);
-    ConditionallyShowObject(stairs_down, '>', CustColour::WHITE);
-    ConditionallyShowObject(character->pos, '@', CustColour::GREEN);
+    ConditionallyShowObject(stairs_up, '<', CustColour::BLUE);
+    ConditionallyShowObject(stairs_down, '>', CustColour::BLUE);
+
+    //Character
+    ConditionallyShowObject(character->pos, this->character->symbol,
+        this->character->colour);
 
 
     // Status line
