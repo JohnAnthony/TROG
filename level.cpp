@@ -63,26 +63,31 @@ Level::Draw(Game *g) {
             else
                 c = t->c;
 
-            if (c == CLOSED_DOOR_CHAR || c == OPEN_DOOR_CHAR)
-                attron(COLOR_PAIR(2));
+            if (c == CLOSED_DOOR_CHAR || c == OPEN_DOOR_CHAR) {
+                attron(COLOR_PAIR(CustColour::RED));
+                addch(c);
+                attroff(COLOR_PAIR(CustColour::RED));
+            }
             else
-                attron(COLOR_PAIR(1));
-
-            addch(c);
+                addch(c);
         }
-
-        //Special objects
-        attron(COLOR_PAIR(1));
     }
 
-    //Objects
-    ConditionallyShowObject(stairs_up, '<');
-    ConditionallyShowObject(stairs_down, '>');
-    ConditionallyShowObject(character->pos, '@');
+    for (std::list<GoldPile>::iterator it = this->goldpiles.begin();
+            it != this->goldpiles.end(); it++) {
+        ConditionallyShowObject(it->pos, '$', CustColour::YELLOW);
+    }
+
+    //Special objects
+    ConditionallyShowObject(stairs_up, '<', CustColour::WHITE);
+    ConditionallyShowObject(stairs_down, '>', CustColour::WHITE);
+    ConditionallyShowObject(character->pos, '@', CustColour::GREEN);
+
 
     // Status line
     mvprintw(LINES -1, 0, g->status_line.c_str());
 
+    //Tidy us back to white as default
     refresh();
 }
 
@@ -106,6 +111,11 @@ Level::ApplyRoom(Room *r) {
         }
     }
 
+    //Randomly add gold
+    if (rand() % 100 >= 10)
+        this->AddGold(r);
+
+    //Handle recursively adding children
     for (int i = 0; i < CORRIDOR_TRIES; ++i) {
         c = this->FindRoomCorridorChild(r);
         if (!this->CorridorFits(&c))
@@ -123,6 +133,16 @@ Level::ApplyRoom(Room *r) {
         this->stairs_down.x = r->x + rand() % (r->w - 2) + 1;
         this->stairs_down.y = r->y + rand() % (r->h - 2) + 1;
     }
+}
+
+void
+Level::AddGold(Rect *r) {
+    GoldPile gp;
+    gp.pos.x = r->x + rand() % r->w;
+    gp.pos.y = r->y + rand() % r->h;
+    gp.quantity = rand() % (this->depth * this->depth) + 1;
+
+    this->goldpiles.push_back(gp);
 }
 
 bool
@@ -256,12 +276,14 @@ Level::IsOnScreen(Point p) {
 }
 
 void
-Level::ConditionallyShowObject(Point p, char c) {
+Level::ConditionallyShowObject(Point p, char c, CustColour::Type col) {
     if (!this->IsOnScreen(p))
         return;
     if (!this->TileIsVisible(p))
         return;
+    attron(COLOR_PAIR(col));
     DrawObjectRelative(p, c);
+    attroff(COLOR_PAIR(col));
 }
 
 void

@@ -35,6 +35,16 @@ class Point {
     int y;
 };
 
+namespace CustColour {
+    typedef enum {
+        WHITE = 0,
+        RED = 1,
+        YELLOW = 2,
+        GREEN = 3,
+        BLUE = 4
+    } Type;
+}
+
 void ScreenNoise(void);
 bool IsOnScreen(Point p);
 void Alert(std::string str);

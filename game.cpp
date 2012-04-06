@@ -4,7 +4,7 @@
 
 Game::Game(void) {
     this->levels = this->cur_level = new Level(NULL);
-    this->character = new Character(Character::HUMAN, Character::FIGHTER);
+    this->character = new Character(Character::LIZARDFOLK, Character::FIGHTER);
     this->levels->character = character;
     this->character->MoveTo(this->cur_level->stairs_up);
     this->levels->CentreCam(character->pos);
@@ -25,11 +25,11 @@ Game::MakeStatusLine(void) {
 
     c = this->character;
 
-    s << "HP:" << c->curHP << "/" << c->maxHP;
-    s <<" MP:" << c->curMP << "/" << c->maxMP;
-    s <<" GP:" << this->gold;
+    s << " HP:" << c->curHP << "/" << c->maxHP;
+    s << " MP:" << c->curMP << "/" << c->maxMP;
+    s << " GP:" << this->gold;
 
-    this->status_line = s.str(); //"HP:100/100 MP:100/100 GP:" + this->gold.str();
+    this->status_line = s.str();
 }
 
 void

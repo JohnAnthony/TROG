@@ -3,6 +3,7 @@
 
 #include "entity.hpp"
 #include "geometry.hpp"
+#include <string>
 
 class Character : public Entity {
     public:
@@ -30,6 +31,8 @@ class Character : public Entity {
     Character(Character::Race inRace, Character::Class inClass);
     void FullyRestore(void);
     void MoveTo(Point p);
+    std::string ClassString(void);
+    std::string RaceString(void);
     int XP;
     int Level;
     Class cclass;

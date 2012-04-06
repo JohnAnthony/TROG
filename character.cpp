@@ -40,3 +40,51 @@ void
 Character::MoveTo(Point p) {
     this->pos = p;
 }
+
+std::string
+Character::ClassString(void) {
+    switch (this->cclass) {
+        case Character::FIGHTER:
+            return "FIGHTER";
+        case Character::THIEF:
+            return "THIEF";
+        case Character::WIZARD:
+            return "WIZARD";
+        case Character::CLERIC:
+            return "CLERIC";
+        case Character::BARBARIAN:
+            return "BARBARIAN";
+        case Character::PALADIN:
+            return "PALADIN";
+        case Character::DRUID:
+            return "DRUID";
+        case Character::SAGE:
+            return "SAGE";
+        default:
+            return "UNKNOWN_CLASS";
+    }
+}
+
+std::string
+Character::RaceString(void) {
+    switch (this->race) {
+        case Character::HUMAN:
+            return "HUMAN";
+        case Character::ELF:
+            return "ELF";
+        case Character::DWARF:
+            return "DWARF";
+        case Character::HALF_ELF:
+            return "HALF_ELF";
+        case Character::HALFLING:
+            return "HALFLING";
+        case Character::HALF_ORC:
+            return "HALF_ORC";
+        case Character::ORC:
+            return "ORC";
+        case Character::LIZARDFOLK:
+            return "LIZARDFOLK";
+        default:
+            return "UNKNOWN_RACE";
+    }
+}
