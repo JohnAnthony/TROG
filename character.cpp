@@ -6,7 +6,7 @@ Character::Character(Character::Race inRace, Character::Class inClass) {
     this->XP = 0;
     this->Level = 1;
     this->symbol = '@';
-    this->colour = CustColour::GREEN;
+    this->colour = COL_GREEN;
 
     this->sight_range = 5;
     this->maxHP  = 30;

@@ -34,7 +34,7 @@ class Level {
     void DrawObjectRelative(Point p, char c);
     bool IsOnScreen(Point p);
     bool TileIsVisible(Point p);
-    void ConditionallyShowObject(Point p, char c, CustColour::Type col);
+    void ConditionallyShowObject(Point p, char c, int col);
     void RevealSight(Entity* e);
     void CentreCam(Point p);
     void DoSightBeam(Direction::Type d, int x, int y, float ttl);

@@ -7,7 +7,7 @@ class Entity {
     public:
     Point pos;
     char symbol;
-    CustColour::Type colour;
+    int colour;
     int sight_range;
     int maxHP, curHP;
     int maxMP, curMP;

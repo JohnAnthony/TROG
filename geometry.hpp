@@ -35,15 +35,15 @@ class Point {
     int y;
 };
 
-namespace CustColour {
-    typedef enum {
-        WHITE = 0,
-        RED = 1,
-        YELLOW = 2,
-        GREEN = 3,
-        BLUE = 4
-    } Type;
-}
+enum Color {
+    COL_WHITE = 0,
+    COL_RED = 1,
+    COL_GREEN = 2,
+    COL_YELLOW = 3,
+    COL_BLUE = 4,
+    COL_PURPLE = 5,
+    COL_CYAN = 6
+};
 
 void ScreenNoise(void);
 bool IsOnScreen(Point p);

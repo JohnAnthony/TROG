@@ -16,11 +16,8 @@ int main(int argc, char** argv) {
     curs_set(0);
     start_color();
 
-    init_pair(CustColour::WHITE, COLOR_WHITE, COLOR_BLACK);
-    init_pair(CustColour::RED, COLOR_RED, COLOR_BLACK);
-    init_pair(CustColour::YELLOW, COLOR_YELLOW, COLOR_BLACK);
-    init_pair(CustColour::GREEN, COLOR_GREEN, COLOR_BLACK);
-    init_pair(CustColour::BLUE, COLOR_BLUE, COLOR_BLACK);
+    for (int i = 0; i < 8; ++i) 
+        init_pair(i, i, COLOR_BLACK);
 
     g = new Game();
     g->Run();

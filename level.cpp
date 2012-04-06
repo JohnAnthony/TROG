@@ -64,9 +64,9 @@ Level::Draw(Game *g) {
                 c = t->c;
 
             if (c == CLOSED_DOOR_CHAR || c == OPEN_DOOR_CHAR) {
-                attron(COLOR_PAIR(CustColour::RED));
+                attron(COLOR_PAIR(COL_RED));
                 addch(c);
-                attroff(COLOR_PAIR(CustColour::RED));
+                attroff(COLOR_PAIR(COL_RED));
             }
             else
                 addch(c);
@@ -75,12 +75,12 @@ Level::Draw(Game *g) {
 
     for (std::list<GoldPile>::iterator it = this->goldpiles.begin();
             it != this->goldpiles.end(); it++) {
-        ConditionallyShowObject(it->pos, '$', CustColour::YELLOW);
+        ConditionallyShowObject(it->pos, '$', COL_YELLOW);
     }
 
     //Special objects
-    ConditionallyShowObject(stairs_up, '<', CustColour::BLUE);
-    ConditionallyShowObject(stairs_down, '>', CustColour::BLUE);
+    ConditionallyShowObject(stairs_up, '<', COL_BLUE);
+    ConditionallyShowObject(stairs_down, '>', COL_BLUE);
 
     //Character
     ConditionallyShowObject(character->pos, this->character->symbol,
@@ -273,7 +273,7 @@ Level::IsOnScreen(Point p) {
 }
 
 void
-Level::ConditionallyShowObject(Point p, char c, CustColour::Type col) {
+Level::ConditionallyShowObject(Point p, char c, int col) {
     if (!this->IsOnScreen(p))
         return;
     if (!this->TileIsVisible(p))

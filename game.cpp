@@ -12,7 +12,7 @@ Game::Game(void) {
 
     this->levels->RevealSight(this->character);
 
-    this->UpdateStatusLine();
+    this->MakeStatusLine();
 
     this->game_mode = GameMode::MAP_WALK;
     this->running = true;
