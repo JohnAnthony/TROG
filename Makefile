@@ -1,4 +1,4 @@
-CFLAGS+= -ggdb -O0 -std=c++0x -Wall -pedantic
+CFLAGS+= -std=c++0x -Wall -pedantic -O0 -ggdb
 OBJECTS= trog.o level.o game.o character.o entity.o enemy.o geometry.o tile.o
 LIBS= -lncurses
 CC= g++

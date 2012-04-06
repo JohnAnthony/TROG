@@ -4,6 +4,7 @@
 #include "level.hpp"
 #include "character.hpp"
 #include "geometry.hpp"
+#include <string>
 
 class Level;
 
@@ -11,7 +12,8 @@ namespace GameMode {
     typedef enum {
         MAP_WALK,
         INFO_SCREEN,
-        CHARACTER_SCREEN
+        CHARACTER_SCREEN,
+        INVENTORY_SCREEN
     } Type;
 }
 
@@ -28,7 +30,9 @@ class Game {
     void MoveCamera(Direction::Type d);
     void DoRedraw(void);
     void MoveCharacter(Direction::Type d);
+    void MakeStatusLine(void);
 
+    int                 gold;
     Level*              levels;
     Level*              cur_level;
     Character*          character;

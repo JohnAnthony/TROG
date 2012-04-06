@@ -1,20 +1,35 @@
 #include <ncurses.h>
+#include <sstream>
 #include "game.hpp"
 
 Game::Game(void) {
     this->levels = this->cur_level = new Level(NULL);
-    this->character = new Character();
+    this->character = new Character(Character::HUMAN, Character::FIGHTER);
     this->levels->character = character;
     this->character->MoveTo(this->cur_level->stairs_up);
     this->levels->CentreCam(character->pos);
+    this->gold = 0;
 
-    this->character->sight_range = 5;   //TEMPORARY
     this->levels->RevealSight(this->character);
 
-    this->status_line = "HP:100/100 MP:100/100";
+    this->MakeStatusLine();
 
     this->game_mode = GameMode::MAP_WALK;
     this->running = true;
+}
+
+void
+Game::MakeStatusLine(void) {
+    std::stringstream s;
+    Character *c;
+
+    c = this->character;
+
+    s << "HP:" << c->curHP << "/" << c->maxHP;
+    s <<" MP:" << c->curMP << "/" << c->maxMP;
+    s <<" GP:" << this->gold;
+
+    this->status_line = s.str(); //"HP:100/100 MP:100/100 GP:" + this->gold.str();
 }
 
 void
@@ -35,6 +50,8 @@ Game::Run(void) {
                 this->DoRedraw();
         }
         else if (c == 'i')
+            new_gamemode = GameMode::INVENTORY_SCREEN;
+        else if (c == 'g')
             new_gamemode = GameMode::INFO_SCREEN;
         else if (c == '@')
             new_gamemode = GameMode::CHARACTER_SCREEN;
@@ -63,6 +80,8 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             this->ShowMapInfo();
             break;
         case (GameMode::CHARACTER_SCREEN):
+            break;
+        case (GameMode::INVENTORY_SCREEN):
             break;
     }
 }
