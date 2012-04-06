@@ -115,8 +115,12 @@ Level::ApplyRoom(Room *r) {
     }
 
     //Randomly add gold
-    if (rand() % 100 >= 10)
+    if (rand() % 100 <= 50)
         this->AddGold(r);
+
+    //Randomly add enemies
+    if (rand() % 100 <= 70)
+        this->EnemySpawn(r);
 
     //Handle recursively adding children
     for (int i = 0; i < CORRIDOR_TRIES; ++i) {
@@ -136,16 +140,6 @@ Level::ApplyRoom(Room *r) {
         this->stairs_down.x = r->x + rand() % (r->w - 2) + 1;
         this->stairs_down.y = r->y + rand() % (r->h - 2) + 1;
     }
-}
-
-void
-Level::AddGold(Rect *r) {
-    GoldPile gp;
-    gp.pos.x = r->x + rand() % r->w;
-    gp.pos.y = r->y + rand() % r->h;
-    gp.quantity = rand() % (this->depth * this->depth) + 1;
-
-    this->goldpiles.push_back(gp);
 }
 
 bool
@@ -342,4 +336,19 @@ void
 Level::CentreCam(Point p) {
     this->cam.x = p.x - COLS / 2;
     this->cam.y = p.y - LINES / 2;
+}
+
+void
+Level::AddGold(Rect *r) {
+    GoldPile gp;
+    gp.pos.x = r->x + rand() % r->w;
+    gp.pos.y = r->y + rand() % r->h;
+    gp.quantity = rand() % (this->depth * this->depth) + 1;
+
+    this->goldpiles.push_back(gp);
+}
+
+void
+Level::EnemySpawn(Rect *r) {
+    // TODO
 }

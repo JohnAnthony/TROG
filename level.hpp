@@ -7,6 +7,7 @@
 #include "character.hpp"
 #include "game.hpp"
 #include "item.hpp"
+#include "enemy.hpp"
 
 #define MAP_W   100
 #define MAP_H   50
@@ -37,6 +38,7 @@ class Level {
     void RevealSight(Entity* e);
     void CentreCam(Point p);
     void DoSightBeam(Direction::Type d, int x, int y, float ttl);
+    void EnemySpawn(Rect *r);
 
     int                 depth;
     Tile                tiles[MAP_W][MAP_H];
@@ -45,6 +47,7 @@ class Level {
     Point               stairs_up;
     Point               stairs_down;
     std::list<GoldPile> goldpiles;
+    std::list<Enemy>    enemies;
 
     static Point        cam;
     static Character    *character;
