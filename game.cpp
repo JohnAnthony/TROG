@@ -135,6 +135,8 @@ Game::HandleInput(int c) {
                 this->MoveCharacter(Direction::SW);
             else if (c == '3' || c == 'c')
                 this->MoveCharacter(Direction::SE);
+            else if (c == ',')
+                this->DoPickup();
             break;
         case GameMode::MAP_LOOK:
             if (c == KEY_UP)
@@ -282,7 +284,6 @@ Game::MoveCharacter(Direction::Type d) {
         c->MoveTo(target);
         this->cur_level->RevealSight(c);
         this->cur_level->CentreCam(c->pos);
-        this->DoRedraw();
     }
     else if (t->c == CLOSED_DOOR_CHAR) {
         if (BinaryChoice("This door is closed. Open?", 'y', 'n')) {
@@ -290,8 +291,10 @@ Game::MoveCharacter(Direction::Type d) {
             this->cur_level->RevealSight(c);
             // c->TakeActionCost();
         }
-        this->DoRedraw();
     }
+    this->MakeStatusLine();
+    this->DoRedraw();
+    this->RedrawStatus();
 }
 
 void
@@ -361,6 +364,33 @@ Game::RedrawStatus(void) {
     mvprintw(LINES -1, 0, this->status_line.c_str());
     for (int i = this->status_line.length(); i <= COLS; ++i)
         addch(' ');
+}
+
+void
+Game::DoPickup(void) {
+    GoldPile *gp;
+    std::stringstream ss;
+    std::list<GoldPile>::iterator it;
+
+    for (it = this->cur_level->goldpiles.begin(), gp = NULL;
+            it != this->cur_level->goldpiles.end(); ++it) {
+        if (it->pos == this->character->pos) {
+            gp = &*it;
+            break;
+        }
+    }
+
+    if (!gp) {
+        this->status_line = "Nothing to pick up.";
+    }
+    else {
+        this->gold += gp->quantity;
+        ss << "Picked up " << gp->quantity << "gp.";
+        this->status_line = ss.str();
+        this->cur_level->goldpiles.erase(it);
+    }
+
+    this->RedrawStatus();
 }
 
 Game::~Game(void) {
