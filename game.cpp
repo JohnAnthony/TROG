@@ -229,7 +229,6 @@ Game::MoveCamera(Direction::Type d) {
 void
 Game::DoRedraw(void) {
     if (this->game_mode == GameMode::MAP_WALK) {
-        this->cur_level->CentreCam(this->character->pos);
         this->cur_level->Draw(this);
         this->RedrawStatus();
     }
