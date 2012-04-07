@@ -231,6 +231,7 @@ Game::DoRedraw(void) {
         this->cur_level->Draw(this);
     }
     else if (this->game_mode == GameMode::MAP_LOOK){
+        this->status_line = this->cur_level->DescriptionOfTile(this->target, this);
         this->cur_level->Draw(this);
         this->DrawLookTarget();
     }

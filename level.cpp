@@ -1,6 +1,7 @@
 #include "level.hpp"
 #include <cstdlib>
 #include <ncurses.h>
+#include <sstream>
 
 #define CORRIDOR_TRIES      30
 
@@ -89,6 +90,8 @@ Level::Draw(Game *g) {
 
     // Status line
     mvprintw(LINES -1, 0, g->status_line.c_str());
+    for (int i = g->status_line.length(); i <= COLS; ++i)
+        addch(' ');
 
     //Tidy us back to white as default
     refresh();
@@ -346,6 +349,54 @@ Level::AddGold(Rect *r) {
     gp.quantity = rand() % (this->depth * this->depth) + 1;
 
     this->goldpiles.push_back(gp);
+}
+
+std::string
+Level::DescriptionOfTile(Point p, Game *g) {
+    Tile *t;
+    std::stringstream ss;
+    std::string s;
+    static std::string unknown = "Unexplored space";
+
+    if (p.x > MAP_W)
+        return unknown;
+    if (p.y > MAP_H)
+        return unknown;
+
+    t = &this->tiles[p.x][p.y];
+
+    // Tile information
+    if (!t->isVisible)
+        return unknown;
+    else if (p == this->stairs_up)
+        ss << "Stairs up";
+    else if (p == this->stairs_down)
+        ss << "Stairs down";
+    else if (t->c == FLOOR_CHAR)
+        ss << "Open floor";
+    else if (t->c == WALL_CHAR)
+        return "A wall";
+    else if (t->c == CLOSED_DOOR_CHAR )
+        ss << "Closed door";
+    else if (t->c == OPEN_DOOR_CHAR)
+        ss << "Open door";
+    else if (t->c == OPEN_DOOR_CHAR)
+        ss << "Open door";
+
+    //Character
+    if (p == g->character->pos) {
+        ss << " and a " << g->character->RaceString() << " ";
+        ss << g->character->ClassString();
+    }
+
+
+
+    s = ss.str();
+
+    if (s.length() > 0)
+        return s;
+
+    return "SOMETHIGN WENT WRONG";
 }
 
 void
