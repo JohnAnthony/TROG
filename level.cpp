@@ -346,7 +346,7 @@ Level::AddGold(Rect *r) {
     GoldPile gp;
     gp.pos.x = r->x + rand() % r->w;
     gp.pos.y = r->y + rand() % r->h;
-    gp.quantity = rand() % (this->depth * this->depth) + 1;
+    gp.quantity = rand() % ((this->depth * this->depth) + 5) + 1;
 
     this->goldpiles.push_back(gp);
 }
@@ -389,6 +389,12 @@ Level::DescriptionOfTile(Point p, Game *g) {
         ss << g->character->ClassString();
     }
 
+    for (std::list<GoldPile>::iterator it = this->goldpiles.begin();
+            it != this->goldpiles.end(); it++) {
+        if (p == it->pos) {
+            ss << " and " << it->quantity << "gp";
+        }
+    }
 
 
     s = ss.str();
