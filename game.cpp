@@ -25,7 +25,7 @@ Game::MakeStatusLine(void) {
 
     c = this->character;
 
-    s << " HP:" << c->curHP << "/" << c->maxHP;
+    s <<  "HP:" << c->curHP << "/" << c->maxHP;
     s << " MP:" << c->curMP << "/" << c->maxMP;
     s << " GP:" << this->gold;
 
@@ -385,7 +385,7 @@ Game::DoPickup(void) {
     }
     else {
         this->gold += gp->quantity;
-        ss << "Picked up " << gp->quantity << "gp.";
+        ss << "You pick up " << gp->quantity << "gp.";
         this->status_line = ss.str();
         this->cur_level->goldpiles.erase(it);
     }

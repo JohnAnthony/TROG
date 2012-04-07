@@ -397,7 +397,6 @@ Level::DescriptionOfTile(Point p, Game *g) {
         }
     }
 
-
     s = ss.str();
 
     if (s.length() > 0)
