@@ -11,6 +11,7 @@ class Level;
 namespace GameMode {
     typedef enum {
         MAP_WALK,
+        MAP_LOOK,
         INFO_SCREEN,
         CHARACTER_SCREEN,
         INVENTORY_SCREEN
@@ -31,6 +32,9 @@ class Game {
     void DoRedraw(void);
     void MoveCharacter(Direction::Type d);
     void MakeStatusLine(void);
+    void DrawLookTarget(void);
+    void MoveLookTarget(Direction::Type d);
+    void DrawAsOverlay(Point p, char c, int col);
 
     int                 gold;
     Level*              levels;
@@ -40,6 +44,7 @@ class Game {
     bool                running;
     GameMode::Type      game_mode;
     std::string         status_line;
+    Point               target; //For examining things
 };
 
 #endif

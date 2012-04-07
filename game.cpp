@@ -49,6 +49,8 @@ Game::Run(void) {
             if (this->running)
                 this->DoRedraw();
         }
+        else if (c == 'l')
+            new_gamemode = GameMode::MAP_LOOK;
         else if (c == 'i')
             new_gamemode = GameMode::INVENTORY_SCREEN;
         else if (c == 'g')
@@ -74,7 +76,12 @@ Game::SwitchGameMode(GameMode::Type gmt) {
 
     switch (gmt) {
         case (GameMode::MAP_WALK):
-            this->cur_level->Draw(this);
+            this->DoRedraw();
+            this->MakeStatusLine();
+            break;
+        case (GameMode::MAP_LOOK):
+            this->target = this->character->pos;
+            this->DoRedraw();
             break;
         case (GameMode::INFO_SCREEN):
             this->ShowMapInfo();
@@ -128,6 +135,32 @@ Game::HandleInput(int c) {
                 this->MoveCharacter(Direction::SW);
             else if (c == '3' || c == 'c')
                 this->MoveCharacter(Direction::SE);
+            break;
+        case GameMode::MAP_LOOK:
+            if (c == KEY_UP)
+                this->MoveCamera(Direction::NORTH);
+            else if (c == KEY_DOWN)
+                this->MoveCamera(Direction::SOUTH);
+            else if (c == KEY_RIGHT)
+                this->MoveCamera(Direction::EAST);
+            else if (c == KEY_LEFT)
+                this->MoveCamera(Direction::WEST);
+            else if (c == '8' || c == 'w')
+                this->MoveLookTarget(Direction::NORTH);
+            else if (c == '2' || c == 'x')
+                this->MoveLookTarget(Direction::SOUTH);
+            else if (c == '6' || c == 'd')
+                this->MoveLookTarget(Direction::EAST);
+            else if (c == '4' || c == 'a')
+                this->MoveLookTarget(Direction::WEST);
+            else if (c == '7' || c == 'q')
+                this->MoveLookTarget(Direction::NW);
+            else if (c == '9' || c == 'e')
+                this->MoveLookTarget(Direction::NE);
+            else if (c == '1' || c == 'z')
+                this->MoveLookTarget(Direction::SW);
+            else if (c == '3' || c == 'c')
+                this->MoveLookTarget(Direction::SE);
             break;
         case GameMode::INFO_SCREEN:
         case GameMode::CHARACTER_SCREEN:
@@ -193,8 +226,14 @@ Game::MoveCamera(Direction::Type d) {
 
 void
 Game::DoRedraw(void) {
-    if (this->game_mode == GameMode::MAP_WALK)
+    if (this->game_mode == GameMode::MAP_WALK) {
+        this->cur_level->CentreCam(this->character->pos);
         this->cur_level->Draw(this);
+    }
+    else if (this->game_mode == GameMode::MAP_LOOK){
+        this->cur_level->Draw(this);
+        this->DrawLookTarget();
+    }
     else if (this->game_mode == GameMode::INFO_SCREEN)
         this->ShowMapInfo();
 }
@@ -250,6 +289,67 @@ Game::MoveCharacter(Direction::Type d) {
         }
         this->DoRedraw();
     }
+}
+
+void
+Game::DrawLookTarget(void) {
+    Point p;
+
+    if (!this->cur_level->IsOnScreen(target))
+        return;
+
+    p.y = target.y;
+    p.x = target.x - 1;
+    this->DrawAsOverlay(p, '-', COL_RED);
+    p.x = target.x + 1;
+    this->DrawAsOverlay(p, '-', COL_RED);
+    p.x = target.x;
+    p.y = target.y - 1;
+    this->DrawAsOverlay(p, '|', COL_RED);
+    p.y = target.y + 1;
+    this->DrawAsOverlay(p, '|', COL_RED);
+}
+
+void
+Game::MoveLookTarget(Direction::Type d) {
+    if (d == Direction::NORTH)
+        --this->target.y;
+    else if (d == Direction::SOUTH)
+        ++this->target.y;
+    else if (d == Direction::EAST)
+        ++this->target.x;
+    else if (d == Direction::WEST)
+        --this->target.x;
+    else if (d == Direction::NW) {
+        --this->target.y;
+        --this->target.x;
+    }
+    else if (d == Direction::NE) {
+        --this->target.y;
+        ++this->target.x;
+    }
+    else if (d == Direction::SW) {
+        --this->target.x;
+        ++this->target.y;
+    }
+    else if (d == Direction::SE) {
+        ++this->target.x;
+        ++this->target.y;
+    }
+    else
+        return; //Given a bad direction
+
+    this->cur_level->CentreCam(this->target);
+    this->DoRedraw();
+}
+
+void
+Game::DrawAsOverlay(Point p, char c, int col) {
+    if (!this->cur_level->IsOnScreen(p))
+        return;
+    attron(COLOR_PAIR(col));
+    mvaddch(p.y - this->cur_level->cam.y, p.x - this->cur_level->cam.x, c);
+    attroff(COLOR_PAIR(col));
 }
 
 Game::~Game(void) {
