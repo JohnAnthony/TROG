@@ -87,12 +87,6 @@ Level::Draw(Game *g) {
     ConditionallyShowObject(character->pos, this->character->symbol,
         this->character->colour);
 
-
-    // Status line
-    mvprintw(LINES -1, 0, g->status_line.c_str());
-    for (int i = g->status_line.length(); i <= COLS; ++i)
-        addch(' ');
-
     //Tidy us back to white as default
     refresh();
 }
@@ -357,6 +351,7 @@ Level::DescriptionOfTile(Point p, Game *g) {
     std::stringstream ss;
     std::string s;
     static std::string unknown = "Unexplored space";
+    static std::string prefix = "YOU SEE: ";
 
     if (p.x > MAP_W)
         return unknown;
@@ -364,6 +359,9 @@ Level::DescriptionOfTile(Point p, Game *g) {
         return unknown;
 
     t = &this->tiles[p.x][p.y];
+
+    //Basic beginning part
+    ss << prefix;
 
     // Tile information
     if (!t->isVisible)
@@ -373,9 +371,9 @@ Level::DescriptionOfTile(Point p, Game *g) {
     else if (p == this->stairs_down)
         ss << "Stairs down";
     else if (t->c == FLOOR_CHAR)
-        ss << "Open floor";
+        ss << "Granite floor";
     else if (t->c == WALL_CHAR)
-        return "A wall";
+        return prefix + "A wall";
     else if (t->c == CLOSED_DOOR_CHAR )
         ss << "Closed door";
     else if (t->c == OPEN_DOOR_CHAR)
@@ -388,7 +386,10 @@ Level::DescriptionOfTile(Point p, Game *g) {
         ss << " and a " << g->character->RaceString() << " ";
         ss << g->character->ClassString();
     }
+    else { // Check for enemies
+    }
 
+    //Gold piles
     for (std::list<GoldPile>::iterator it = this->goldpiles.begin();
             it != this->goldpiles.end(); it++) {
         if (p == it->pos) {
@@ -402,7 +403,7 @@ Level::DescriptionOfTile(Point p, Game *g) {
     if (s.length() > 0)
         return s;
 
-    return "SOMETHIGN WENT WRONG";
+    return "SOMETHING WENT WRONG";
 }
 
 void

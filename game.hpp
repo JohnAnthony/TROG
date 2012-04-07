@@ -35,6 +35,7 @@ class Game {
     void DrawLookTarget(void);
     void MoveLookTarget(Direction::Type d);
     void DrawAsOverlay(Point p, char c, int col);
+    void RedrawStatus(void);
 
     int                 gold;
     Level*              levels;

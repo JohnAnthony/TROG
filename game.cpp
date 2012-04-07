@@ -229,10 +229,12 @@ Game::DoRedraw(void) {
     if (this->game_mode == GameMode::MAP_WALK) {
         this->cur_level->CentreCam(this->character->pos);
         this->cur_level->Draw(this);
+        this->RedrawStatus();
     }
     else if (this->game_mode == GameMode::MAP_LOOK){
         this->status_line = this->cur_level->DescriptionOfTile(this->target, this);
         this->cur_level->Draw(this);
+        this->RedrawStatus();
         this->DrawLookTarget();
     }
     else if (this->game_mode == GameMode::INFO_SCREEN)
@@ -295,20 +297,21 @@ Game::MoveCharacter(Direction::Type d) {
 void
 Game::DrawLookTarget(void) {
     Point p;
+    static Color col = COL_PURPLE;
 
     if (!this->cur_level->IsOnScreen(target))
         return;
 
     p.y = target.y;
     p.x = target.x - 1;
-    this->DrawAsOverlay(p, '-', COL_RED);
+    this->DrawAsOverlay(p, '-', col);
     p.x = target.x + 1;
-    this->DrawAsOverlay(p, '-', COL_RED);
+    this->DrawAsOverlay(p, '-', col);
     p.x = target.x;
     p.y = target.y - 1;
-    this->DrawAsOverlay(p, '|', COL_RED);
+    this->DrawAsOverlay(p, '|', col);
     p.y = target.y + 1;
-    this->DrawAsOverlay(p, '|', COL_RED);
+    this->DrawAsOverlay(p, '|', col);
 }
 
 void
@@ -351,6 +354,13 @@ Game::DrawAsOverlay(Point p, char c, int col) {
     attron(COLOR_PAIR(col));
     mvaddch(p.y - this->cur_level->cam.y, p.x - this->cur_level->cam.x, c);
     attroff(COLOR_PAIR(col));
+}
+
+void
+Game::RedrawStatus(void) {
+    mvprintw(LINES -1, 0, this->status_line.c_str());
+    for (int i = this->status_line.length(); i <= COLS; ++i)
+        addch(' ');
 }
 
 Game::~Game(void) {
