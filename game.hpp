@@ -23,7 +23,6 @@ class Game {
     Game(void);
     ~Game(void);
     void Run(void);
-    void ShowMapInfo(void);
     void HandleInput(int c);
     void GoUpALevel(void);
     void GoDownALevel(void);
@@ -39,6 +38,7 @@ class Game {
     void DoPickup(void);
     void ShowCharacterScreen(void);
     void ShowInventoryScreen(void);
+    void ShowInfoScreen(void);
     void HandleResize(int signal);
     void QuitDialogue(void);
 

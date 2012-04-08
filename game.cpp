@@ -50,7 +50,7 @@ Game::Run(void) {
             new_gamemode = GameMode::MAP_LOOK;
         else if (c == 'i')
             new_gamemode = GameMode::INVENTORY_SCREEN;
-        else if (c == 'g')
+        else if (c == '?')
             new_gamemode = GameMode::INFO_SCREEN;
         else if (c == '@')
             new_gamemode = GameMode::CHARACTER_SCREEN;
@@ -82,7 +82,7 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             this->DoRedraw();
             break;
         case (GameMode::INFO_SCREEN):
-            this->ShowMapInfo();
+            this->ShowInfoScreen();
             break;
         case (GameMode::CHARACTER_SCREEN):
             this->ShowCharacterScreen();
@@ -91,12 +91,6 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             this->ShowInventoryScreen();
             break;
     }
-}
-
-void
-Game::ShowMapInfo(void) {
-    ScreenNoise();
-    mvprintw(0, 0, "Level: %d", this->cur_level->depth);
 }
 
 void
@@ -244,7 +238,7 @@ Game::DoRedraw(void) {
         this->DrawLookTarget();
     }
     else if (this->game_mode == GameMode::INFO_SCREEN)
-        this->ShowMapInfo();
+        this->ShowInfoScreen();
     else if (this->game_mode == GameMode::CHARACTER_SCREEN)
         this->ShowCharacterScreen();
     else if (this->game_mode == GameMode::INVENTORY_SCREEN)
@@ -594,6 +588,50 @@ Game::ShowInventoryScreen(void) {
     ss << "Wealth :: " << this->gold << "gp";
     s = ss.str();
     mvwprintw(w, 1, pos.w - 2 - s.length(), s.c_str());
+
+    wrefresh(w);
+    delwin(w);
+}
+
+void
+Game::ShowInfoScreen(void) {
+    WINDOW *w;
+    Rect pos;
+    std::stringstream ss;
+    std::string s;
+
+    pos.w = 80;
+    pos.h = 25;
+    pos.x = (COLS - pos.w) / 2;
+    pos.y = (LINES - pos.h) / 2;
+
+    w = newwin(pos.h, pos.w, pos.y, pos.x);
+    box(w, 0, 0);
+
+    //Make our box shape
+    //Horizontal lines
+    wmove(w, 0, 1);
+    for (int i = 0; i < pos.w - 2; ++i) {
+        if ((i - 1) % 3 == 0)
+            waddch(w, '|');
+        else
+            waddch(w, '=');
+    }
+    wmove(w, pos.h - 1, 1);
+    for (int i = 0; i < pos.w - 2; ++i) {
+        if ((i - 1) % 3 == 0)
+            waddch(w, '|');
+        else
+            waddch(w, '=');
+    }
+
+    //header
+    mvwprintw(w, 1, 2, "MAP INFO");
+
+    //List of attributes
+    ss << "Level :: " << this->cur_level->depth << " below ground";
+    s = ss.str();
+    mvwprintw(w, 3, 3, s.c_str());
 
     wrefresh(w);
     delwin(w);
