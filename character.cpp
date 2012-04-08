@@ -2,25 +2,25 @@
 
 static Affinity ClassAffinities[Character::LAST_CLASS] {
     //HP    MP  STR TOU ATT DEF MAG WIL MV  SIGHT
-    {10,    0,  5,  5,  5,  5,  0,  10, 0,  0},  //FIGHTER
-    {6,     0,  2,  2,  2,  2,  0,  10, 0,  0},  //THIEF
-    {4,     10, 1,  1,  1,  1,  15, 12, 0,  0},  //WIZARD
-    {6,     6,  3,  3,  3,  3,  13, 13, 0,  0},  //CLERIC
-    {12,    0,  7,  7,  4,  4,  0,  9,  0,  0},  //BARBARIAN
-    {10,    4,  4,  4,  4,  4,  8,  12, 0,  0},  //PALADIN
-    {6,     6,  2,  2,  2,  2,  13, 11, 0,  0},  //DRUID
-    {4,     8,  1,  1,  1,  1,  12, 12, 0,  0},  //SAGE
+    {10,    0,  5,  5,  5,  5,  0,  5,  0,  0},  //FIGHTER
+    {6,     0,  2,  2,  2,  2,  0,  5,  0,  0},  //THIEF
+    {4,     10, 1,  1,  1,  1,  15, 7,  0,  0},  //WIZARD
+    {6,     6,  3,  3,  3,  3,  13, 8,  0,  0},  //CLERIC
+    {12,    0,  7,  7,  4,  4,  0,  4,  0,  0},  //BARBARIAN
+    {10,    4,  4,  4,  4,  4,  8,  7,  0,  0},  //PALADIN
+    {6,     6,  2,  2,  2,  2,  13, 6,  0,  0},  //DRUID
+    {4,     8,  1,  1,  1,  1,  12, 7,  0,  0},  //SAGE
 };
 static Affinity RaceAffinities[Character::LAST_RACE] {
     //HP    MP  STR TOU ATT DEF MAG WIL MV  SIGHT
-    {10,    0,  5,  5,  5,  5,  0,  0,  0,  5},  //HUMAN
-    {5,     2,  4,  3,  7,  6,  1,  0,  -5, 7},  //ELF
-    {15,    0,  5,  8,  5,  5,  -2, 5,  5,  6},  //DWARF
-    {8,     0,  5,  4,  5,  5,  0,  0,  -2, 6},  //HALF_ELF
-    {10,    0,  3,  3,  6,  8,  0,  0,  2,  5},  //HALFLING
-    {10,    0,  7,  6,  5,  5,  0,  0,  0,  6},  //HALF_ORC
-    {10,    0,  8,  7,  5,  5,  0,  0,  0,  7},  //ORC
-    {10,    0,  6,  6,  5,  5,  0,  0,  0,  6},  //LIZARDFOLK
+    {10,    0,  5,  5,  5,  5,  0,  5,  0,  5},  //HUMAN
+    {5,     2,  4,  3,  7,  6,  1,  5,  -5, 7},  //ELF
+    {15,    0,  5,  8,  5,  5,  -2, 10, 5,  6},  //DWARF
+    {8,     0,  5,  4,  5,  5,  0,  5,  -2, 6},  //HALF_ELF
+    {10,    0,  3,  3,  6,  8,  0,  5,  2,  5},  //HALFLING
+    {10,    0,  7,  6,  5,  5,  0,  5,  0,  6},  //HALF_ORC
+    {10,    0,  8,  7,  5,  5,  0,  5,  0,  7},  //ORC
+    {10,    0,  6,  6,  5,  5,  0,  5,  0,  6},  //LIZARDFOLK
 };
 
 Character::Character(std::string inName, Character::Race inRace, Character::Class inClass) {

@@ -54,10 +54,10 @@ class Level {
     static Character    *character;
 
     private:
-    void ApplyRoom(Room *r);
-    void ApplyCorridor(Corridor *c);
-    bool CorridorFits(Corridor *c);
-    bool RoomFits(Room *r);
+    void ApplyRoom(Room * const r);
+    void ApplyCorridor(Corridor const * const c);
+    bool CorridorFits(Corridor const * const c);
+    bool RoomFits(Room const * const r);
     Corridor FindRoomCorridorChild(Room *r);
     Room RoomFromCorridor(Corridor *c);
     void AddGold(Rect *r);

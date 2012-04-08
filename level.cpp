@@ -97,7 +97,7 @@ Level::DrawObjectRelative(Point p, char c) {
 }
 
 void
-Level::ApplyRoom(Room *r) {
+Level::ApplyRoom(Room * const r) {
     Corridor c;
     Room r_child;
     int exits;
@@ -140,7 +140,7 @@ Level::ApplyRoom(Room *r) {
 }
 
 bool
-Level::CorridorFits(Corridor *c) {
+Level::CorridorFits(Corridor const * const c) {
     if (c->pos.x <= 1 || c->pos.y <= 1)
         return false;
     if (c->pos.x + c->pos.w >= MAP_W)
@@ -152,7 +152,7 @@ Level::CorridorFits(Corridor *c) {
 }
 
 bool
-Level::RoomFits(Room *r) {
+Level::RoomFits(Room const * const r) {
     if (r->x <= 0 || r->y <= 0)
         return false;
     if (r->x + r->w >= MAP_W)
@@ -171,7 +171,7 @@ Level::RoomFits(Room *r) {
 }
 
 void
-Level::ApplyCorridor(Corridor *c) {
+Level::ApplyCorridor(Corridor const * const c) {
     this->tiles[c->pos.x][c->pos.y].c = CLOSED_DOOR_CHAR;
     this->tiles[c->pos.x + c->pos.w][c->pos.y + c->pos.h].c = CLOSED_DOOR_CHAR;
     if (c->direction == Direction::EAST || c->direction == Direction::WEST) {
