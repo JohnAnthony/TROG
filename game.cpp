@@ -246,6 +246,8 @@ Game::DoRedraw(void) {
     }
     else if (this->game_mode == GameMode::INFO_SCREEN)
         this->ShowMapInfo();
+    else if (this->game_mode == GameMode::CHARACTER_SCREEN)
+        this->ShowCharacterScreen();
 }
 
 void
