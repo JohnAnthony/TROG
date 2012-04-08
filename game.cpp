@@ -494,6 +494,12 @@ Game::ShowCharacterScreen(void) {
     delwin(w);
 }
 
+void
+Game::HandleResize(int signal) {
+    refresh();
+    this->DoRedraw();
+}
+
 Game::~Game(void) {
     delete character;
     if (levels)

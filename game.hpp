@@ -38,6 +38,7 @@ class Game {
     void RedrawStatus(void);
     void DoPickup(void);
     void ShowCharacterScreen(void);
+    void HandleResize(int signal);
 
     int                 gold;
     Level*              levels;
