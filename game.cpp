@@ -11,7 +11,7 @@ Game::Game(void) {
     this->gold = 0;
 
     this->levels->RevealSight(this->character);
-    this->status_line = "Welcome to TROG!";
+    this->status_line = "Welcome to TROG! Try not to die.";
     this->RedrawStatus();
 
     this->game_mode = GameMode::MAP_WALK;
