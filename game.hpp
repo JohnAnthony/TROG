@@ -38,6 +38,7 @@ class Game {
     void RedrawStatus(void);
     void DoPickup(void);
     void ShowCharacterScreen(void);
+    void ShowInventoryScreen(void);
     void HandleResize(int signal);
     void QuitDialogue(void);
 

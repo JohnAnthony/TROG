@@ -88,6 +88,7 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             this->ShowCharacterScreen();
             break;
         case (GameMode::INVENTORY_SCREEN):
+            this->ShowInventoryScreen();
             break;
     }
 }
@@ -246,6 +247,8 @@ Game::DoRedraw(void) {
         this->ShowMapInfo();
     else if (this->game_mode == GameMode::CHARACTER_SCREEN)
         this->ShowCharacterScreen();
+    else if (this->game_mode == GameMode::INVENTORY_SCREEN)
+        this->ShowInventoryScreen();
 }
 
 void
@@ -405,6 +408,7 @@ Game::ShowCharacterScreen(void) {
     Character *c;
     std::stringstream ss;
     std::string s;
+    Point p;
 
     c = this->character;
 
@@ -416,10 +420,29 @@ Game::ShowCharacterScreen(void) {
     w = newwin(pos.h, pos.w, pos.y, pos.x);
     box(w, 0, 0);
 
-    //Fill the top three rows with "header" type filler...
+    //Make our box shape
+    //Horizontal lines
     wmove(w, 3, 1);
-    for (int i = 0; i < pos.w - 2; ++i)
-        waddch(w, '=');
+    for (int i = 0; i < pos.w - 2; ++i) {
+        if ((i - 1) % 3 == 0)
+            waddch(w, '|');
+        else
+            waddch(w, '=');
+    }
+    wmove(w, 0, 1);
+    for (int i = 0; i < pos.w - 2; ++i) {
+        if ((i - 1) % 3 == 0)
+            waddch(w, '|');
+        else
+            waddch(w, '=');
+    }
+    wmove(w, pos.h - 1, 1);
+    for (int i = 0; i < pos.w - 2; ++i) {
+        if ((i - 1) % 3 == 0)
+            waddch(w, '|');
+        else
+            waddch(w, '=');
+    }
 
     //Actual output begins
     mvwprintw(w, 1, (pos.w - c->name.length()) / 2, c->name.c_str());
@@ -427,67 +450,118 @@ Game::ShowCharacterScreen(void) {
     s = c->RaceString() + " " + c->ClassString() + " ";
     mvwprintw(w, 2, (pos.w - s.length()) / 2, s.c_str());
 
+    p.x = 3;
+    p.y = 5;
     ss.str("");
     ss << "HP  :: " << c->curHP << "/" << c->maxHP;
     s = ss.str();
-    mvwprintw(w, 5, 3, s.c_str());
+    mvwprintw(w, p.y, p.x, s.c_str());
 
     ss.str("");
     ss << "MP  :: " << c->curMP << "/" << c->maxMP;
     s = ss.str();
-    mvwprintw(w, 6, 3, s.c_str());
+    mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
     ss << "STR :: " << c->curSTR;
     if (c->curSTR != c->maxSTR)
         ss << "/" << c->maxSTR;
     s = ss.str();
-    mvwprintw(w, 8, 3, s.c_str());
+    mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
     ss << "TOU :: " << c->curTOU;
     if (c->curTOU != c->maxTOU)
         ss << "/" << c->maxTOU;
     s = ss.str();
-    mvwprintw(w, 9, 3, s.c_str());
+    mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
     ss << "ATT :: " << c->curATT;
     if (c->curATT != c->maxATT)
         ss << "/" << c->maxATT;
     s = ss.str();
-    mvwprintw(w, 10, 3, s.c_str());
+    mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
     ss << "DEF :: " << c->curDEF;
     if (c->curDEF != c->maxDEF)
         ss << "/" << c->maxDEF;
     s = ss.str();
-    mvwprintw(w, 11, 3, s.c_str());
+    mvwprintw(w, ++p.y, p.x, s.c_str());
 
+    mvwprintw(w, p.y + 2, p.x, "=|==|==|==|==|==|==|==|==|==|==|==|");
+
+    p.y = 13;
     ss.str("");
     ss << "SIGHT RANGE :: " << c->sight_range;
     s = ss.str();
-    mvwprintw(w, 14, 3, s.c_str());
+    mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
     ss << "MV COST     :: " << c->mv_cost;
     s = ss.str();
-    mvwprintw(w, 15, 3, s.c_str());
+    mvwprintw(w, ++p.y, p.x, s.c_str());
 
     //Second row
+    p.x = 40;
+    p.y = 5;
     ss.str("");
     ss << "LEVEL :: " << c->Level;
     s = ss.str();
-    mvwprintw(w, 5, 40, s.c_str());
+    mvwprintw(w, p.y, p.x, s.c_str());
 
     ss.str("");
     ss << "XP    :: " << c->XP << "/" << "????";
     s = ss.str();
-    mvwprintw(w, 6, 40, s.c_str());
+    mvwprintw(w, ++p.y, p.x, s.c_str());
 
+    mvwprintw(w, p.y + 2, p.x - 1, "|==|==|==|==|==|==|==|==|==|==|==|==|=");
+
+    //Second row. Equipment section.
+    p.y = 10;
+    s = "HEAD   :: ?????";
+    mvwprintw(w, p.y, p.x, s.c_str());
+
+    s = "BODY   :: ?????";
+    mvwprintw(w, ++p.y, p.x, s.c_str());
+
+    s = "WEAPON :: ?????";
+    mvwprintw(w, ++p.y, p.x, s.c_str());
+
+    s = "HANDS  :: ?????";
+    mvwprintw(w, ++p.y, p.x, s.c_str());
+
+    s = "FEET   :: ?????";
+    mvwprintw(w, ++p.y, p.x, s.c_str());
+
+    s = "RING1  :: ?????";
+    mvwprintw(w, ++p.y, p.x, s.c_str());
+
+    s = "RING2  :: ?????";
+    mvwprintw(w, ++p.y, p.x, s.c_str());
+
+    s = "NECK   :: ?????";
+    mvwprintw(w, ++p.y, p.x, s.c_str());
 
     //Output all done
+    wrefresh(w);
+    delwin(w);
+}
+
+void
+Game::ShowInventoryScreen(void) {
+    WINDOW *w;
+    Rect pos;
+
+    pos.w = 80;
+    pos.h = 25;
+    pos.x = (COLS - pos.w) / 2;
+    pos.y = (LINES - pos.h) / 2;
+
+    w = newwin(pos.h, pos.w, pos.y, pos.x);
+    box(w, 0, 0);
+
     wrefresh(w);
     delwin(w);
 }
