@@ -39,6 +39,7 @@ class Game {
     void DoPickup(void);
     void ShowCharacterScreen(void);
     void HandleResize(int signal);
+    void QuitDialogue(void);
 
     int                 gold;
     Level*              levels;

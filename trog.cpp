@@ -9,7 +9,6 @@ Game *g = NULL;
 
 static void
 resize_handler(int sign) {
-    ScreenNoise();
     refresh();
     if (g)
         g->DoRedraw();
@@ -17,10 +16,8 @@ resize_handler(int sign) {
 
 static void
 interrupt_handler(int sign) {
-    g->running = !BinaryChoice("Are you sure you want to quit?", 'y', 'n');
-    if (g->running)
-        g->DoRedraw();
-    else {
+    g->QuitDialogue();
+    if (!g->running) {
         endwin();
         exit(0);
     }
