@@ -6,7 +6,7 @@ Mode Independent / Mode Change
 
 `   = Switch to Movement Mode
 l   = Look around
-@   = Character Screen (Not implemented)
+@   = Character Screen
 i   = Inventory Screen (Not implemented)
 g   = Game Info (Not implemented)
 F1  = Help text (Not implemented)
