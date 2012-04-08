@@ -462,7 +462,7 @@ Game::ShowCharacterScreen(void) {
     if (c->curSTR != c->maxSTR)
         ss << "/" << c->maxSTR;
     s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
+    mvwprintw(w, p.y += 2, p.x, s.c_str());
 
     ss.str("");
     ss << "TOU :: " << c->curTOU;
@@ -485,13 +485,26 @@ Game::ShowCharacterScreen(void) {
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    mvwprintw(w, p.y + 2, p.x, "=|==|==|==|==|==|==|==|==|==|==|==|");
+    ss.str("");
+    ss << "MAG :: " << c->curMAG;
+    if (c->curMAG != c->maxMAG)
+        ss << "/" << c->maxMAG;
+    s = ss.str();
+    mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    p.y = 13;
+    ss.str("");
+    ss << "WIL :: " << c->curWIL;
+    if (c->curWIL != c->maxWIL)
+        ss << "/" << c->maxWIL;
+    s = ss.str();
+    mvwprintw(w, ++p.y, p.x, s.c_str());
+
+    mvwprintw(w, p.y += 2, p.x -1, "=|==|==|==|==|==|==|==|==|==|==|==|=");
+
     ss.str("");
     ss << "SIGHT RANGE :: " << c->sight_range;
     s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
+    mvwprintw(w, p.y += 2, p.x, s.c_str());
 
     ss.str("");
     ss << "MV COST     :: " << c->mv_cost;
@@ -507,11 +520,11 @@ Game::ShowCharacterScreen(void) {
     mvwprintw(w, p.y, p.x, s.c_str());
 
     ss.str("");
-    ss << "XP    :: " << c->XP << "/" << "????";
+    ss << "XP    :: " << c->XP << "/" << c->next_level;
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    mvwprintw(w, p.y + 2, p.x - 1, "|==|==|==|==|==|==|==|==|==|==|==|==|=");
+    mvwprintw(w, p.y + 2, p.x - 1, "=|==|==|==|==|==|==|==|==|==|==|==|==|=");
 
     //Second row. Equipment section.
     p.y = 10;

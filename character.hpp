@@ -12,6 +12,8 @@ typedef struct {
     int tou;
     int att;
     int def;
+    int mag;
+    int wil;
     int mv;
     int sight;
 } Affinity;
@@ -50,6 +52,7 @@ class Character : public Entity {
     Affinity SumAffinities(Race inRace, Class inClass);
 
     int XP;
+    int next_level;
     int Level;
     Class cclass;
     Race race;

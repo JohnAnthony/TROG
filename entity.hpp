@@ -15,6 +15,8 @@ class Entity {
     int maxTOU, curTOU;
     int maxATT, curATT;
     int maxDEF, curDEF;
+    int maxMAG, curMAG;
+    int maxWIL, curWIL;
     int mv_cost;
 };
 
