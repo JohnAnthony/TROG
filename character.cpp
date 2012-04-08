@@ -43,6 +43,16 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
     this->maxMAG = this->affinity.mag;
     this->maxWIL = this->affinity.wil;
 
+    //You come into this world naked and screaming
+    this->helm = NULL;
+    this->armour = NULL;
+    this->weapon = NULL;
+    this->gloves = NULL;
+    this->boots = NULL;
+    this->ring1 = NULL;
+    this->ring2 = NULL;
+    this->neck = NULL;
+
     this->sight_range = this->affinity.sight;
     this->mv_cost = 1000 + this->affinity.mv;
 

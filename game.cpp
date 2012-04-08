@@ -528,28 +528,28 @@ Game::ShowCharacterScreen(void) {
 
     //Second row. Equipment section.
     p.y = 10;
-    s = "HEAD   :: ?????";
+    s = "HEAD   :: NONE";
     mvwprintw(w, p.y, p.x, s.c_str());
 
-    s = "BODY   :: ?????";
+    s = "BODY   :: NONE";
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    s = "WEAPON :: ?????";
+    s = "WEAPON :: NONE";
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    s = "HANDS  :: ?????";
+    s = "HANDS  :: NONE";
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    s = "FEET   :: ?????";
+    s = "FEET   :: NONE";
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    s = "RING1  :: ?????";
+    s = "RING1  :: NONE";
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    s = "RING2  :: ?????";
+    s = "RING2  :: NONE";
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    s = "NECK   :: ?????";
+    s = "NECK   :: NONE";
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     //Output all done

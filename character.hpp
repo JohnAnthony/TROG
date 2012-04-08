@@ -3,6 +3,7 @@
 
 #include "entity.hpp"
 #include "geometry.hpp"
+#include "item.hpp"
 #include <string>
 
 typedef struct {
@@ -58,6 +59,14 @@ class Character : public Entity {
     Race race;
     Affinity affinity;
     std::string name;
+    Item *helm;
+    Item *armour;
+    Item *weapon;
+    Item *gloves;
+    Item *boots;
+    Item *ring1;
+    Item *ring2;
+    Item *neck;
 };
 
 
