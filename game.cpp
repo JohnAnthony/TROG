@@ -26,7 +26,8 @@ Game::MakeStatusLine(void) {
     c = this->character;
 
     s <<  "HP:" << c->curHP << "/" << c->maxHP;
-    s << " MP:" << c->curMP << "/" << c->maxMP;
+    if (c->maxMP > 0)
+        s << " MP:" << c->curMP << "/" << c->maxMP;
     s << " GP:" << this->gold;
 
     this->status_line = s.str();
