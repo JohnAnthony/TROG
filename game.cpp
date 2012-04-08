@@ -553,6 +553,8 @@ void
 Game::ShowInventoryScreen(void) {
     WINDOW *w;
     Rect pos;
+    std::stringstream ss;
+    std::string s;
 
     pos.w = 80;
     pos.h = 25;
@@ -561,6 +563,37 @@ Game::ShowInventoryScreen(void) {
 
     w = newwin(pos.h, pos.w, pos.y, pos.x);
     box(w, 0, 0);
+
+    //Make our box shape
+    //Horizontal lines
+    wmove(w, 0, 1);
+    for (int i = 0; i < pos.w - 2; ++i) {
+        if ((i - 1) % 3 == 0)
+            waddch(w, '|');
+        else
+            waddch(w, '=');
+    }
+    wmove(w, 2, 1);
+    for (int i = 0; i < pos.w - 2; ++i) {
+        if ((i - 1) % 3 == 0)
+            waddch(w, '|');
+        else
+            waddch(w, '=');
+    }
+    wmove(w, pos.h - 1, 1);
+    for (int i = 0; i < pos.w - 2; ++i) {
+        if ((i - 1) % 3 == 0)
+            waddch(w, '|');
+        else
+            waddch(w, '=');
+    }
+
+    //header
+    mvwprintw(w, 1, 2, "INVENTORY");
+
+    ss << "Wealth :: " << this->gold << "gp";
+    s = ss.str();
+    mvwprintw(w, 1, pos.w - 2 - s.length(), s.c_str());
 
     wrefresh(w);
     delwin(w);
