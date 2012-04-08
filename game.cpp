@@ -73,6 +73,7 @@ Game::SwitchGameMode(GameMode::Type gmt) {
 
     switch (gmt) {
         case (GameMode::MAP_WALK):
+            this->cur_level->CentreCam(this->character->pos);
             this->DoRedraw();
             this->MakeStatusLine();
             break;

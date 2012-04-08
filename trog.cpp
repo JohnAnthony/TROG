@@ -9,9 +9,7 @@ Game *g = NULL;
 
 static void
 resize_handler(int sign) {
-    refresh();
-    if (g)
-        g->DoRedraw();
+    g->HandleResize(sign);
 }
 
 static void
