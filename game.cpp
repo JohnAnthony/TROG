@@ -11,8 +11,8 @@ Game::Game(void) {
     this->gold = 0;
 
     this->levels->RevealSight(this->character);
-
-    this->MakeStatusLine();
+    this->status_line = "Welcome to TROG!";
+    this->RedrawStatus();
 
     this->game_mode = GameMode::MAP_WALK;
     this->running = true;
@@ -106,10 +106,14 @@ Game::HandleInput(int c) {
             if (c == '>') {
                 if (this->character->pos == this->cur_level->stairs_down)
                     this->GoDownALevel();
+                    this->status_line = "You descend deeper...";
+                    this->RedrawStatus();
             }
             else if (c == '<') {
                 if (this->character->pos == this->cur_level->stairs_up)
                     this->GoUpALevel();
+                    this->status_line = "You ascend the stairs.";
+                    this->RedrawStatus();
             }
             else if (c == KEY_UP)
                 this->MoveCamera(Direction::NORTH);

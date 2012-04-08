@@ -56,6 +56,23 @@ Character::FullyRestore(void) {
 }
 
 void
+Character::LevelUp(void) {
+    this->Level++;
+    if (this->affinity.hp > 0)
+        this->maxHP += rand() % this->affinity.hp;
+    if (this->affinity.mp > 0)
+        this->maxHP += rand() % this->affinity.mp;
+    if (this->affinity.str > 0)
+        this->maxHP += rand() % this->affinity.str;
+    if (this->affinity.tou > 0)
+        this->maxHP += rand() % this->affinity.tou;
+    if (this->affinity.att > 0)
+        this->maxHP += rand() % this->affinity.att;
+    if (this->affinity.def > 0)
+        this->maxHP += rand() % this->affinity.def;
+}
+
+void
 Character::MoveTo(Point p) {
     this->pos = p;
 }

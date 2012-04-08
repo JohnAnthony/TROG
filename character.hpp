@@ -43,6 +43,7 @@ class Character : public Entity {
 
     Character(Character::Race inRace, Character::Class inClass);
     void FullyRestore(void);
+    void LevelUp(void);
     void MoveTo(Point p);
     std::string ClassString(void);
     std::string RaceString(void);
