@@ -37,6 +37,7 @@ class Game {
     void DrawAsOverlay(Point p, char c, int col);
     void RedrawStatus(void);
     void DoPickup(void);
+    void ShowCharacterScreen(void);
 
     int                 gold;
     Level*              levels;

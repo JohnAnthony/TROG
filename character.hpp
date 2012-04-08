@@ -41,7 +41,7 @@ class Character : public Entity {
         LAST_RACE
     } Race;
 
-    Character(Character::Race inRace, Character::Class inClass);
+    Character(std::string inName, Character::Race inRace, Character::Class inClass);
     void FullyRestore(void);
     void LevelUp(void);
     void MoveTo(Point p);
@@ -54,6 +54,7 @@ class Character : public Entity {
     Class cclass;
     Race race;
     Affinity affinity;
+    std::string name;
 };
 
 

@@ -4,7 +4,7 @@
 
 Game::Game(void) {
     this->levels = this->cur_level = new Level(NULL);
-    this->character = new Character(Character::LIZARDFOLK, Character::FIGHTER);
+    this->character = new Character("Johnson", Character::HUMAN, Character::FIGHTER);
     this->levels->character = character;
     this->character->MoveTo(this->cur_level->stairs_up);
     this->levels->CentreCam(character->pos);
@@ -87,6 +87,7 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             this->ShowMapInfo();
             break;
         case (GameMode::CHARACTER_SCREEN):
+            this->ShowCharacterScreen();
             break;
         case (GameMode::INVENTORY_SCREEN):
             break;
@@ -170,6 +171,7 @@ Game::HandleInput(int c) {
             break;
         case GameMode::INFO_SCREEN:
         case GameMode::CHARACTER_SCREEN:
+            break;
         default:
             break;
     }
@@ -394,6 +396,100 @@ Game::DoPickup(void) {
     }
 
     this->RedrawStatus();
+}
+
+void
+Game::ShowCharacterScreen(void) {
+    WINDOW *w;
+    Rect pos;
+    Character *c;
+    std::stringstream ss;
+    std::string s;
+
+    c = this->character;
+
+    pos.w = 80;
+    pos.h = 25;
+    pos.x = (COLS - pos.w) / 2;
+    pos.y = (LINES - pos.h) / 2;
+
+    w = newwin(pos.h, pos.w, pos.y, pos.x);
+    box(w, 0, 0);
+
+    //Fill the top three rows with "header" type filler...
+    wmove(w, 3, 1);
+    for (int i = 0; i < pos.w - 2; ++i)
+        waddch(w, '=');
+
+    //Actual output begins
+    mvwprintw(w, 1, (pos.w - c->name.length()) / 2, c->name.c_str());
+
+    s = c->RaceString() + " " + c->ClassString() + " ";
+    mvwprintw(w, 2, (pos.w - s.length()) / 2, s.c_str());
+
+    ss.str("");
+    ss << "HP  :: " << c->curHP << "/" << c->maxHP;
+    s = ss.str();
+    mvwprintw(w, 5, 3, s.c_str());
+
+    ss.str("");
+    ss << "MP  :: " << c->curMP << "/" << c->maxMP;
+    s = ss.str();
+    mvwprintw(w, 6, 3, s.c_str());
+
+    ss.str("");
+    ss << "STR :: " << c->curSTR;
+    if (c->curSTR != c->maxSTR)
+        ss << "/" << c->maxSTR;
+    s = ss.str();
+    mvwprintw(w, 8, 3, s.c_str());
+
+    ss.str("");
+    ss << "TOU :: " << c->curTOU;
+    if (c->curTOU != c->maxTOU)
+        ss << "/" << c->maxTOU;
+    s = ss.str();
+    mvwprintw(w, 9, 3, s.c_str());
+
+    ss.str("");
+    ss << "ATT :: " << c->curATT;
+    if (c->curATT != c->maxATT)
+        ss << "/" << c->maxATT;
+    s = ss.str();
+    mvwprintw(w, 10, 3, s.c_str());
+
+    ss.str("");
+    ss << "DEF :: " << c->curDEF;
+    if (c->curDEF != c->maxDEF)
+        ss << "/" << c->maxDEF;
+    s = ss.str();
+    mvwprintw(w, 11, 3, s.c_str());
+
+    ss.str("");
+    ss << "SIGHT RANGE :: " << c->sight_range;
+    s = ss.str();
+    mvwprintw(w, 14, 3, s.c_str());
+
+    ss.str("");
+    ss << "MV COST     :: " << c->mv_cost;
+    s = ss.str();
+    mvwprintw(w, 15, 3, s.c_str());
+
+    //Second row
+    ss.str("");
+    ss << "LEVEL :: " << c->Level;
+    s = ss.str();
+    mvwprintw(w, 5, 40, s.c_str());
+
+    ss.str("");
+    ss << "XP    :: " << c->XP << "/" << "????";
+    s = ss.str();
+    mvwprintw(w, 6, 40, s.c_str());
+
+
+    //Output all done
+    wrefresh(w);
+    delwin(w);
 }
 
 Game::~Game(void) {

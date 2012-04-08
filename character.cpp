@@ -23,7 +23,8 @@ static Affinity RaceAffinities[Character::LAST_RACE] {
     {10,    0,  6,  6,  5,  5,  0,  6},  //LIZARDFOLK
 };
 
-Character::Character(Character::Race inRace, Character::Class inClass) {
+Character::Character(std::string inName, Character::Race inRace, Character::Class inClass) {
+    this->name = inName;
     this->cclass = inClass;
     this->race = inRace;
     this->XP = 0;
