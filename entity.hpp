@@ -7,7 +7,7 @@ class Entity {
     public:
     Point pos;
     char symbol;
-    int colour;
+    Color colour;
     int sight_range;
     int maxHP, curHP;
     int maxMP, curMP;

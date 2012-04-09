@@ -83,6 +83,12 @@ Level::Draw(Game *g) {
     ConditionallyShowObject(stairs_up, '<', COL_BLUE);
     ConditionallyShowObject(stairs_down, '>', COL_BLUE);
 
+    //Enemies
+    for (std::list<Enemy>::iterator it = this->enemies.begin();
+            it != this->enemies.end(); it++) {
+        ConditionallyShowObject(it->pos, it->symbol, it->colour);
+    }
+
     //Character
     ConditionallyShowObject(character->pos, this->character->symbol,
         this->character->colour);
@@ -407,5 +413,17 @@ Level::DescriptionOfTile(Point p, Game *g) {
 
 void
 Level::EnemySpawn(Rect *r) {
-    // TODO
+    Enemy e;
+    int type;
+
+    type = rand() % LENGTH(EnemyList);
+
+    e = EnemyList[type];
+    e.pos.x = r->x + rand() % r->w;
+    e.pos.y = r->y + rand() % r->h;
+
+    if (e.pos == this->stairs_up)
+        return;
+
+    this->enemies.push_back(e);
 }

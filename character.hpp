@@ -55,6 +55,7 @@ class Character : public Entity {
     int XP;
     int next_level;
     int Level;
+
     Class cclass;
     Race race;
     Affinity affinity;

@@ -7,6 +7,7 @@
 
 #define MAX(x, y)   ((x > y) ? x : y )
 #define MIN(x, y)   ((x < y) ? x : y )
+#define LENGTH(x)   (sizeof(x) / sizeof(x[0]))
 
 namespace Direction {
     typedef enum {
@@ -26,6 +27,11 @@ struct Rect {
     int y;
     int w;
     int h;
+};
+
+struct Range {
+    int start;
+    int end;
 };
 
 class Point {
