@@ -11,19 +11,19 @@ const char *GUI::SplashStr =
 \n\
 \n\
 \n\
-.ddhddddmdddhhdddddm/                         `....`             -oydNMMMNNmd:  \
-:No:...`/MMM:.````.ysodNNdyyyhddy/       ./sddhyyydmmy+.       `sMNs:.``.-omM:` \
-+. `    -MMm``     `.`+MMy``  `oNh+.   .yMNo-```   `:hMMh:    :NMh.``      .m.` \
-        `mNM.         :MMs`     yMMs` .mMN:``         /NMM+  -NMm.`         s`  \
-        `hdM.`        /MMs`     sMM+` hMMo`            +MMM: sMMs`              \
-        .MMN.`        /MMy`   `:mNo```MMM+`             NMMs`mMM+`              \
-        `MMN.`        /MMdo++odMm-`` `MMMd`             mMMs`NMM+`    `:::/++`  \
-        .MMN``        /MMy-...oddh-   oMMM+            -MMN-`mMMs`    `.-dMMm`  \
-        /MMM.         /MMy`    .yMN+`  +NMNo`         -mMd-` /MMm.       :MMy`  \
-        -MMM.`        sMMh`     `oNMh:  .omMmo-....:+hmh+.`   hMMh`      -MMs`  \
-        +MMM``      :+ssso+:      .sNMh/- `-/ossyyyso/.``     `sMMy.     -MMs`  \
-        hMMM/`                      `/+ss+.     ```             -hNNy+:-`.dMy`  \
-     .:oyyyhh/.                                                   ./oyyyys+:.`  \
+.ddhddddmdddhhdddddm/                          ....              -oydNMMMNNmd:  \
+:No:...`/MMM:.````.ysodNNdyyyhddy/       ./sddhyyydmmy+.        sMNs:.``.-omM:  \
++       -MMm``     ` `+MMy``  `oNh+.   .yMNo-```   `:hMMh:    :NMh.``      .m.  \
+        `mNM.         :MMs`     yMMs  .mMN:``         /NMM+  -NMm.`         s`  \
+        `hdM.         /MMs`     sMM+  hMMo`            +MMM: sMMs`              \
+        .MMN.         /MMy`    :mNo   MMM+`             NMMs`mMM+`              \
+        `MMN.         /MMdo++odMm-    MMMd`             mMMs`NMM+`    `:::/++   \
+        .MMN`         /MMy-...oddh-   oMMM+            -MMN-`mMMs`     .-dMMm   \
+        /MMM.         /MMy`    .yMN+   +NMNo          -mMd-` /MMm.       :MMy   \
+        -MMM.         sMMh`     `oNMh:  .omMmo-....:+hmh+.`   hMMh`      -MMs   \
+        +MMM`       :+ssso+:      .sNMh/- `-/ossyyyso/.``     `sMMy.     -MMs   \
+        hMMM/                       `/+ss+.     ```             -hNNy+:-`.dMy   \
+     .:oyyyhh/.                                                   ./oyyyys+:.   \
             ```                                                        ``       \
 \n\
 \n\
