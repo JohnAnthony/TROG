@@ -8,6 +8,7 @@ class GUI {
     void SetStatus(std::string);
     void RedrawStatus(void);
 
+    private:
     static std::string status_line;
 };
 

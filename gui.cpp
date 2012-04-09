@@ -1,7 +1,7 @@
 #include "gui.hpp"
 #include <ncurses.h>
 
-extern std::string GUI::status_line;
+std::string GUI::status_line;
 
 void
 GUI::RedrawStatus(void) {
@@ -13,4 +13,5 @@ GUI::RedrawStatus(void) {
 void
 GUI::SetStatus(std::string str) {
     GUI::status_line = str;
+    GUI::RedrawStatus();
 }

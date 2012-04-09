@@ -51,7 +51,7 @@ Enemy::Attack(Character *c) {
     ss << c->name;
 
 
-    ss << " <Press a key to continue>";
+    ss << " <continue>";
     gui.SetStatus(ss.str());
     getch();
 }

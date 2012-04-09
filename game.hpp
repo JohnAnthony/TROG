@@ -31,7 +31,7 @@ class Game {
     void MoveCamera(Direction::Type d);
     void DoRedraw(void);
     void MoveCharacter(Direction::Type d);
-    void MakeStatusLine(void);
+    void CharacterStatusLine(void);
     void DrawLookTarget(void);
     void MoveLookTarget(Direction::Type d);
     void DrawAsOverlay(Point p, char c, int col);

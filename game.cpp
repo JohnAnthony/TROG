@@ -23,7 +23,7 @@ Game::Game(void) {
 }
 
 void
-Game::MakeStatusLine(void) {
+Game::CharacterStatusLine(void) {
     GUI gui;
     std::stringstream ss;
     Character *c;
@@ -81,7 +81,7 @@ Game::SwitchGameMode(GameMode::Type gmt) {
         case (GameMode::MAP_WALK):
             this->cur_level->CentreCam(this->character->pos);
             this->DoRedraw();
-            this->MakeStatusLine();
+            this->CharacterStatusLine();
             break;
         case (GameMode::MAP_LOOK):
             this->target = this->character->pos;
@@ -257,7 +257,6 @@ Game::DoRedraw(void) {
 
 void
 Game::MoveCharacter(Direction::Type d) {
-    GUI gui;
     Point target;
     Character *c;
     Tile *t;
@@ -295,6 +294,7 @@ Game::MoveCharacter(Direction::Type d) {
             it != this->cur_level->enemies.end(); it++) {
         if (target == it->pos) {
             this->DoAttack(this->character, &*it); //We're attacking instead
+            this->cur_level->GiveEnemiesTurn(c);
             return;
         }
     }
@@ -315,9 +315,8 @@ Game::MoveCharacter(Direction::Type d) {
             this->cur_level->GiveEnemiesTurn(c);
         }
     }
-    this->MakeStatusLine();
+    this->CharacterStatusLine();
     this->DoRedraw();
-    gui.RedrawStatus();
 }
 
 void
@@ -712,10 +711,10 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
         }
     }
 
-    ss << ".";
-
+    ss << ". <continue>";
     gui.SetStatus(ss.str());
-    gui.RedrawStatus();
+    getch();
+    this->CharacterStatusLine();
 }
 
 Game::~Game(void) {
