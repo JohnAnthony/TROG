@@ -150,6 +150,8 @@ Game::HandleInput(int c) {
                 this->MoveCharacter(Direction::SW);
             else if (c == '3' || c == 'c')
                 this->MoveCharacter(Direction::SE);
+            else if (c == 's' || c == '5')
+                this->DoWait();
             else if (c == ',')
                 this->DoPickup();
             break;
@@ -724,6 +726,12 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
     }
 
     gui.AddMessage(ss.str());
+}
+
+void
+Game::DoWait(void) {
+    this->cur_level->GiveEnemiesTurn(this->character);
+    this->DoRedraw();
 }
 
 Game::~Game(void) {

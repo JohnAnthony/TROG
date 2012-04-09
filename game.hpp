@@ -16,7 +16,6 @@ namespace GameMode {
         INFO_SCREEN,
         CHARACTER_SCREEN,
         INVENTORY_SCREEN,
-        GAME_OVER
     } Type;
 }
 
@@ -43,6 +42,7 @@ class Game {
     void HandleResize(int signal);
     void QuitDialogue(void);
     void DoAttack(Character *c, Enemy *e);
+    void DoWait(void);
 
     int                 gold;
     Level*              levels;
