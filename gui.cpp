@@ -59,12 +59,12 @@ GUI::CharacterCreation(void) {
 
 Character::Race
 GUI::SelectRace(void) {
-    return Character::HUMAN;
+    return Character::ORC;
 }
 
 Character::Class
 GUI::SelectClass(void) {
-    return Character::FIGHTER;
+    return Character::BARBARIAN;
 }
 
 std::string
