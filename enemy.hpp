@@ -5,6 +5,8 @@
 #include "character.hpp"
 #include <string>
 
+class Character;
+
 class Enemy : public Entity {
     public:
     Enemy(void);

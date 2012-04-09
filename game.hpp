@@ -51,7 +51,6 @@ class Game {
     int                 cur_floor;
     bool                running;
     GameMode::Type      game_mode;
-    std::string         status_line;
     Point               target; //For examining things
 };
 

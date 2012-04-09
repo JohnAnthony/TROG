@@ -4,6 +4,7 @@
 #include "entity.hpp"
 #include "geometry.hpp"
 #include "item.hpp"
+#include "enemy.hpp"
 #include <string>
 
 typedef struct {
@@ -18,6 +19,8 @@ typedef struct {
     int mv;
     int sight;
 } Affinity;
+
+class Enemy;
 
 class Character : public Entity {
     public:
@@ -52,6 +55,7 @@ class Character : public Entity {
     std::string RaceString(void);
     Affinity SumAffinities(Race inRace, Class inClass);
     void GiveXP(unsigned int quant);
+    void Attack(Enemy *e);
 
     int XP;
     int next_level;

@@ -2,6 +2,8 @@
 #include <sstream>
 #include "game.hpp"
 
+extern std::string status_line;
+
 Game::Game(void) {
     this->levels = this->cur_level = new Level(NULL);
     this->character = new Character("Johnson", Character::HUMAN, Character::FIGHTER);
@@ -11,7 +13,7 @@ Game::Game(void) {
     this->gold = 0;
 
     this->levels->RevealSight(this->character);
-    this->status_line = "Welcome to TROG! Try not to die.";
+    status_line = "Welcome to TROG! Try not to die.";
     this->RedrawStatus();
 
     this->game_mode = GameMode::MAP_WALK;
@@ -30,7 +32,7 @@ Game::MakeStatusLine(void) {
         s << " MP:" << c->curMP << "/" << c->maxMP;
     s << " GP:" << this->gold;
 
-    this->status_line = s.str();
+    status_line = s.str();
 }
 
 void
@@ -101,13 +103,13 @@ Game::HandleInput(int c) {
             if (c == '>') {
                 if (this->character->pos == this->cur_level->stairs_down)
                     this->GoDownALevel();
-                    this->status_line = "You descend deeper...";
+                    status_line = "You descend deeper...";
                     this->RedrawStatus();
             }
             else if (c == '<') {
                 if (this->character->pos == this->cur_level->stairs_up)
                     this->GoUpALevel();
-                    this->status_line = "You ascend the stairs.";
+                    status_line = "You ascend the stairs.";
                     this->RedrawStatus();
             }
             else if (c == KEY_UP)
@@ -233,7 +235,7 @@ Game::DoRedraw(void) {
         this->RedrawStatus();
     }
     else if (this->game_mode == GameMode::MAP_LOOK){
-        this->status_line = this->cur_level->DescriptionOfTile(this->target, this);
+        status_line = this->cur_level->DescriptionOfTile(this->target, this);
         this->cur_level->Draw(this);
         this->RedrawStatus();
         this->DrawLookTarget();
@@ -374,8 +376,8 @@ Game::DrawAsOverlay(Point p, char c, int col) {
 
 void
 Game::RedrawStatus(void) {
-    mvprintw(LINES -1, 0, this->status_line.c_str());
-    for (int i = this->status_line.length(); i <= COLS; ++i)
+    mvprintw(LINES -1, 0, status_line.c_str());
+    for (int i = status_line.length(); i <= COLS; ++i)
         addch(' ');
 }
 
@@ -394,12 +396,12 @@ Game::DoPickup(void) {
     }
 
     if (!gp) {
-        this->status_line = "Nothing to pick up.";
+        status_line = "Nothing to pick up.";
     }
     else {
         this->gold += gp->quantity;
         ss << "You pick up " << gp->quantity << "gp.";
-        this->status_line = ss.str();
+        status_line = ss.str();
         this->cur_level->goldpiles.erase(it);
     }
 
@@ -709,7 +711,7 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
 
     ss << ".";
 
-    this->status_line = ss.str();
+    status_line = ss.str();
     RedrawStatus();
 }
 
