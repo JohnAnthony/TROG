@@ -295,6 +295,7 @@ Game::MoveCharacter(Direction::Type d) {
         if (target == it->pos) {
             this->DoAttack(this->character, &*it); //We're attacking instead
             this->cur_level->GiveEnemiesTurn(c);
+            this->CharacterStatusLine();
             return;
         }
     }
@@ -714,7 +715,6 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
     ss << ". <continue>";
     gui.SetStatus(ss.str());
     getch();
-    this->CharacterStatusLine();
 }
 
 Game::~Game(void) {
