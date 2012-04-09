@@ -697,6 +697,9 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
         e->curHP -= dam;
         if (e->curHP <= 0) {
             ss << " ... and kills it!";
+            this->cur_level->RemoveEnemy(e);
+            c->GiveXP(e->XP_value);
+            this->DoRedraw();
         }
     }
 

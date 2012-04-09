@@ -3,9 +3,9 @@
 
 Enemy::Enemy(void) {}
 
-Enemy::Enemy(int inLVL, char inSymbol, Color inCol, int inSight, int hp, int mp,
-  int str, int tou, int att, int def, int mag, int wil, int inMV, int inXP,
-  const char *inName, const char *inDescript) {
+Enemy::Enemy(unsigned int inLVL, char inSymbol, Color inCol, int inSight,
+  int hp, int mp, int str, int tou, int att, int def, int mag, int wil,
+  int inMV, unsigned int inXP, const char *inName, const char *inDescript) {
     this->symbol = inSymbol;
     this->colour = inCol;
     this->sight_range = inSight;

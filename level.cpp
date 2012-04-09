@@ -434,3 +434,16 @@ Level::EnemySpawn(Rect *r) {
 
     this->enemies.push_back(e);
 }
+
+void
+Level::RemoveEnemy(Enemy *e) {
+    for (std::list<Enemy>::iterator it = this->enemies.begin();
+            it != this->enemies.end(); it++) {
+        if (&*it == e) {
+            this->enemies.erase(it);
+            return;
+        }
+    }
+
+    Alert("Error removing enemy from list. That's bad.");
+}

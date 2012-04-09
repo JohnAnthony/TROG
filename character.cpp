@@ -1,4 +1,5 @@
 #include "character.hpp"
+#include <sstream>
 
 static Affinity ClassAffinities[Character::LAST_CLASS] {
     //HP    MP  STR TOU ATT DEF MAG WIL MV  SIGHT
@@ -73,26 +74,31 @@ Character::FullyRestore(void) {
 
 void
 Character::LevelUp(void) {
+    std::stringstream ss;
+
     this->Level++;
     if (this->affinity.hp > 0)
-        this->maxHP += rand() % this->affinity.hp;
+        this->maxHP += rand() % this->affinity.hp + 1;
     if (this->affinity.mp > 0)
-        this->maxMP += rand() % this->affinity.mp;
+        this->maxMP += rand() % this->affinity.mp + 1;
     if (this->affinity.str > 0)
-        this->maxSTR += rand() % this->affinity.str;
+        this->maxSTR += rand() % this->affinity.str + 1;
     if (this->affinity.tou > 0)
-        this->maxTOU += rand() % this->affinity.tou;
+        this->maxTOU += rand() % this->affinity.tou + 1;
     if (this->affinity.att > 0)
-        this->maxATT += rand() % this->affinity.att;
+        this->maxATT += rand() % this->affinity.att + 1;
     if (this->affinity.def > 0)
-        this->maxDEF += rand() % this->affinity.def;
+        this->maxDEF += rand() % this->affinity.def + 1;
     if (this->affinity.mag > 0)
-        this->maxMAG += rand() % this->affinity.mag;
+        this->maxMAG += rand() % this->affinity.mag + 1;
     if (this->affinity.wil > 0)
-        this->maxWIL += rand() % this->affinity.wil;
+        this->maxWIL += rand() % this->affinity.wil + 1;
 
-    this->next_level = this->Level * this->Level * 1000;
+    this->next_level += this->Level * 1000;
     this->FullyRestore();
+
+    ss << this->name << " hits level " << this->Level << "!";
+    Alert(ss.str().c_str());
 }
 
 void
@@ -167,4 +173,11 @@ Character::SumAffinities(Race inRace, Class inClass) {
     ret.sight = a->sight + b->sight;
 
     return ret;
+}
+
+void
+Character::GiveXP(unsigned int quant) {
+    this->XP += quant;
+    if (this->XP >= this->next_level)
+        this->LevelUp();
 }

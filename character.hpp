@@ -51,6 +51,7 @@ class Character : public Entity {
     std::string ClassString(void);
     std::string RaceString(void);
     Affinity SumAffinities(Race inRace, Class inClass);
+    void GiveXP(unsigned int quant);
 
     int XP;
     int next_level;

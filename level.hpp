@@ -39,6 +39,7 @@ class Level {
     void CentreCam(Point p);
     void DoSightBeam(Direction::Type d, int x, int y, float ttl);
     void EnemySpawn(Rect *r);
+    void RemoveEnemy(Enemy *e);
     std::string DescriptionOfTile(Point p, Game *g);
 
     int                 depth;
