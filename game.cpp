@@ -14,7 +14,7 @@ Game::Game(void) {
     this->gold = 0;
 
     this->levels->RevealSight(this->character);
-    status_line = "Welcome to TROG! Try not to die.";
+    GUI::status_line = "Welcome to TROG! Try not to die.";
     RedrawStatus();
 
     this->game_mode = GameMode::MAP_WALK;
@@ -33,7 +33,7 @@ Game::MakeStatusLine(void) {
         s << " MP:" << c->curMP << "/" << c->maxMP;
     s << " GP:" << this->gold;
 
-    status_line = s.str();
+    GUI::status_line = s.str();
 }
 
 void
@@ -104,13 +104,13 @@ Game::HandleInput(int c) {
             if (c == '>') {
                 if (this->character->pos == this->cur_level->stairs_down)
                     this->GoDownALevel();
-                    status_line = "You descend deeper...";
+                    GUI::status_line = "You descend deeper...";
                     RedrawStatus();
             }
             else if (c == '<') {
                 if (this->character->pos == this->cur_level->stairs_up)
                     this->GoUpALevel();
-                    status_line = "You ascend the stairs.";
+                    GUI::status_line = "You ascend the stairs.";
                     RedrawStatus();
             }
             else if (c == KEY_UP)
@@ -236,7 +236,7 @@ Game::DoRedraw(void) {
         RedrawStatus();
     }
     else if (this->game_mode == GameMode::MAP_LOOK){
-        status_line = this->cur_level->DescriptionOfTile(this->target, this);
+        GUI::status_line = this->cur_level->DescriptionOfTile(this->target, this);
         this->cur_level->Draw(this);
         RedrawStatus();
         this->DrawLookTarget();
@@ -390,12 +390,12 @@ Game::DoPickup(void) {
     }
 
     if (!gp) {
-        status_line = "Nothing to pick up.";
+        GUI::status_line = "Nothing to pick up.";
     }
     else {
         this->gold += gp->quantity;
         ss << "You pick up " << gp->quantity << "gp.";
-        status_line = ss.str();
+        GUI::status_line = ss.str();
         this->cur_level->goldpiles.erase(it);
     }
 
@@ -705,7 +705,7 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
 
     ss << ".";
 
-    status_line = ss.str();
+    GUI::status_line = ss.str();
     RedrawStatus();
 }
 

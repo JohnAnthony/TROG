@@ -50,6 +50,6 @@ Enemy::Attack(Character *c) {
 
 
     ss << " <Press a key to continue>";
-    status_line = ss.str();
+    GUI::status_line = ss.str();
     getch();
 }

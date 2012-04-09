@@ -58,6 +58,8 @@ bool BinaryChoice(std::string str, char a, char b);
 float CalculateDistance(Point p1, Point p2);
 void RedrawStatus(void);
 
-static std::string status_line;
+namespace GUI {
+    static std::string status_line;
+}
 
 #endif

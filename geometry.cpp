@@ -3,6 +3,8 @@
 
 #define ABS(x)  ((x < 0) ? -x : x)
 
+// extern std::string status_line;
+// 
 bool
 Point::operator==(Point const& other) {
     return this->x == other.x && this->y == other.y;
@@ -96,7 +98,7 @@ CalculateDistance(Point p1, Point p2) {
 
 void
 RedrawStatus(void) {
-    mvprintw(LINES -1, 0, status_line.c_str());
-    for (int i = status_line.length(); i <= COLS; ++i)
+    mvprintw(LINES -1, 0, GUI::status_line.c_str());
+    for (int i = GUI::status_line.length(); i <= COLS; ++i)
         addch(' ');
 }
