@@ -461,7 +461,7 @@ Game::ShowCharacterScreen(void) {
     //Actual output begins
     mvwprintw(w, 1, (pos.w - c->name.length()) / 2, c->name.c_str());
 
-    s = c->RaceString() + " " + c->ClassString() + " ";
+    s = c->GetRaceString() + " " + c->GetClassString() + " ";
     mvwprintw(w, 2, (pos.w - s.length()) / 2, s.c_str());
 
     p.x = 3;

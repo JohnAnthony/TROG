@@ -51,8 +51,10 @@ class Character : public Entity {
     void FullyRestore(void);
     void LevelUp(void);
     void MoveTo(Point p);
-    std::string ClassString(void);
-    std::string RaceString(void);
+    std::string GetClassString(void);
+    std::string GetRaceString(void);
+    std::string ClassAsString(Character::Class inClass);
+    std::string RaceAsString(Character::Race inRace);
     Affinity SumAffinities(Race inRace, Class inClass);
     void GiveXP(unsigned int quant);
     void Attack(Enemy *e);
@@ -74,6 +76,5 @@ class Character : public Entity {
     Item *ring2;
     Item *neck;
 };
-
 
 #endif

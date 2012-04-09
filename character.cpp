@@ -107,8 +107,19 @@ Character::MoveTo(Point p) {
 }
 
 std::string
-Character::ClassString(void) {
-    switch (this->cclass) {
+Character::GetClassString(void) {
+    return this->ClassAsString(this->cclass);
+}
+
+std::string
+Character::GetRaceString(void) {
+    return this->RaceAsString(this->race);
+}
+
+
+std::string
+Character::ClassAsString(Character::Class inClass) {
+    switch (inClass) {
         case Character::FIGHTER:
             return "FIGHTER";
         case Character::THIEF:
@@ -131,8 +142,8 @@ Character::ClassString(void) {
 }
 
 std::string
-Character::RaceString(void) {
-    switch (this->race) {
+Character::RaceAsString(Character::Race inRace) {
+    switch (inRace) {
         case Character::HUMAN:
             return "HUMAN";
         case Character::ELF:

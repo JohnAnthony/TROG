@@ -389,8 +389,8 @@ Level::DescriptionOfTile(Point p, Game *g) {
 
     //Character
     if (p == g->character->pos) {
-        ss << " and a " << g->character->RaceString() << " ";
-        ss << g->character->ClassString();
+        ss << " and a " << g->character->GetRaceString() << " ";
+        ss << g->character->GetClassString();
     }
     else { // Check for enemies
         for (std::list<Enemy>::iterator it = this->enemies.begin();
