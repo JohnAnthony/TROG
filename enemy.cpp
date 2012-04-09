@@ -1,5 +1,6 @@
 #include "enemy.hpp"
 #include "geometry.hpp"
+#include "gui.hpp"
 #include <sstream>
 #include <ncurses.h>
 
@@ -43,6 +44,7 @@ Enemy::Description(void) {
 
 void
 Enemy::Attack(Character *c) {
+    GUI gui;
     std::stringstream ss;
 
     ss << "The " << this->descriptor << " " << this->name << " attacks ";
@@ -50,6 +52,6 @@ Enemy::Attack(Character *c) {
 
 
     ss << " <Press a key to continue>";
-    GUI::status_line = ss.str();
+    gui.SetStatus(ss.str());
     getch();
 }

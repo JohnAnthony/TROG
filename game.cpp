@@ -2,10 +2,11 @@
 #include <sstream>
 #include "game.hpp"
 #include "geometry.hpp"
-
-extern std::string status_line;
+#include "gui.hpp"
 
 Game::Game(void) {
+    GUI gui;
+
     this->levels = this->cur_level = new Level(NULL);
     this->character = new Character("Johnson", Character::HUMAN, Character::FIGHTER);
     this->levels->character = character;
@@ -14,8 +15,8 @@ Game::Game(void) {
     this->gold = 0;
 
     this->levels->RevealSight(this->character);
-    GUI::status_line = "Welcome to TROG! Try not to die.";
-    RedrawStatus();
+    gui.SetStatus("Welcome to TROG! Try not to die.");
+    gui.RedrawStatus();
 
     this->game_mode = GameMode::MAP_WALK;
     this->running = true;
@@ -23,17 +24,18 @@ Game::Game(void) {
 
 void
 Game::MakeStatusLine(void) {
-    std::stringstream s;
+    GUI gui;
+    std::stringstream ss;
     Character *c;
 
     c = this->character;
 
-    s <<  "HP:" << c->curHP << "/" << c->maxHP;
+    ss <<  "HP:" << c->curHP << "/" << c->maxHP;
     if (c->maxMP > 0)
-        s << " MP:" << c->curMP << "/" << c->maxMP;
-    s << " GP:" << this->gold;
+        ss << " MP:" << c->curMP << "/" << c->maxMP;
+    ss << " GP:" << this->gold;
 
-    GUI::status_line = s.str();
+    gui.SetStatus(ss.str());
 }
 
 void
@@ -99,19 +101,21 @@ Game::SwitchGameMode(GameMode::Type gmt) {
 
 void
 Game::HandleInput(int c) {
+    GUI gui;
+
     switch (this->game_mode) {
         case GameMode::MAP_WALK:
             if (c == '>') {
                 if (this->character->pos == this->cur_level->stairs_down)
                     this->GoDownALevel();
-                    GUI::status_line = "You descend deeper...";
-                    RedrawStatus();
+                    gui.SetStatus("You descend deeper...");
+                    gui.RedrawStatus();
             }
             else if (c == '<') {
                 if (this->character->pos == this->cur_level->stairs_up)
                     this->GoUpALevel();
-                    GUI::status_line = "You ascend the stairs.";
-                    RedrawStatus();
+                    gui.SetStatus("You ascend the stairs.");
+                    gui.RedrawStatus();
             }
             else if (c == KEY_UP)
                 this->MoveCamera(Direction::NORTH);
@@ -231,14 +235,16 @@ Game::MoveCamera(Direction::Type d) {
 
 void
 Game::DoRedraw(void) {
+    GUI gui;
+
     if (this->game_mode == GameMode::MAP_WALK) {
         this->cur_level->Draw(this);
-        RedrawStatus();
+        gui.RedrawStatus();
     }
     else if (this->game_mode == GameMode::MAP_LOOK){
-        GUI::status_line = this->cur_level->DescriptionOfTile(this->target, this);
+        gui.SetStatus(this->cur_level->DescriptionOfTile(this->target, this));
         this->cur_level->Draw(this);
-        RedrawStatus();
+        gui.RedrawStatus();
         this->DrawLookTarget();
     }
     else if (this->game_mode == GameMode::INFO_SCREEN)
@@ -251,6 +257,7 @@ Game::DoRedraw(void) {
 
 void
 Game::MoveCharacter(Direction::Type d) {
+    GUI gui;
     Point target;
     Character *c;
     Tile *t;
@@ -310,7 +317,7 @@ Game::MoveCharacter(Direction::Type d) {
     }
     this->MakeStatusLine();
     this->DoRedraw();
-    RedrawStatus();
+    gui.RedrawStatus();
 }
 
 void
@@ -377,6 +384,7 @@ Game::DrawAsOverlay(Point p, char c, int col) {
 
 void
 Game::DoPickup(void) {
+    GUI gui;
     GoldPile *gp;
     std::stringstream ss;
     std::list<GoldPile>::iterator it;
@@ -390,16 +398,16 @@ Game::DoPickup(void) {
     }
 
     if (!gp) {
-        GUI::status_line = "Nothing to pick up.";
+        gui.SetStatus("Nothing to pick up.");
     }
     else {
         this->gold += gp->quantity;
         ss << "You pick up " << gp->quantity << "gp.";
-        GUI::status_line = ss.str();
+        gui.SetStatus(ss.str());
         this->cur_level->goldpiles.erase(it);
     }
 
-    RedrawStatus();
+    gui.RedrawStatus();
 }
 
 void
@@ -672,6 +680,7 @@ Game::QuitDialogue(void) {
 
 void
 Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
+    GUI gui;
     std::stringstream ss;
     int dam;
 
@@ -705,8 +714,8 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
 
     ss << ".";
 
-    GUI::status_line = ss.str();
-    RedrawStatus();
+    gui.SetStatus(ss.str());
+    gui.RedrawStatus();
 }
 
 Game::~Game(void) {
