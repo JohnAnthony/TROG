@@ -11,15 +11,6 @@ Point::operator==(Point const& other) {
 }
 
 void
-ScreenNoise(void) {
-    for (int e = 0; e < LINES; ++e) {
-        for (int i = 0; i < COLS; ++i) {
-            mvaddch(e, i, '#'); //Magic number here is bad but efficient
-        }
-    }
-}
-
-void
 Alert(std::string str) {
     WINDOW *w;
     int c;

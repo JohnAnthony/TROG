@@ -3,6 +3,32 @@
 
 std::string GUI::status_line;
 std::list<std::string> GUI::messages;
+const char *GUI::SplashStr = 
+"ddddddhhhhhhhhhhhhhhhhhhhhdddddddddddddddddNNNNNmmmmmdmdhhyhdhyhhyyysyhsysoyhsoo\
+ddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhdmNNNNddmmmmdNmyhmmddhdhddhddddhsyyoso\
+dhhhhhhhhhhhhhhhhhhhhhhhhhhhhhyssyyhhyddddNNmNNNmmdyhyhyyo+yhyoshyhhhdhhhhshyyhy\
+hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhyyhhyhddddmNNNNmNNmmmhyshhhyyyyssyhyhhhhyhhdhdddhy\
+hhhhhhhhhhhhhhhhhhhhyyyyyhhhhyhhhhdddddddmmmmmmmmmmdhyysooo+osydddhhyhyohhymmmdh\
+hhhhhhhhhhhhhhhhhhyhysyyyhhysossyhdddddddddmmmmmmmmmmddhyssssyhddhdddmyyddhmmmmN\
+hhhhhhhhhhyhhyyyhhhysshddhyssssyhhdddddddddmmmmmNNNmNmmmddhhhdhdysyhdmoyhddmNNMM\
+hhhhhhhyyyhhysyyhhhyyhdddhhhyyysyhhdddddddddmmmNNMMNNNmmmdddhhhdsosydmhhddmNNMMM\
+hyyhyyyyyydyyhdddhhhdddddhhhhhyyyyyyhhhddddddmmmNNNmmmddhsoohhhhhyyyshmmdmNMMMMN\
+hyhhhdyyhddddhyyyyydddddmdddhhyyysyyhhhdddddddddddddddhy:::oyhhhhyhyhhdmNNNNNNNN\
+yyddddddmhdddyyyhhdddmmmmmmdhyyyyyyhddddddmmddddddddyys/.:+ss++yhddhyyhhhdmmmmmm\
+sshhddhyhyhddhhhhdddmmmmmmddddhhhhhddddddddddddddhhyoso-/o+/oo++yhyyyyyyyydmmdhh\
+ssyyhhyyhydddhhhddddmNNMNNdhhhhyyhhhdddmmddmddddddyyss+/+//+ysooosyhhhyyysyhyyhd\
+yyyyyyyyyhddhyhddddmNMMMNMNmdddhhhhyhhdmmmmmdhddddhhyo+o+/+yyooooyyyyhhyhyyyyhhh\
+yyyyyhhyhdhhyhdddmmNMMMMNNmmmdmmddhhhhhdmddhhhhhhhhysoo+/+shdyyssssyhyyhhyyhhhhh\
+hhyyyyyhhyhhdddmmNNMMMMNmhdddddddddhhhyyyhhhhhhhyyso+o+/:oyyddhyyssyyyyyysyyyyys\
+hhyyyyyyhhyyddmmNMMMMNmdyhdddddddhyyysssyyyyyhyyooo+++//+syhddhyhyssyyyyyyyyyhyy\
+hhhhyhyhhsssdmmNNMMNNmhdyhhdddhhyyyyyyyyhhyyysssooo+++//oyyhdddhhysssssosyyssssy\
+yyhyyyhhysyydNmNMMNhhhhhyyhhhyhhhyyhyyyhhhyysssssssooo+oyyhdmmmdhyyyyhsooosssyyy\
+ssssyddhssyhhmNMMMhhhhhysshdhhhhyhyhyyyhhhhysssyhyyoooyhdmdmmNmddhyhhddhyssssyhy\
+sssshhhyyyyyhmMMNhhyyhhhhhdhddddhyyyyyyhhhhhssyyhhhsohddhdmNNNmhddhyyyddysssssyy\
+dyyhdhhyhyhddNNmhyyyhhdddhhhhhhhhhyyyysyddhhyyyyyhhysdhhhhhmNNNhyyhhysyyysyyysss\
+yyhhhhyhddddmmhysssyhddmmmmmmmmddhyyyyyyyhhyyyssyyyoohhhhyyhNMNNdhyyyyssssyyhyys\
+syhhyyyyhhddhyyshhyyhdddddmmmmmmmmmmddddddhyyyyysso+/ohhyshddNMNNmdyssyyyyyyhs++\
+shhysssyhdhyyysyyhhhdhhyyhdhhhhdddmddddmmmddhyyssoo+//oyhhhmmmNMNNmdysyyshhhyyhh";
 
 void
 GUI::RedrawStatus(void) {
@@ -45,14 +71,13 @@ GUI::ProcessMessages(Game *g) {
 
 Character*
 GUI::CharacterCreation(void) {
-    GUI gui;
     Character::Race race;
     Character::Class cclass;
     std::string name;
 
-    race = gui.SelectRace();
-    cclass = gui.SelectClass();
-    name = gui.GetString("Please enter a name:");
+    race = GUI::SelectRace();
+    cclass = GUI::SelectClass();
+    name = GUI::GetString("Please enter a name:");
 
     return new Character(name, race, cclass);
 }
@@ -71,3 +96,32 @@ std::string
 GUI::GetString(std::string prompt) {
     return "Johnson";
 }
+
+void
+GUI::ShowSplash(void) {
+    WINDOW *w;
+    Rect pos;
+
+    pos.w = 80;
+    pos.h = 25;
+    pos.x = (COLS - pos.w) / 2;
+    pos.y = (LINES - pos.h) / 2;
+
+    w = newwin(pos.h, pos.w, pos.y, pos.x);
+    box(w, 0, 0);
+    mvwprintw(w, 0, 0, SplashStr);
+
+    wrefresh(w);
+    getch();
+    delwin(w);
+}
+
+void
+GUI::ScreenNoise(void) {
+    for (int e = 0; e < LINES; ++e) {
+        for (int i = 0; i < COLS; ++i) {
+            mvaddch(e, i, '#'); //Magic number here is bad but efficient
+        }
+    }
+}
+

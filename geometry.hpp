@@ -51,7 +51,6 @@ enum Color {
     COL_CYAN = 6
 };
 
-void ScreenNoise(void);
 bool IsOnScreen(Point p);
 void Alert(std::string str);
 bool BinaryChoice(std::string str, char a, char b);

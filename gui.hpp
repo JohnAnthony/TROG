@@ -8,18 +8,21 @@
 
 class GUI {
     public:
-    void SetStatus(std::string);
-    void RedrawStatus(void);
-    void AddMessage(std::string str);
-    void ProcessMessages(Game *g);
-    Character* CharacterCreation(void);
-    Character::Race SelectRace(void);
-    Character::Class SelectClass(void);
-    std::string GetString(std::string prompt);
+    static void SetStatus(std::string);
+    static void RedrawStatus(void);
+    static void AddMessage(std::string str);
+    static void ProcessMessages(Game *g);
+    static Character* CharacterCreation(void);
+    static Character::Race SelectRace(void);
+    static Character::Class SelectClass(void);
+    static std::string GetString(std::string prompt);
+    static void ShowSplash(void);
+    static void ScreenNoise(void);
 
     private:
     static std::string status_line;
     static std::list<std::string> messages;
+    static const char* SplashStr;
 };
 
 #endif

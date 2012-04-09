@@ -26,16 +26,15 @@ interrupt_handler(int sign) {
 int main(int argc, char** argv) {
     bool playagain;
     Character *c;
-    GUI gui;
 
     srand(time(NULL));
     initscr();
 	cbreak();
 	keypad(stdscr, TRUE);
     noecho();
-    // raw();
     curs_set(0);
     start_color();
+    refresh();
 
     for (int i = 0; i < 8; ++i) 
         init_pair(i, i, COLOR_BLACK);
@@ -44,7 +43,8 @@ int main(int argc, char** argv) {
     signal(SIGINT, interrupt_handler);
 
     do {
-        c = gui.CharacterCreation();
+        GUI::ShowSplash();
+        c = GUI::CharacterCreation();
         g = new Game(c);
         playagain = g->Run();
         delete g;

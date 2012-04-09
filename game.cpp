@@ -5,8 +5,6 @@
 #include "gui.hpp"
 
 Game::Game(Character *c) {
-    GUI gui;
-
     this->character = c;
     this->levels = this->cur_level = new Level(NULL);
     this->levels->character = character;
@@ -15,7 +13,7 @@ Game::Game(Character *c) {
     this->gold = 0;
 
     this->levels->RevealSight(this->character);
-    gui.SetStatus("Welcome to TROG! Try not to die.");
+    GUI::SetStatus("Welcome to TROG! Try not to die.");
 
     this->game_mode = GameMode::MAP_WALK;
     this->running = true;
@@ -23,7 +21,6 @@ Game::Game(Character *c) {
 
 void
 Game::CharacterStatusLine(void) {
-    GUI gui;
     std::stringstream ss;
     Character *c;
 
@@ -34,12 +31,11 @@ Game::CharacterStatusLine(void) {
         ss << " MP:" << c->curMP << "/" << c->maxMP;
     ss << " GP:" << this->gold;
 
-    gui.SetStatus(ss.str());
+    GUI::SetStatus(ss.str());
 }
 
 bool
 Game::Run(void) {
-    GUI gui;
     int c;
     GameMode::Type new_gamemode;
 
@@ -69,7 +65,7 @@ Game::Run(void) {
             this->SwitchGameMode(new_gamemode);
 
         if (this->game_mode == GameMode::MAP_WALK)
-            gui.ProcessMessages(this);
+            GUI::ProcessMessages(this);
 
         if (!this->character->isAlive()) {
             running = false;
@@ -111,21 +107,20 @@ Game::SwitchGameMode(GameMode::Type gmt) {
 
 void
 Game::HandleInput(int c) {
-    GUI gui;
 
     switch (this->game_mode) {
         case GameMode::MAP_WALK:
             if (c == '>') {
                 if (this->character->pos == this->cur_level->stairs_down)
                     this->GoDownALevel();
-                    gui.AddMessage("You descend deeper...");
-                    gui.RedrawStatus();
+                    GUI::AddMessage("You descend deeper...");
+                    GUI::RedrawStatus();
             }
             else if (c == '<') {
                 if (this->character->pos == this->cur_level->stairs_up)
                     this->GoUpALevel();
-                    gui.AddMessage("You ascend the stairs.");
-                    gui.RedrawStatus();
+                    GUI::AddMessage("You ascend the stairs.");
+                    GUI::RedrawStatus();
             }
             else if (c == KEY_UP)
                 this->MoveCamera(Direction::NORTH);
@@ -247,16 +242,14 @@ Game::MoveCamera(Direction::Type d) {
 
 void
 Game::DoRedraw(void) {
-    GUI gui;
-
     if (this->game_mode == GameMode::MAP_WALK) {
         this->cur_level->Draw(this);
-        gui.RedrawStatus();
+        GUI::RedrawStatus();
     }
     else if (this->game_mode == GameMode::MAP_LOOK){
-        gui.SetStatus(this->cur_level->DescriptionOfTile(this->target, this));
+        GUI::SetStatus(this->cur_level->DescriptionOfTile(this->target, this));
         this->cur_level->Draw(this);
-        gui.RedrawStatus();
+        GUI::RedrawStatus();
         this->DrawLookTarget();
     }
     else if (this->game_mode == GameMode::INFO_SCREEN)
@@ -269,7 +262,6 @@ Game::DoRedraw(void) {
 
 void
 Game::MoveCharacter(Direction::Type d) {
-    GUI gui;
     Point target;
     Character *c;
     Tile *t;
@@ -325,7 +317,7 @@ Game::MoveCharacter(Direction::Type d) {
         if (BinaryChoice("This door is closed. Open?", 'y', 'n')) {
             t->c = OPEN_DOOR_CHAR;
             this->cur_level->RevealSight(c);
-            gui.AddMessage("You push the door open with a creak.");
+            GUI::AddMessage("You push the door open with a creak.");
         }
     }
     else                                                        // Invalid move
@@ -400,7 +392,6 @@ Game::DrawAsOverlay(Point p, char c, int col) {
 
 void
 Game::DoPickup(void) {
-    GUI gui;
     GoldPile *gp;
     std::stringstream ss;
     std::list<GoldPile>::iterator it;
@@ -414,12 +405,12 @@ Game::DoPickup(void) {
     }
 
     if (!gp) {
-        gui.AddMessage("Nothing to pick up.");
+        GUI::AddMessage("Nothing to pick up.");
     }
     else {
         this->gold += gp->quantity;
         ss << "You pick up " << gp->quantity << "gp.";
-        gui.AddMessage(ss.str());
+        GUI::AddMessage(ss.str());
         this->cur_level->goldpiles.erase(it);
     }
 }
@@ -694,7 +685,6 @@ Game::QuitDialogue(void) {
 
 void
 Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
-    GUI gui;
     std::stringstream ss;
     int dam;
 
@@ -726,7 +716,7 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
         }
     }
 
-    gui.AddMessage(ss.str());
+    GUI::AddMessage(ss.str());
 }
 
 void
