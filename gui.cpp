@@ -5,31 +5,32 @@
 
 std::string GUI::status_line;
 std::list<std::string> GUI::messages;
-const char *GUI::SplashStr = 
-"\n\
+const char *GUI::SplashStr = "\
+Oo  ==|=  ==|=  =|====|=  =|====|=  =|====|=  =|====|=  =|====|=  =|==  =|==  oO\
+o                                                                              o\
 \n\
 \n\
 \n\
 \n\
-.ddhddddmdddhhdddddm/                          ....              -oydNMMMNNmd:  \
-:No:...`/MMM:.````.ysodNNdyyyhddy/       ./sddhyyydmmy+.        sMNs:.``.-omM:  \
-+       -MMm``     ` `+MMy``  `oNh+.   .yMNo-```   `:hMMh:    :NMh.``      .m.  \
-        `mNM.         :MMs`     yMMs  .mMN:``         /NMM+  -NMm.`         s`  \
-        `hdM.         /MMs`     sMM+  hMMo`            +MMM: sMMs`              \
-        .MMN.         /MMy`    :mNo   MMM+`             NMMs`mMM+`              \
-        `MMN.         /MMdo++odMm-    MMMd`             mMMs`NMM+`    `:::/++   \
-        .MMN`         /MMy-...oddh-   oMMM+            -MMN-`mMMs`     .-dMMm   \
-        /MMM.         /MMy`    .yMN+   +NMNo          -mMd-` /MMm.       :MMy   \
-        -MMM.         sMMh`     `oNMh:  .omMmo-....:+hmh+.`   hMMh`      -MMs   \
-        +MMM`       :+ssso+:      .sNMh/- `-/ossyyyso/.``     `sMMy.     -MMs   \
-        hMMM/                       `/+ss+.     ```             -hNNy+:-`.dMy   \
-     .:oyyyhh/.                                                   ./oyyyys+:.   \
-            ```                                                        ``       \
+ .ddhddddmdddhhdddddm/                          ....              -oydNMMMNNmd: \
+ :No:...`/MMM:.````.ysodNNdyyyhddy/       ./sddhyyydmmy+.        sMNs:.``.-omM: \
+ +       -MMm``     ` `+MMy``  `oNh+.   .yMNo-```   `:hMMh:    :NMh.``      .m. \
+         `mNM.         :MMs`     yMMs  .mMN:``         /NMM+  -NMm.`         s` \
+         `hdM.         /MMs`     sMM+  hMMo`            +MMM: sMMs`             \
+         .MMN.         /MMy`    :mNo   MMM+`             NMMs`mMM+`             \
+         `MMN.         /MMdo++odMm-    MMMd`             mMMs`NMM+`    `:::/++  \
+         .MMN`         /MMy-...oddh-   oMMM+            -MMN-`mMMs`     .-dMMm  \
+         /MMM.         /MMy`    .yMN+   +NMNo          -mMd-` /MMm.       :MMy  \
+         -MMM.         sMMh`     `oNMh:  .omMmo-....:+hmh+.`   hMMh`      -MMs  \
+         +MMM`       :+ssso+:      .sNMh/- `-/ossyyyso/.``     `sMMy.     -MMs  \
+         hMMM/                       `/+ss+.     ```             -hNNy+:-`.dMy  \
+      .:oyyyhh/.                                                   ./oyyyys+:.  \
+             ```                Press any key to begin...               ``      \
 \n\
 \n\
 \n\
-\n\
-\n";
+o                                                                              o\
+Oo  ==|=  ==|=  =|====|=  =|====|=  =|====|=  =|====|=  =|====|=  =|==  =|==  oO";
 
 void
 GUI::RedrawStatus(void) {
@@ -112,8 +113,8 @@ GUI::ShowSplash(void) {
     pos.y = (LINES - pos.h) / 2;
 
     w = newwin(pos.h, pos.w, pos.y, pos.x);
+    box(w, 0, 1);
     mvwprintw(w, 0, 0, SplashStr);
-    mvwprintw(w, 18, 30, "Press any key to begin...");
 
     wrefresh(w);
     getch();
@@ -128,4 +129,3 @@ GUI::ScreenNoise(void) {
         }
     }
 }
-
