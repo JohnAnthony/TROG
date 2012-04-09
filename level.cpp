@@ -396,7 +396,7 @@ Level::DescriptionOfTile(Point p, Game *g) {
         for (std::list<Enemy>::iterator it = this->enemies.begin();
                 it != this->enemies.end(); it++) {
             if (it->pos == p) {
-                ss << " and a " << it->name;
+                ss << " and " << it->Description();
                 break;
             }
         }
