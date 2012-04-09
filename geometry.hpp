@@ -55,5 +55,6 @@ void ScreenNoise(void);
 bool IsOnScreen(Point p);
 void Alert(std::string str);
 bool BinaryChoice(std::string str, char a, char b);
+float CalculateDistance(Point p1, Point p2);
 
 #endif

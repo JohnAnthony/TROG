@@ -447,3 +447,50 @@ Level::RemoveEnemy(Enemy *e) {
 
     Alert("Error removing enemy from list. That's bad.");
 }
+
+void
+Level::GiveEnemiesTurn(Character *c) {
+    for (std::list<Enemy>::iterator it = this->enemies.begin();
+            it != this->enemies.end(); it++) {
+        if (!it->isActive && CalculateDistance(it->pos, c->pos) <= it->sight_range)
+            it->isActive = true;
+        if (it->isActive)
+            it->mv_energy += c->mv_cost;
+        if (it->mv_energy >= it->mv_cost)
+            this->EnemyAdvance(&*it, c);
+    }
+}
+
+void
+Level::EnemyAdvance(Enemy *e, Character *c) {
+    Point target;
+    Tile *t;
+
+    e->mv_energy -= e->mv_cost;
+
+    //Target x
+    if (c->pos.x > e->pos.x)
+        target.x = e->pos.x + 1;
+    else if (c->pos.x < e->pos.x)
+        target.x = e->pos.x - 1;
+    else
+        target.x = e->pos.x;
+
+    //Target y
+    if (c->pos.y > e->pos.y)
+        target.y = e->pos.y + 1;
+    else if (c->pos.y < e->pos.y)
+        target.y = e->pos.y - 1;
+    else
+        target.y = e->pos.y;
+
+    if (target == c->pos) {
+        e->Attack(c);
+        return;
+    }
+
+    t = &this->tiles[target.x][target.y];
+
+    if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR)
+        e->pos = target;
+}

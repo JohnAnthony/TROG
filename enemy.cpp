@@ -22,6 +22,7 @@ Enemy::Enemy(unsigned int inLVL, char inSymbol, Color inCol, int inSight,
     this->name = inName;
     this->descriptor = inDescript;
     this->isActive = false;
+    this->mv_energy = 0;
 }
 
 std::string
@@ -36,4 +37,9 @@ Enemy::Description(void) {
         ss << "a ";
     ss << this->descriptor << " " << this->name;
     return ss.str();
+}
+
+void
+Enemy::Attack(Character *c) {
+
 }

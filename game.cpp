@@ -296,12 +296,13 @@ Game::MoveCharacter(Direction::Type d) {
         c->MoveTo(target);
         this->cur_level->RevealSight(c);
         this->cur_level->CentreCam(c->pos);
+        this->cur_level->GiveEnemiesTurn(c);
     }
     else if (t->c == CLOSED_DOOR_CHAR) {
         if (BinaryChoice("This door is closed. Open?", 'y', 'n')) {
             t->c = OPEN_DOOR_CHAR;
             this->cur_level->RevealSight(c);
-            // c->TakeActionCost();
+            this->cur_level->GiveEnemiesTurn(c);
         }
     }
     this->MakeStatusLine();
@@ -699,7 +700,10 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
             ss << " ... and kills it!";
             this->cur_level->RemoveEnemy(e);
             c->GiveXP(e->XP_value);
-            this->DoRedraw();
+            // Don't need this.
+            //Level::RedrawEnemy should just redraw the one tile
+            //But this is the quick and dirty way
+            this->DoRedraw(); 
         }
     }
 

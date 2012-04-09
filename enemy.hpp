@@ -2,6 +2,7 @@
 #define ENEMY_H
 
 #include "entity.hpp"
+#include "character.hpp"
 #include <string>
 
 class Enemy : public Entity {
@@ -11,9 +12,11 @@ class Enemy : public Entity {
       int mp, int str, int tou, int att, int def, int mag, int wil, int inMV,
       unsigned int inXP, const char *inName, const char *inDescript);
     std::string Description(void);
+    void Attack(Character *c);
 
     unsigned int Level;
     unsigned int XP_value;
+    int mv_energy;
     const char *name;
     const char *descriptor;
     bool isActive;

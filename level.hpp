@@ -41,6 +41,8 @@ class Level {
     void EnemySpawn(Rect *r);
     void RemoveEnemy(Enemy *e);
     std::string DescriptionOfTile(Point p, Game *g);
+    void GiveEnemiesTurn(Character *c);
+    void EnemyAdvance(Enemy *e, Character *c);
 
     int                 depth;
     Tile                tiles[MAP_W][MAP_H];
