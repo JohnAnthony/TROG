@@ -280,6 +280,15 @@ Game::MoveCharacter(Direction::Type d) {
         target.y++;
     }
 
+    //See if we're about to move on to an enemy
+    for (std::list<Enemy>::iterator it = this->cur_level->enemies.begin();
+            it != this->cur_level->enemies.end(); it++) {
+        if (target == it->pos) {
+            this->DoAttack((Entity*)this->character, (Entity*)&*it); //We're attacking instead
+            return;
+        }
+    }
+
     t = &this->cur_level->tiles[target.x][target.y];
 
     // OK, we're ready to attempt a move!
@@ -662,6 +671,11 @@ Game::QuitDialogue(void) {
     this->running = !BinaryChoice("Are you sure you want to quit?", 'y', 'n');
     if (this->running)
         this->DoRedraw();
+}
+
+void
+Game::DoAttack(Entity *e1, Entity *e2) {
+
 }
 
 Game::~Game(void) {

@@ -41,6 +41,7 @@ class Game {
     void ShowInfoScreen(void);
     void HandleResize(int signal);
     void QuitDialogue(void);
+    void DoAttack(Entity *e1, Entity *e2);
 
     int                 gold;
     Level*              levels;
