@@ -6,8 +6,6 @@
 std::string GUI::status_line;
 std::list<std::string> GUI::messages;
 const char *GUI::SplashStr = "\
-Oo  ==|=  ==|=  =|====|=  =|====|=  =|====|=  =|====|=  =|====|=  =|==  =|==  oO\
-o                                                                              o\
 \n\
 \n\
 \n\
@@ -25,12 +23,14 @@ o                                                                              o
          +MMM`       :+ssso+:      .sNMh/- `-/ossyyyso/.``     `sMMy.     -MMs  \
          hMMM/                       `/+ss+.     ```             -hNNy+:-`.dMy  \
       .:oyyyhh/.                                                   ./oyyyys+:.  \
-             ```                Press any key to begin...               ``      \
+\n\
+\n\
+                             Press any key to begin\n\
 \n\
 \n\
 \n\
-o                                                                              o\
-Oo  ==|=  ==|=  =|====|=  =|====|=  =|====|=  =|====|=  =|====|=  =|==  =|==  oO";
+\n\
+";
 
 void
 GUI::RedrawStatus(void) {
@@ -113,7 +113,6 @@ GUI::ShowSplash(void) {
     pos.y = (LINES - pos.h) / 2;
 
     w = newwin(pos.h, pos.w, pos.y, pos.x);
-    box(w, 0, 1);
     mvwprintw(w, 0, 0, SplashStr);
 
     wrefresh(w);
