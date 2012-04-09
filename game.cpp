@@ -16,7 +16,6 @@ Game::Game(void) {
 
     this->levels->RevealSight(this->character);
     gui.SetStatus("Welcome to TROG! Try not to die.");
-    gui.RedrawStatus();
 
     this->game_mode = GameMode::MAP_WALK;
     this->running = true;
@@ -40,6 +39,7 @@ Game::CharacterStatusLine(void) {
 
 void
 Game::Run(void) {
+    GUI gui;
     int c;
     GameMode::Type new_gamemode;
 
@@ -67,6 +67,8 @@ Game::Run(void) {
 
         if (new_gamemode != this->game_mode)
             this->SwitchGameMode(new_gamemode);
+
+        gui.ProcessMessages(this);
     }
 }
 
@@ -108,13 +110,13 @@ Game::HandleInput(int c) {
             if (c == '>') {
                 if (this->character->pos == this->cur_level->stairs_down)
                     this->GoDownALevel();
-                    gui.SetStatus("You descend deeper...");
+                    gui.AddMessage("You descend deeper...");
                     gui.RedrawStatus();
             }
             else if (c == '<') {
                 if (this->character->pos == this->cur_level->stairs_up)
                     this->GoUpALevel();
-                    gui.SetStatus("You ascend the stairs.");
+                    gui.AddMessage("You ascend the stairs.");
                     gui.RedrawStatus();
             }
             else if (c == KEY_UP)
@@ -257,6 +259,7 @@ Game::DoRedraw(void) {
 
 void
 Game::MoveCharacter(Direction::Type d) {
+    GUI gui;
     Point target;
     Character *c;
     Tile *t;
@@ -312,6 +315,7 @@ Game::MoveCharacter(Direction::Type d) {
         if (BinaryChoice("This door is closed. Open?", 'y', 'n')) {
             t->c = OPEN_DOOR_CHAR;
             this->cur_level->RevealSight(c);
+            gui.AddMessage("You push the door open with a creak.");
         }
     }
     else                                                        // Invalid move
@@ -320,7 +324,6 @@ Game::MoveCharacter(Direction::Type d) {
     this->DoRedraw();
     this->cur_level->GiveEnemiesTurn(c);
     this->DoRedraw();
-    this->CharacterStatusLine();
 }
 
 void
@@ -401,16 +404,14 @@ Game::DoPickup(void) {
     }
 
     if (!gp) {
-        gui.SetStatus("Nothing to pick up.");
+        gui.AddMessage("Nothing to pick up.");
     }
     else {
         this->gold += gp->quantity;
         ss << "You pick up " << gp->quantity << "gp.";
-        gui.SetStatus(ss.str());
+        gui.AddMessage(ss.str());
         this->cur_level->goldpiles.erase(it);
     }
-
-    gui.RedrawStatus();
 }
 
 void
@@ -715,9 +716,7 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
         }
     }
 
-    ss << ". <continue>";
-    gui.SetStatus(ss.str());
-    getch();
+    gui.AddMessage(ss.str());
 }
 
 Game::~Game(void) {

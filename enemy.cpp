@@ -50,10 +50,7 @@ Enemy::Attack(Character *c) {
     ss << "The " << this->descriptor << " " << this->name << " attacks ";
     ss << c->name;
 
-
-    ss << " <continue>";
-    gui.SetStatus(ss.str());
-    getch();
+    gui.AddMessage(ss.str());
 }
 
 void
