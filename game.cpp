@@ -284,7 +284,7 @@ Game::MoveCharacter(Direction::Type d) {
     for (std::list<Enemy>::iterator it = this->cur_level->enemies.begin();
             it != this->cur_level->enemies.end(); it++) {
         if (target == it->pos) {
-            this->DoAttack((Entity*)this->character, (Entity*)&*it); //We're attacking instead
+            this->DoAttack(this->character, &*it); //We're attacking instead
             return;
         }
     }
@@ -674,8 +674,36 @@ Game::QuitDialogue(void) {
 }
 
 void
-Game::DoAttack(Entity *e1, Entity *e2) {
+Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
+    std::stringstream ss;
+    int dam;
 
+    ss << c->name << " attacks "  << e->Description();
+
+    // Handle the attack
+    dam = rand() % c->curATT - rand() % e->curDEF;
+    if (dam < 0)
+        ss << " but misses";
+    else {
+        dam += (rand() % c->curSTR - rand() % e->curTOU) * 2;
+        if (dam <= 0)
+            ss << " but fails to do any damage";
+        else
+            ss << " for " << dam << " damage";
+    }
+
+    // Handle the effects of the attack
+    if (dam > 0) {
+        e->curHP -= dam;
+        if (e->curHP <= 0) {
+            ss << " ... and kills it!";
+        }
+    }
+
+    ss << ".";
+
+    this->status_line = ss.str();
+    RedrawStatus();
 }
 
 Game::~Game(void) {

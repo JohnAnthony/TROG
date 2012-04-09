@@ -4,6 +4,7 @@
 #include "level.hpp"
 #include "character.hpp"
 #include "geometry.hpp"
+#include "enemy.hpp"
 #include <string>
 
 class Level;
@@ -41,7 +42,7 @@ class Game {
     void ShowInfoScreen(void);
     void HandleResize(int signal);
     void QuitDialogue(void);
-    void DoAttack(Entity *e1, Entity *e2);
+    void DoAttack(Character *c, Enemy *e);
 
     int                 gold;
     Level*              levels;
