@@ -26,7 +26,7 @@ const char *GUI::SplashStr =
      .:oyyyhh/.                                                   ./oyyyys+:.`  \
             ```                                                        ``       \
 \n\
-                        Press any key to begin...\
+\n\
 \n\
 \n\
 \n";
@@ -110,6 +110,7 @@ GUI::ShowSplash(void) {
 
     w = newwin(pos.h, pos.w, pos.y, pos.x);
     mvwprintw(w, 0, 0, SplashStr);
+    mvwprintw(w, 18, 30, "Press any key to begin...");
 
     wrefresh(w);
     getch();
