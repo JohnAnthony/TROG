@@ -35,7 +35,6 @@ class Game {
     void DrawLookTarget(void);
     void MoveLookTarget(Direction::Type d);
     void DrawAsOverlay(Point p, char c, int col);
-    void RedrawStatus(void);
     void DoPickup(void);
     void ShowCharacterScreen(void);
     void ShowInventoryScreen(void);

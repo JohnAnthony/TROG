@@ -93,3 +93,10 @@ CalculateDistance(Point p1, Point p2) {
 
     return ret;
 }
+
+void
+RedrawStatus(void) {
+    mvprintw(LINES -1, 0, status_line.c_str());
+    for (int i = status_line.length(); i <= COLS; ++i)
+        addch(' ');
+}

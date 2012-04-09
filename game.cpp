@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include <sstream>
 #include "game.hpp"
+#include "geometry.hpp"
 
 extern std::string status_line;
 
@@ -14,7 +15,7 @@ Game::Game(void) {
 
     this->levels->RevealSight(this->character);
     status_line = "Welcome to TROG! Try not to die.";
-    this->RedrawStatus();
+    RedrawStatus();
 
     this->game_mode = GameMode::MAP_WALK;
     this->running = true;
@@ -104,13 +105,13 @@ Game::HandleInput(int c) {
                 if (this->character->pos == this->cur_level->stairs_down)
                     this->GoDownALevel();
                     status_line = "You descend deeper...";
-                    this->RedrawStatus();
+                    RedrawStatus();
             }
             else if (c == '<') {
                 if (this->character->pos == this->cur_level->stairs_up)
                     this->GoUpALevel();
                     status_line = "You ascend the stairs.";
-                    this->RedrawStatus();
+                    RedrawStatus();
             }
             else if (c == KEY_UP)
                 this->MoveCamera(Direction::NORTH);
@@ -232,12 +233,12 @@ void
 Game::DoRedraw(void) {
     if (this->game_mode == GameMode::MAP_WALK) {
         this->cur_level->Draw(this);
-        this->RedrawStatus();
+        RedrawStatus();
     }
     else if (this->game_mode == GameMode::MAP_LOOK){
         status_line = this->cur_level->DescriptionOfTile(this->target, this);
         this->cur_level->Draw(this);
-        this->RedrawStatus();
+        RedrawStatus();
         this->DrawLookTarget();
     }
     else if (this->game_mode == GameMode::INFO_SCREEN)
@@ -309,7 +310,7 @@ Game::MoveCharacter(Direction::Type d) {
     }
     this->MakeStatusLine();
     this->DoRedraw();
-    this->RedrawStatus();
+    RedrawStatus();
 }
 
 void
@@ -375,13 +376,6 @@ Game::DrawAsOverlay(Point p, char c, int col) {
 }
 
 void
-Game::RedrawStatus(void) {
-    mvprintw(LINES -1, 0, status_line.c_str());
-    for (int i = status_line.length(); i <= COLS; ++i)
-        addch(' ');
-}
-
-void
 Game::DoPickup(void) {
     GoldPile *gp;
     std::stringstream ss;
@@ -405,7 +399,7 @@ Game::DoPickup(void) {
         this->cur_level->goldpiles.erase(it);
     }
 
-    this->RedrawStatus();
+    RedrawStatus();
 }
 
 void

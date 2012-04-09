@@ -1,5 +1,7 @@
 #include "enemy.hpp"
+#include "geometry.hpp"
 #include <sstream>
+#include <ncurses.h>
 
 Enemy::Enemy(void) {}
 
@@ -41,5 +43,13 @@ Enemy::Description(void) {
 
 void
 Enemy::Attack(Character *c) {
+    std::stringstream ss;
 
+    ss << "The " << this->descriptor << " " << this->name << " attacks ";
+    ss << c->name;
+
+
+    ss << " <Press a key to continue>";
+    status_line = ss.str();
+    getch();
 }
