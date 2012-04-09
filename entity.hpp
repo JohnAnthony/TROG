@@ -5,6 +5,8 @@
 
 class Entity {
     public:
+    void TakeDamage(int amt);
+
     Point pos;
     char symbol;
     Color colour;

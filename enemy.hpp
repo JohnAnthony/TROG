@@ -15,6 +15,7 @@ class Enemy : public Entity {
       unsigned int inXP, const char *inName, const char *inDescript);
     std::string Description(void);
     void Attack(Character *c);
+    void TakeDamage(int amt);
 
     unsigned int Level;
     unsigned int XP_value;

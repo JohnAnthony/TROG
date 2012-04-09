@@ -55,3 +55,9 @@ Enemy::Attack(Character *c) {
     gui.SetStatus(ss.str());
     getch();
 }
+
+void
+Enemy::TakeDamage(int amt) {
+    this->curHP -= amt;
+    this->isActive = true;
+}

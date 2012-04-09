@@ -260,6 +260,7 @@ Game::MoveCharacter(Direction::Type d) {
     Point target;
     Character *c;
     Tile *t;
+    std::list<Enemy>::iterator it;
 
     c = this->character;
     target = c->pos;
@@ -289,35 +290,37 @@ Game::MoveCharacter(Direction::Type d) {
         target.y++;
     }
 
+    t = &this->cur_level->tiles[target.x][target.y];
+
     //See if we're about to move on to an enemy
-    for (std::list<Enemy>::iterator it = this->cur_level->enemies.begin();
+    for (it = this->cur_level->enemies.begin();
             it != this->cur_level->enemies.end(); it++) {
         if (target == it->pos) {
-            this->DoAttack(this->character, &*it); //We're attacking instead
-            this->cur_level->GiveEnemiesTurn(c);
-            this->CharacterStatusLine();
-            return;
+            this->DoAttack(this->character, &*it);              //We're attacking instead
+            break;
         }
     }
 
-    t = &this->cur_level->tiles[target.x][target.y];
-
-    // OK, we're ready to attempt a move!
-    if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR) {
-        c->MoveTo(target);
-        this->cur_level->RevealSight(c);
-        this->cur_level->CentreCam(c->pos);
-        this->cur_level->GiveEnemiesTurn(c);
+    if (it != this->cur_level->enemies.end()) {                  // We did combat
     }
-    else if (t->c == CLOSED_DOOR_CHAR) {
+    else if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR) {    // An empty space
+            c->MoveTo(target);
+            this->cur_level->RevealSight(c);
+            this->cur_level->CentreCam(c->pos);
+    }
+    else if (t->c == CLOSED_DOOR_CHAR) {                        // A closed door
         if (BinaryChoice("This door is closed. Open?", 'y', 'n')) {
             t->c = OPEN_DOOR_CHAR;
             this->cur_level->RevealSight(c);
-            this->cur_level->GiveEnemiesTurn(c);
         }
     }
-    this->CharacterStatusLine();
+    else                                                        // Invalid move
+        return;
+
     this->DoRedraw();
+    this->cur_level->GiveEnemiesTurn(c);
+    this->DoRedraw();
+    this->CharacterStatusLine();
 }
 
 void
@@ -700,7 +703,7 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
 
     // Handle the effects of the attack
     if (dam > 0) {
-        e->curHP -= dam;
+        e->TakeDamage(dam);
         if (e->curHP <= 0) {
             ss << " ... and kills it!";
             this->cur_level->RemoveEnemy(e);
