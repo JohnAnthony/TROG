@@ -68,7 +68,8 @@ Game::Run(void) {
         if (new_gamemode != this->game_mode)
             this->SwitchGameMode(new_gamemode);
 
-        gui.ProcessMessages(this);
+        if (this->game_mode == GameMode::MAP_WALK)
+            gui.ProcessMessages(this);
 
         if (!this->character->isAlive()) {
             running = false;
