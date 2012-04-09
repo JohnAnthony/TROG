@@ -4,11 +4,11 @@
 #include "geometry.hpp"
 #include "gui.hpp"
 
-Game::Game(void) {
+Game::Game(Character *c) {
     GUI gui;
 
+    this->character = c;
     this->levels = this->cur_level = new Level(NULL);
-    this->character = new Character("Johnson", Character::HUMAN, Character::FIGHTER);
     this->levels->character = character;
     this->character->MoveTo(this->cur_level->stairs_up);
     this->levels->CentreCam(character->pos);
@@ -704,7 +704,7 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
     if (dam < 0)
         ss << " but misses";
     else {
-        dam += (rand() % c->curSTR - rand() % e->curTOU) * 2;
+        dam += rand() % (c->curSTR * 2) - rand() % e->curTOU;
         if (dam <= 0)
             ss << " but fails to do any damage";
         else
@@ -735,7 +735,6 @@ Game::DoWait(void) {
 }
 
 Game::~Game(void) {
-    delete character;
     if (levels)
         delete levels;
 }

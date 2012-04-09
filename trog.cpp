@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "game.hpp"
+#include "character.hpp"
 #include "geometry.hpp"
 #include <signal.h>
 
@@ -23,6 +24,7 @@ interrupt_handler(int sign) {
 
 int main(int argc, char** argv) {
     bool playagain;
+    Character *c;
 
     srand(time(NULL));
     initscr();
@@ -40,9 +42,11 @@ int main(int argc, char** argv) {
     signal(SIGINT, interrupt_handler);
 
     do {
-        g = new Game();
+        c = new Character("Johnson", Character::HUMAN, Character::FIGHTER);
+        g = new Game(c);
         playagain = g->Run();
         delete g;
+        delete c;
     } while (playagain);
 
     endwin();

@@ -21,7 +21,7 @@ namespace GameMode {
 
 class Game {
     public:
-    Game(void);
+    Game(Character *c);
     ~Game(void);
     bool Run(void);
     void HandleInput(int c);
