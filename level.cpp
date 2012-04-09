@@ -466,31 +466,33 @@ Level::EnemyAdvance(Enemy *e, Character *c) {
     Point target;
     Tile *t;
 
-    e->mv_energy -= e->mv_cost;
+    while(e->mv_energy >= e->mv_cost) {
+        e->mv_energy -= e->mv_cost;
 
-    //Target x
-    if (c->pos.x > e->pos.x)
-        target.x = e->pos.x + 1;
-    else if (c->pos.x < e->pos.x)
-        target.x = e->pos.x - 1;
-    else
-        target.x = e->pos.x;
+        //Target x
+        if (c->pos.x > e->pos.x)
+            target.x = e->pos.x + 1;
+        else if (c->pos.x < e->pos.x)
+            target.x = e->pos.x - 1;
+        else
+            target.x = e->pos.x;
 
-    //Target y
-    if (c->pos.y > e->pos.y)
-        target.y = e->pos.y + 1;
-    else if (c->pos.y < e->pos.y)
-        target.y = e->pos.y - 1;
-    else
-        target.y = e->pos.y;
+        //Target y
+        if (c->pos.y > e->pos.y)
+            target.y = e->pos.y + 1;
+        else if (c->pos.y < e->pos.y)
+            target.y = e->pos.y - 1;
+        else
+            target.y = e->pos.y;
 
-    if (target == c->pos) {
-        e->Attack(c);
-        return;
+        if (target == c->pos) {
+            e->Attack(c);
+            return;
+        }
+
+        t = &this->tiles[target.x][target.y];
+
+        if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR)
+            e->pos = target;
     }
-
-    t = &this->tiles[target.x][target.y];
-
-    if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR)
-        e->pos = target;
 }
