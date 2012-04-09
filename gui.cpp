@@ -42,3 +42,32 @@ GUI::ProcessMessages(Game *g) {
     }
     messages.clear();
 }
+
+Character*
+GUI::CharacterCreation(void) {
+    GUI gui;
+    Character::Race race;
+    Character::Class cclass;
+    std::string name;
+
+    race = gui.SelectRace();
+    cclass = gui.SelectClass();
+    name = gui.GetString("Please enter a name:");
+
+    return new Character(name, race, cclass);
+}
+
+Character::Race
+GUI::SelectRace(void) {
+    return Character::HUMAN;
+}
+
+Character::Class
+GUI::SelectClass(void) {
+    return Character::FIGHTER;
+}
+
+std::string
+GUI::GetString(std::string prompt) {
+    return "Johnson";
+}
