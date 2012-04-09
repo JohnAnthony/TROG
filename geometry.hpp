@@ -3,8 +3,6 @@
 
 #include <string>
 
-#define NOISE_CHARACTER  '#'
-
 #define MAX(x, y)   ((x > y) ? x : y )
 #define MIN(x, y)   ((x < y) ? x : y )
 #define LENGTH(x)   (sizeof(x) / sizeof(x[0]))

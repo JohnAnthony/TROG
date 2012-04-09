@@ -1,34 +1,35 @@
 #include "gui.hpp"
 #include <ncurses.h>
 
+#define NOISE_CHARACTER  '#'
+
 std::string GUI::status_line;
 std::list<std::string> GUI::messages;
 const char *GUI::SplashStr = 
-"ddddddhhhhhhhhhhhhhhhhhhhhdddddddddddddddddNNNNNmmmmmdmdhhyhdhyhhyyysyhsysoyhsoo\
-ddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhdmNNNNddmmmmdNmyhmmddhdhddhddddhsyyoso\
-dhhhhhhhhhhhhhhhhhhhhhhhhhhhhhyssyyhhyddddNNmNNNmmdyhyhyyo+yhyoshyhhhdhhhhshyyhy\
-hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhyyhhyhddddmNNNNmNNmmmhyshhhyyyyssyhyhhhhyhhdhdddhy\
-hhhhhhhhhhhhhhhhhhhhyyyyyhhhhyhhhhdddddddmmmmmmmmmmdhyysooo+osydddhhyhyohhymmmdh\
-hhhhhhhhhhhhhhhhhhyhysyyyhhysossyhdddddddddmmmmmmmmmmddhyssssyhddhdddmyyddhmmmmN\
-hhhhhhhhhhyhhyyyhhhysshddhyssssyhhdddddddddmmmmmNNNmNmmmddhhhdhdysyhdmoyhddmNNMM\
-hhhhhhhyyyhhysyyhhhyyhdddhhhyyysyhhdddddddddmmmNNMMNNNmmmdddhhhdsosydmhhddmNNMMM\
-hyyhyyyyyydyyhdddhhhdddddhhhhhyyyyyyhhhddddddmmmNNNmmmddhsoohhhhhyyyshmmdmNMMMMN\
-hyhhhdyyhddddhyyyyydddddmdddhhyyysyyhhhdddddddddddddddhy:::oyhhhhyhyhhdmNNNNNNNN\
-yyddddddmhdddyyyhhdddmmmmmmdhyyyyyyhddddddmmddddddddyys/.:+ss++yhddhyyhhhdmmmmmm\
-sshhddhyhyhddhhhhdddmmmmmmddddhhhhhddddddddddddddhhyoso-/o+/oo++yhyyyyyyyydmmdhh\
-ssyyhhyyhydddhhhddddmNNMNNdhhhhyyhhhdddmmddmddddddyyss+/+//+ysooosyhhhyyysyhyyhd\
-yyyyyyyyyhddhyhddddmNMMMNMNmdddhhhhyhhdmmmmmdhddddhhyo+o+/+yyooooyyyyhhyhyyyyhhh\
-yyyyyhhyhdhhyhdddmmNMMMMNNmmmdmmddhhhhhdmddhhhhhhhhysoo+/+shdyyssssyhyyhhyyhhhhh\
-hhyyyyyhhyhhdddmmNNMMMMNmhdddddddddhhhyyyhhhhhhhyyso+o+/:oyyddhyyssyyyyyysyyyyys\
-hhyyyyyyhhyyddmmNMMMMNmdyhdddddddhyyysssyyyyyhyyooo+++//+syhddhyhyssyyyyyyyyyhyy\
-hhhhyhyhhsssdmmNNMMNNmhdyhhdddhhyyyyyyyyhhyyysssooo+++//oyyhdddhhysssssosyyssssy\
-yyhyyyhhysyydNmNMMNhhhhhyyhhhyhhhyyhyyyhhhyysssssssooo+oyyhdmmmdhyyyyhsooosssyyy\
-ssssyddhssyhhmNMMMhhhhhysshdhhhhyhyhyyyhhhhysssyhyyoooyhdmdmmNmddhyhhddhyssssyhy\
-sssshhhyyyyyhmMMNhhyyhhhhhdhddddhyyyyyyhhhhhssyyhhhsohddhdmNNNmhddhyyyddysssssyy\
-dyyhdhhyhyhddNNmhyyyhhdddhhhhhhhhhyyyysyddhhyyyyyhhysdhhhhhmNNNhyyhhysyyysyyysss\
-yyhhhhyhddddmmhysssyhddmmmmmmmmddhyyyyyyyhhyyyssyyyoohhhhyyhNMNNdhyyyyssssyyhyys\
-syhhyyyyhhddhyyshhyyhdddddmmmmmmmmmmddddddhyyyyysso+/ohhyshddNMNNmdyssyyyyyyhs++\
-shhysssyhdhyyysyyhhhdhhyyhdhhhhdddmddddmmmddhyyssoo+//oyhhhmmmNMNNmdysyyshhhyyhh";
+"\n\
+\n\
+\n\
+\n\
+\n\
+.ddhddddmdddhhdddddm/                         `....`             -oydNMMMNNmd:  \
+:No:...`/MMM:.````.ysodNNdyyyhddy/       ./sddhyyydmmy+.       `sMNs:.``.-omM:` \
++. `    -MMm``     `.`+MMy``  `oNh+.   .yMNo-```   `:hMMh:    :NMh.``      .m.` \
+        `mNM.         :MMs`     yMMs` .mMN:``         /NMM+  -NMm.`         s`  \
+        `hdM.`        /MMs`     sMM+` hMMo`            +MMM: sMMs`              \
+        .MMN.`        /MMy`   `:mNo```MMM+`             NMMs`mMM+`              \
+        `MMN.`        /MMdo++odMm-`` `MMMd`             mMMs`NMM+`    `:::/++`  \
+        .MMN``        /MMy-...oddh-   oMMM+            -MMN-`mMMs`    `.-dMMm`  \
+        /MMM.         /MMy`    .yMN+`  +NMNo`         -mMd-` /MMm.       :MMy`  \
+        -MMM.`        sMMh`     `oNMh:  .omMmo-....:+hmh+.`   hMMh`      -MMs`  \
+        +MMM``      :+ssso+:      .sNMh/- `-/ossyyyso/.``     `sMMy.     -MMs`  \
+        hMMM/`                      `/+ss+.     ```             -hNNy+:-`.dMy`  \
+     .:oyyyhh/.                                                   ./oyyyys+:.`  \
+            ```                                                        ``       \
+\n\
+                        Press any key to begin...\
+\n\
+\n\
+\n";
 
 void
 GUI::RedrawStatus(void) {
@@ -108,7 +109,6 @@ GUI::ShowSplash(void) {
     pos.y = (LINES - pos.h) / 2;
 
     w = newwin(pos.h, pos.w, pos.y, pos.x);
-    box(w, 0, 0);
     mvwprintw(w, 0, 0, SplashStr);
 
     wrefresh(w);
