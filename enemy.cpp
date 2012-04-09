@@ -46,9 +46,25 @@ void
 Enemy::Attack(Character *c) {
     GUI gui;
     std::stringstream ss;
+    int dmg;
 
     ss << "The " << this->descriptor << " " << this->name << " attacks ";
     ss << c->name;
+
+    // The attack
+    dmg = rand() % this->curATT - rand() % c->curDEF;
+    if (dmg <= 0)
+        ss << " but misses";
+    else
+        dmg += rand() % (this->curSTR * 2) - rand() % c->curTOU;
+
+    //The damage
+    if (dmg <= 0)
+        ss << " but it does no damage";
+    else {
+        ss << " and does " << dmg << " damage";
+        c->curHP -= dmg;
+    }
 
     gui.AddMessage(ss.str());
 }

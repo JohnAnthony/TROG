@@ -37,7 +37,7 @@ Game::CharacterStatusLine(void) {
     gui.SetStatus(ss.str());
 }
 
-void
+bool
 Game::Run(void) {
     GUI gui;
     int c;
@@ -69,7 +69,14 @@ Game::Run(void) {
             this->SwitchGameMode(new_gamemode);
 
         gui.ProcessMessages(this);
+
+        if (!this->character->isAlive()) {
+            running = false;
+            Alert("You have died!");
+        }
     }
+
+    return BinaryChoice("Do you wish to play again?", 'y', 'n');
 }
 
 void

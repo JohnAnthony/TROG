@@ -6,6 +6,7 @@
 class Entity {
     public:
     void TakeDamage(int amt);
+    bool isAlive(void);
 
     Point pos;
     char symbol;

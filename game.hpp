@@ -15,7 +15,8 @@ namespace GameMode {
         MAP_LOOK,
         INFO_SCREEN,
         CHARACTER_SCREEN,
-        INVENTORY_SCREEN
+        INVENTORY_SCREEN,
+        GAME_OVER
     } Type;
 }
 
@@ -23,7 +24,7 @@ class Game {
     public:
     Game(void);
     ~Game(void);
-    void Run(void);
+    bool Run(void);
     void HandleInput(int c);
     void GoUpALevel(void);
     void GoDownALevel(void);

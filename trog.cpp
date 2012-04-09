@@ -22,6 +22,8 @@ interrupt_handler(int sign) {
 }
 
 int main(int argc, char** argv) {
+    bool playagain;
+
     srand(time(NULL));
     initscr();
 	cbreak();
@@ -37,9 +39,12 @@ int main(int argc, char** argv) {
     signal(SIGWINCH, resize_handler);
     signal(SIGINT, interrupt_handler);
 
-    g = new Game();
-    g->Run();
-    delete g;
+    do {
+        g = new Game();
+        playagain = g->Run();
+        delete g;
+    } while (playagain);
+
     endwin();
 
     return 0;
