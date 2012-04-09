@@ -393,6 +393,13 @@ Level::DescriptionOfTile(Point p, Game *g) {
         ss << g->character->ClassString();
     }
     else { // Check for enemies
+        for (std::list<Enemy>::iterator it = this->enemies.begin();
+                it != this->enemies.end(); it++) {
+            if (it->pos == p) {
+                ss << " and a " << it->name;
+                break;
+            }
+        }
     }
 
     //Gold piles
