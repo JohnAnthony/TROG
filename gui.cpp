@@ -103,6 +103,9 @@ GUI::ShowSplash(void) {
     WINDOW *w;
     Rect pos;
 
+    erase();
+    refresh();
+
     pos.w = 80;
     pos.h = 25;
     pos.x = (COLS - pos.w) / 2;
