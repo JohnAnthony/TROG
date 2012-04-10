@@ -16,11 +16,10 @@ resize_handler(int sign) {
 
 static void
 interrupt_handler(int sign) {
-    g->QuitDialogue();
-    if (!g->running) {
-        endwin();
-        exit(0);
-    }
+    erase();
+    endwin();
+    puts("SIGINT received; exiting cleanly.");
+    exit(0);
 }
 
 int main(int argc, char** argv) {
@@ -35,11 +34,10 @@ int main(int argc, char** argv) {
     curs_set(0);
     start_color();
 
+    signal(SIGINT, interrupt_handler);
+
     for (int i = 0; i < 8; ++i) 
         init_pair(i, i, COLOR_BLACK);
-
-    signal(SIGWINCH, resize_handler);
-    signal(SIGINT, interrupt_handler);
 
     do {
         erase();
