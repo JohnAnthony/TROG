@@ -211,20 +211,31 @@ GUI::SelectClass(void) {
 
 std::string
 GUI::GetString(std::string prompt) {
+    static const int IN_SZ = 30;
     WINDOW *w;
+    char in[IN_SZ];
+    std::stringstream ss;
+    std::string s;
 
+    echo();
+    curs_set(1);
     refresh();
-    w = GUI::NewCentredWindow(60, 3);
+    w = GUI::NewCentredWindow(IN_SZ + prompt.length() + 6, 3);
     box(w, 0, 0);
-    mvwprintw(w, 1, 1, prompt.c_str());
+    mvwprintw(w, 1, 2, prompt.c_str());
     waddch(w, ' ');
 
     wrefresh(w);
     refresh();
-    delwin(w);
-    getch();
+    wgetnstr(w, in, 30);
 
-    return "Unnamed";
+    noecho();
+    curs_set(0);
+    delwin(w);
+
+    ss << in;
+    s = ss.str();
+    return s;
 }
 
 
