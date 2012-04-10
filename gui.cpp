@@ -1,6 +1,5 @@
 #include "gui.hpp"
 #include <ncurses.h>
-#include <menu.h>
 #include <sstream>
 
 #define NOISE_CHARACTER  '#'
