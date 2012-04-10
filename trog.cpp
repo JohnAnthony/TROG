@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
     signal(SIGINT, interrupt_handler);
 
     do {
-        GUI::ShowSplash();
+        GUI::StartScreen();
         c = GUI::CharacterCreation();
         g = new Game(c);
         playagain = g->Run();

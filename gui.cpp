@@ -27,7 +27,7 @@ const char *GUI::SplashStr = "\
       .:oyyyhh/.                                                   ./oyyyys+:.  \
 \n\
 \n\
-                             Press any key to begin\n\
+\n\
 \n\
 \n\
 \n\
@@ -94,10 +94,12 @@ GUI::SelectRace(void) {
     int c;
     static const std::string title =     ":: CHOOSE YOUR RACE ::";
     static char const * const underline = "======================";
-    static const std::string left_ptr = "-->";
-    static const std::string right_ptr = "<--";
-    static char const * const blank = "   ";
+    static const std::string left_ptr = ">>";
+    static const std::string right_ptr = "<<";
+    static char const * const blank = "  ";
     std::string s;
+
+    GUI::ShowSplash();
 
     //Determine how wide our window needs to be
     c = title.length() + 4;
@@ -154,10 +156,12 @@ GUI::SelectClass(void) {
     int c;
     static const std::string title =     ":: CHOOSE YOUR CLASS ::";
     static char const * const underline = "=======================";
-    static const std::string left_ptr = "-->";
-    static const std::string right_ptr = "<--";
-    static char const * const blank = "   ";
+    static const std::string left_ptr = ">>";
+    static const std::string right_ptr = "<<";
+    static char const * const blank = "  ";
     std::string s;
+
+    GUI::ShowSplash();
 
     //Determine how wide our window needs to be
     c = title.length() + 4;
@@ -211,8 +215,14 @@ GUI::GetString(std::string prompt) {
     return "Johnson";
 }
 
+
 void
 GUI::ShowSplash(void) {
+    GUI::ShowSplash(COL_RED);
+}
+
+void
+GUI::ShowSplash(Color col) {
     WINDOW *w;
     Rect pos;
 
@@ -225,12 +235,19 @@ GUI::ShowSplash(void) {
     pos.y = (LINES - pos.h) / 2;
 
     w = newwin(pos.h, pos.w, pos.y, pos.x);
+    wattron(w, COLOR_PAIR(col));
     mvwprintw(w, 0, 0, SplashStr);
 
+    wattroff(w, COLOR_PAIR(col));
     wrefresh(w);
     refresh();
-    getch();
     delwin(w);
+}
+
+void
+GUI::StartScreen(void) {
+    GUI::ShowSplash(COL_RED);
+    getch();
 }
 
 void

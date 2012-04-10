@@ -17,6 +17,8 @@ class GUI {
     static Character::Class SelectClass(void);
     static std::string GetString(std::string prompt);
     static void ShowSplash(void);
+    static void ShowSplash(Color col);
+    static void StartScreen(void);
     static void ScreenNoise(void);
 
     private:
