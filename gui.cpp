@@ -1,5 +1,7 @@
 #include "gui.hpp"
 #include <ncurses.h>
+#include <menu.h>
+#include <sstream>
 
 #define NOISE_CHARACTER  '#'
 
@@ -91,7 +93,55 @@ GUI::SelectRace(void) {
 
 Character::Class
 GUI::SelectClass(void) {
-    return Character::BARBARIAN;
+    WINDOW *w;
+    Rect pos;
+    int ret;
+    int c;
+    static char const * const title =     ":: CHOOSE YOUR CLASS ::";
+    static char const * const underline = "=======================";
+    static const std::string left_ptr = "-->";
+    static const std::string right_ptr = "<--";
+    static char const * const blank = "   ";
+    std::string s;
+
+    pos.w = 31;
+    pos.h = Character::LAST_CLASS*2 + 4;
+    pos.x = (COLS - pos.w) / 2;
+    pos.y = (LINES - pos.h) / 2;
+
+    w = newwin(pos.h, pos.w, pos.y, pos.x);
+    box(w, 0, 0);
+
+    mvwprintw(w, 0, 4, title);
+    mvwprintw(w, 1, 4, underline);
+    for (int i = 0; i < Character::LAST_CLASS; ++i) {
+        s = Character::ClassAsString((Character::Class) i );
+        mvwprintw(w, 3 + i*2, (pos.w - s.length()) / 2, s.c_str());
+    }
+    wrefresh(w);
+
+    //Menu driver
+    ret = 0;
+    c = 0;
+    do {
+        //Blank old position
+        mvwprintw(w, 3 + ret*2, 2, blank);
+        mvwprintw(w, 3 + ret*2, pos.w - right_ptr.length() - 2, blank);
+
+        if (c == KEY_UP)
+            ret = (ret == 0) ? Character::LAST_CLASS - 1 : ret - 1;
+        else if (c == KEY_DOWN)
+            ret = (ret == Character::LAST_CLASS - 1) ? 0 : ret + 1;
+
+        //Redraw pointers
+        mvwprintw(w, 3 + ret*2, 2, left_ptr.c_str());
+        mvwprintw(w, 3 + ret*2, pos.w - right_ptr.length() - 2, right_ptr.c_str());
+        wrefresh(w);
+    } while ((c = getch()) != '\n');
+
+    //Cleanup
+    delwin(w);
+    return (Character::Class) ret;
 }
 
 std::string
@@ -116,6 +166,7 @@ GUI::ShowSplash(void) {
     mvwprintw(w, 0, 0, SplashStr);
 
     wrefresh(w);
+    refresh();
     getch();
     delwin(w);
 }

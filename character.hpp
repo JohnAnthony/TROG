@@ -53,8 +53,8 @@ class Character : public Entity {
     void MoveTo(Point p);
     std::string GetClassString(void);
     std::string GetRaceString(void);
-    std::string ClassAsString(Character::Class inClass);
-    std::string RaceAsString(Character::Race inRace);
+    static std::string ClassAsString(Character::Class inClass);
+    static std::string RaceAsString(Character::Race inRace);
     Affinity SumAffinities(Race inRace, Class inClass);
     void GiveXP(unsigned int quant);
     void Attack(Enemy *e);

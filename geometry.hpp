@@ -5,7 +5,8 @@
 
 #define MAX(x, y)   ((x > y) ? x : y )
 #define MIN(x, y)   ((x < y) ? x : y )
-#define LENGTH(x)   (sizeof(x) / sizeof(x[0]))
+#define LENGTH(X)   (sizeof X / sizeof X[0])
+
 
 namespace Direction {
     typedef enum {
