@@ -25,24 +25,24 @@ class Enemy;
 class Character : public Entity {
     public:
     typedef enum {
+        BARBARIAN,
+        CLERIC,
+        DRUID,
         FIGHTER,
+        PALADIN,
+        SAGE,
         THIEF,
         WIZARD,
-        CLERIC,
-        BARBARIAN,
-        PALADIN,
-        DRUID,
-        SAGE,
         LAST_CLASS
     } Class;
     typedef enum {
-        HUMAN,
-        ELF,
         DWARF,
-        HALF_ELF,
+        ELF,
+        GREY_ORC,
         HALFLING,
+        HALF_ELF,
         HALF_ORC,
-        ORC,
+        HUMAN,
         LIZARDFOLK,
         LAST_RACE
     } Race;
