@@ -30,7 +30,7 @@ static Enemy EnemyList[] = {
 //lvl       sym     col         sight   hp  mp  str tou att def mag wil mv      xp      name
 Enemy(1,    'o',    COL_BLUE,   5,      1,  0,  5,  5,  10, 10, 0,  5,  950,    25,     "Binary Blob", "petty"),
 Enemy(1,    'd',    COL_RED,    5,      8,  0,  8,  8,  8,  8,  0,  5,  900,    50,     "Pigdog", "North American"),
-Enemy(1,    'b',    COL_YELLOW, 5,      10, 0,  10, 10, 6,  6,  0,  5,  1000,   85,     "Neckbear", "juvenile"),
+Enemy(2,    'b',    COL_YELLOW, 5,      10, 0,  10, 10, 6,  6,  0,  5,  1200,   115,    "Neckbear", "juvenile"),
 
 };
 #endif

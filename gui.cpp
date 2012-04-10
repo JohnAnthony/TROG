@@ -12,6 +12,8 @@ const char *GUI::SplashStr = "\
 \n\
 \n\
 \n\
+\n\
+\n\
  .ddhddddmdddhhdddddm/                          ....              -oydNMMMNNmd: \
  :No:...`/MMM:.````.ysodNNdyyyhddy/       ./sddhyyydmmy+.        sMNs:.``.-omM: \
  +       -MMm``     ` `+MMy``  `oNh+.   .yMNo-```   `:hMMh:    :NMh.``      .m. \
@@ -25,8 +27,6 @@ const char *GUI::SplashStr = "\
          +MMM`       :+ssso+:      .sNMh/- `-/ossyyyso/.``     `sMMy.     -MMs  \
          hMMM/                       `/+ss+.     ```             -hNNy+:-`.dMy  \
       .:oyyyhh/.                                                   ./oyyyys+:.  \
-\n\
-\n\
 \n\
 \n\
 \n\
@@ -212,13 +212,13 @@ GUI::SelectClass(void) {
 
 std::string
 GUI::GetString(std::string prompt) {
-    return "Johnson";
+    return "Unnamed";
 }
 
 
 void
 GUI::ShowSplash(void) {
-    GUI::ShowSplash(COL_RED);
+    GUI::ShowSplash(COL_PURPLE);
 }
 
 void
@@ -246,7 +246,9 @@ GUI::ShowSplash(Color col) {
 
 void
 GUI::StartScreen(void) {
+    static const std::string request = "Press any key to begin...";
     GUI::ShowSplash(COL_RED);
+    mvprintw(LINES/2 + 10, ((COLS - request.length()) / 2), request.c_str());
     getch();
 }
 

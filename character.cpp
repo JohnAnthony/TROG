@@ -6,22 +6,22 @@ static Affinity ClassAffinities[Character::LAST_CLASS] {
     {12,    0,  7,  7,  4,  4,  0,  4,  0,  0},  //BARBARIAN
     {6,     6,  3,  3,  3,  3,  13, 8,  0,  0},  //CLERIC
     {6,     6,  2,  2,  2,  2,  13, 6,  0,  0},  //DRUID
-    {10,    0,  5,  5,  5,  5,  0,  5,  0,  0},  //FIGHTER
-    {10,    4,  4,  4,  4,  4,  8,  7,  0,  0},  //PALADIN
+    {10,    0,  6,  6,  6,  6,  0,  5,  0,  0},  //FIGHTER
+    {10,    4,  6,  6,  5,  5,  8,  7,  0,  0},  //PALADIN
     {4,     8,  1,  1,  1,  1,  12, 7,  0,  0},  //SAGE
     {6,     0,  2,  2,  2,  2,  0,  5,  0,  0},  //THIEF
     {4,     10, 1,  1,  1,  1,  15, 7,  0,  0},  //WIZARD
 };
 static Affinity RaceAffinities[Character::LAST_RACE] {
     //HP    MP  STR TOU ATT DEF MAG WIL MV  SIGHT
-    {15,    0,  5,  8,  5,  5,  -2, 10, 5,  6},  //DWARF
-    {5,     2,  4,  3,  7,  6,  1,  5,  -5, 7},  //ELF
-    {10,    0,  8,  7,  5,  5,  0,  5,  0,  7},  //GREY ORC
-    {10,    0,  3,  3,  6,  8,  0,  5,  2,  5},  //HALFLING
-    {8,     0,  5,  4,  5,  5,  0,  5,  -2, 6},  //HALF_ELF
-    {10,    0,  7,  6,  5,  5,  0,  5,  0,  6},  //HALF_ORC
+    {15,    -5, 5,  8,  5,  5,  -2, 10, 50, 6},  //DWARF
+    {5,     2,  4,  3,  7,  6,  1,  5,  -50,7},  //ELF
+    {10,    -2, 8,  7,  5,  5,  0,  3,  0,  7},  //GREY ORC
+    {10,    0,  3,  3,  6,  8,  0,  5,  20, 5},  //HALFLING
+    {8,     0,  5,  4,  5,  5,  0,  5,  -25,6},  //HALF_ELF
+    {10,    -1, 7,  6,  5,  5,  0,  4,  0,  6},  //HALF_ORC
     {10,    0,  5,  5,  5,  5,  0,  5,  0,  5},  //HUMAN
-    {10,    0,  6,  6,  5,  5,  0,  5,  0,  6},  //LIZARDFOLK
+    {10,    0,  6,  6,  5,  5,  0,  4,  0,  6},  //LIZARDFOLK
 };
 
 Character::Character(std::string inName, Character::Race inRace, Character::Class inClass) {
@@ -93,6 +93,7 @@ Character::LevelUp(void) {
         this->maxMAG += rand() % this->affinity.mag + 1;
     if (this->affinity.wil > 0)
         this->maxWIL += rand() % this->affinity.wil + 1;
+    // Note that mv and sight don't get modified with everythign else
 
     this->next_level += this->Level * 1000;
     this->FullyRestore();
@@ -182,6 +183,27 @@ Character::SumAffinities(Race inRace, Class inClass) {
     ret.wil = a->wil + b->wil;
     ret.mv = a->mv + b->mv;
     ret.sight = a->sight + b->sight;
+
+    //Enforce minimums
+    if (ret.hp < 1)
+        ret.hp = 1;
+    if (ret.mp < 0)
+        ret.mp = 0;
+    if (ret.str < 1)
+        ret.str = 1;
+    if (ret.tou < 1)
+        ret.tou = 1;
+    if (ret.att < 1)
+        ret.att = 1;
+    if (ret.def < 1)
+        ret.def = 1;
+    if (ret.mag < 1)
+        ret.mag = 1;
+    if (ret.wil < 1)
+        ret.wil = 1;
+    if (ret.sight < 1)
+        ret.sight = 1;
+    //Note that mv doesn't modify liek everythign else
 
     return ret;
 }
