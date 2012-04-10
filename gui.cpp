@@ -85,6 +85,11 @@ GUI::CharacterCreation(void) {
     GUI::ShowSplash();
     name = GUI::GetString("Please enter a name:");
 
+    if (name == "") {
+        Alert("You can't have no name. Setting your name to the default: 'Anonymous Trogger'.");
+        name = "Anonymous Trogger";
+    }
+
     return new Character(name, race, cclass);
 }
 
