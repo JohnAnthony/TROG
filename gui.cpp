@@ -88,7 +88,62 @@ GUI::CharacterCreation(void) {
 
 Character::Race
 GUI::SelectRace(void) {
-    return Character::ORC;
+    WINDOW *w;
+    Rect pos;
+    int ret;
+    int c;
+    static const std::string title =     ":: CHOOSE YOUR RACE ::";
+    static char const * const underline = "======================";
+    static const std::string left_ptr = "-->";
+    static const std::string right_ptr = "<--";
+    static char const * const blank = "   ";
+    std::string s;
+
+    //Determine how wide our window needs to be
+    c = title.length() + 4;
+    for (int i = 0; i < Character::LAST_RACE; ++i) {
+        s = Character::RaceAsString((Character::Race) i );
+        c = MAX(c, (int)s.length() + (int)left_ptr.length() + (int)right_ptr.length() + 6);
+    }
+
+    pos.w = c;
+    pos.h = Character::LAST_RACE*2 + 4;
+    pos.x = (COLS - pos.w) / 2;
+    pos.y = (LINES - pos.h) / 2;
+
+    w = newwin(pos.h, pos.w, pos.y, pos.x);
+    box(w, 0, 0);
+
+    mvwprintw(w, 0, (pos.w - title.length()) / 2, title.c_str());
+    mvwprintw(w, 1, (pos.w - title.length()) / 2, underline);
+    for (int i = 0; i < Character::LAST_RACE; ++i) {
+        s = Character::RaceAsString((Character::Race) i );
+        mvwprintw(w, 3 + i*2, 8, s.c_str());
+    }
+    wrefresh(w);
+
+    //Menu driver
+    ret = 0;
+    c = 0;
+    do {
+        //Blank old position
+        mvwprintw(w, 3 + ret*2, 2, blank);
+        mvwprintw(w, 3 + ret*2, pos.w - right_ptr.length() - 2, blank);
+
+        if (c == KEY_UP)
+            ret = (ret == 0) ? Character::LAST_RACE - 1 : ret - 1;
+        else if (c == KEY_DOWN)
+            ret = (ret == Character::LAST_RACE - 1) ? 0 : ret + 1;
+
+        //Redraw pointers
+        mvwprintw(w, 3 + ret*2, 2, left_ptr.c_str());
+        mvwprintw(w, 3 + ret*2, pos.w - right_ptr.length() - 2, right_ptr.c_str());
+        wrefresh(w);
+    } while ((c = getch()) != '\n');
+
+    //Cleanup
+    delwin(w);
+    return (Character::Race) ret;
 }
 
 Character::Class
@@ -97,14 +152,21 @@ GUI::SelectClass(void) {
     Rect pos;
     int ret;
     int c;
-    static char const * const title =     ":: CHOOSE YOUR CLASS ::";
+    static const std::string title =     ":: CHOOSE YOUR CLASS ::";
     static char const * const underline = "=======================";
     static const std::string left_ptr = "-->";
     static const std::string right_ptr = "<--";
     static char const * const blank = "   ";
     std::string s;
 
-    pos.w = 31;
+    //Determine how wide our window needs to be
+    c = title.length() + 4;
+    for (int i = 0; i < Character::LAST_CLASS; ++i) {
+        s = Character::ClassAsString((Character::Class) i );
+        c = MAX(c, (int)s.length() + (int)left_ptr.length() + (int)right_ptr.length() + 6);
+    }
+
+    pos.w = c;
     pos.h = Character::LAST_CLASS*2 + 4;
     pos.x = (COLS - pos.w) / 2;
     pos.y = (LINES - pos.h) / 2;
@@ -112,11 +174,11 @@ GUI::SelectClass(void) {
     w = newwin(pos.h, pos.w, pos.y, pos.x);
     box(w, 0, 0);
 
-    mvwprintw(w, 0, 4, title);
-    mvwprintw(w, 1, 4, underline);
+    mvwprintw(w, 0, (pos.w - title.length()) / 2, title.c_str());
+    mvwprintw(w, 1, (pos.w - title.length()) / 2, underline);
     for (int i = 0; i < Character::LAST_CLASS; ++i) {
         s = Character::ClassAsString((Character::Class) i );
-        mvwprintw(w, 3 + i*2, (pos.w - s.length()) / 2, s.c_str());
+        mvwprintw(w, 3 + i*2, 8, s.c_str());
     }
     wrefresh(w);
 
