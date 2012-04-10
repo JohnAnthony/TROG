@@ -3,6 +3,7 @@
 
 #include "game.hpp"
 #include "character.hpp"
+#include <ncurses.h>
 #include <string>
 #include <list>
 
@@ -20,6 +21,7 @@ class GUI {
     static void ShowSplash(Color col);
     static void StartScreen(void);
     static void ScreenNoise(void);
+    static WINDOW* NewCentredWindow(int w, int h);
 
     private:
     static std::string status_line;

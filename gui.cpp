@@ -79,8 +79,11 @@ GUI::CharacterCreation(void) {
     Character::Class cclass;
     std::string name;
 
+    GUI::ShowSplash();
     race = GUI::SelectRace();
+    GUI::ShowSplash();
     cclass = GUI::SelectClass();
+    GUI::ShowSplash();
     name = GUI::GetString("Please enter a name:");
 
     return new Character(name, race, cclass);
@@ -98,8 +101,6 @@ GUI::SelectRace(void) {
     static const std::string right_ptr = "<<";
     static char const * const blank = "  ";
     std::string s;
-
-    GUI::ShowSplash();
 
     //Determine how wide our window needs to be
     c = title.length() + 4;
@@ -161,8 +162,6 @@ GUI::SelectClass(void) {
     static char const * const blank = "  ";
     std::string s;
 
-    GUI::ShowSplash();
-
     //Determine how wide our window needs to be
     c = title.length() + 4;
     for (int i = 0; i < Character::LAST_CLASS; ++i) {
@@ -212,6 +211,19 @@ GUI::SelectClass(void) {
 
 std::string
 GUI::GetString(std::string prompt) {
+    WINDOW *w;
+
+    refresh();
+    w = GUI::NewCentredWindow(60, 3);
+    box(w, 0, 0);
+    mvwprintw(w, 1, 1, prompt.c_str());
+    waddch(w, ' ');
+
+    wrefresh(w);
+    refresh();
+    delwin(w);
+    getch();
+
     return "Unnamed";
 }
 
@@ -224,17 +236,10 @@ GUI::ShowSplash(void) {
 void
 GUI::ShowSplash(Color col) {
     WINDOW *w;
-    Rect pos;
 
-    erase();
     refresh();
 
-    pos.w = 80;
-    pos.h = 25;
-    pos.x = (COLS - pos.w) / 2;
-    pos.y = (LINES - pos.h) / 2;
-
-    w = newwin(pos.h, pos.w, pos.y, pos.x);
+    w = GUI::NewCentredWindow(80, 25);
     wattron(w, COLOR_PAIR(col));
     mvwprintw(w, 0, 0, SplashStr);
 
@@ -259,4 +264,9 @@ GUI::ScreenNoise(void) {
             mvaddch(e, i, '#'); //Magic number here is bad but efficient
         }
     }
+}
+
+WINDOW*
+GUI::NewCentredWindow(int w, int h) {
+    return newwin(h, w, (LINES - h) / 2, (COLS - w) / 2);
 }
