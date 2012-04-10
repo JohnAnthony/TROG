@@ -34,7 +34,6 @@ int main(int argc, char** argv) {
     noecho();
     curs_set(0);
     start_color();
-    refresh();
 
     for (int i = 0; i < 8; ++i) 
         init_pair(i, i, COLOR_BLACK);
@@ -43,6 +42,7 @@ int main(int argc, char** argv) {
     signal(SIGINT, interrupt_handler);
 
     do {
+        erase();
         GUI::StartScreen();
         c = GUI::CharacterCreation();
         g = new Game(c);
