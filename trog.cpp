@@ -11,7 +11,10 @@ Game *g = NULL;
 
 static void
 resize_handler(int sign) {
-    g->HandleResize(sign);
+    if (g)
+        g->HandleResize(sign);
+    else
+        refresh();
 }
 
 static void
@@ -35,6 +38,7 @@ int main(int argc, char** argv) {
     start_color();
 
     signal(SIGINT, interrupt_handler);
+    signal(SIGWINCH, resize_handler);
 
     for (int i = 0; i < 8; ++i) 
         init_pair(i, i, COLOR_BLACK);
