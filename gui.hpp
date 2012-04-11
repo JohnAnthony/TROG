@@ -22,6 +22,8 @@ class GUI {
     static void StartScreen(void);
     static void ScreenNoise(void);
     static WINDOW* NewCentredWindow(int w, int h);
+    static void Alert(std::string str);
+    static bool BinaryChoice(std::string str, char a, char b);
 
     private:
     static std::string status_line;

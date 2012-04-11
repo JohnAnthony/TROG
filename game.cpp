@@ -69,11 +69,11 @@ Game::Run(void) {
 
         if (!this->character->isAlive()) {
             running = false;
-            Alert("You have died!");
+            GUI::Alert("You have died!");
         }
     }
 
-    return BinaryChoice("Do you wish to play again?", 'y', 'n');
+    return GUI::BinaryChoice("Do you wish to play again?", 'y', 'n');
 }
 
 void
@@ -314,7 +314,7 @@ Game::MoveCharacter(Direction::Type d) {
             this->cur_level->CentreCam(c->pos);
     }
     else if (t->c == CLOSED_DOOR_CHAR) {                        // A closed door
-        if (BinaryChoice("This door is closed. Open?", 'y', 'n')) {
+        if (GUI::BinaryChoice("This door is closed. Open?", 'y', 'n')) {
             t->c = OPEN_DOOR_CHAR;
             this->cur_level->RevealSight(c);
             GUI::AddMessage("You push the door open with a creak.");
@@ -678,7 +678,7 @@ Game::HandleResize(int signal) {
 
 void
 Game::QuitDialogue(void) {
-    this->running = !BinaryChoice("Are you sure you want to quit?", 'y', 'n');
+    this->running = !GUI::BinaryChoice("Are you sure you want to quit?", 'y', 'n');
     if (this->running)
         this->DoRedraw();
 }

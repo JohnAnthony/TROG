@@ -1,4 +1,5 @@
 #include "level.hpp"
+#include "gui.hpp"
 #include <cstdlib>
 #include <ncurses.h>
 #include <sstream>
@@ -445,7 +446,7 @@ Level::RemoveEnemy(Enemy *e) {
         }
     }
 
-    Alert("Error removing enemy from list. That's bad.");
+    GUI::Alert("Error removing enemy from list. That's bad.");
 }
 
 void

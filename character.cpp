@@ -1,4 +1,5 @@
 #include "character.hpp"
+#include "gui.hpp"
 #include <sstream>
 
 static Affinity ClassAffinities[Character::LAST_CLASS] {
@@ -99,7 +100,7 @@ Character::LevelUp(void) {
     this->FullyRestore();
 
     ss << this->name << " hits level " << this->Level << "!";
-    Alert(ss.str().c_str());
+    GUI::Alert(ss.str().c_str());
 }
 
 void
