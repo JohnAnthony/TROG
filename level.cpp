@@ -430,11 +430,11 @@ Level::DescriptionOfTile(Point p, Game *g) {
         }
     }
 
-    //Gold piles
+    //Items
     for (std::list<Item*>::iterator it = this->items.begin();
             it != this->items.end(); it++) {
         if (p == (*it)->pos) {
-            ss << " and " << (*it)->name;
+            ss << " and " << (*it)->GetName();
         }
     }
 

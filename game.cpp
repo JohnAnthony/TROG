@@ -27,8 +27,8 @@ Game::Game(Character *c) {
     this->PotionSelectMenu = new ScrollableMenu("Potion Select");
 
     //Give the player a few starting potions for luck
-    this->character->ItemToInventory((Item*) new Potion(Potion::WATERY, Potion::HEALING));
-    this->character->ItemToInventory((Item*) new Potion(Potion::WATERY, Potion::HEALING));
+    this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
+    this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
     this->character->ItemToInventory((Item*) new Potion(Potion::LIGHT, Potion::HEALING));
 }
 
@@ -449,7 +449,7 @@ Game::DoPickup(void) {
         GUI::AddMessage("Nothing to pick up.");
     }
     else {
-        ss << "You pick up " << item->name;;
+        ss << "You pick up " << item->GetName();;
         if (item->type == Item::TREASURE_T) {
             this->gold += ((Treasure*)item)->quantity;
             delete item;
@@ -677,7 +677,7 @@ Game::ShowInventoryScreen(void) {
     for (std::list<Item*>::iterator it = c->Inventory.begin();
             it != c->Inventory.end(); ++it, ++i) {
         item = &**it;
-        mvwprintw(w, i + 3, 8, item->name);
+        mvwprintw(w, i + 3, 8, item->GetName().c_str());
     }
 
     wrefresh(w);
@@ -794,7 +794,7 @@ Game::RepopulatePotionMenu(void) {
             it != c->Inventory.end(); ++it) {
         item = &**it;
         if (item->type == Item::POTION)
-            this->PotionSelectMenu->AddItem(item->name);
+            this->PotionSelectMenu->AddItem(item->GetName());
     }
 }
 

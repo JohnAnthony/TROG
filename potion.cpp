@@ -1,17 +1,14 @@
 #include "potion.hpp"
+#include <sstream>
 
-static const char *PotionNames[Potion::LAST_CATEGORY][Potion::LAST_STRENGTH] {
-    {"Watery healing",      "Minor healing",        "Light healing",        "Moderate Healing"},
-    {"Watery enervation",   "Minor enervation",     "Light enervation",     "Moderate enervation"},
-    {"Watery rejuvenation", "Minor rejuvenation",   "Light rejuvenation",   "Moderate rejuvenation"},
-};
+static const char* prelude = "Potion of ";
 
-Potion::Potion(Potion::Strength inStr, Potion::Category inCat) {
-    this->name = PotionNames[inCat][inStr];
-    this->strength = inStr;
+Potion::Potion(Potion::Potency inPot, Potion::Category inCat) {
+    this->potency = inPot;
     this->type = Item::POTION;
     this->symbol = 'p';
 
+    //Category
     if (this->category == Potion::HEALING)
         this->colour = COL_RED;
     else if (this->category == Potion::ENERVATION)
@@ -23,4 +20,11 @@ Potion::Potion(Potion::Strength inStr, Potion::Category inCat) {
 void
 Potion::ApplyEffects(Character *c) {
 
+}
+
+std::string
+Potion::GetName(void) {
+    std::stringstream ss;
+    ss << prelude;
+    return ss.str();
 }

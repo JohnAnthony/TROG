@@ -1,6 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
+#include <string>
 #include "geometry.hpp"
 
 class Item {
@@ -14,12 +15,15 @@ class Item {
 
     Item(void);
     void SetPosition(int x, int y);
+    std::string GetName(void);
 
-    const char *name;
     Type type;
     Point pos;
     char symbol;
     Color colour;
+
+    private:
+    const char *name;
 };
 
 #endif
