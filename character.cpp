@@ -230,6 +230,9 @@ Character::DrinkPotion(int n) {
     int effect;
     std::list<Item*>::iterator it;
 
+    if (n < 0)
+        return;
+
     for (it = this->Inventory.begin(); it != this->Inventory.end(); ++it) {
         item = &**it;
         if (item->type == Item::POTION) {

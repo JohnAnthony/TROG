@@ -103,6 +103,8 @@ ScrollableMenu::SetTitle(std::string str) {
 
 int
 ScrollableMenu::Selection(void) {
+    if (this->Options.size() == 0)
+        return -1;
     return pointer;
 }
 
