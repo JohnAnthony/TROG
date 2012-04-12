@@ -1,6 +1,7 @@
 #include "scrollable_menu.hpp"
 #include "gui.hpp"
 #include <sstream>
+#include <cstring>
 
 #define DEFAULT_HEIGHT 6
 
@@ -48,6 +49,7 @@ ScrollableMenu::Show(void) {
     int i;
     std::string str;
     std::stringstream ss;
+    static char const * const empty_string = "* E M P T Y *";
 
     box(this->window, 0, 0);
 
@@ -56,8 +58,9 @@ ScrollableMenu::Show(void) {
 
     mvwprintw(this->window, 0, (this->sz.x - str.length()) / 2, str.c_str());
 
-    if (this->Options.size() == 0)
-        mvwprintw(this->window, 2, 3, "*EMPTY*");
+    if (this->Options.size() == 0) {
+        mvwprintw(this->window, 2, (this->sz.x - strlen(empty_string)) / 2, empty_string);
+    }
     else {
         i = 0;
         for (std::list<std::string>::iterator it = this->Options.begin();
