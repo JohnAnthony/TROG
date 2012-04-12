@@ -5,6 +5,7 @@
 #include "geometry.hpp"
 #include "item.hpp"
 #include "enemy.hpp"
+#include "potion.hpp"
 #include <string>
 #include <list>
 
@@ -60,6 +61,7 @@ class Character : public Entity {
     void GiveXP(unsigned int quant);
     void Attack(Enemy *e);
     void ItemToInventory(Item *i);
+    void DrinkPotion(int n);
 
     int XP;
     int next_level;

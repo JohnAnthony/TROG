@@ -7,6 +7,7 @@
 #define MIN(x, y)   ((x < y) ? x : y )
 #define LENGTH(X)   (sizeof X / sizeof X[0])
 #define ABS(x)  ((x < 0) ? -x : x)
+#define RANDOM_IN_RANGE(min, max)   ((rand() % (max - min)) + min)
 
 namespace Direction {
     typedef enum {

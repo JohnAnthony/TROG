@@ -221,3 +221,44 @@ void
 Character::ItemToInventory(Item *i) {
     Inventory.push_back(i);
 }
+
+void
+Character::DrinkPotion(int n) {
+    Item *item;
+    Potion *potion;
+    std::stringstream ss;
+    int effect;
+    std::list<Item*>::iterator it;
+
+    for (it = this->Inventory.begin(); it != this->Inventory.end(); ++it) {
+        item = &**it;
+        if (item->type == Item::POTION) {
+            if (n == 0)
+                break;
+            --n;
+        }
+    }
+
+    if (n != 0) {
+        GUI::Alert("Something went wrong trying to find the selected potion...");
+        return;
+    }
+
+    this->Inventory.erase(it);
+    //Now we deal with the effects of the potion
+    potion = (Potion*) item;
+    ss << "You drink a " << potion->name << " ";
+
+    if (potion->category == Potion::HEALING) {
+        effect = RANDOM_IN_RANGE(potion->minPOTENCY, potion->maxPOTENCY);
+        if (effect + this->curHP > this->maxHP)
+            effect = this->maxHP - this->curHP;
+
+        if (effect == 0)
+            ss << "but recover no hitpoints.";
+        else
+            ss << "and recover " << effect << " hitpoints.";
+    }
+
+    GUI::AddMessage(ss.str());
+}

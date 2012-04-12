@@ -209,7 +209,7 @@ Game::HandleInput(int c) {
             else if (c == KEY_NPAGE)
                 this->PotionSelectMenu->PageDown();
             else if (c == '\n') {
-                this->UsePotion(this->PotionSelectMenu->Selection());
+                this->character->DrinkPotion(this->PotionSelectMenu->Selection());
                 return GameMode::MAP_WALK;
             }
             break;
@@ -786,11 +786,6 @@ Game::RepopulatePotionMenu(void) {
         if (item->type == Item::POTION)
             this->PotionSelectMenu->AddItem(item->name);
     }
-}
-
-void
-Game::UsePotion(int n) {
-
 }
 
 Game::~Game(void) {

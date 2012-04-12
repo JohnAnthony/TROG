@@ -46,7 +46,6 @@ class Game {
     void DoAttack(Character *c, Enemy *e);
     void DoWait(void);
     void RepopulatePotionMenu(void);
-    void UsePotion(int n);
 
     int                 gold;
     Level*              levels;
