@@ -211,6 +211,8 @@ Game::HandleInput(int c) {
             else if (c == '\n') {
                 this->character->DrinkPotion(this->PotionSelectMenu->Selection());
                 return GameMode::MAP_WALK;
+                this->cur_level->GiveEnemiesTurn(this->character);
+                this->DoRedraw();
             }
             break;
         default:
