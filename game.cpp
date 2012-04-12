@@ -169,6 +169,8 @@ Game::HandleInput(int c) {
                 this->DoWait();
             else if (c == ',')
                 this->DoPickup();
+            else if (c == '\n')
+                GUI::RedrawStatus();
             break;
         case GameMode::MAP_LOOK:
             if (c == KEY_UP)
