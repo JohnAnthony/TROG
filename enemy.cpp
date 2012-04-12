@@ -27,6 +27,7 @@ Enemy::Enemy(unsigned int inLVL, char inSymbol, Color inCol, int inSight,
     this->descriptor = inDescript;
     this->isActive = false;
     this->mv_energy = 0;
+    this->Level = inLVL;
 }
 
 std::string

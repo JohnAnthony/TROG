@@ -465,17 +465,26 @@ void
 Level::EnemySpawn(Rect *r) {
     Enemy e;
     int type;
+    int total_level;
 
-    type = rand() % LENGTH(EnemyList);
+    total_level = rand() % this->depth + 5;
 
-    e = EnemyList[type];
-    e.pos.x = r->x + rand() % r->w;
-    e.pos.y = r->y + rand() % r->h;
+    while (total_level > 0) {
+        type = rand() % LENGTH(EnemyList);
 
-    if (e.pos == this->stairs_up)
-        return;
+        e = EnemyList[type];
+        do {
+            e.pos.x = r->x + rand() % r->w;
+            e.pos.y = r->y + rand() % r->h;
+         // Find a free space. TODO: Add a TTL
+        } while (GetEnemy(e.pos) || e.pos == this->stairs_up);
 
-    this->enemies.push_back(e);
+        if (e.pos == this->stairs_up)
+            return;
+
+        total_level -= e.Level;
+        this->enemies.push_back(e);
+    }
 }
 
 void
