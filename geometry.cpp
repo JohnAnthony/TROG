@@ -1,8 +1,6 @@
 #include "geometry.hpp"
 #include <ncurses.h>
 
-#define ABS(x)  ((x < 0) ? -x : x)
-
 // extern std::string status_line;
 // 
 bool
@@ -24,3 +22,79 @@ CalculateDistance(Point p1, Point p2) {
     return ret;
 }
 
+Point
+GetRelativePoint(Direction::Type d, Point p) {
+    Point ret;
+
+    if (d == Direction::NW) {
+        ret.x = p.x - 1;
+        ret.y = p.y - 1;
+    }
+    else if (d == Direction::NORTH) {
+        ret.x = p.x;
+        ret.y = p.y - 1;
+    }
+    else if (d == Direction::NE) {
+        ret.x = p.x + 1;
+        ret.y = p.y - 1;
+    }
+    else if (d == Direction::WEST) {
+        ret.x = p.x - 1;
+        ret.y = p.y;
+    }
+    else if (d == Direction::EAST) {
+        ret.x = p.x + 1;
+        ret.y = p.y;
+    }
+    else if (d == Direction::SW) {
+        ret.x = p.x - 1;
+        ret.y = p.y + 1;
+    }
+    else if (d == Direction::SOUTH) {
+        ret.x = p.x;
+        ret.y = p.y + 1;
+    }
+    else if (d == Direction::SE) {
+        ret.x = p.x + 1;
+        ret.y = p.y + 1;
+    }
+    else // Something went wrong. Just return the original.
+        return p;
+
+    return ret;
+}
+
+// Function is incomplete
+// Currently only handles NORTH and SOUTH
+// (because that's all I need at the moment)
+Direction::Type
+MoveCardinal(Direction::Type turn_to, Direction::Type d) {
+    if (d == Direction::LAST_DIRECTION)
+        return turn_to;
+
+    if (turn_to == Direction::SOUTH) {
+        if      (d == Direction::NW)
+            return Direction::WEST;
+        else if (d == Direction::NE)
+            return Direction::EAST;
+        else if (d == Direction::NORTH)
+            return Direction::SOUTH;
+        else if (d == Direction::WEST)
+            return Direction::SW;
+        else if (d == Direction::EAST)
+            return Direction::SE;
+    }
+    else if (turn_to == Direction::NORTH) {
+        if      (d == Direction::SW)
+            return Direction::WEST;
+        else if (d == Direction::SE)
+            return Direction::EAST;
+        else if (d == Direction::SOUTH)
+            return Direction::NORTH;
+        else if (d == Direction::WEST)
+            return Direction::NW;
+        else if (d == Direction::EAST)
+            return Direction::NE;
+    }
+    return d;
+}

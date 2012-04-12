@@ -465,35 +465,70 @@ Level::GiveEnemiesTurn(Character *c) {
 void
 Level::EnemyAdvance(Enemy *e, Character *c) {
     Point target;
+    Direction::Type tries[3];
     Tile *t;
 
     while(e->mv_energy >= e->mv_cost) {
         e->mv_energy -= e->mv_cost;
 
         //Target x
-        if (c->pos.x > e->pos.x)
-            target.x = e->pos.x + 1;
-        else if (c->pos.x < e->pos.x)
-            target.x = e->pos.x - 1;
-        else
-            target.x = e->pos.x;
-
-        //Target y
-        if (c->pos.y > e->pos.y)
-            target.y = e->pos.y + 1;
-        else if (c->pos.y < e->pos.y)
-            target.y = e->pos.y - 1;
-        else
-            target.y = e->pos.y;
-
-        if (target == c->pos) {
-            e->Attack(c);
-            return;
+        if (e->pos.x > c->pos.x) {
+            tries[0] = Direction::WEST;
+            tries[1] = Direction::WEST;
+        }
+        else if (e->pos.x < c->pos.x) {
+            tries[0] = Direction::EAST;
+            tries[1] = Direction::EAST;
+        }
+        else {
+            tries[0] = Direction::LAST_DIRECTION;
+            if (rand() % 2)
+                tries[1] = Direction::EAST;
+            else
+                tries[1] = Direction::WEST;
         }
 
-        t = &this->tiles[target.x][target.y];
+        //Target y
+        if (e->pos.y > c->pos.y) {
+            tries[0] = MoveCardinal(Direction::NORTH, tries[0]);
+            if (ABS(e->pos.x - c->pos.x) < ABS(e->pos.y - c->pos.y)) {
+                tries[2] = tries[1];
+                tries[1] = Direction::NORTH;
+            }
+            else
+                tries[2] = Direction::NORTH;
+        }
+        else if (e->pos.y < c->pos.y) {
+            tries[0] = MoveCardinal(Direction::SOUTH, tries[0]);
+            if (ABS(e->pos.x - c->pos.x) < ABS(e->pos.y - c->pos.y)) {
+                tries[2] = tries[1];
+                tries[1] = Direction::SOUTH;
+            }
+            else
+                tries[2] = Direction::SOUTH;
+        }
+        else
+            tries[2] = (Direction::Type)( rand() % Direction::LAST_DIRECTION );
 
-        if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR)
-            e->pos = target;
+        if (tries[0] == Direction::LAST_DIRECTION)
+            tries[0] = (Direction::Type)( rand() % Direction::LAST_DIRECTION );
+        if (tries[0] == tries[1])
+            tries[1] = (Direction::Type)( rand() % Direction::LAST_DIRECTION );
+
+        for (int i = 0; i < 3; ++i) {
+            target = GetRelativePoint(tries[i], e->pos);
+
+            if (target == c->pos) {
+                e->Attack(c);
+                return;
+            }
+
+            t = &this->tiles[target.x][target.y];
+
+            if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR) {
+                e->pos = target;
+                return;
+            }
+        }
     }
 }

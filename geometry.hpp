@@ -6,7 +6,7 @@
 #define MAX(x, y)   ((x > y) ? x : y )
 #define MIN(x, y)   ((x < y) ? x : y )
 #define LENGTH(X)   (sizeof X / sizeof X[0])
-
+#define ABS(x)  ((x < 0) ? -x : x)
 
 namespace Direction {
     typedef enum {
@@ -17,7 +17,8 @@ namespace Direction {
         NW,
         NE,
         SW,
-        SE
+        SE,
+        LAST_DIRECTION
     } Type;
 }
 
@@ -54,5 +55,7 @@ bool IsOnScreen(Point p);
 void Alert(std::string str);
 bool BinaryChoice(std::string str, char a, char b);
 float CalculateDistance(Point p1, Point p2);
+Direction::Type MoveCardinal(Direction::Type turn_to, Direction::Type d);
+Point GetRelativePoint(Direction::Type d, Point p);
 
 #endif
