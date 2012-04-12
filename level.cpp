@@ -39,11 +39,6 @@ Level::Level(Level* parent) {
     this->ApplyRoom(&r);
 }
 
-Level::~Level(void) {
-    if (this->next)
-        delete this->next;
-}
-
 void
 Level::Draw(Game *g) {
     int e2, i2;
@@ -76,9 +71,9 @@ Level::Draw(Game *g) {
         }
     }
 
-    for (std::list<Item>::iterator it = this->items.begin();
+    for (std::list<Item*>::iterator it = this->items.begin();
             it != this->items.end(); it++) {
-        item = &*it;
+        item = &**it;
         ConditionallyShowObject(item->pos, item->symbol, item->colour);
     }
 
@@ -121,8 +116,12 @@ Level::ApplyRoom(Room * const r) {
     }
 
     //Randomly add gold
-    if (rand() % 100 <= 50)
+    if (rand() % 100 <= 100)
         this->AddGold(r);
+
+    //Randomly add potions
+    if (rand() % 100 <= 100)
+        this->AddPotion(r);
 
     //Randomly add enemies
     if (rand() % 100 <= 70)
@@ -346,14 +345,39 @@ Level::CentreCam(Point p) {
 
 void
 Level::AddGold(Rect *r) {
+    Treasure *tres;
     int quantity;
+    Point p;
+
     quantity = rand() % ((this->depth * this->depth) + 5) + 1;
 
-    Treasure tres = Treasure(quantity);
-    tres.SetPosition(r->x + rand() % r->w, r->y + rand() % r->h);
+    do {
+        p.x = r->x + rand() % r->w;
+        p.y = r->y + rand() % r->h;
+    } while (this->GetItem(p));
 
-    this->items.push_back(tres);
+    tres = new Treasure(quantity);
+    tres->SetPosition(p.x, p.y);
+
+    this->items.push_back((Item*) tres);
 }
+
+void
+Level::AddPotion(Rect *r) {
+    Potion *potion;
+    Point p;
+
+    do {
+        p.x = r->x + rand() % r->w;
+        p.y = r->y + rand() % r->h;
+    } while (this->GetItem(p));
+
+    potion = new Potion(Potion::MINOR, Potion::HEALING);
+    potion->SetPosition(p.x, p.y);
+
+    this->items.push_back((Item*) potion);
+}
+
 
 std::string
 Level::DescriptionOfTile(Point p, Game *g) {
@@ -407,10 +431,10 @@ Level::DescriptionOfTile(Point p, Game *g) {
     }
 
     //Gold piles
-    for (std::list<Item>::iterator it = this->items.begin();
+    for (std::list<Item*>::iterator it = this->items.begin();
             it != this->items.end(); it++) {
-        if (p == it->pos) {
-            ss << " and " << it->name;
+        if (p == (*it)->pos) {
+            ss << " and " << (*it)->name;
         }
     }
 
@@ -547,4 +571,23 @@ Level::GetEnemy(Point p) {
             return &*it;
     }
     return NULL;
+}
+
+Item *
+Level::GetItem(Point p) {
+    for (std::list<Item*>::iterator it = this->items.begin();
+            it != this->items.end(); it++) {
+        if ((*it)->pos == p)
+            return &**it;
+    }
+    return NULL;
+}
+
+Level::~Level(void) {
+    for (std::list<Item*>::iterator it = this->items.begin();
+            it != this->items.end(); it++) {
+        delete &**it;
+    }
+    if (this->next)
+        delete this->next;
 }

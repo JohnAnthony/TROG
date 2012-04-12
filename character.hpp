@@ -50,6 +50,7 @@ class Character : public Entity {
     } Race;
 
     Character(std::string inName, Character::Race inRace, Character::Class inClass);
+    ~Character(void);
     void FullyRestore(void);
     void LevelUp(void);
     void MoveTo(Point p);

@@ -40,6 +40,8 @@ class Level {
     void GiveEnemiesTurn(Character *c);
     void EnemyAdvance(Enemy *e, Character *c);
     Enemy* GetEnemy(Point p);
+    Item* GetItem(Point p);
+    void AddPotion(Rect *r);
 
     int                 depth;
     Tile                tiles[MAP_W][MAP_H];
@@ -47,7 +49,7 @@ class Level {
     Level*              next;
     Point               stairs_up;
     Point               stairs_down;
-    std::list<Item>    items;
+    std::list<Item*>     items;
     std::list<Enemy>    enemies;
 
     static Point        cam;

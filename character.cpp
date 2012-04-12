@@ -226,8 +226,6 @@ void
 Character::DrinkPotion(int n) {
     Item *item;
     Potion *potion;
-    std::stringstream ss;
-    int effect;
     std::list<Item*>::iterator it;
 
     if (n < 0)
@@ -250,21 +248,8 @@ Character::DrinkPotion(int n) {
     this->Inventory.erase(it);
     //Now we deal with the effects of the potion
     potion = (Potion*) item;
-    ss << "You drink a " << potion->name << " ";
-
-    if (potion->category == Potion::HEALING) {
-        effect = RANDOM_IN_RANGE(potion->minPOTENCY, potion->maxPOTENCY);
-        if (effect + this->curHP > this->maxHP)
-            effect = this->maxHP - this->curHP;
-
-        if (effect == 0)
-            ss << "but recover no hitpoints.";
-        else
-            ss << "and recover " << effect << " hitpoints.";
-        this->Heal(effect);
-    }
-
-    GUI::AddMessage(ss.str());
+    potion->ApplyEffects(this);
+    delete potion;
 }
 
 void
@@ -272,4 +257,11 @@ Character::Heal(int n) {
     this->curHP += n;
     if (this->curHP > this->maxHP)
         this->curHP = this->maxHP;
+}
+
+Character::~Character(void) {
+    for (std::list<Item*>::iterator it = this->Inventory.begin();
+            it != this->Inventory.end(); it++) {
+        delete &**it;
+    }
 }
