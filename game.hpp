@@ -15,7 +15,7 @@ namespace GameMode {
         MAP_LOOK,
         INFO_SCREEN,
         CHARACTER_SCREEN,
-        INVENTORY_SCREEN,
+        INVENTORY_SCREEN
     } Type;
 }
 
