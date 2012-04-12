@@ -12,7 +12,7 @@ static Affinity ClassAffinities[Character::LAST_CLASS] {
     {10,    4,  6,  6,  5,  5,  8,  7,  0,  0},  //PALADIN
     {4,     8,  1,  1,  1,  1,  12, 7,  0,  0},  //SAGE
     {6,     0,  2,  2,  2,  2,  0,  5,  0,  0},  //THIEF
-    {4,     10, 1,  1,  1,  1,  15, 7,  0,  0}  //WIZARD
+    {4,     10, 1,  1,  1,  1,  15, 7,  0,  0}   //WIZARD
 };
 static Affinity RaceAffinities[Character::LAST_RACE] {
     //HP    MP  STR TOU ATT DEF MAG WIL MV  SIGHT
@@ -23,7 +23,7 @@ static Affinity RaceAffinities[Character::LAST_RACE] {
     {8,     0,  5,  4,  5,  5,  0,  5,  -25,6},  //HALF_ELF
     {10,    -1, 7,  6,  5,  5,  0,  4,  0,  6},  //HALF_ORC
     {10,    0,  5,  5,  5,  5,  0,  5,  0,  5},  //HUMAN
-    {10,    0,  6,  6,  5,  5,  0,  4,  0,  6}  //LIZARDFOLK
+    {10,    0,  6,  6,  5,  5,  0,  4,  0,  6}   //LIZARDFOLK
 };
 
 Character::Character(std::string inName, Character::Race inRace, Character::Class inClass) {
