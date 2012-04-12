@@ -9,6 +9,7 @@ ScrollableMenu::ScrollableMenu(std::string inTitle) {
     this->sz.y = DEFAULT_HEIGHT;
     this->window = GUI::NewCentredWindow(sz.x, sz.y);
     this->SetTitle(inTitle);
+    this->max_size = 0;
 }
 
 void
@@ -34,7 +35,9 @@ ScrollableMenu::AddItem(std::string str) {
     if (this->sz.x < (int) str.length() + 10)
         sz.x = str.length() + 10;
 
-    if (this->sz.y < LINES)
+    if (this->sz.y < LINES && this->max_size == 0)
+        this->sz.y++;
+    else if (this->sz.y < this->max_size)
         this->sz.y++;
 
     this->Resize(this->sz.x, this->sz.y);
@@ -53,7 +56,9 @@ ScrollableMenu::Show(void) {
 
     mvwprintw(this->window, 0, (this->sz.x - str.length()) / 2, str.c_str());
 
-    if (this->Options.size() != 0) {
+    if (this->Options.size() == 0)
+        mvwprintw(this->window, 2, 3, "*EMPTY*");
+    else {
         i = 0;
         for (std::list<std::string>::iterator it = this->Options.begin();
           it != this->Options.end(); ++it, ++i) {

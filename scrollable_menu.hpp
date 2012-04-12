@@ -27,6 +27,7 @@ class ScrollableMenu {
     std::list<std::string> Options;
     std::string title;
     Point sz;
+    int max_size;
 };
 
 #endif
