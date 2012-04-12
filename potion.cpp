@@ -46,7 +46,7 @@ Potion::ApplyEffects(Character *c) {
     if (this->category == HEALING || this->category == REJUVENATION) {
         effect = 6;
         for (int i = (int) this->potency; i >= 0; --i)
-            effect += rand() % 12 + 1;
+            effect += rand() % 12;
         c->Heal(effect);
     }
 
@@ -54,7 +54,7 @@ Potion::ApplyEffects(Character *c) {
     if (this->category == ENERVATION || this->category == REJUVENATION) {
         effect = 6;
         for (int i = (int) this->potency; i >= 0; --i)
-            effect += rand() % 12 + 1;
+            effect += rand() % 12;
         c->RecoverMP(effect);
     }
 }
