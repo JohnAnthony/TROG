@@ -23,7 +23,6 @@ class Potion : public Item {
         HEALING,
         ENERVATION,
         REJUVENATION,
-        MISC,
         LAST_CATEGORY
     };
 

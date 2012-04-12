@@ -14,7 +14,6 @@ static const char* CATEGORIES[Potion::LAST_CATEGORY] = {
     "Healing",
     "Enervation",
     "Rejuvenation",
-    "Mystery"
 };
 
 Potion::Potion(Potion::Potency inPot, Potion::Category inCat) {
@@ -33,7 +32,6 @@ Potion::Potion(Potion::Potency inPot, Potion::Category inCat) {
         case Potion::REJUVENATION:
             this->colour = COL_PURPLE;
             break;
-        case Potion::MISC:
         case Potion::LAST_CATEGORY:
             this->colour = COL_WHITE;
     }

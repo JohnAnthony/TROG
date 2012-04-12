@@ -124,7 +124,7 @@ Level::ApplyRoom(Room * const r) {
         this->AddPotion(r);
 
     //Randomly add enemies
-    if (rand() % 100 <= 70)
+    if (rand() % 100 < 80)
         this->EnemySpawn(r);
 
     //Handle recursively adding children
@@ -366,16 +366,28 @@ void
 Level::AddPotion(Rect *r) {
     Potion *potion;
     Potion::Category category;
+    int potency;
     Point p;
 
     category = (Potion::Category)(rand() % Potion::LAST_CATEGORY);
 
+    //Determine potency. Deeper = stronger
+    if (this->depth >= 100)
+        potency = Potion::LAST_POTENCY;
+    else {
+        for (potency = 0; potency < (int) Potion::LAST_POTENCY - 1; potency ++) {
+            if (rand() % 100 + this->depth < 100)
+                break;
+        }
+    }
+
+    //Find empty potition TODO: Add a safeguard
     do {
         p.x = r->x + rand() % r->w;
         p.y = r->y + rand() % r->h;
     } while (this->GetItem(p));
 
-    potion = new Potion(Potion::MINOR, category);
+    potion = new Potion((Potion::Potency) potency, category);
     potion->SetPosition(p.x, p.y);
 
     this->items.push_back((Item*) potion);
