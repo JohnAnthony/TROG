@@ -254,9 +254,32 @@ Character::DrinkPotion(int n) {
 
 void
 Character::Heal(int n) {
+    std::stringstream ss;
+
+    ss << "Recovered " << n << " hp.";
+
     this->curHP += n;
-    if (this->curHP > this->maxHP)
+    if (this->curHP > this->maxHP) {
+        ss << " (" << this->curHP - this->maxHP << " wasted)";
         this->curHP = this->maxHP;
+    }
+
+    GUI::AddMessage(ss.str());
+}
+
+void
+Character::RecoverMP(int n) {
+    std::stringstream ss;
+
+    ss << "Recovered " << n << " mp.";
+
+    this->curMP += n;
+    if (this->curMP > this->maxMP) {
+        ss << " (" << this->curMP - this->maxMP << " wasted)";
+        this->curMP = this->maxMP;
+    }
+
+    GUI::AddMessage(ss.str());
 }
 
 Character::~Character(void) {
