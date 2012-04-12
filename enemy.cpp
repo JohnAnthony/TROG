@@ -3,6 +3,7 @@
 #include "gui.hpp"
 #include <sstream>
 #include <ncurses.h>
+#include <cstdlib>
 
 Enemy::Enemy(void) {}
 

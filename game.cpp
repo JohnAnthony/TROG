@@ -1,4 +1,5 @@
 #include <ncurses.h>
+#include <cstdlib>
 #include <sstream>
 #include "game.hpp"
 #include "geometry.hpp"

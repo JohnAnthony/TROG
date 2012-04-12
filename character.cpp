@@ -1,6 +1,7 @@
 #include "character.hpp"
 #include "gui.hpp"
 #include <sstream>
+#include <cstdlib>
 
 static Affinity ClassAffinities[Character::LAST_CLASS] {
     //HP    MP  STR TOU ATT DEF MAG WIL MV  SIGHT
