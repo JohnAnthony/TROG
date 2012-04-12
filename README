@@ -6,7 +6,6 @@ and older versions of GCC won't compile it. I suggest AT LEAST 4.7.0. clang also
 has been shown to compile from version 3.0 or later, although I'm making no
 guarantees.
 
-
 Dependencies
 ------------
 
