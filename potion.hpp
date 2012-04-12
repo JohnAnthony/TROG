@@ -11,9 +11,11 @@ class Potion : public Item {
     public:
     enum Potency {
         MINOR,
+        LESSER,
         LIGHT,
         MODERATE,
         AVERAGE,
+        STRONG,
         LAST_POTENCY
     };
 

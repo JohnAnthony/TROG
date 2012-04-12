@@ -4,6 +4,7 @@
 static const char* PRELUDE = "Potion of ";
 static const char* POTENCIES[Potion::LAST_POTENCY] = {
     "Minor",
+    "Lesser",
     "Light",
     "Moderate",
     "Average"
@@ -31,7 +32,17 @@ Potion::Potion(Potion::Potency inPot, Potion::Category inCat) {
 
 void
 Potion::ApplyEffects(Character *c) {
+    int effect;
 
+    //Healing
+    if (this->category == HEALING || this->category == REJUVENATION) {
+
+    }
+
+    //Mana restoration
+    if (this->category == ENERVATION || this->category == REJUVENATION) {
+
+    }
 }
 
 std::string
