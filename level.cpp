@@ -116,11 +116,11 @@ Level::ApplyRoom(Room * const r) {
     }
 
     //Randomly add gold
-    if (rand() % 100 <= 100)
+    if (rand() % 100 < 50)
         this->AddGold(r);
 
     //Randomly add potions
-    if (rand() % 100 <= 100)
+    if (rand() % 100 < 20)
         this->AddPotion(r);
 
     //Randomly add enemies
