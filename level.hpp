@@ -43,6 +43,7 @@ class Level {
     std::string DescriptionOfTile(Point p, Game *g);
     void GiveEnemiesTurn(Character *c);
     void EnemyAdvance(Enemy *e, Character *c);
+    Enemy* GetEnemy(Point p);
 
     int                 depth;
     Tile                tiles[MAP_W][MAP_H];

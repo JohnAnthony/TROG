@@ -523,6 +523,9 @@ Level::EnemyAdvance(Enemy *e, Character *c) {
                 return;
             }
 
+            if (this->GetEnemy(target)) // Can't move into an occupied space
+                continue;
+
             t = &this->tiles[target.x][target.y];
 
             if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR) {
@@ -531,4 +534,14 @@ Level::EnemyAdvance(Enemy *e, Character *c) {
             }
         }
     }
+}
+
+Enemy*
+Level::GetEnemy(Point p) {
+    for (std::list<Enemy>::iterator it = this->enemies.begin();
+            it != this->enemies.end(); it++) {
+        if (it->pos == p)
+            return &*it;
+    }
+    return NULL;
 }
