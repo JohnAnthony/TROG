@@ -7,7 +7,7 @@
 #include "gui.hpp"
 #include "potion.hpp"
 #include "item.hpp"
-#include <typeinfo>
+#include "scrollable_menu.hpp"
 
 Game::Game(Character *c) {
     this->character = c;
@@ -112,6 +112,10 @@ Game::SwitchGameMode(GameMode::Type gmt) {
         case (GameMode::INVENTORY_SCREEN):
             this->ShowInventoryScreen();
             break;
+        case (GameMode::POTION_SELECT):
+            this->PotionSelectMenu.Reset();
+            this->PotionSelectMenu.Show();
+            break;
     }
 }
 
@@ -189,6 +193,16 @@ Game::HandleInput(int c) {
             break;
         case GameMode::INFO_SCREEN:
         case GameMode::CHARACTER_SCREEN:
+            break;
+        case GameMode::POTION_SELECT:
+            if (c == KEY_UP)
+                this->PotionSelectMenu.PtrUp();
+            else if (c == KEY_DOWN)
+                this->PotionSelectMenu.PtrDown();
+            else if (c == KEY_PPAGE)
+                this->PotionSelectMenu.PageUp();
+            else if (c == KEY_NPAGE)
+                this->PotionSelectMenu.PageDown();
             break;
         default:
             break;

@@ -5,6 +5,7 @@
 #include "character.hpp"
 #include "geometry.hpp"
 #include "enemy.hpp"
+#include "scrollable_menu.hpp"
 #include <string>
 
 class Level;
@@ -15,7 +16,8 @@ namespace GameMode {
         MAP_LOOK,
         INFO_SCREEN,
         CHARACTER_SCREEN,
-        INVENTORY_SCREEN
+        INVENTORY_SCREEN,
+        POTION_SELECT
     } Type;
 }
 
@@ -51,7 +53,8 @@ class Game {
     int                 cur_floor;
     bool                running;
     GameMode::Type      game_mode;
-    Point               target; //For examining things
+    Point               target; //Look target
+    ScrollableMenu      PotionSelectMenu;
 };
 
 #endif
