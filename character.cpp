@@ -37,14 +37,14 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
     this->affinity = this->SumAffinities(inRace, inClass);
     this->next_level = 1000;
 
-    this->maxHP  = this->affinity.hp;
-    this->maxMP  = this->affinity.mp;
-    this->maxSTR = this->affinity.str;
-    this->maxTOU = this->affinity.tou;
-    this->maxATT = this->affinity.att;
-    this->maxDEF = this->affinity.def;
-    this->maxMAG = this->affinity.mag;
-    this->maxWIL = this->affinity.wil;
+    this->maxHP  = this->affinity.hp * 2;
+    this->maxMP  = this->affinity.mp * 2;
+    this->maxSTR = this->affinity.str * 2;
+    this->maxTOU = this->affinity.tou * 2;
+    this->maxATT = this->affinity.att * 2;
+    this->maxDEF = this->affinity.def * 2;
+    this->maxMAG = this->affinity.mag * 2;
+    this->maxWIL = this->affinity.wil * 2;
 
     //You come into this world naked and screaming
     this->helm = NULL;
