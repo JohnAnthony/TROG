@@ -7,6 +7,7 @@
 #include "gui.hpp"
 #include "potion.hpp"
 #include "item.hpp"
+#include <typeinfo>
 
 Game::Game(Character *c) {
     this->character = c;
@@ -640,7 +641,7 @@ Game::ShowInventoryScreen(void) {
     for (std::list<Item*>::iterator it = c->Inventory.begin();
             it != c->Inventory.end(); ++it, ++i) {
         item = &**it;
-        mvwprintw(w, i + 3, 3, item->name);
+        mvwprintw(w, i + 3, 8, item->name);
     }
 
     wrefresh(w);
