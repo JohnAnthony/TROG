@@ -1,7 +1,19 @@
 #include "potion.hpp"
 #include <sstream>
 
-static const char* prelude = "Potion of ";
+static const char* PRELUDE = "Potion of ";
+static const char* POTENCIES[Potion::LAST_POTENCY] = {
+    "Minor",
+    "Light",
+    "Moderate",
+    "Average"
+};
+static const char* CATEGORIES[Potion::LAST_CATEGORY] = {
+    "Healing",
+    "Enervation",
+    "Rejuvenation",
+    "Mystery"
+};
 
 Potion::Potion(Potion::Potency inPot, Potion::Category inCat) {
     this->potency = inPot;
@@ -25,6 +37,9 @@ Potion::ApplyEffects(Character *c) {
 std::string
 Potion::GetName(void) {
     std::stringstream ss;
-    ss << prelude;
+    ss << PRELUDE;
+    ss << POTENCIES[this->potency];
+    ss << ' ';
+    ss << CATEGORIES[this->category];
     return ss.str();
 }
