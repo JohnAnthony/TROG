@@ -2,6 +2,8 @@
 #define ITEM_H
 
 class Item {
+    public:
+    const char *name;
 };
 
 #endif

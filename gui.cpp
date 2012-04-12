@@ -349,5 +349,3 @@ GUI::BinaryChoice(std::string str, char a, char b) {
         return true;
     return false;
 }
-
-

@@ -216,3 +216,8 @@ Character::GiveXP(unsigned int quant) {
     if (this->XP >= this->next_level)
         this->LevelUp();
 }
+
+void
+Character::ItemToInventory(Item *i) {
+    Inventory.push_back(i);
+}

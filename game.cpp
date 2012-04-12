@@ -1,9 +1,12 @@
 #include <ncurses.h>
 #include <cstdlib>
 #include <sstream>
+#include <list>
 #include "game.hpp"
 #include "geometry.hpp"
 #include "gui.hpp"
+#include "potion.hpp"
+#include "item.hpp"
 
 Game::Game(Character *c) {
     this->character = c;
@@ -18,6 +21,11 @@ Game::Game(Character *c) {
 
     this->game_mode = GameMode::MAP_WALK;
     this->running = true;
+
+    //Give the player a few starting potions for luck
+    this->character->ItemToInventory((Item*) Potion::GetPotion(Potion::HEAL_WATERY));
+    this->character->ItemToInventory((Item*) Potion::GetPotion(Potion::HEAL_WATERY));
+    this->character->ItemToInventory((Item*) Potion::GetPotion(Potion::HEAL_LIGHT));
 }
 
 void
@@ -581,8 +589,13 @@ void
 Game::ShowInventoryScreen(void) {
     WINDOW *w;
     Rect pos;
+    Character *c;
     std::stringstream ss;
     std::string s;
+    Item* item;
+    int i;
+
+    c = this->character;
 
     pos.w = 80;
     pos.h = 25;
@@ -622,6 +635,13 @@ Game::ShowInventoryScreen(void) {
     ss << "Wealth :: " << this->gold << "gp";
     s = ss.str();
     mvwprintw(w, 1, pos.w - 2 - s.length(), s.c_str());
+
+    i = 0;
+    for (std::list<Item*>::iterator it = c->Inventory.begin();
+            it != c->Inventory.end(); ++it, ++i) {
+        item = &**it;
+        mvwprintw(w, i + 3, 3, item->name);
+    }
 
     wrefresh(w);
     delwin(w);

@@ -6,6 +6,7 @@
 #include "item.hpp"
 #include "enemy.hpp"
 #include <string>
+#include <list>
 
 typedef struct {
     int hp;
@@ -58,15 +59,16 @@ class Character : public Entity {
     Affinity SumAffinities(Race inRace, Class inClass);
     void GiveXP(unsigned int quant);
     void Attack(Enemy *e);
+    void ItemToInventory(Item *i);
 
     int XP;
     int next_level;
     int Level;
-
     Class cclass;
     Race race;
     Affinity affinity;
     std::string name;
+    std::list<Item*> Inventory;
     Item *helm;
     Item *armour;
     Item *weapon;
