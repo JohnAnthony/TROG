@@ -7,6 +7,7 @@
 #include "gui.hpp"
 #include "potion.hpp"
 #include "item.hpp"
+#include "treasure.hpp"
 #include "scrollable_menu.hpp"
 
 Game::Game(Character *c) {
@@ -432,26 +433,29 @@ Game::DrawAsOverlay(Point p, char c, int col) {
 
 void
 Game::DoPickup(void) {
-    GoldPile *gp;
+    Item *item;
     std::stringstream ss;
-    std::list<GoldPile>::iterator it;
+    std::list<Item>::iterator it;
 
-    for (it = this->cur_level->goldpiles.begin(), gp = NULL;
-            it != this->cur_level->goldpiles.end(); ++it) {
+    for (it = this->cur_level->items.begin(), item = NULL;
+            it != this->cur_level->items.end(); ++it) {
         if (it->pos == this->character->pos) {
-            gp = &*it;
+            item = &*it;
             break;
         }
     }
 
-    if (!gp) {
+    if (!item) {
         GUI::AddMessage("Nothing to pick up.");
     }
     else {
-        this->gold += gp->quantity;
-        ss << "You pick up " << gp->quantity << "gp.";
+        ss << "You pick up " << item->name;;
+        if (item->type == Item::TREASURE_T)
+            this->gold += ((Treasure*)item)->quantity;
+        else
+            this->character->ItemToInventory(item);
         GUI::AddMessage(ss.str());
-        this->cur_level->goldpiles.erase(it);
+        this->cur_level->items.erase(it);
     }
 }
 

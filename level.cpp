@@ -47,6 +47,7 @@ Level::~Level(void) {
 void
 Level::Draw(Game *g) {
     int e2, i2;
+    Item *item;
     Tile *t;
     char c;
 
@@ -75,9 +76,10 @@ Level::Draw(Game *g) {
         }
     }
 
-    for (std::list<GoldPile>::iterator it = this->goldpiles.begin();
-            it != this->goldpiles.end(); it++) {
-        ConditionallyShowObject(it->pos, '$', COL_YELLOW);
+    for (std::list<Item>::iterator it = this->items.begin();
+            it != this->items.end(); it++) {
+        item = &*it;
+        ConditionallyShowObject(item->pos, item->symbol, item->colour);
     }
 
     //Special objects
@@ -344,12 +346,13 @@ Level::CentreCam(Point p) {
 
 void
 Level::AddGold(Rect *r) {
-    GoldPile gp;
-    gp.pos.x = r->x + rand() % r->w;
-    gp.pos.y = r->y + rand() % r->h;
-    gp.quantity = rand() % ((this->depth * this->depth) + 5) + 1;
+    int quantity;
+    quantity = rand() % ((this->depth * this->depth) + 5) + 1;
 
-    this->goldpiles.push_back(gp);
+    Treasure tres = Treasure(quantity);
+    tres.SetPosition(r->x + rand() % r->w, r->y + rand() % r->h);
+
+    this->items.push_back(tres);
 }
 
 std::string
@@ -404,10 +407,10 @@ Level::DescriptionOfTile(Point p, Game *g) {
     }
 
     //Gold piles
-    for (std::list<GoldPile>::iterator it = this->goldpiles.begin();
-            it != this->goldpiles.end(); it++) {
+    for (std::list<Item>::iterator it = this->items.begin();
+            it != this->items.end(); it++) {
         if (p == it->pos) {
-            ss << " and " << it->quantity << "gp";
+            ss << " and " << it->name;
         }
     }
 

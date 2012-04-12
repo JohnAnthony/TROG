@@ -8,6 +8,7 @@
 #include "game.hpp"
 #include "item.hpp"
 #include "enemy.hpp"
+#include "treasure.hpp"
 
 #define MAP_W   100
 #define MAP_H   50
@@ -19,11 +20,6 @@ class Game;
 struct Corridor {
     Rect pos;
     Direction::Type direction;
-};
-
-struct GoldPile {
-    Point pos;
-    int quantity;
 };
 
 class Level {
@@ -51,7 +47,7 @@ class Level {
     Level*              next;
     Point               stairs_up;
     Point               stairs_down;
-    std::list<GoldPile> goldpiles;
+    std::list<Item>    items;
     std::list<Enemy>    enemies;
 
     static Point        cam;
