@@ -365,14 +365,17 @@ Level::AddGold(Rect *r) {
 void
 Level::AddPotion(Rect *r) {
     Potion *potion;
+    Potion::Category category;
     Point p;
+
+    category = (Potion::Category)(rand() % Potion::LAST_CATEGORY);
 
     do {
         p.x = r->x + rand() % r->w;
         p.y = r->y + rand() % r->h;
     } while (this->GetItem(p));
 
-    potion = new Potion(Potion::MINOR, Potion::HEALING);
+    potion = new Potion(Potion::MINOR, category);
     potion->SetPosition(p.x, p.y);
 
     this->items.push_back((Item*) potion);
