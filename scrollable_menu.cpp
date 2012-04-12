@@ -2,7 +2,7 @@
 #include "gui.hpp"
 #include <sstream>
 
-#define DEFAULT_HEIGHT 5
+#define DEFAULT_HEIGHT 6
 
 ScrollableMenu::ScrollableMenu(std::string inTitle) {
     this->sz.x = this->title.length() + 6;
@@ -16,7 +16,7 @@ ScrollableMenu::Reset(void) {
     this->pointer = 0;
     this->scroll_offset = 0;
     this->Options.clear();
-    this->Resize(DEFAULT_HEIGHT, this->title.length() + 6);
+    this->Resize(this->title.length() + 6, DEFAULT_HEIGHT);
 }
 
 void
@@ -32,7 +32,12 @@ ScrollableMenu::AddItem(std::string str) {
     this->Options.push_back(str);
 
     if (this->sz.x < (int) str.length() + 10)
-        this->Resize(str.length() + 10, this->sz.y);
+        sz.x = str.length() + 10;
+
+    if (this->sz.y < LINES)
+        this->sz.y++;
+
+    this->Resize(this->sz.x, this->sz.y);
 }
 
 void
