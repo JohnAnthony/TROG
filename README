@@ -1,3 +1,22 @@
+COMPILATION INSTRUCTIONS
+========================
+
+PLEASE use an up-to-date compiler. This project uses a bunch of C++0x features
+and older versions of GCC won't compile it. I suggest AT LEAST 4.7.0. clang also
+has been shown to compile from version 3.0 or later, although I'm making no
+guarantees.
+
+
+Dependencies
+------------
+
+Any version of ncurses from the last 10 years should do you. Do remember to get
+the -devel package if you're using a Debian-based system (i.e. Ubuntu).
+
+
+            --> PAGE BREAK <--
+
+
 KEYBINDINGS
 ===========
 
@@ -36,8 +55,7 @@ zxc 123
 Arrow Keys = Move Camera
 
 
-
-
+            --> PAGE BREAK <--
 
 
 ITEMS
