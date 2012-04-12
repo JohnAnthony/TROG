@@ -26,7 +26,7 @@ class Game {
     Game(Character *c);
     ~Game(void);
     bool Run(void);
-    void HandleInput(int c);
+    GameMode::Type HandleInput(int c);
     void GoUpALevel(void);
     void GoDownALevel(void);
     void SwitchGameMode(GameMode::Type gmt);
@@ -45,6 +45,8 @@ class Game {
     void QuitDialogue(void);
     void DoAttack(Character *c, Enemy *e);
     void DoWait(void);
+    void RepopulatePotionMenu(void);
+    void UsePotion(int n);
 
     int                 gold;
     Level*              levels;
@@ -54,7 +56,7 @@ class Game {
     bool                running;
     GameMode::Type      game_mode;
     Point               target; //Look target
-    ScrollableMenu      PotionSelectMenu;
+    ScrollableMenu      *PotionSelectMenu;
 };
 
 #endif
