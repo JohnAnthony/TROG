@@ -27,6 +27,16 @@ Level::Level(Level* parent) {
         }
     }
 
+    // Find all enemies suitable for this depth
+    if (parent)
+        this->maximal_enemy = parent->maximal_enemy;
+    else
+        this->maximal_enemy = 0;
+    while ((&EnemyList[this->maximal_enemy])->Level <= this->depth &&
+      this->maximal_enemy < LENGTH(EnemyList)) {
+        this->maximal_enemy++;
+    }
+
     r.w = (rand() % 15) + 5;
     r.h = (rand() % 5) + 5;
     r.x = rand() % (MAP_W - r.w - 2) + 1;
@@ -36,7 +46,7 @@ Level::Level(Level* parent) {
     this->stairs_up.y = r.y + rand() % (r.h - 2) + 1;
     this->stairs_down.x = -1;   //While this is -1 it means we haven't placed it
 
-    this->ApplyRoom(&r);
+    this->ApplyRoom(&r, true);
 }
 
 void
@@ -101,7 +111,7 @@ Level::DrawObjectRelative(Point p, char c) {
 }
 
 void
-Level::ApplyRoom(Room * const r) {
+Level::ApplyRoom(Room * const r, bool isFirstRoom) {
     Corridor c;
     Room r_child;
     int exits;
@@ -124,7 +134,7 @@ Level::ApplyRoom(Room * const r) {
         this->AddPotion(r);
 
     //Randomly add enemies
-    if (rand() % 100 < 80)
+    if (rand() % 100 < 80 && !isFirstRoom)
         this->EnemySpawn(r);
 
     //Handle recursively adding children
@@ -138,7 +148,7 @@ Level::ApplyRoom(Room * const r) {
 
         exits++;
         this->ApplyCorridor(&c);
-        this->ApplyRoom(&r_child);
+        this->ApplyRoom(&r_child, false);
     }
 
     if (this->stairs_down.x == -1 && exits == 0) { // We need to place stairs here
@@ -467,10 +477,10 @@ Level::EnemySpawn(Rect *r) {
     int type;
     int total_level;
 
-    total_level = rand() % this->depth + 5;
+    total_level = rand() % this->depth + 3;
 
     while (total_level > 0) {
-        type = rand() % LENGTH(EnemyList);
+        type = rand() % this->maximal_enemy;
 
         e = EnemyList[type];
         do {

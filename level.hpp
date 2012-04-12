@@ -43,20 +43,21 @@ class Level {
     Item* GetItem(Point p);
     void AddPotion(Rect *r);
 
-    int                 depth;
+    unsigned int        depth;
     Tile                tiles[MAP_W][MAP_H];
     Level*              prev;
     Level*              next;
     Point               stairs_up;
     Point               stairs_down;
-    std::list<Item*>     items;
+    std::list<Item*>    items;
     std::list<Enemy>    enemies;
+    unsigned int        maximal_enemy;
 
     static Point        cam;
     static Character    *character;
 
     private:
-    void ApplyRoom(Room * const r);
+    void ApplyRoom(Room * const r, bool isFirstRoom);
     void ApplyCorridor(Corridor const * const c);
     bool CorridorFits(Corridor const * const c);
     bool RoomFits(Room const * const r);
