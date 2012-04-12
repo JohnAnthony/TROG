@@ -62,6 +62,7 @@ class Character : public Entity {
     void Attack(Enemy *e);
     void ItemToInventory(Item *i);
     void DrinkPotion(int n);
+    void Heal(int n);
 
     int XP;
     int next_level;

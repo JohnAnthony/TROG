@@ -261,7 +261,15 @@ Character::DrinkPotion(int n) {
             ss << "but recover no hitpoints.";
         else
             ss << "and recover " << effect << " hitpoints.";
+        this->Heal(effect);
     }
 
     GUI::AddMessage(ss.str());
+}
+
+void
+Character::Heal(int n) {
+    this->curHP += n;
+    if (this->curHP > this->maxHP)
+        this->curHP = this->maxHP;
 }
