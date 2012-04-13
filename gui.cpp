@@ -3,6 +3,7 @@
 #include <ncurses.h>
 #include <sstream>
 #include <cstring>
+#include <iostream>
 
 #define NOISE_CHARACTER  '#'
 
@@ -121,6 +122,10 @@ GUI::SelectRace(void) {
     pos.y = (LINES - pos.h) / 2;
 
     w = newwin(pos.h, pos.w, pos.y, pos.x);
+    if (!w) {
+        std::cerr << "Error making window for race selection!";
+        exit(1);
+    }
     box(w, 0, 0);
 
     mvwprintw(w, 0, (pos.w - strlen(title)) / 2, title);
@@ -181,6 +186,10 @@ GUI::SelectClass(void) {
     pos.y = (LINES - pos.h) / 2;
 
     w = newwin(pos.h, pos.w, pos.y, pos.x);
+    if (!w) {
+        std::cerr << "Error making window for class selection!";
+        exit(1);
+    }
     box(w, 0, 0);
 
     mvwprintw(w, 0, (pos.w - strlen(title)) / 2, title);
@@ -227,6 +236,10 @@ GUI::GetString(std::string prompt) {
     curs_set(1);
     refresh();
     w = GUI::NewCentredWindow(IN_SZ + prompt.length() + 6, 3);
+    if (!w) {
+        std::cerr << "Error making window for string selection!";
+        return "";
+    }
     box(w, 0, 0);
     mvwprintw(w, 1, 2, prompt.c_str());
     waddch(w, ' ');
@@ -302,6 +315,10 @@ GUI::Alert(std::string str) {
     pos.y = (LINES - pos.h) / 2;
 
     w = newwin(pos.h, pos.w, pos.y, pos.x);
+    if (!w) {
+        std::cerr << "Error making window for an alert!";
+        return;
+    }
     box(w, 0, 0);
 
     wrefresh(w);
@@ -340,6 +357,10 @@ GUI::Alert2(char const * const * const msg) {
     pos.y = (LINES - pos.h) / 2;
 
     w = newwin(pos.h, pos.w, pos.y, pos.x);
+    if (!w) {
+        std::cerr << "Error making window for an alert!";
+        return;
+    }
     box(w, 0, 0);
 
     wrefresh(w);
@@ -376,6 +397,10 @@ GUI::BinaryChoice(std::string str, char a, char b) {
     pos.y = (LINES - pos.h) / 2;
 
     w = newwin(pos.h, pos.w, pos.y, pos.x);
+    if (!w) {
+        std::cerr << "Error making window for a binary choice! (Defaulted to true)";
+        return true;
+    }
     box(w, 0, 0);
     pos.x = (pos.w - str.length()) / 2;
     mvwprintw(w, 1, pos.x, str.c_str());
