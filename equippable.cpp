@@ -4,7 +4,7 @@
 #include <sstream>
 
 static char const * const EquippableNames[Equippable::LAST_CATEGORY] = {
-    "Sword",
+    "Short Sword",
     "Light Shield",
     "Light Chain",
     "Holy Symbol",
@@ -24,7 +24,7 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
     this->modWIL = 0;
 
     switch (inCat) {
-        case Equippable::SWORD:
+        case Equippable::SHORT_SWORD:
             this->modSTR = 5 + DICEROLL(pot, 10);
             this->modATT = 5 + DICEROLL(pot, 10);
             this->location = WEAPON;

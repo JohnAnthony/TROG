@@ -7,7 +7,7 @@
 class Equippable : public Item {
     public:
     enum Category {
-        SWORD,
+        SHORT_SWORD,
         LIGHT_SHIELD,
         LIGHT_CHAIN,
         HOLY_SYMBOL,
