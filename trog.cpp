@@ -6,6 +6,7 @@
 #include "geometry.hpp"
 #include "gui.hpp"
 #include <signal.h>
+#include <iostream>
 
 Game *g = NULL;
 Character *c;
@@ -38,6 +39,12 @@ int main(int argc, char** argv) {
     noecho();
     curs_set(0);
     start_color();
+
+    if (COLS < 80 || LINES < 25) {
+        endwin();
+        std::cout << "ERROR: This game requires a terminal size of at least 80x25\n";
+        exit(1);
+    }
 
     signal(SIGINT, interrupt_handler);
     signal(SIGWINCH, resize_handler);
