@@ -38,33 +38,33 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
     this->affinity = this->SumAffinities(inRace, inClass);
     this->next_level = 1000;
 
-    this->maxHP  = this->affinity.hp * 2;
-    this->maxMP  = this->affinity.mp * 2;
-    this->maxSTR = this->affinity.str * 2;
-    this->maxTOU = this->affinity.tou * 2;
-    this->maxATT = this->affinity.att * 2;
-    this->maxDEF = this->affinity.def * 2;
-    this->maxMAG = this->affinity.mag * 2;
-    this->maxWIL = this->affinity.wil * 2;
+    this->baseHP  = this->affinity.hp * 2;
+    this->baseMP  = this->affinity.mp * 2;
+    this->baseSTR = this->affinity.str * 2;
+    this->baseTOU = this->affinity.tou * 2;
+    this->baseATT = this->affinity.att * 2;
+    this->baseDEF = this->affinity.def * 2;
+    this->baseMAG = this->affinity.mag * 2;
+    this->baseWIL = this->affinity.wil * 2;
 
     for (int i = 0; i < 2; ++i) {
         this->Level++;
         if (this->affinity.hp > 0)
-            this->maxHP += rand() % this->affinity.hp + 1;
+            this->baseHP += rand() % this->affinity.hp + 1;
         if (this->affinity.mp > 0)
-            this->maxMP += rand() % this->affinity.mp + 1;
+            this->baseMP += rand() % this->affinity.mp + 1;
         if (this->affinity.str > 0)
-            this->maxSTR += rand() % this->affinity.str + 1;
+            this->baseSTR += rand() % this->affinity.str + 1;
         if (this->affinity.tou > 0)
-            this->maxTOU += rand() % this->affinity.tou + 1;
+            this->baseTOU += rand() % this->affinity.tou + 1;
         if (this->affinity.att > 0)
-            this->maxATT += rand() % this->affinity.att + 1;
+            this->baseATT += rand() % this->affinity.att + 1;
         if (this->affinity.def > 0)
-            this->maxDEF += rand() % this->affinity.def + 1;
+            this->baseDEF += rand() % this->affinity.def + 1;
         if (this->affinity.mag > 0)
-            this->maxMAG += rand() % this->affinity.mag + 1;
+            this->baseMAG += rand() % this->affinity.mag + 1;
         if (this->affinity.wil > 0)
-            this->maxWIL += rand() % this->affinity.wil + 1;
+            this->baseWIL += rand() % this->affinity.wil + 1;
     }
 
     // Handle equipment for different classes
@@ -116,14 +116,10 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
 
 void
 Character::FullyRestore(void) {
-    this->curHP = this->maxHP;
-    this->curMP = this->maxMP;
-    this->curSTR = this->maxSTR;
-    this->curTOU = this->maxTOU;
-    this->curATT = this->maxATT;
-    this->curDEF = this->maxDEF;
-    this->curMAG = this->maxMAG;
-    this->curWIL = this->maxWIL;
+    this->curHP = this->baseHP;
+    this->curMP = this->baseMP;
+
+    this->RecalcEffective();
 }
 
 void
@@ -132,21 +128,21 @@ Character::LevelUp(void) {
 
     this->Level++;
     if (this->affinity.hp > 0)
-        this->maxHP += rand() % this->affinity.hp + 1;
+        this->baseHP += rand() % this->affinity.hp + 1;
     if (this->affinity.mp > 0)
-        this->maxMP += rand() % this->affinity.mp + 1;
+        this->baseMP += rand() % this->affinity.mp + 1;
     if (this->affinity.str > 0)
-        this->maxSTR += rand() % this->affinity.str + 1;
+        this->baseSTR += rand() % this->affinity.str + 1;
     if (this->affinity.tou > 0)
-        this->maxTOU += rand() % this->affinity.tou + 1;
+        this->baseTOU += rand() % this->affinity.tou + 1;
     if (this->affinity.att > 0)
-        this->maxATT += rand() % this->affinity.att + 1;
+        this->baseATT += rand() % this->affinity.att + 1;
     if (this->affinity.def > 0)
-        this->maxDEF += rand() % this->affinity.def + 1;
+        this->baseDEF += rand() % this->affinity.def + 1;
     if (this->affinity.mag > 0)
-        this->maxMAG += rand() % this->affinity.mag + 1;
+        this->baseMAG += rand() % this->affinity.mag + 1;
     if (this->affinity.wil > 0)
-        this->maxWIL += rand() % this->affinity.wil + 1;
+        this->baseWIL += rand() % this->affinity.wil + 1;
     // Note that mv and sight don't get modified with everythign else
 
     this->next_level += this->Level * 1000;
@@ -311,9 +307,9 @@ Character::Heal(int n) {
     ss << "Recovered " << n << " hp.";
 
     this->curHP += n;
-    if (this->curHP > this->maxHP) {
-        ss << " (" << this->curHP - this->maxHP << " wasted)";
-        this->curHP = this->maxHP;
+    if (this->curHP > this->baseHP) {
+        ss << " (" << this->curHP - this->baseHP << " wasted)";
+        this->curHP = this->baseHP;
     }
 
     GUI::AddMessage(ss.str());
@@ -326,9 +322,9 @@ Character::RecoverMP(int n) {
     ss << "Recovered " << n << " mp.";
 
     this->curMP += n;
-    if (this->curMP > this->maxMP) {
-        ss << " (" << this->curMP - this->maxMP << " wasted)";
-        this->curMP = this->maxMP;
+    if (this->curMP > this->baseMP) {
+        ss << " (" << this->curMP - this->baseMP << " wasted)";
+        this->curMP = this->baseMP;
     }
 
     GUI::AddMessage(ss.str());
@@ -384,10 +380,33 @@ Character::getXP(void) {
     return this->XP;
 }
 
-
 bool
 Character::isAlive(void) {
     return this->curHP > 0;
+}
+
+void
+Character::RecalcEffective(void) {
+    Equippable *e_list[] = {this->helm, this->armour, this->weapon, this->shield,
+        this->gloves, this->boots, this->ring1, this->ring2, this->neck};
+
+    this->curSTR = this->baseSTR;
+    this->curTOU = this->baseTOU;
+    this->curATT = this->baseATT;
+    this->curDEF = this->baseDEF;
+    this->curMAG = this->baseMAG;
+    this->curWIL = this->baseWIL;
+
+    for (unsigned int i = 0; i < LENGTH(e_list); ++i) {
+        if (!e_list[i])
+            continue;
+        this->curSTR += e_list[i]->modSTR;
+        this->curTOU += e_list[i]->modTOU;
+        this->curATT += e_list[i]->modATT;
+        this->curDEF += e_list[i]->modDEF;
+        this->curMAG += e_list[i]->modMAG;
+        this->curWIL += e_list[i]->modWIL;
+    }
 }
 
 Character::~Character(void) {

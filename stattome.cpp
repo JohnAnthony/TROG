@@ -62,42 +62,42 @@ StatTome::ApplyEffects(Character *c) {
 
     switch(this->category) {
         case StatTome::HEALTH:
-            c->maxHP += effect;
+            c->baseHP += effect;
             c->curHP += effect;
             ss << "health";
             break;
         case StatTome::ENERGY:
-            c->maxMP += effect;
+            c->baseMP += effect;
             c->curMP += effect;
             ss << "magical energy";
             break;
         case StatTome::STRENGTH:
-            c->maxSTR += effect;
+            c->baseSTR += effect;
             c->curSTR += effect;
             ss << "strength";
             break;
         case StatTome::TOUGHNESS:
-            c->maxTOU += effect;
+            c->baseTOU += effect;
             c->curTOU += effect;
             ss << "toughness";
             break;
         case StatTome::SKILL:
-            c->maxATT += effect;
+            c->baseATT += effect;
             c->curATT += effect;
             ss << "attack skill";
             break;
         case StatTome::DODGE:
-            c->maxDEF += effect;
+            c->baseDEF += effect;
             c->curDEF += effect;
             ss << "defensive skill";
             break;
         case StatTome::MAGERY:
-            c->maxMAG += effect;
+            c->baseMAG += effect;
             c->curMAG += effect;
             ss << "sorcerous power";
             break;
         case StatTome::WILL:
-            c->maxWIL += effect;
+            c->baseWIL += effect;
             c->curWIL += effect;
             ss << "willpower";
             break;

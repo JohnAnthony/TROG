@@ -40,9 +40,9 @@ Game::CharacterStatusLine(void) {
 
     c = this->character;
 
-    ss <<  "HP:" << c->curHP << "/" << c->maxHP;
-    if (c->maxMP > 0)
-        ss << " MP:" << c->curMP << "/" << c->maxMP;
+    ss <<  "HP:" << c->curHP << "/" << c->baseHP;
+    if (c->baseMP > 0)
+        ss << " MP:" << c->curMP << "/" << c->baseMP;
     ss << " GP:" << this->gold;
 
     GUI::SetStatus(ss.str());
@@ -548,54 +548,54 @@ Game::ShowCharacterScreen(void) {
     p.x = 3;
     p.y = 5;
     ss.str("");
-    ss << "HP  :: " << c->curHP << "/" << c->maxHP;
+    ss << "HP  :: " << c->curHP << "/" << c->baseHP;
     s = ss.str();
     mvwprintw(w, p.y, p.x, s.c_str());
 
     ss.str("");
-    ss << "MP  :: " << c->curMP << "/" << c->maxMP;
+    ss << "MP  :: " << c->curMP << "/" << c->baseMP;
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
     ss << "STR :: " << c->curSTR;
-    if (c->curSTR != c->maxSTR)
-        ss << "/" << c->maxSTR;
+    if (c->curSTR != c->baseSTR)
+        ss << "\t(Base :: " << c->baseSTR << ")";
     s = ss.str();
     mvwprintw(w, p.y += 2, p.x, s.c_str());
 
     ss.str("");
     ss << "TOU :: " << c->curTOU;
-    if (c->curTOU != c->maxTOU)
-        ss << "/" << c->maxTOU;
+    if (c->curTOU != c->baseTOU)
+        ss << "\t(Base :: " << c->baseTOU << ")";
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
     ss << "ATT :: " << c->curATT;
-    if (c->curATT != c->maxATT)
-        ss << "/" << c->maxATT;
+    if (c->curATT != c->baseATT)
+        ss << "\t(Base :: " << c->baseATT << ")";
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
     ss << "DEF :: " << c->curDEF;
-    if (c->curDEF != c->maxDEF)
-        ss << "/" << c->maxDEF;
+    if (c->curDEF != c->baseDEF)
+        ss << "\t(Base :: " << c->baseDEF << ")";
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
     ss << "MAG :: " << c->curMAG;
-    if (c->curMAG != c->maxMAG)
-        ss << "/" << c->maxMAG;
+    if (c->curMAG != c->baseMAG)
+        ss << "\t(Base :: " << c->baseMAG << ")";
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
     ss << "WIL :: " << c->curWIL;
-    if (c->curWIL != c->maxWIL)
-        ss << "/" << c->maxWIL;
+    if (c->curWIL != c->baseWIL)
+        ss << "\t(Base :: " << c->baseWIL << ")";
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
