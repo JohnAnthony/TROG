@@ -1,9 +1,19 @@
 #include "equippable.hpp"
 #include "gui.hpp"
 #include "geometry.hpp"
+#include <sstream>
+
+static char const * const EquippableNames[Equippable::LAST_CATEGORY] = {
+    "Sword",
+    "Light Shield",
+    "Light Chain",
+    "Holy Symbol",
+    "Staff"
+};
 
 Equippable::Equippable(Equippable::Category inCat, int pot) {
     this->potency = pot;
+    this->category = inCat;
     this->modHP = 0;
     this->modMP = 0;
     this->modSTR = 0;
@@ -43,7 +53,9 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
 
 std::string 
 Equippable::getName(void) {
-    return "Derp";
+    std::stringstream ss;
+    ss << EquippableNames[this->category];
+    return ss.str();
 }
 
 int

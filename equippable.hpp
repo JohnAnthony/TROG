@@ -20,6 +20,7 @@ class Equippable : public Item {
     int getQuality(void);
 
     EquipLocations location;
+    Equippable::Category category;
     int potency;
     int modHP;
     int modMP;
