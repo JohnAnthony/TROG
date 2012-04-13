@@ -93,6 +93,7 @@ Game::Run(void) {
         }
     }
 
+    GUI::ShowSplash();
     return GUI::BinaryChoice("Do you wish to play again?", 'y', 'n');
 }
 
@@ -768,6 +769,7 @@ Game::HandleResize(int signal) {
 
 void
 Game::QuitDialogue(void) {
+    GUI::ShowSplash();
     this->running = !GUI::BinaryChoice("Are you sure you want to quit?", 'y', 'n');
     if (this->running)
         this->DoRedraw();
