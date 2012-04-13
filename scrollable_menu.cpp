@@ -6,7 +6,7 @@
 #define DEFAULT_HEIGHT 6
 
 ScrollableMenu::ScrollableMenu(std::string inTitle) {
-    this->sz.x = this->title.length() + 6;
+    this->sz.x = this->title.length() + 8;
     this->sz.y = DEFAULT_HEIGHT;
     this->window = GUI::NewCentredWindow(sz.x, sz.y);
     this->SetTitle(inTitle);
@@ -18,7 +18,7 @@ ScrollableMenu::Reset(void) {
     this->pointer = 0;
     this->scroll_offset = 0;
     this->Options.clear();
-    this->Resize(this->title.length() + 6, DEFAULT_HEIGHT);
+    this->Resize(this->title.length() + 8, DEFAULT_HEIGHT);
 }
 
 void
@@ -53,7 +53,7 @@ ScrollableMenu::Show(void) {
 
     box(this->window, 0, 0);
 
-    ss << "::" << this->title << "::";
+    ss << ":: " << this->title << " ::";
     str = ss.str();
 
     mvwprintw(this->window, 0, (this->sz.x - str.length()) / 2, str.c_str());
