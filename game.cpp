@@ -31,8 +31,6 @@ Game::Game(Character *c) {
     //Give the player a few starting potions for luck
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
-    this->character->ItemToInventory((Item*) new StatTome(10));
-    this->character->ItemToInventory((Item*) new StatTome(10));
 }
 
 void
