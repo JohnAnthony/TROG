@@ -26,6 +26,7 @@ class GUI {
     static void Alert2(char const * const * const msg);
     static bool BinaryChoice(std::string str, char a, char b);
     static void FancyClear(void);
+    static void ShowCharacterScreen(Character *c);
 
     private:
     static std::string status_line;

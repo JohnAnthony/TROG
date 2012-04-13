@@ -118,7 +118,7 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             this->ShowInfoScreen();
             break;
         case (GameMode::CHARACTER_SCREEN):
-            this->ShowCharacterScreen();
+            GUI::ShowCharacterScreen(this->character);
             break;
         case (GameMode::INVENTORY_SCREEN):
             this->ShowInventoryScreen();
@@ -326,7 +326,7 @@ Game::DoRedraw(void) {
     else if (this->game_mode == GameMode::INFO_SCREEN)
         this->ShowInfoScreen();
     else if (this->game_mode == GameMode::CHARACTER_SCREEN)
-        this->ShowCharacterScreen();
+        GUI::ShowCharacterScreen(this->character);
     else if (this->game_mode == GameMode::INVENTORY_SCREEN)
         this->ShowInventoryScreen();
     else if (this->game_mode == GameMode::POTION_SELECT)
@@ -495,188 +495,6 @@ Game::DoPickup(void) {
         this->cur_level->items.erase(it);
         this->cur_level->GiveEnemiesTurn(this->character);
     }
-}
-
-void
-Game::ShowCharacterScreen(void) {
-    WINDOW *w;
-    Rect pos;
-    Character *c;
-    std::stringstream ss;
-    std::string s;
-    Point p;
-
-    c = this->character;
-
-    pos.w = 80;
-    pos.h = 25;
-    pos.x = (COLS - pos.w) / 2;
-    pos.y = (LINES - pos.h) / 2;
-
-    w = newwin(pos.h, pos.w, pos.y, pos.x);
-    box(w, 0, 0);
-
-    //Make our box shape
-    //Horizontal lines
-    wmove(w, 3, 1);
-    for (int i = 0; i < pos.w - 2; ++i) {
-        if ((i - 1) % 3 == 0)
-            waddch(w, '|');
-        else
-            waddch(w, '=');
-    }
-    wmove(w, 0, 1);
-    for (int i = 0; i < pos.w - 2; ++i) {
-        if ((i - 1) % 3 == 0)
-            waddch(w, '|');
-        else
-            waddch(w, '=');
-    }
-    wmove(w, pos.h - 1, 1);
-    for (int i = 0; i < pos.w - 2; ++i) {
-        if ((i - 1) % 3 == 0)
-            waddch(w, '|');
-        else
-            waddch(w, '=');
-    }
-
-    //Actual output begins
-    mvwprintw(w, 1, (pos.w - c->name.length()) / 2, c->name.c_str());
-
-    s = c->GetRaceString() + " " + c->GetClassString() + " ";
-    mvwprintw(w, 2, (pos.w - s.length()) / 2, s.c_str());
-
-    p.x = 3;
-    p.y = 5;
-    ss.str("");
-    ss << "HP  :: " << c->curHP << "/" << c->baseHP;
-    s = ss.str();
-    mvwprintw(w, p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "MP  :: " << c->curMP << "/" << c->baseMP;
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "STR :: " << c->curSTR;
-    if (c->curSTR != c->baseSTR)
-        ss << "\t(Base :: " << c->baseSTR << ")";
-    s = ss.str();
-    mvwprintw(w, p.y += 2, p.x, s.c_str());
-
-    ss.str("");
-    ss << "TOU :: " << c->curTOU;
-    if (c->curTOU != c->baseTOU)
-        ss << "\t(Base :: " << c->baseTOU << ")";
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "ATT :: " << c->curATT;
-    if (c->curATT != c->baseATT)
-        ss << "\t(Base :: " << c->baseATT << ")";
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "DEF :: " << c->curDEF;
-    if (c->curDEF != c->baseDEF)
-        ss << "\t(Base :: " << c->baseDEF << ")";
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "MAG :: " << c->curMAG;
-    if (c->curMAG != c->baseMAG)
-        ss << "\t(Base :: " << c->baseMAG << ")";
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "WIL :: " << c->curWIL;
-    if (c->curWIL != c->baseWIL)
-        ss << "\t(Base :: " << c->baseWIL << ")";
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    mvwprintw(w, p.y += 2, p.x -1, "=|==|==|==|==|==|==|==|==|==|==|==|=");
-
-    ss.str("");
-    ss << "SIGHT RANGE :: " << c->sight_range;
-    s = ss.str();
-    mvwprintw(w, p.y += 2, p.x, s.c_str());
-
-    ss.str("");
-    ss << "MV COST     :: " << c->mv_cost;
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    //Second row
-    p.x = 40;
-    p.y = 5;
-    ss.str("");
-    ss << "LEVEL :: " << c->Level;
-    s = ss.str();
-    mvwprintw(w, p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "XP    :: " << c->getXP() << "/" << c->next_level;
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    mvwprintw(w, p.y + 2, p.x - 1, "=|==|==|==|==|==|==|==|==|==|==|==|==|=");
-
-    //Second row. Equipment section.
-    p.y = 10;
-    ss.str("");
-    ss << "HEAD   :: " << c->getEquipmentNameWithQuality(HEAD);
-    s = ss.str();
-    mvwprintw(w, p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "BODY   :: " << c->getEquipmentNameWithQuality(BODY);
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "WEAPON :: " << c->getEquipmentNameWithQuality(WEAPON);
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "SHIELD :: " << c->getEquipmentNameWithQuality(SHIELD);
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "GLOVES :: " << c->getEquipmentNameWithQuality(GLOVES);
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "BOOTS  :: " << c->getEquipmentNameWithQuality(BOOTS);
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "RING1  :: " << c->getEquipmentNameWithQuality(RING1);
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "RING2  :: " << c->getEquipmentNameWithQuality(RING2);
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    ss.str("");
-    ss << "NECK   :: " << c->getEquipmentNameWithQuality(NECK);
-    s = ss.str();
-    mvwprintw(w, ++p.y, p.x, s.c_str());
-
-    //Output all done
-    wrefresh(w);
-    delwin(w);
 }
 
 void
