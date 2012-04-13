@@ -486,7 +486,7 @@ Game::DoPickup(void) {
         ss << "You pick up " << item->GetName();;
         if (item->type == Item::TREASURE_T) {
             this->gold += ((Treasure*)item)->quantity;
-            delete item;
+            delete (Treasure*) item;
         }
         else
             this->character->ItemToInventory(item);
