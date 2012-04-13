@@ -32,22 +32,6 @@ Game::Game(Character *c) {
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
 }
 
-void
-Game::CharacterStatusLine(void) {
-    std::stringstream ss;
-    Character *c;
-
-    c = this->character;
-
-    ss <<  "HP:" << c->curHP << "/" << c->baseHP;
-    if (c->baseMP > 0)
-        ss << "    MP:" << c->curMP << "/" << c->baseMP;
-    ss << "    GP:" << this->character->gold;
-    ss << "    XP:" << c->getXP() << "/" << c->next_level;
-
-    GUI::SetStatus(ss.str());
-}
-
 bool
 Game::Run(void) {
     int c;
@@ -107,7 +91,7 @@ Game::SwitchGameMode(GameMode::Type gmt) {
         case (GameMode::MAP_WALK):
             this->cur_level->CentreCam(this->character->pos);
             this->DoRedraw();
-            this->CharacterStatusLine();
+            GUI::CharacterStatusLine(this->character);
             break;
         case (GameMode::MAP_LOOK):
             this->target = this->character->pos;

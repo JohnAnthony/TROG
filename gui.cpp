@@ -60,7 +60,7 @@ GUI::ProcessMessages(Game *g) {
     std::string s;
 
     if (messages.size() == 0) {
-        g->CharacterStatusLine();
+        GUI::CharacterStatusLine(g->character);
         return;
     }
 
@@ -679,4 +679,15 @@ GUI::ShowInventoryScreen(Character *c) {
     delwin(w);
 }
 
+void
+GUI::CharacterStatusLine(Character *c) {
+    std::stringstream ss;
 
+    ss <<  "HP:" << c->curHP << "/" << c->baseHP;
+    if (c->baseMP > 0)
+        ss << "    MP:" << c->curMP << "/" << c->baseMP;
+    ss << "    GP:" << c->gold;
+    ss << "    XP:" << c->getXP() << "/" << c->next_level;
+
+    GUI::SetStatus(ss.str());
+}
