@@ -704,7 +704,7 @@ Level::CheckForRoomText(Character *c) {
     if (this->roomtexts.size() == 0)
         return;
 
-    for (std::list<RoomText>::iterator it = this->roomtexts.begin();
+    for (std::vector<RoomText>::iterator it = this->roomtexts.begin();
     it != this->roomtexts.end(); it++) {
         if (c->pos.x < it->pos.x || c->pos.x >= it->pos.x + it->pos.w)
             continue;

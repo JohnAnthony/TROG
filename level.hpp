@@ -1,6 +1,7 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
+#include <vector>
 #include <list>
 #include "tile.hpp"
 #include "geometry.hpp"
@@ -58,7 +59,7 @@ class Level {
     Point               stairs_down;
     std::list<Item*>    items;
     std::list<Enemy>    enemies;
-    std::list<RoomText> roomtexts;
+    std::vector<RoomText> roomtexts;
     unsigned int        maximal_enemy;
 
     static Point        cam;
