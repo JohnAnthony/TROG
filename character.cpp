@@ -320,7 +320,7 @@ Character::RandomCurse(int potency) {
     ss << "CURSE! ";
 
     //Standard XP down curse
-    effect = potency * potency;
+    effect = rand() % (potency * potency) + 1;
     this->XP -= effect;
     ss << "Amnesia -- You forget some of your recent adventures!";
     ss << " (" << effect << "XP lost)";

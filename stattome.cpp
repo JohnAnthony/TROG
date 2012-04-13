@@ -50,7 +50,8 @@ StatTome::ApplyEffects(Character *c) {
     std::stringstream ss;
     int effect;
 
-    if (rand() % 100 < 30) {
+    // Chance of a curse
+    if (rand() % (100 + c->curMAG + c->curWIL) < 10 + this->potency) {
         GUI::Alert("Something went wrong!");
         c->RandomCurse(this->potency);
         return;
