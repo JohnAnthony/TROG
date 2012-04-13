@@ -652,8 +652,8 @@ Level::GetItem(Point p) {
 void
 Level::MakeSpecialRoom(Rect *r) {
     static char const * const library_text = 
-        "You enter a library whose mouldy shelves are overflowing. In the "
-        "centre of the room sits an important-looking book upon a pedestal.";
+"You enter a library whose mouldy shelves are overflowing. In the centre of the\n\
+room sits an important-looking book upon a pedestal.";
 
     int i;
     Item *item;
