@@ -752,7 +752,7 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
     if (dam < 0)
         ss << " but misses";
     else {
-        dam += rand() % (c->curSTR * 1.5) - rand() % e->curTOU;
+        dam += rand() % (int)(c->curSTR * 1.5) - rand() % e->curTOU;
         if (dam <= 0)
             ss << " but fails to do any damage";
         else
