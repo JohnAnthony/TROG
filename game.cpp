@@ -44,6 +44,7 @@ Game::CharacterStatusLine(void) {
     if (c->baseMP > 0)
         ss << " MP:" << c->curMP << "/" << c->baseMP;
     ss << " GP:" << this->gold;
+    ss << " XP:" << c->getXP() << "/" << c->next_level;
 
     GUI::SetStatus(ss.str());
 }
