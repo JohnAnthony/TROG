@@ -7,6 +7,7 @@
 #include "enemy.hpp"
 #include "potion.hpp"
 #include "stattome.hpp"
+#include "equippable.hpp"
 #include <string>
 #include <list>
 
@@ -79,14 +80,15 @@ class Character : public Entity {
     Affinity affinity;
     std::string name;
     std::list<Item*> Inventory;
-    Item *helm;
-    Item *armour;
-    Item *weapon;
-    Item *gloves;
-    Item *boots;
-    Item *ring1;
-    Item *ring2;
-    Item *neck;
+    Equippable *helm;
+    Equippable *armour;
+    Equippable *weapon;
+    Equippable *shield;
+    Equippable *gloves;
+    Equippable *boots;
+    Equippable *ring1;
+    Equippable *ring2;
+    Equippable *neck;
 
     private:
     int XP;

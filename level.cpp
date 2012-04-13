@@ -1,6 +1,7 @@
 #include "level.hpp"
 #include "gui.hpp"
 #include "stattome.hpp"
+#include "equippable.hpp"
 #include <cstdlib>
 #include <ncurses.h>
 #include <sstream>
@@ -728,6 +729,9 @@ Level::~Level(void) {
                 break;
             case Item::TREASURE_T:
                 delete (Treasure*) item;
+                break;
+            case Item::EQUIPPABLE:
+                delete (Equippable*) item;
                 break;
             case Item::GENERIC:
             case Item::LAST_TYPE:

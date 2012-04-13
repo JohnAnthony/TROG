@@ -98,3 +98,10 @@ MoveCardinal(Direction::Type turn_to, Direction::Type d) {
     }
     return d;
 }
+
+int
+DICEROLL(int num, int sz) {
+    if (num <= 1)
+        return rand() % sz + 1;
+    return DICEROLL(num - 1, sz) + rand() % sz + 1;
+}

@@ -57,7 +57,7 @@ StatTome::ApplyEffects(Character *c) {
         return;
     }
 
-    effect = rand() % this->potency + 1;
+    effect = rand() % ((this->potency + 1) * 10);
     ss << "Success! Your ";
 
     switch(this->category) {

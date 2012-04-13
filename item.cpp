@@ -2,6 +2,7 @@
 #include "potion.hpp"
 #include "treasure.hpp"
 #include "stattome.hpp"
+#include "equippable.hpp"
 
 Item::Item(void) {
     this->type = Item::GENERIC;
@@ -21,6 +22,8 @@ Item::GetName(void) {
         return ((Treasure*)this)->GetName();
     else if (this->type == Item::STAT_TOME)
         return ((StatTome*)this)->GetName();
+    else if (this->type == Item::EQUIPPABLE)
+        return ((Equippable*)this)->GetName();
     else
         return "Unknown";
 }

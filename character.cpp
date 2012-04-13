@@ -1,5 +1,6 @@
 #include "character.hpp"
 #include "gui.hpp"
+#include "equippable.hpp"
 #include <sstream>
 #include <cstdlib>
 
@@ -66,15 +67,46 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
             this->maxWIL += rand() % this->affinity.wil + 1;
     }
 
-    //You come into this world naked and screaming
+    // Handle equipment for different classes
     this->helm = NULL;
     this->armour = NULL;
     this->weapon = NULL;
+    this->shield = NULL;
     this->gloves = NULL;
     this->boots = NULL;
     this->ring1 = NULL;
     this->ring2 = NULL;
     this->neck = NULL;
+
+    switch(this->cclass) {
+        case Character::BARBARIAN:
+            break;
+        case Character::CLERIC:
+            break;
+        case Character::DRUID:
+            break;
+        case Character::FIGHTER:
+            this->weapon = new Equippable(Equippable::SWORD, 1);
+            this->shield = new Equippable(Equippable::LIGHT_SHIELD, 1);
+            this->armour = new Equippable(Equippable::LIGHT_CHAIN, 1);
+            break;
+        case Character::PALADIN:
+            this->weapon = new Equippable(Equippable::SWORD, 1);
+            this->shield = new Equippable(Equippable::LIGHT_SHIELD, 1);
+            this->armour = new Equippable(Equippable::LIGHT_CHAIN, 1);
+            this->neck = new Equippable(Equippable::HOLY_SYMBOL, 1);
+            break;
+        case Character::SAGE:
+            break;
+        case Character::THIEF:
+            break;
+        case Character::WIZARD:
+            this->weapon = new Equippable(Equippable::STAFF, 1);
+            break;
+        case Character::LAST_CLASS:
+        default:
+            break;
+    }
 
     this->sight_range = this->affinity.sight;
     this->mv_cost = 1000 + this->affinity.mv;
@@ -367,6 +399,8 @@ Character::~Character(void) {
             case Item::TREASURE_T:
                 delete (Treasure*) item;
                 break;
+            case Item::EQUIPPABLE:
+                delete (Equippable*) item;
             case Item::GENERIC:
             case Item::LAST_TYPE:
             default:
@@ -374,4 +408,22 @@ Character::~Character(void) {
                 break;
         }
     }
+    if (this->helm)
+        delete this->helm;
+    if (this->armour)
+        delete this->armour;
+    if (this->weapon)
+        delete this->weapon;
+    if (this->shield)
+        delete this->shield;
+    if (this->gloves)
+        delete this->gloves;
+    if (this->boots)
+        delete this->boots;
+    if (this->ring1)
+        delete this->ring1;
+    if (this->ring2)
+        delete this->ring2;
+    if (this->neck)
+        delete this->neck;
 }

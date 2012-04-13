@@ -58,5 +58,6 @@ bool BinaryChoice(std::string str, char a, char b);
 float CalculateDistance(Point p1, Point p2);
 Direction::Type MoveCardinal(Direction::Type turn_to, Direction::Type d);
 Point GetRelativePoint(Direction::Type d, Point p);
+int DICEROLL(int num, int sz);
 
 #endif

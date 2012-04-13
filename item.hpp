@@ -11,6 +11,7 @@ class Item {
         POTION,
         TREASURE_T,
         STAT_TOME,
+        EQUIPPABLE,
         LAST_TYPE
     };
 
