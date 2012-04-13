@@ -86,6 +86,7 @@ class Character : public Entity {
     std::string name;
     std::list<Item*> Inventory;
     Equippable *equipment[LAST_EQUIP_LOCATION];
+    int gold;
 
     int baseHP, curHP;
     int baseMP, curMP;

@@ -616,4 +616,63 @@ GUI::ShowCharacterScreen(Character *c) {
     delwin(w);
 }
 
+void
+GUI::ShowInventoryScreen(Character *c) {
+    WINDOW *w;
+    Rect pos;
+    std::stringstream ss;
+    std::string s;
+    Item* item;
+    int i;
+
+    pos.w = 80;
+    pos.h = 25;
+    pos.x = (COLS - pos.w) / 2;
+    pos.y = (LINES - pos.h) / 2;
+
+    w = newwin(pos.h, pos.w, pos.y, pos.x);
+    box(w, 0, 0);
+
+    //Make our box shape
+    //Horizontal lines
+    wmove(w, 0, 1);
+    for (int i = 0; i < pos.w - 2; ++i) {
+        if ((i - 1) % 3 == 0)
+            waddch(w, '|');
+        else
+            waddch(w, '=');
+    }
+    wmove(w, 2, 1);
+    for (int i = 0; i < pos.w - 2; ++i) {
+        if ((i - 1) % 3 == 0)
+            waddch(w, '|');
+        else
+            waddch(w, '=');
+    }
+    wmove(w, pos.h - 1, 1);
+    for (int i = 0; i < pos.w - 2; ++i) {
+        if ((i - 1) % 3 == 0)
+            waddch(w, '|');
+        else
+            waddch(w, '=');
+    }
+
+    //header
+    mvwprintw(w, 1, 2, "INVENTORY");
+
+    ss << "Wealth :: " << c->gold << "gp";
+    s = ss.str();
+    mvwprintw(w, 1, pos.w - 2 - s.length(), s.c_str());
+
+    i = 0;
+    for (std::list<Item*>::iterator it = c->Inventory.begin();
+            it != c->Inventory.end(); ++it, ++i) {
+        item = &**it;
+        mvwprintw(w, i + 3, 8, item->GetName().c_str());
+    }
+
+    wrefresh(w);
+    delwin(w);
+}
+
 

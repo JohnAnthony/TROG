@@ -49,7 +49,6 @@ class Game {
     void RepopulatePotionMenu(void);
     void RepopulateBookMenu(void);
 
-    int                 gold;
     Level*              levels;
     Level*              cur_level;
     Character*          character;

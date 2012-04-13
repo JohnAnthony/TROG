@@ -17,7 +17,6 @@ Game::Game(Character *c) {
     this->levels->character = character;
     this->character->MoveTo(this->cur_level->stairs_up);
     this->levels->CentreCam(character->pos);
-    this->gold = 0;
 
     this->levels->RevealSight(this->character);
     GUI::SetStatus("Welcome to TROG! Try not to die.");
@@ -43,7 +42,7 @@ Game::CharacterStatusLine(void) {
     ss <<  "HP:" << c->curHP << "/" << c->baseHP;
     if (c->baseMP > 0)
         ss << "    MP:" << c->curMP << "/" << c->baseMP;
-    ss << "    GP:" << this->gold;
+    ss << "    GP:" << this->character->gold;
     ss << "    XP:" << c->getXP() << "/" << c->next_level;
 
     GUI::SetStatus(ss.str());
@@ -121,7 +120,7 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             GUI::ShowCharacterScreen(this->character);
             break;
         case (GameMode::INVENTORY_SCREEN):
-            this->ShowInventoryScreen();
+            GUI::ShowInventoryScreen(this->character);
             break;
         case (GameMode::POTION_SELECT):
             GUI::FancyClear();
@@ -328,7 +327,7 @@ Game::DoRedraw(void) {
     else if (this->game_mode == GameMode::CHARACTER_SCREEN)
         GUI::ShowCharacterScreen(this->character);
     else if (this->game_mode == GameMode::INVENTORY_SCREEN)
-        this->ShowInventoryScreen();
+        GUI::ShowInventoryScreen(this->character);
     else if (this->game_mode == GameMode::POTION_SELECT)
         this->PotionSelectMenu->Show();
     else if (this->game_mode == GameMode::READING_SELECT)
@@ -486,7 +485,7 @@ Game::DoPickup(void) {
     else {
         ss << "You pick up " << item->GetName();;
         if (item->type == Item::TREASURE_T) {
-            this->gold += ((Treasure*)item)->quantity;
+            this->character->gold += ((Treasure*)item)->quantity;
             delete (Treasure*) item;
         }
         else
@@ -495,68 +494,6 @@ Game::DoPickup(void) {
         this->cur_level->items.erase(it);
         this->cur_level->GiveEnemiesTurn(this->character);
     }
-}
-
-void
-Game::ShowInventoryScreen(void) {
-    WINDOW *w;
-    Rect pos;
-    Character *c;
-    std::stringstream ss;
-    std::string s;
-    Item* item;
-    int i;
-
-    c = this->character;
-
-    pos.w = 80;
-    pos.h = 25;
-    pos.x = (COLS - pos.w) / 2;
-    pos.y = (LINES - pos.h) / 2;
-
-    w = newwin(pos.h, pos.w, pos.y, pos.x);
-    box(w, 0, 0);
-
-    //Make our box shape
-    //Horizontal lines
-    wmove(w, 0, 1);
-    for (int i = 0; i < pos.w - 2; ++i) {
-        if ((i - 1) % 3 == 0)
-            waddch(w, '|');
-        else
-            waddch(w, '=');
-    }
-    wmove(w, 2, 1);
-    for (int i = 0; i < pos.w - 2; ++i) {
-        if ((i - 1) % 3 == 0)
-            waddch(w, '|');
-        else
-            waddch(w, '=');
-    }
-    wmove(w, pos.h - 1, 1);
-    for (int i = 0; i < pos.w - 2; ++i) {
-        if ((i - 1) % 3 == 0)
-            waddch(w, '|');
-        else
-            waddch(w, '=');
-    }
-
-    //header
-    mvwprintw(w, 1, 2, "INVENTORY");
-
-    ss << "Wealth :: " << this->gold << "gp";
-    s = ss.str();
-    mvwprintw(w, 1, pos.w - 2 - s.length(), s.c_str());
-
-    i = 0;
-    for (std::list<Item*>::iterator it = c->Inventory.begin();
-            it != c->Inventory.end(); ++it, ++i) {
-        item = &**it;
-        mvwprintw(w, i + 3, 8, item->GetName().c_str());
-    }
-
-    wrefresh(w);
-    delwin(w);
 }
 
 void
