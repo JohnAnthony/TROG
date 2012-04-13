@@ -123,6 +123,7 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
     Corridor c;
     Room r_child;
     int exits;
+    Tile *t;
 
     exits = 0;
 
@@ -133,7 +134,7 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
         }
     }
 
-    if (rand() % 100 < 50)                  // Special room
+    if (!isFirstRoom && rand() % 100 < 50)                  // Special room
         this->MakeSpecialRoom(r);
     else {                                  // Standard room
         if (rand() % 100 < 5)
@@ -164,8 +165,11 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
     }
 
     if (this->stairs_down.x == -1 && exits == 0) { // We need to place stairs here
-        this->stairs_down.x = r->x + rand() % (r->w - 2) + 1;
-        this->stairs_down.y = r->y + rand() % (r->h - 2) + 1;
+        do {
+            this->stairs_down.x = r->x + rand() % (r->w - 2) + 1;
+            this->stairs_down.y = r->y + rand() % (r->h - 2) + 1;
+            t = &this->tiles[this->stairs_down.x][this->stairs_down.y];
+        } while (t->c != FLOOR_CHAR);
     }
 }
 
