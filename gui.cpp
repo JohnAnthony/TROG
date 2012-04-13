@@ -320,24 +320,22 @@ GUI::Alert(std::string str) {
 }
 
 void
-GUI::Alert2(std::string str1, std::string str2) {
+GUI::Alert2(char const * const * const msg) {
     WINDOW *w;
     int c;
     Rect pos;
     static std::string const press_msg = "Press spacebar to continue.";
+    int maxlen;
+    int lines;
 
-    if (str1.length() == 0) {
-        GUI::Alert(str2);
-        return;
-    }
-    else if (str2.length() == 0) {
-        GUI::Alert(str1);
-        return;
+    maxlen = press_msg.length();
+    for (lines = 0; msg[lines]; ++lines) {
+        if ((int)strlen(msg[lines]) > maxlen)
+            maxlen = strlen(msg[lines]);
     }
 
-    pos.w = MAX(MAX(str1.length(), str2.length()), press_msg.length()) + 4;
-    pos.w = MIN(pos.w, 80);
-    pos.h = 7;
+    pos.w = MIN(maxlen + 4, 80);
+    pos.h = 5 + LENGTH(msg);
     pos.x = (COLS - pos.w) / 2;
     pos.y = (LINES - pos.h) / 2;
 
@@ -347,12 +345,12 @@ GUI::Alert2(std::string str1, std::string str2) {
     wrefresh(w);
     refresh();
 
-    pos.x = (pos.w - str1.length()) / 2;
-    mvwprintw(w, 2, pos.x, str1.c_str());
-    pos.x = (pos.w - str2.length()) / 2;
-    mvwprintw(w, 4, pos.x, str2.c_str());
+    for (int i = 0; i < lines; ++i) {
+        pos.x = (pos.w - strlen(msg[i])) / 2;
+        mvwprintw(w, 2+i, pos.x, msg[i]);
+    }
     pos.x = (pos.w - press_msg.length()) / 2;
-    mvwprintw(w, 6, pos.x, press_msg.c_str());
+    mvwprintw(w, pos.h - 1, pos.x, press_msg.c_str());
     wrefresh(w);
     refresh();
 
