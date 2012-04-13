@@ -134,20 +134,22 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
         }
     }
 
-    if (!isFirstRoom && rand() % 100 < 50)                  // Special room
-        this->MakeSpecialRoom(r);
-    else {                                  // Standard room
-        if (rand() % 100 < 5)
-            this->AddPillars(r);
+    if (!isFirstRoom) {                     // Don't put any stuff in first room
+        if (rand() % 100 < 50)              // Special room
+            this->MakeSpecialRoom(r);
+        else {                              // Standard room
+            if (rand() % 100 < 5)
+                this->AddPillars(r);
 
-        if (rand() % 100 < 50)
-            this->AddGold(r);
+            if (rand() % 100 < 50)
+                this->AddGold(r);
 
-        if (rand() % 100 < 20)
-            this->AddPotion(r);
+            if (rand() % 100 < 20)
+                this->AddPotion(r);
 
-        if (rand() % 100 < 80 && !isFirstRoom)
-            this->EnemySpawn(r);
+            if (rand() % 100 < 80)
+                this->EnemySpawn(r);
+        }
     }
 
     //Handle recursively adding children
@@ -647,18 +649,33 @@ Level::GetItem(Point p) {
 
 void
 Level::MakeSpecialRoom(Rect *r) {
+    static char const * const library_text = 
+        "You enter a library whose mouldy shelves are overflowing. In the "
+        "centre of the room sits a grand tome upon a pedestal.";
+
     int i;
+    // Item *item;
 
     i = rand() % SpecialRooms::LAST_TYPE;
 
     switch (i) {
         case SpecialRooms::LIBRARY:
             this->AddPillars(r);
+            this->AddRoomText(r, library_text);
             break;
         case SpecialRooms::LAST_TYPE:
         default:
             GUI::Alert("Error allocating a special room.");
     }
+}
+
+void
+Level::AddRoomText(Rect *r, char const * const text) {
+    RoomText rt;
+    rt.pos = *r;
+    rt.text = text;
+    rt.seen = false;
+    this->roomtexts.push_back(rt);
 }
 
 void
@@ -676,9 +693,25 @@ Level::AddPillars(Rect *r) {
     this->tiles[p.x][p.y].c = PILLAR_CHAR;
 }
 
+void
+Level::CheckForRoomText(Character *c) {
+    for (std::list<RoomText>::iterator it = this->roomtexts.begin();
+    it != this->roomtexts.end(); it++) {
+        if (c->pos.x < it->pos.x || c->pos.x >= it->pos.x + it->pos.w)
+            continue;
+        if (c->pos.y < it->pos.y || c->pos.y >= it->pos.y + it->pos.h)
+            continue;
+        if (it->seen)
+            continue;
+
+        it->seen = true;
+        GUI::Alert(it->text);
+    }
+}
+
 Level::~Level(void) {
     for (std::list<Item*>::iterator it = this->items.begin();
-            it != this->items.end(); it++) {
+    it != this->items.end(); it++) {
         delete &**it;
     }
     if (this->next)

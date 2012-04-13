@@ -22,6 +22,12 @@ struct Corridor {
     Direction::Type direction;
 };
 
+struct RoomText {
+    Rect pos;
+    const char *text;
+    bool seen;
+};
+
 class Level {
     public:
     Level(Level* parent);
@@ -42,6 +48,7 @@ class Level {
     Enemy* GetEnemy(Point p);
     Item* GetItem(Point p);
     void AddPotion(Rect *r);
+    void CheckForRoomText(Character *c);
 
     unsigned int        depth;
     Tile                tiles[MAP_W][MAP_H];
@@ -51,6 +58,7 @@ class Level {
     Point               stairs_down;
     std::list<Item*>    items;
     std::list<Enemy>    enemies;
+    std::list<RoomText> roomtexts;
     unsigned int        maximal_enemy;
 
     static Point        cam;
@@ -66,6 +74,7 @@ class Level {
     void AddGold(Rect *r);
     void MakeSpecialRoom(Rect *r);
     void AddPillars(Rect *r);
+    void AddRoomText(Rect *r, char const * const text);
 };
 
 #endif

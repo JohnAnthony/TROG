@@ -352,6 +352,7 @@ Game::MoveCharacter(Direction::Type d) {
             c->MoveTo(target);
             this->cur_level->RevealSight(c);
             this->cur_level->CentreCam(c->pos);
+            this->cur_level->CheckForRoomText(c);
     }
     else if (t->c == CLOSED_DOOR_CHAR) {                        // A closed door
         if (GUI::BinaryChoice("This door is closed. Open?", 'y', 'n')) {
