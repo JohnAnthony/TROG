@@ -32,6 +32,8 @@ Enemy(1,    'o',    COL_BLUE,   6,      1,  0,  10, 10, 10, 10, 0,  8,  950,    
 Enemy(1,    'b',    COL_GREEN,  6,      8,  0,  15, 15, 12, 12, 0,  8,  1000,   85,     "Bug", "Shallow"),
 Enemy(2,    'd',    COL_RED,    6,      30, 0,  20, 20, 20, 20, 0,  8,  900,    135,    "Pigdog", "North American"),
 Enemy(3,    'b',    COL_YELLOW, 6,      60, 0,  30, 30, 23, 23, 0,  12, 1200,   350,    "Neckbear", "juvenile"),
+Enemy(4,    'G',    COL_YELLOW, 6,      80, 0,  30, 40, 20, 20, 0,  25, 1100,   550,    "GNU", "wild"),
 
 };
+
 #endif

@@ -5,6 +5,7 @@
 #include <sstream>
 
 #define CORRIDOR_TRIES      30
+#define TTL_MAX             10
 
 Point Level::cam;
 Character* Level::character;
@@ -377,6 +378,7 @@ Level::AddPotion(Rect *r) {
     Potion *potion;
     Potion::Category category;
     int potency;
+    int TTL;
     Point p;
 
     category = (Potion::Category)(rand() % Potion::LAST_CATEGORY);
@@ -391,11 +393,14 @@ Level::AddPotion(Rect *r) {
         }
     }
 
-    //Find empty potition TODO: Add a safeguard
+    TTL = 0;
     do {
         p.x = r->x + rand() % r->w;
         p.y = r->y + rand() % r->h;
-    } while (this->GetItem(p));
+    } while (this->GetItem(p) && TTL++ < TTL_MAX);
+
+    if (TTL >= TTL_MAX) // We're out of space
+        return;
 
     potion = new Potion((Potion::Potency) potency, category);
     potion->SetPosition(p.x, p.y);
@@ -476,6 +481,7 @@ Level::EnemySpawn(Rect *r) {
     Enemy e;
     int type;
     int total_level;
+    int TTL;
 
     total_level = rand() % this->depth + 3;
 
@@ -483,14 +489,19 @@ Level::EnemySpawn(Rect *r) {
         type = rand() % this->maximal_enemy;
 
         e = EnemyList[type];
+        TTL = 0;
         do {
             e.pos.x = r->x + rand() % r->w;
             e.pos.y = r->y + rand() % r->h;
-         // Find a free space. TODO: Add a TTL
+            if (TTL++ >= TTL_MAX)   //If this happens we're probably out of space
+                break;
         } while (GetEnemy(e.pos) || e.pos == this->stairs_up);
 
-        if (e.pos == this->stairs_up)
+        if (TTL >= TTL_MAX) // Out of space
             return;
+
+        if (e.pos == this->stairs_up)
+            continue;
 
         total_level -= e.Level;
         this->enemies.push_back(e);
