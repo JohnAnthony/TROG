@@ -531,6 +531,10 @@ GUI::ShowCharacterScreen(Character *c) {
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
+    if (!w) {
+        std::cerr << "Error making window for inventory screen!";
+        return;
+    }
     ss << "WIL :: " << c->curWIL;
     if (c->curWIL != c->baseWIL)
         ss << "\t(Base :: " << c->baseWIL << ")";
