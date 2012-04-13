@@ -411,6 +411,13 @@ Character::getEquipmentName(EquipLocations el) {
     return this->equipment[el]->getName();
 }
 
+std::string 
+Character::getEquipmentNameWithQuality(EquipLocations el) {
+    if (!this->equipment[el])
+        return "NONE";
+    return this->equipment[el]->getNameWithQuality();
+}
+
 int 
 Character::getEquipmentQuality(EquipLocations el) {
     if (!this->equipment[el])

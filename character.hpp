@@ -72,6 +72,7 @@ class Character : public Entity {
     bool isAlive(void);
     void RecalcEffective(void);
     std::string getEquipmentName(EquipLocations el);
+    std::string getEquipmentNameWithQuality(EquipLocations el);
     int getEquipmentQuality(EquipLocations el);
 
     //Getters(!)

@@ -630,56 +630,47 @@ Game::ShowCharacterScreen(void) {
     //Second row. Equipment section.
     p.y = 10;
     ss.str("");
-    ss << "HEAD   :: " << c->getEquipmentName(HEAD);
-    ss << " (q:" << c->getEquipmentQuality(HEAD) << ")";
+    ss << "HEAD   :: " << c->getEquipmentNameWithQuality(HEAD);
     s = ss.str();
     mvwprintw(w, p.y, p.x, s.c_str());
 
     ss.str("");
-    ss << "BODY   :: " << c->getEquipmentName(BODY);
-    ss << " (q:" << c->getEquipmentQuality(BODY) << ")";
+    ss << "BODY   :: " << c->getEquipmentNameWithQuality(BODY);
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
-    ss << "WEAPON :: " << c->getEquipmentName(WEAPON);
-    ss << " (q:" << c->getEquipmentQuality(WEAPON) << ")";
+    ss << "WEAPON :: " << c->getEquipmentNameWithQuality(WEAPON);
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
-    ss << "SHIELD :: " << c->getEquipmentName(SHIELD);
-    ss << " (q:" << c->getEquipmentQuality(SHIELD) << ")";
+    ss << "SHIELD :: " << c->getEquipmentNameWithQuality(SHIELD);
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
-    ss << "GLOVES :: " << c->getEquipmentName(GLOVES);
-    ss << " (q:" << c->getEquipmentQuality(GLOVES) << ")";
+    ss << "GLOVES :: " << c->getEquipmentNameWithQuality(GLOVES);
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
-    ss << "BOOTS  :: " << c->getEquipmentName(BOOTS);
-    ss << " (q:" << c->getEquipmentQuality(BOOTS) << ")";
+    ss << "BOOTS  :: " << c->getEquipmentNameWithQuality(BOOTS);
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
-    ss << "RING1  :: " << c->getEquipmentName(RING1);
-    ss << " (q:" << c->getEquipmentQuality(RING1) << ")";
+    ss << "RING1  :: " << c->getEquipmentNameWithQuality(RING1);
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
-    ss << "RING2  :: " << c->getEquipmentName(RING2);
-    ss << " (q:" << c->getEquipmentQuality(RING2) << ")";
+    ss << "RING2  :: " << c->getEquipmentNameWithQuality(RING2);
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     ss.str("");
-    ss << "NECK   :: " << c->getEquipmentName(NECK);
-    ss << " (q:" << c->getEquipmentQuality(NECK) << ")";
+    ss << "NECK   :: " << c->getEquipmentNameWithQuality(NECK);
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 

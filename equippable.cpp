@@ -58,6 +58,14 @@ Equippable::getName(void) {
     return ss.str();
 }
 
+std::string
+Equippable::getNameWithQuality(void) {
+    std::stringstream ss;
+    ss << this->getName();
+    ss << " (q:" << this->getQuality() << ")";
+    return ss.str();
+}
+
 int
 Equippable::getQuality(void) {
     int ret;
