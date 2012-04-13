@@ -628,7 +628,9 @@ Game::ShowCharacterScreen(void) {
 
     //Second row. Equipment section.
     p.y = 10;
-    s = "HEAD   :: NONE";
+    ss.str("");
+    ss << "HEAD   :: " << c->getEquipmentName(HEAD);
+    s = ss.str();
     mvwprintw(w, p.y, p.x, s.c_str());
 
     s = "BODY   :: NONE";

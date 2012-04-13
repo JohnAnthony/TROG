@@ -2,6 +2,7 @@
 #define EQUIPPABLE_H
 
 #include "item.hpp"
+#include <string>
 
 class Equippable : public Item {
     public:
@@ -13,21 +14,12 @@ class Equippable : public Item {
         STAFF,
         LAST_CATEGORY
     };
-    enum Location {
-        HEAD,
-        BODY,
-        R_HAND,
-        L_HAND,
-        GLOVES,
-        FEET,
-        FINGER,
-        NECK,
-        LAST_LOCATION
-    };
 
     Equippable(Equippable::Category inCat, int pot);
+    std::string getName(void);
+    int getQuality(void);
 
-    Equippable::Category category;
+    EquipLocations location;
     int potency;
     int modHP;
     int modMP;

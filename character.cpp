@@ -67,15 +67,15 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
     }
 
     // Handle equipment for different classes
-    this->equipment[Character::HEAD] = NULL;
-    this->equipment[Character::BODY] = NULL;
-    this->equipment[Character::WEAPON] = NULL;
-    this->equipment[Character::SHIELD] = NULL;
-    this->equipment[Character::GLOVES] = NULL;
-    this->equipment[Character::BOOTS] = NULL;
-    this->equipment[Character::RING1] = NULL;
-    this->equipment[Character::RING2] = NULL;
-    this->equipment[Character::NECK] = NULL;
+    this->equipment[HEAD] = NULL;
+    this->equipment[BODY] = NULL;
+    this->equipment[WEAPON] = NULL;
+    this->equipment[SHIELD] = NULL;
+    this->equipment[GLOVES] = NULL;
+    this->equipment[BOOTS] = NULL;
+    this->equipment[RING1] = NULL;
+    this->equipment[RING2] = NULL;
+    this->equipment[NECK] = NULL;
 
     switch(this->cclass) {
         case Character::BARBARIAN:
@@ -85,22 +85,22 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
         case Character::DRUID:
             break;
         case Character::FIGHTER:
-            this->equipment[Character::WEAPON] = new Equippable(Equippable::SWORD, 1);
-            this->equipment[Character::SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
-            this->equipment[Character::BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
+            this->equipment[WEAPON] = new Equippable(Equippable::SWORD, 1);
+            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
+            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
             break;
         case Character::PALADIN:
-            this->equipment[Character::WEAPON] = new Equippable(Equippable::SWORD, 1);
-            this->equipment[Character::SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
-            this->equipment[Character::BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
-            this->equipment[Character::NECK] = new Equippable(Equippable::HOLY_SYMBOL, 1);
+            this->equipment[WEAPON] = new Equippable(Equippable::SWORD, 1);
+            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
+            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
+            this->equipment[NECK] = new Equippable(Equippable::HOLY_SYMBOL, 1);
             break;
         case Character::SAGE:
             break;
         case Character::THIEF:
             break;
         case Character::WIZARD:
-            this->equipment[Character::WEAPON] = new Equippable(Equippable::STAFF, 1);
+            this->equipment[WEAPON] = new Equippable(Equippable::STAFF, 1);
             break;
         case Character::LAST_CLASS:
         default:
@@ -393,7 +393,7 @@ Character::RecalcEffective(void) {
     this->curMAG = this->baseMAG;
     this->curWIL = this->baseWIL;
 
-    for (unsigned int i = 0; i < (int) Character::LAST_EQUIP_LOCATION; ++i) {
+    for (unsigned int i = 0; i < (int) LAST_EQUIP_LOCATION; ++i) {
         if (!this->equipment[i])
             continue;
         this->curSTR += this->equipment[i]->modSTR;
@@ -403,6 +403,16 @@ Character::RecalcEffective(void) {
         this->curMAG += this->equipment[i]->modMAG;
         this->curWIL += this->equipment[i]->modWIL;
     }
+}
+
+std::string 
+Character::getEquipmentName(EquipLocations el) {
+    return this->equipment[el]->getName();
+}
+
+int 
+Character::getEquipmentQuality(EquipLocations el) {
+    return this->equipment[el]->getQuality();
 }
 
 Character::~Character(void) {
@@ -429,22 +439,22 @@ Character::~Character(void) {
                 break;
         }
     }
-    if (this->equipment[Character::HEAD])
-        delete this->equipment[Character::HEAD];
-    if (this->equipment[Character::BODY])
-        delete this->equipment[Character::BODY];
-    if (this->equipment[Character::WEAPON])
-        delete this->equipment[Character::WEAPON];
-    if (this->equipment[Character::SHIELD])
-        delete this->equipment[Character::SHIELD];
-    if (this->equipment[Character::GLOVES])
-        delete this->equipment[Character::GLOVES];
-    if (this->equipment[Character::BOOTS])
-        delete this->equipment[Character::BOOTS];
-    if (this->equipment[Character::RING1])
-        delete this->equipment[Character::RING1];
-    if (this->equipment[Character::RING2])
-        delete this->equipment[Character::RING2];
-    if (this->equipment[Character::NECK])
-        delete this->equipment[Character::NECK];
+    if (this->equipment[HEAD])
+        delete this->equipment[HEAD];
+    if (this->equipment[BODY])
+        delete this->equipment[BODY];
+    if (this->equipment[WEAPON])
+        delete this->equipment[WEAPON];
+    if (this->equipment[SHIELD])
+        delete this->equipment[SHIELD];
+    if (this->equipment[GLOVES])
+        delete this->equipment[GLOVES];
+    if (this->equipment[BOOTS])
+        delete this->equipment[BOOTS];
+    if (this->equipment[RING1])
+        delete this->equipment[RING1];
+    if (this->equipment[RING2])
+        delete this->equipment[RING2];
+    if (this->equipment[NECK])
+        delete this->equipment[NECK];
 }

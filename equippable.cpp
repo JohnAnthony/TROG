@@ -17,21 +17,36 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
         case Equippable::SWORD:
             this->modSTR = 20 + DICEROLL(pot, 10);
             this->modATT = 20 + DICEROLL(pot, 10);
+            this->location = WEAPON;
             break;
         case Equippable::LIGHT_SHIELD:
             this->modDEF = 20 + DICEROLL(pot, 10);
+            this->location = SHIELD;
             break;
         case Equippable::LIGHT_CHAIN:
             this->modTOU = 20 + DICEROLL(pot, 10);
+            this->location = BODY;
             break;
         case Equippable::HOLY_SYMBOL:
             this->modWIL = 20 + DICEROLL(pot, 10);
+            this->location = NECK;
             break;
         case Equippable::STAFF:
             this->modMAG = 20 + DICEROLL(pot, 10);
+            this->location = WEAPON;
             break;
         case Equippable::LAST_CATEGORY:
             GUI::Alert("Error generating item!");
             break;
     }
+}
+
+std::string 
+Equippable::getName(void) {
+    return "Derp";
+}
+
+int
+Equippable::getQuality(void) {
+    return 5;
 }

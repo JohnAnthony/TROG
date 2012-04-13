@@ -50,18 +50,6 @@ class Character : public Entity {
         LIZARDFOLK,
         LAST_RACE
     } Race;
-    typedef enum {
-        HEAD,
-        BODY,
-        WEAPON,
-        SHIELD,
-        GLOVES,
-        BOOTS,
-        RING1,
-        RING2,
-        NECK,
-        LAST_EQUIP_LOCATION
-    } EquipLocations;
 
     Character(std::string inName, Character::Race inRace, Character::Class inClass);
     ~Character(void);
@@ -83,6 +71,8 @@ class Character : public Entity {
     void RandomCurse(int potency);
     bool isAlive(void);
     void RecalcEffective(void);
+    std::string getEquipmentName(EquipLocations el);
+    int getEquipmentQuality(EquipLocations el);
 
     //Getters(!)
     int getXP(void);
@@ -94,7 +84,7 @@ class Character : public Entity {
     Affinity affinity;
     std::string name;
     std::list<Item*> Inventory;
-    Equippable *equipment[Character::LAST_EQUIP_LOCATION];
+    Equippable *equipment[LAST_EQUIP_LOCATION];
 
     int baseHP, curHP;
     int baseMP, curMP;

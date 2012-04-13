@@ -23,6 +23,19 @@ namespace Direction {
     } Type;
 }
 
+typedef enum {
+    HEAD,
+    BODY,
+    WEAPON,
+    SHIELD,
+    GLOVES,
+    BOOTS,
+    RING1,
+    RING2,
+    NECK,
+    LAST_EQUIP_LOCATION
+} EquipLocations;
+
 struct Rect {
     int x;
     int y;
