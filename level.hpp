@@ -64,6 +64,8 @@ class Level {
     Corridor FindRoomCorridorChild(Room *r);
     Room RoomFromCorridor(Corridor *c);
     void AddGold(Rect *r);
+    void MakeSpecialRoom(Rect *r);
+    void AddPillars(Rect *r);
 };
 
 #endif

@@ -4,6 +4,7 @@
 #define EMPTY_CHAR          ' '
 #define FLOOR_CHAR          '.'
 #define WALL_CHAR           '#'
+#define PILLAR_CHAR         'O'
 #define CLOSED_DOOR_CHAR    '+'
 #define OPEN_DOOR_CHAR      '/'
 

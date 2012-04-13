@@ -7,6 +7,13 @@
 #define CORRIDOR_TRIES      30
 #define TTL_MAX             10
 
+namespace SpecialRooms {
+    enum Type {
+        LIBRARY,
+        LAST_TYPE
+    };
+}
+
 Point Level::cam;
 Character* Level::character;
 
@@ -126,17 +133,21 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
         }
     }
 
-    //Randomly add gold
-    if (rand() % 100 < 50)
-        this->AddGold(r);
+    if (rand() % 100 < 50)                  // Special room
+        this->MakeSpecialRoom(r);
+    else {                                  // Standard room
+        if (rand() % 100 < 5)
+            this->AddPillars(r);
 
-    //Randomly add potions
-    if (rand() % 100 < 20)
-        this->AddPotion(r);
+        if (rand() % 100 < 50)
+            this->AddGold(r);
 
-    //Randomly add enemies
-    if (rand() % 100 < 80 && !isFirstRoom)
-        this->EnemySpawn(r);
+        if (rand() % 100 < 20)
+            this->AddPotion(r);
+
+        if (rand() % 100 < 80 && !isFirstRoom)
+            this->EnemySpawn(r);
+    }
 
     //Handle recursively adding children
     for (int i = 0; i < CORRIDOR_TRIES; ++i) {
@@ -437,7 +448,9 @@ Level::DescriptionOfTile(Point p, Game *g) {
     else if (t->c == FLOOR_CHAR)
         ss << "Granite floor";
     else if (t->c == WALL_CHAR)
-        return prefix + "A wall";
+        return prefix + "A granite wall";
+    else if (t->c == WALL_CHAR)
+        return prefix + "A granite wall";
     else if (t->c == CLOSED_DOOR_CHAR )
         ss << "Closed door";
     else if (t->c == OPEN_DOOR_CHAR)
@@ -626,6 +639,37 @@ Level::GetItem(Point p) {
             return &**it;
     }
     return NULL;
+}
+
+void
+Level::MakeSpecialRoom(Rect *r) {
+    int i;
+
+    i = rand() % SpecialRooms::LAST_TYPE;
+
+    switch (i) {
+        case SpecialRooms::LIBRARY:
+            this->AddPillars(r);
+            break;
+        case SpecialRooms::LAST_TYPE:
+        default:
+            GUI::Alert("Error allocating a special room.");
+    }
+}
+
+void
+Level::AddPillars(Rect *r) {
+    Point p;
+
+    p.x = r->x + 1;
+    p.y = r->y + 1;
+    this->tiles[p.x][p.y].c = PILLAR_CHAR;
+    p.y = r->y + r->h - 2;
+    this->tiles[p.x][p.y].c = PILLAR_CHAR;
+    p.x = r->x + r->w - 2;
+    this->tiles[p.x][p.y].c = PILLAR_CHAR;
+    p.y = r->y + 1;
+    this->tiles[p.x][p.y].c = PILLAR_CHAR;
 }
 
 Level::~Level(void) {

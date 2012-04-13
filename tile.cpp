@@ -13,5 +13,7 @@ Tile::SeeThrough(void) {
         return false;
     if (this->c == CLOSED_DOOR_CHAR)
         return false;
+    if (this->c == PILLAR_CHAR)
+        return false;
     return true;
 }
