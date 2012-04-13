@@ -296,6 +296,7 @@ GUI::Alert(std::string str) {
     static std::string const press_msg = "Press spacebar to continue.";
 
     pos.w = MAX(str.length(), press_msg.length()) + 4;
+    pos.w = MIN(pos.w, 80);
     pos.h = 5;
     pos.x = (COLS - pos.w) / 2;
     pos.y = (LINES - pos.h) / 2;
@@ -310,6 +311,48 @@ GUI::Alert(std::string str) {
     mvwprintw(w, 2, pos.x, str.c_str());
     pos.x = (pos.w - press_msg.length()) / 2;
     mvwprintw(w, 4, pos.x, press_msg.c_str());
+    wrefresh(w);
+    refresh();
+
+    while((c = wgetch(w)) != ' ');
+
+    delwin(w);
+}
+
+void
+GUI::Alert2(std::string str1, std::string str2) {
+    WINDOW *w;
+    int c;
+    Rect pos;
+    static std::string const press_msg = "Press spacebar to continue.";
+
+    if (str1.length() == 0) {
+        GUI::Alert(str2);
+        return;
+    }
+    else if (str2.length() == 0) {
+        GUI::Alert(str1);
+        return;
+    }
+
+    pos.w = MAX(MAX(str1.length(), str2.length()), press_msg.length()) + 4;
+    pos.w = MIN(pos.w, 80);
+    pos.h = 7;
+    pos.x = (COLS - pos.w) / 2;
+    pos.y = (LINES - pos.h) / 2;
+
+    w = newwin(pos.h, pos.w, pos.y, pos.x);
+    box(w, 0, 0);
+
+    wrefresh(w);
+    refresh();
+
+    pos.x = (pos.w - str1.length()) / 2;
+    mvwprintw(w, 2, pos.x, str1.c_str());
+    pos.x = (pos.w - str2.length()) / 2;
+    mvwprintw(w, 4, pos.x, str2.c_str());
+    pos.x = (pos.w - press_msg.length()) / 2;
+    mvwprintw(w, 6, pos.x, press_msg.c_str());
     wrefresh(w);
     refresh();
 

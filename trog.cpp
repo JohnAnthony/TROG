@@ -51,11 +51,11 @@ int main(int argc, char** argv) {
         c = GUI::CharacterCreation();
         g = new Game(c);
         playagain = g->Run();
-        delete g;
-        delete c;
     } while (playagain);
 
     endwin();
+    delete g;
+    delete c;
 
     return 0;
 }

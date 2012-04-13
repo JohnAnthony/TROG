@@ -25,7 +25,8 @@ struct Corridor {
 
 struct RoomText {
     Rect pos;
-    const char *text;
+    const char *text1;
+    const char *text2;
     bool seen;
 };
 
@@ -75,7 +76,7 @@ class Level {
     void AddGold(Rect *r);
     void MakeSpecialRoom(Rect *r);
     void AddPillars(Rect *r);
-    void AddRoomText(Rect *r, char const * const text);
+    void AddRoomText(Rect *r, char const * const text1, char const * const text2);
 };
 
 #endif

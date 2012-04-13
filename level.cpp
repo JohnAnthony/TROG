@@ -137,7 +137,8 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
     }
 
     if (!isFirstRoom) {                                 // Don't put any stuff in first room
-        if (rand() % 100 < MIN(30, (int)this->depth))   // Special room. Deeper = more
+        // if (rand() % 100 < MIN(30, (int)this->depth))   // Special room. Deeper = more
+        if (rand() % 100 < 80)   // Special room. Deeper = more
             this->MakeSpecialRoom(r);
         else {                                          // Standard room
             if (rand() % 100 < 5)
@@ -651,9 +652,10 @@ Level::GetItem(Point p) {
 
 void
 Level::MakeSpecialRoom(Rect *r) {
-    static char const * const library_text = 
-"You enter a library whose mouldy shelves are overflowing. In the centre of the\n\
-room sits an important-looking book upon a pedestal.";
+    static char const * const library_text1 = 
+        "You enter a library whose mouldy shelves are overflowing.";
+    static char const * const library_text2 = 
+        "In the centre of the room sits an important-looking book upon a pedestal.";
 
     int i;
     Item *item;
@@ -663,7 +665,7 @@ room sits an important-looking book upon a pedestal.";
     switch (i) {
         case SpecialRooms::LIBRARY:
             this->AddPillars(r);
-            this->AddRoomText(r, library_text);
+            this->AddRoomText(r, library_text1, library_text2);
             item = (Item*) new StatTome(this->depth);
             item->pos.x = r->x + r->w / 2;
             item->pos.y = r->y + r->h / 2;
@@ -676,10 +678,11 @@ room sits an important-looking book upon a pedestal.";
 }
 
 void
-Level::AddRoomText(Rect *r, char const * const text) {
+Level::AddRoomText(Rect *r, char const * const text1, char const * const text2) {
     RoomText rt;
     rt.pos = *r;
-    rt.text = text;
+    rt.text1 = text1;
+    rt.text2 = text2;
     rt.seen = false;
     this->roomtexts.push_back(rt);
 }
@@ -714,7 +717,7 @@ Level::CheckForRoomText(Character *c) {
             continue;
 
         it->seen = true;
-        GUI::Alert(it->text);
+        GUI::Alert2(it->text1, it->text2);
     }
 }
 

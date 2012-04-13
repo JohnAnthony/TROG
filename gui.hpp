@@ -23,6 +23,7 @@ class GUI {
     static void ScreenNoise(void);
     static WINDOW* NewCentredWindow(int w, int h);
     static void Alert(std::string str);
+    static void Alert2(std::string str1, std::string str2);
     static bool BinaryChoice(std::string str, char a, char b);
     static void FancyClear(void);
 
