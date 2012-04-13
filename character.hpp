@@ -6,6 +6,7 @@
 #include "item.hpp"
 #include "enemy.hpp"
 #include "potion.hpp"
+#include "stattome.hpp"
 #include <string>
 #include <list>
 
@@ -65,6 +66,7 @@ class Character : public Entity {
     void DrinkPotion(int n);
     void Heal(int n);
     void RecoverMP(int n);
+    void ReadBookOrScroll(int n);
 
     int XP;
     int next_level;

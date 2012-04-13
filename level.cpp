@@ -136,7 +136,7 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
     }
 
     if (!isFirstRoom) {                     // Don't put any stuff in first room
-        if (rand() % 100 < 50)              // Special room
+        if (rand() % 100 < 1)               // Special room
             this->MakeSpecialRoom(r);
         else {                              // Standard room
             if (rand() % 100 < 5)
@@ -652,7 +652,7 @@ void
 Level::MakeSpecialRoom(Rect *r) {
     static char const * const library_text = 
         "You enter a library whose mouldy shelves are overflowing. In the "
-        "centre of the room sits a grand tome upon a pedestal.";
+        "centre of the room sits an important-looking book upon a pedestal.";
 
     int i;
     Item *item;

@@ -282,6 +282,36 @@ Character::RecoverMP(int n) {
     GUI::AddMessage(ss.str());
 }
 
+void
+Character::ReadBookOrScroll(int n) {
+    Item *item;
+    StatTome *stattome;
+    std::list<Item*>::iterator it;
+
+    if (n < 0)
+        return;
+
+    for (it = this->Inventory.begin(); it != this->Inventory.end(); ++it) {
+        item = &**it;
+        if (item->type == Item::STAT_TOME) {
+            if (n == 0)
+                break;
+            --n;
+        }
+    }
+
+    if (n != 0) {
+        GUI::Alert("Something went wrong trying to find the selected potion...");
+        return;
+    }
+
+    this->Inventory.erase(it);
+    //Now we deal with the effects of the potion
+    stattome = (StatTome*) item;
+    stattome->ApplyEffects(this);
+    delete stattome;
+}
+
 Character::~Character(void) {
     for (std::list<Item*>::iterator it = this->Inventory.begin();
             it != this->Inventory.end(); it++) {

@@ -8,6 +8,7 @@
 #include "potion.hpp"
 #include "item.hpp"
 #include "treasure.hpp"
+#include "stattome.hpp"
 #include "scrollable_menu.hpp"
 
 Game::Game(Character *c) {
@@ -24,11 +25,14 @@ Game::Game(Character *c) {
     this->game_mode = GameMode::MAP_WALK;
     this->running = true;
 
-    this->PotionSelectMenu = new ScrollableMenu("Drink Selection");
+    this->PotionSelectMenu = new ScrollableMenu("Drink what?");
+    this->BookSelectMenu = new ScrollableMenu("Read what?");
 
     //Give the player a few starting potions for luck
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
+    this->character->ItemToInventory((Item*) new StatTome(10));
+    this->character->ItemToInventory((Item*) new StatTome(10));
 }
 
 void
@@ -72,6 +76,8 @@ Game::Run(void) {
             new_gamemode = GameMode::MAP_WALK;
         else if (c == 'p')
             new_gamemode = GameMode::POTION_SELECT;
+        else if (c == 'r')
+            new_gamemode = GameMode::READING_SELECT;
         else    // Not a mode change. Handle input based upon mode
             new_gamemode = this->HandleInput(c);
 
@@ -117,9 +123,16 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             this->ShowInventoryScreen();
             break;
         case (GameMode::POTION_SELECT):
+            GUI::ShowSplash();
             this->PotionSelectMenu->Reset();
             this->RepopulatePotionMenu();
             this->PotionSelectMenu->Show();
+            break;
+        case (GameMode::READING_SELECT):
+            GUI::ShowSplash();
+            this->BookSelectMenu->Reset();
+            this->RepopulateBookMenu();
+            this->BookSelectMenu->Show();
             break;
     }
 }
@@ -217,6 +230,23 @@ Game::HandleInput(int c) {
                 return GameMode::MAP_WALK;
             }
             break;
+        case GameMode::READING_SELECT:
+            if (c == KEY_UP)
+                this->BookSelectMenu->PtrUp();
+            else if (c == KEY_DOWN)
+                this->BookSelectMenu->PtrDown();
+            else if (c == KEY_PPAGE)
+                this->BookSelectMenu->PageUp();
+            else if (c == KEY_NPAGE)
+                this->BookSelectMenu->PageDown();
+            else if (c == '\n') {
+                this->character->ReadBookOrScroll(this->BookSelectMenu->Selection());
+                this->cur_level->GiveEnemiesTurn(this->character);
+                this->DoRedraw();
+                return GameMode::MAP_WALK;
+            }
+            break;
+
         default:
             break;
     }
@@ -298,6 +328,8 @@ Game::DoRedraw(void) {
         this->ShowInventoryScreen();
     else if (this->game_mode == GameMode::POTION_SELECT)
         this->PotionSelectMenu->Show();
+    else if (this->game_mode == GameMode::READING_SELECT)
+        this->BookSelectMenu->Show();
 }
 
 void
@@ -795,6 +827,21 @@ Game::RepopulatePotionMenu(void) {
         item = &**it;
         if (item->type == Item::POTION)
             this->PotionSelectMenu->AddItem(item->GetName());
+    }
+}
+
+void
+Game::RepopulateBookMenu(void) {
+    Character *c;
+    Item* item;
+
+    c = this->character;
+
+    for (std::list<Item*>::iterator it = c->Inventory.begin();
+            it != c->Inventory.end(); ++it) {
+        item = &**it;
+        if (item->type == Item::STAT_TOME)
+            this->BookSelectMenu->AddItem(item->GetName());
     }
 }
 

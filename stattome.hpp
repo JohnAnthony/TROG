@@ -1,6 +1,7 @@
 #ifndef STATTOME_H
 #define STATTOME_H
 
+#include "character.hpp"
 #include "item.hpp"
 
 class StatTome : public Item {
@@ -21,8 +22,9 @@ class StatTome : public Item {
 
     StatTome(unsigned int pot);
     std::string GetName(void);
-    Category category;
+    void ApplyEffects(Character *c);
 
+    Category category;
     unsigned int potency;
 };
 

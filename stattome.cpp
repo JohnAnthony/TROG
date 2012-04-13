@@ -1,5 +1,6 @@
 #include "stattome.hpp"
 #include "character.hpp"
+#include "gui.hpp"
 #include <sstream>
 
 static char const * const CategoryTexts[StatTome::LAST_CATEGORY] = {
@@ -15,7 +16,7 @@ static char const * const CategoryTexts[StatTome::LAST_CATEGORY] = {
 };
 
 StatTome::StatTome(unsigned int pot) {
-    this->potency = rand() % pot + 1;
+    this->potency = rand() % pot + 5;
     this->type = Item::STAT_TOME;
     this->category = (StatTome::Category)(rand() % StatTome::LAST_CATEGORY);
     this->symbol = 'B';
@@ -42,4 +43,9 @@ StatTome::GetName(void) {
     
     ss << " of " << CategoryTexts[this->category];
     return ss.str();
+}
+
+void
+StatTome::ApplyEffects(Character *c) {
+    GUI::Alert("Something happened.");
 }
