@@ -10,7 +10,11 @@ Dependencies
 ------------
 
 Any version of ncurses from the last 10 years should do you. Do remember to get
-the -devel package if you're using a Debian-based system (i.e. Ubuntu).
+the -devel package if you're using a Debian-based system (i.e. Ubuntu). I'm not
+going to guarantee backwards compatibility for anything older than libncurses
+5.9, though.
+
+IF YOU HAVE PROBLEMS PLEASE MAKE SURE YOUR GCC AND LIBNCURSES ARE UP TO DATE
 
 
             --> PAGE BREAK <--
