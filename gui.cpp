@@ -303,13 +303,17 @@ GUI::Alert(std::string str) {
     w = newwin(pos.h, pos.w, pos.y, pos.x);
     box(w, 0, 0);
 
+    wrefresh(w);
+    refresh();
+
     pos.x = (pos.w - str.length()) / 2;
     mvwprintw(w, 2, pos.x, str.c_str());
     pos.x = (pos.w - press_msg.length()) / 2;
     mvwprintw(w, 4, pos.x, press_msg.c_str());
     wrefresh(w);
+    refresh();
 
-    while((c = getch()) != ' ');
+    while((c = wgetch(w)) != ' ');
 
     delwin(w);
 }
