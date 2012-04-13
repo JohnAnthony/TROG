@@ -38,33 +38,32 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
     this->affinity = this->SumAffinities(inRace, inClass);
     this->next_level = 1000;
 
-    this->baseHP  = this->affinity.hp * 2;
-    this->baseMP  = this->affinity.mp * 2;
-    this->baseSTR = this->affinity.str * 2;
-    this->baseTOU = this->affinity.tou * 2;
-    this->baseATT = this->affinity.att * 2;
-    this->baseDEF = this->affinity.def * 2;
-    this->baseMAG = this->affinity.mag * 2;
-    this->baseWIL = this->affinity.wil * 2;
+    //Startign stats
+    this->baseHP  = this->affinity.hp;
+    this->baseMP  = this->affinity.mp;
+    this->baseSTR = this->affinity.str;
+    this->baseTOU = this->affinity.tou;
+    this->baseATT = this->affinity.att;
+    this->baseDEF = this->affinity.def;
+    this->baseMAG = this->affinity.mag;
+    this->baseWIL = this->affinity.wil;
 
-    for (int i = 0; i < 2; ++i) {
-        if (this->affinity.hp > 0)
-            this->baseHP += rand() % this->affinity.hp + 1;
-        if (this->affinity.mp > 0)
-            this->baseMP += rand() % this->affinity.mp + 1;
-        if (this->affinity.str > 0)
-            this->baseSTR += rand() % this->affinity.str + 1;
-        if (this->affinity.tou > 0)
-            this->baseTOU += rand() % this->affinity.tou + 1;
-        if (this->affinity.att > 0)
-            this->baseATT += rand() % this->affinity.att + 1;
-        if (this->affinity.def > 0)
-            this->baseDEF += rand() % this->affinity.def + 1;
-        if (this->affinity.mag > 0)
-            this->baseMAG += rand() % this->affinity.mag + 1;
-        if (this->affinity.wil > 0)
-            this->baseWIL += rand() % this->affinity.wil + 1;
-    }
+    if (this->affinity.hp > 0)
+        this->baseHP += rand() % this->affinity.hp + 1;
+    if (this->affinity.mp > 0)
+        this->baseMP += rand() % this->affinity.mp + 1;
+    if (this->affinity.str > 0)
+        this->baseSTR += rand() % this->affinity.str + 1;
+    if (this->affinity.tou > 0)
+        this->baseTOU += rand() % this->affinity.tou + 1;
+    if (this->affinity.att > 0)
+        this->baseATT += rand() % this->affinity.att + 1;
+    if (this->affinity.def > 0)
+        this->baseDEF += rand() % this->affinity.def + 1;
+    if (this->affinity.mag > 0)
+        this->baseMAG += rand() % this->affinity.mag + 1;
+    if (this->affinity.wil > 0)
+        this->baseWIL += rand() % this->affinity.wil + 1;
 
     // Handle equipment for different classes
     this->equipment[HEAD] = NULL;
