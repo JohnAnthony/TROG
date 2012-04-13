@@ -7,7 +7,7 @@
 #define NOISE_CHARACTER  '#'
 
 std::string GUI::status_line;
-std::list<std::string> GUI::messages;
+std::vector<std::string> GUI::messages;
 const char *GUI::SplashStr = "\
 \n\
 \n\
@@ -62,7 +62,7 @@ GUI::ProcessMessages(Game *g) {
         return;
     }
 
-    for (std::list<std::string>::iterator it = messages.begin(); 
+    for (std::vector<std::string>::iterator it = messages.begin(); 
             it != messages.end();) {
         s = *it;
         SetStatus(s);

@@ -28,7 +28,7 @@ class GUI {
 
     private:
     static std::string status_line;
-    static std::list<std::string> messages;
+    static std::vector<std::string> messages;
     static const char* SplashStr;
 };
 
