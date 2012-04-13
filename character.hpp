@@ -50,6 +50,18 @@ class Character : public Entity {
         LIZARDFOLK,
         LAST_RACE
     } Race;
+    typedef enum {
+        HEAD,
+        BODY,
+        WEAPON,
+        SHIELD,
+        GLOVES,
+        BOOTS,
+        RING1,
+        RING2,
+        NECK,
+        LAST_EQUIP_LOCATION
+    } EquipLocations;
 
     Character(std::string inName, Character::Race inRace, Character::Class inClass);
     ~Character(void);
@@ -82,15 +94,7 @@ class Character : public Entity {
     Affinity affinity;
     std::string name;
     std::list<Item*> Inventory;
-    Equippable *helm;
-    Equippable *armour;
-    Equippable *weapon;
-    Equippable *shield;
-    Equippable *gloves;
-    Equippable *boots;
-    Equippable *ring1;
-    Equippable *ring2;
-    Equippable *neck;
+    Equippable *equipment[Character::LAST_EQUIP_LOCATION];
 
     int baseHP, curHP;
     int baseMP, curMP;
