@@ -16,6 +16,7 @@ class Enemy : public Entity {
     std::string Description(void);
     void Attack(Character *c);
     void TakeDamage(int amt);
+    bool isAlive(void);
 
     unsigned int Level;
     unsigned int XP_value;
@@ -23,6 +24,16 @@ class Enemy : public Entity {
     const char *name;
     const char *descriptor;
     bool isActive;
+    int maxHP;
+    int curHP;
+    int MP;
+    int STR;
+    int TOU;
+    int ATT;
+    int DEF;
+    int MAG;
+    int WIL;
+
 };
 
 static Enemy EnemyList[] = {

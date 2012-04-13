@@ -384,6 +384,12 @@ Character::getXP(void) {
     return this->XP;
 }
 
+
+bool
+Character::isAlive(void) {
+    return this->curHP > 0;
+}
+
 Character::~Character(void) {
     Item *item;
     for (std::list<Item*>::iterator it = this->Inventory.begin();

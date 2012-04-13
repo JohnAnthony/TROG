@@ -69,6 +69,7 @@ class Character : public Entity {
     void RecoverMP(int n);
     void ReadBookOrScroll(int n);
     void RandomCurse(int potency);
+    bool isAlive(void);
 
     //Getters(!)
     int getXP(void);
@@ -89,6 +90,15 @@ class Character : public Entity {
     Equippable *ring1;
     Equippable *ring2;
     Equippable *neck;
+    int maxHP, curHP;
+    int maxMP, curMP;
+    int maxSTR, curSTR;
+    int maxTOU, curTOU;
+    int maxATT, curATT;
+    int maxDEF, curDEF;
+    int maxMAG, curMAG;
+    int maxWIL, curWIL;
+
 
     private:
     int XP;

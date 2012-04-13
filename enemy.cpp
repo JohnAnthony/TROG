@@ -14,13 +14,13 @@ Enemy::Enemy(unsigned int inLVL, char inSymbol, Color inCol, int inSight,
     this->colour = inCol;
     this->sight_range = inSight;
     this->maxHP = this->curHP = hp;
-    this->maxMP = this->curMP = mp;
-    this->maxSTR = this->curSTR = str;
-    this->maxTOU = this->curTOU = tou;
-    this->maxATT = this->curATT = att;
-    this->maxDEF = this->curDEF = def;
-    this->maxMAG = this->curMAG = mag;
-    this->maxWIL = this->curWIL = wil;
+    this->MP = mp;
+    this->STR = str;
+    this->TOU = tou;
+    this->ATT = att;
+    this->DEF = def;
+    this->MAG = mag;
+    this->WIL = wil;
     this->mv_cost = inMV;
     this->XP_value = inXP;
     this->name = inName;
@@ -54,11 +54,11 @@ Enemy::Attack(Character *c) {
     ss << c->name;
 
     // The attack
-    dmg = rand() % this->curATT - rand() % c->curDEF;
+    dmg = rand() % this->ATT - rand() % c->curDEF;
     if (dmg <= 0)
         ss << " but misses";
     else
-        dmg += rand() % (int)(this->curSTR * 1.5) - rand() % c->curTOU;
+        dmg += rand() % (int)(this->STR * 1.5) - rand() % c->curTOU;
 
     //The damage
     if (dmg <= 0)
@@ -75,4 +75,9 @@ void
 Enemy::TakeDamage(int amt) {
     this->curHP -= amt;
     this->isActive = true;
+}
+
+bool
+Enemy::isAlive(void) {
+    return curHP > 0;
 }
