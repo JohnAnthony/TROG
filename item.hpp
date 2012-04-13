@@ -10,6 +10,7 @@ class Item {
         GENERIC,
         POTION,
         TREASURE_T,
+        STAT_TOME,
         LAST_TYPE
     };
 

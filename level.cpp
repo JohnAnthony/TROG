@@ -1,5 +1,6 @@
 #include "level.hpp"
 #include "gui.hpp"
+#include "stattome.hpp"
 #include <cstdlib>
 #include <ncurses.h>
 #include <sstream>
@@ -654,7 +655,7 @@ Level::MakeSpecialRoom(Rect *r) {
         "centre of the room sits a grand tome upon a pedestal.";
 
     int i;
-    // Item *item;
+    Item *item;
 
     i = rand() % SpecialRooms::LAST_TYPE;
 
@@ -662,6 +663,10 @@ Level::MakeSpecialRoom(Rect *r) {
         case SpecialRooms::LIBRARY:
             this->AddPillars(r);
             this->AddRoomText(r, library_text);
+            item = (Item*) new StatTome(this->depth);
+            item->pos.x = r->x + r->w / 2;
+            item->pos.y = r->y + r->h / 2;
+            this->items.push_back(item);
             break;
         case SpecialRooms::LAST_TYPE:
         default:
