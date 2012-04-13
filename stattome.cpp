@@ -47,5 +47,70 @@ StatTome::GetName(void) {
 
 void
 StatTome::ApplyEffects(Character *c) {
-    GUI::Alert("Something happened.");
+    std::stringstream ss;
+    int effect;
+
+    if (rand() % 100 < 30) {
+        GUI::Alert("Something went wrong!");
+        c->RandomCurse(this->potency);
+        return;
+    }
+
+    effect = rand() % this->potency + 1;
+    ss << "Success! Your ";
+
+    switch(this->category) {
+        case StatTome::HEALTH:
+            c->maxHP += effect;
+            c->curHP += effect;
+            ss << "health";
+            break;
+        case StatTome::ENERGY:
+            c->maxMP += effect;
+            c->curMP += effect;
+            ss << "magical energy";
+            break;
+        case StatTome::STRENGTH:
+            c->maxSTR += effect;
+            c->curSTR += effect;
+            ss << "strength";
+            break;
+        case StatTome::TOUGHNESS:
+            c->maxTOU += effect;
+            c->curTOU += effect;
+            ss << "toughness";
+            break;
+        case StatTome::SKILL:
+            c->maxATT += effect;
+            c->curATT += effect;
+            ss << "attack skill";
+            break;
+        case StatTome::DODGE:
+            c->maxDEF += effect;
+            c->curDEF += effect;
+            ss << "defensive skill";
+            break;
+        case StatTome::MAGERY:
+            c->maxMAG += effect;
+            c->curMAG += effect;
+            ss << "sorcerous power";
+            break;
+        case StatTome::WILL:
+            c->maxWIL += effect;
+            c->curWIL += effect;
+            ss << "willpower";
+            break;
+        case StatTome::XP:
+            effect *= 10;
+            c->XP += effect;
+            ss << "mind takes in new sighs and sounds -- your experience";
+            break;
+        case StatTome::LAST_CATEGORY:
+        default:
+            break;
+    }
+
+    ss << " has increased by " << effect;
+
+    GUI::Alert(ss.str());
 }

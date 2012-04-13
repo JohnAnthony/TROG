@@ -67,6 +67,7 @@ class Character : public Entity {
     void Heal(int n);
     void RecoverMP(int n);
     void ReadBookOrScroll(int n);
+    void RandomCurse(int potency);
 
     int XP;
     int next_level;

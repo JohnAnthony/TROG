@@ -312,6 +312,21 @@ Character::ReadBookOrScroll(int n) {
     delete stattome;
 }
 
+void
+Character::RandomCurse(int potency) {
+    std::stringstream ss;
+    int effect;
+
+    ss << "CURSE! ";
+
+    //Standard XP down curse
+    effect = potency * potency;
+    this->XP -= effect;
+    ss << "Amnesia -- You forget some of your recent adventures!";
+    ss << " (" << effect << "XP lost)";
+    GUI::Alert(ss.str());
+}
+
 Character::~Character(void) {
     for (std::list<Item*>::iterator it = this->Inventory.begin();
             it != this->Inventory.end(); it++) {
