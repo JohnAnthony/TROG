@@ -28,15 +28,15 @@ StatTome::GetName(void) {
     std::stringstream ss;
     ss << "A ";
 
-    if (this->potency < 5)
+    if (this->potency < 10)
         ss << "book";
-    else if (this->potency < 10)
-        ss << "grand book";
     else if (this->potency < 15)
-        ss << "tome";
+        ss << "grand book";
     else if (this->potency < 20)
-        ss << "grand tome";
+        ss << "tome";
     else if (this->potency < 25)
+        ss << "grand tome";
+    else if (this->potency < 30)
         ss << "grimoire";
     else
         ss << "grand grimoire";
@@ -57,7 +57,7 @@ StatTome::ApplyEffects(Character *c) {
         return;
     }
 
-    effect = rand() % ((this->potency + 1) * 10);
+    effect = rand() % this->potency + 1;
     ss << "Success! Your ";
 
     switch(this->category) {
