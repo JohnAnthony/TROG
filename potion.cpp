@@ -44,17 +44,17 @@ Potion::ApplyEffects(Character *c) {
 
     //Healing
     if (this->category == HEALING || this->category == REJUVENATION) {
-        effect = 6;
+        effect = 10;
         for (int i = (int) this->potency; i >= 0; --i)
-            effect += rand() % 12;
+            effect += rand() % 20;
         c->Heal(effect);
     }
 
     //Mana restoration
     if (this->category == ENERVATION || this->category == REJUVENATION) {
-        effect = 6;
+        effect = 10;
         for (int i = (int) this->potency; i >= 0; --i)
-            effect += rand() % 12;
+            effect += rand() % 20;
         c->RecoverMP(effect);
     }
 }

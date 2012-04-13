@@ -28,12 +28,12 @@ class Enemy : public Entity {
 static Enemy EnemyList[] = {
 
 //lvl       sym     col         sight   hp  mp  str tou att def mag wil mv      xp      name
-Enemy(1,    'o',    COL_BLUE,   6,      1,  0,  10, 10, 10, 10, 0,  8,  950,    15,     "Binary Blob", "petty"),
-Enemy(1,    'b',    COL_GREEN,  6,      8,  0,  15, 15, 12, 12, 0,  8,  1000,   85,     "Bug", "Shallow"),
-Enemy(2,    'd',    COL_RED,    6,      30, 0,  20, 20, 20, 20, 0,  8,  900,    135,    "Pigdog", "North American"),
-Enemy(3,    'b',    COL_YELLOW, 6,      60, 0,  30, 30, 23, 23, 0,  12, 1200,   350,    "Neckbear", "juvenile"),
-Enemy(4,    'G',    COL_YELLOW, 6,      80, 0,  36, 36, 36, 36, 0,  25, 1100,   550,    "Gnu", "wild"),
-Enemy(10,   'T',    COL_GREEN,  6,      200,0,  80, 80, 80, 80, 0,  24, 1000,   1000,   "Troll", "eax"),
+Enemy(1,    'o',    COL_BLUE,   6,      60, 0,  45, 45, 45, 45, 0,  45, 1000,   35,     "Binary Blob", "petty"),
+Enemy(1,    'b',    COL_GREEN,  6,      8,  0,  60, 60, 60, 60, 0,  60, 1000,   65,     "Bug", "Shallow"),
+Enemy(2,    'd',    COL_RED,    6,      30, 0,  70, 70, 70, 70, 0,  70, 900,    185,    "Pigdog", "North American"),
+Enemy(3,    'b',    COL_YELLOW, 6,      60, 0,  80, 80, 80, 80, 0,  80, 1200,   350,    "Neckbear", "juvenile"),
+Enemy(4,    'G',    COL_YELLOW, 6,      80, 0,  90, 90, 90, 90, 0,  90, 1100,   550,    "Gnu", "wild"),
+Enemy(10,   'T',    COL_GREEN,  6,      200,0,  150,150,150,150,0,  150,1000,   1000,   "Troll", "eax"),
 
 };
 

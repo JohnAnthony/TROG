@@ -5,25 +5,25 @@
 
 static Affinity ClassAffinities[Character::LAST_CLASS] {
     //HP    MP  STR TOU ATT DEF MAG WIL MV  SIGHT
-    {12,    0,  7,  7,  4,  4,  0,  4,  0,  0},  //BARBARIAN
-    {6,     6,  3,  3,  3,  3,  13, 8,  0,  0},  //CLERIC
-    {6,     6,  2,  2,  2,  2,  13, 6,  0,  0},  //DRUID
-    {10,    0,  6,  6,  6,  6,  0,  5,  0,  0},  //FIGHTER
-    {10,    4,  6,  6,  5,  5,  8,  7,  0,  0},  //PALADIN
-    {4,     8,  1,  1,  1,  1,  12, 7,  0,  0},  //SAGE
-    {6,     0,  2,  2,  2,  2,  0,  5,  0,  0},  //THIEF
-    {4,     10, 1,  1,  1,  1,  15, 7,  0,  0}   //WIZARD
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //BARBARIAN
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //CLERIC
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //DRUID
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //FIGHTER
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //PALADIN
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //SAGE
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //THIEF
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //WIZARD
 };
 static Affinity RaceAffinities[Character::LAST_RACE] {
     //HP    MP  STR TOU ATT DEF MAG WIL MV  SIGHT
-    {15,    -5, 5,  8,  5,  5,  -2, 10, 50, 6},  //DWARF
-    {5,     2,  4,  3,  7,  6,  1,  5,  -50,7},  //ELF
-    {10,    -2, 8,  7,  5,  5,  0,  3,  0,  7},  //GREY ORC
-    {10,    0,  3,  3,  6,  8,  0,  5,  20, 5},  //HALFLING
-    {8,     0,  5,  4,  5,  5,  0,  5,  -25,6},  //HALF_ELF
-    {10,    -1, 7,  6,  5,  5,  0,  4,  0,  6},  //HALF_ORC
-    {10,    0,  5,  5,  5,  5,  0,  5,  0,  5},  //HUMAN
-    {10,    0,  6,  6,  5,  5,  0,  4,  0,  6}   //LIZARDFOLK
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //DWARF
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //ELF
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //GREY ORC
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //HALFLING
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //HALF_ELF
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //HALF_ORC
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //HUMAN
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //LIZARDFOLK
 };
 
 Character::Character(std::string inName, Character::Race inRace, Character::Class inClass) {
@@ -45,6 +45,26 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
     this->maxDEF = this->affinity.def * 2;
     this->maxMAG = this->affinity.mag * 2;
     this->maxWIL = this->affinity.wil * 2;
+
+    for (int i = 0; i < 2; ++i) {
+        this->Level++;
+        if (this->affinity.hp > 0)
+            this->maxHP += rand() % this->affinity.hp + 1;
+        if (this->affinity.mp > 0)
+            this->maxMP += rand() % this->affinity.mp + 1;
+        if (this->affinity.str > 0)
+            this->maxSTR += rand() % this->affinity.str + 1;
+        if (this->affinity.tou > 0)
+            this->maxTOU += rand() % this->affinity.tou + 1;
+        if (this->affinity.att > 0)
+            this->maxATT += rand() % this->affinity.att + 1;
+        if (this->affinity.def > 0)
+            this->maxDEF += rand() % this->affinity.def + 1;
+        if (this->affinity.mag > 0)
+            this->maxMAG += rand() % this->affinity.mag + 1;
+        if (this->affinity.wil > 0)
+            this->maxWIL += rand() % this->affinity.wil + 1;
+    }
 
     //You come into this world naked and screaming
     this->helm = NULL;
