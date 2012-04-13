@@ -51,7 +51,7 @@ StatTome::ApplyEffects(Character *c) {
     int effect;
 
     // Chance of a curse
-    if (rand() % (100 + c->curMAG + c->curWIL) < 10 + this->potency) {
+    if (rand() % (100 + c->curMAG + c->curWIL) < 10 + (int)this->potency) {
         GUI::Alert("Something went wrong!");
         c->RandomCurse(this->potency);
         return;

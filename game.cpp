@@ -91,7 +91,7 @@ Game::Run(void) {
         }
     }
 
-    clear();
+    GUI::FancyClear();
     GUI::ShowSplash();
     return GUI::BinaryChoice("Do you wish to play again?", 'y', 'n');
 }
@@ -123,14 +123,14 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             this->ShowInventoryScreen();
             break;
         case (GameMode::POTION_SELECT):
-            clear();
+            GUI::FancyClear();
             GUI::ShowSplash();
             this->PotionSelectMenu->Reset();
             this->RepopulatePotionMenu();
             this->PotionSelectMenu->Show();
             break;
         case (GameMode::READING_SELECT):
-            clear();
+            GUI::FancyClear();
             GUI::ShowSplash();
             this->BookSelectMenu->Reset();
             this->RepopulateBookMenu();
@@ -770,7 +770,7 @@ Game::HandleResize(int signal) {
 
 void
 Game::QuitDialogue(void) {
-    clear();
+    GUI::FancyClear();
     GUI::ShowSplash();
     this->running = !GUI::BinaryChoice("Are you sure you want to quit?", 'y', 'n');
     if (this->running)

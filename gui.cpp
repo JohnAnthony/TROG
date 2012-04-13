@@ -1,4 +1,5 @@
 #include "gui.hpp"
+#include <unistd.h>
 #include <ncurses.h>
 #include <sstream>
 #include <cstring>
@@ -348,4 +349,15 @@ GUI::BinaryChoice(std::string str, char a, char b) {
     if (c == a)
         return true;
     return false;
+}
+
+void
+GUI::FancyClear(void) {
+    wmove(stdscr, 0, 0);
+    for (int i = 0; i < LINES - 1; ++i) {
+        for (int e = 0; e < COLS; ++e) {
+            waddch(stdscr, ' ');
+        }
+        refresh();
+    }
 }

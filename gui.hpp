@@ -24,6 +24,7 @@ class GUI {
     static WINDOW* NewCentredWindow(int w, int h);
     static void Alert(std::string str);
     static bool BinaryChoice(std::string str, char a, char b);
+    static void FancyClear(void);
 
     private:
     static std::string status_line;
