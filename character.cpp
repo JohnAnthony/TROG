@@ -328,8 +328,25 @@ Character::RandomCurse(int potency) {
 }
 
 Character::~Character(void) {
+    Item *item;
     for (std::list<Item*>::iterator it = this->Inventory.begin();
-            it != this->Inventory.end(); it++) {
-        delete &**it;
+    it != this->Inventory.end(); it++) {
+        item = &**it;
+        switch (item->type) {
+            case Item::POTION:
+                delete (Potion*) item;
+                break;
+            case Item::STAT_TOME:
+                delete (StatTome*) item;
+                break;
+            case Item::TREASURE_T:
+                delete (Treasure*) item;
+                break;
+            case Item::GENERIC:
+            case Item::LAST_TYPE:
+            default:
+                delete item;
+                break;
+        }
     }
 }

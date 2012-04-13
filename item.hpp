@@ -15,6 +15,7 @@ class Item {
     };
 
     Item(void);
+    ~Item(void);
     void SetPosition(int x, int y);
     std::string GetName(void);
 

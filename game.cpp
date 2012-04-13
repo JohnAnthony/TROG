@@ -851,7 +851,8 @@ Game::RepopulateBookMenu(void) {
 }
 
 Game::~Game(void) {
-    if (levels)
-        delete levels;
-    delete PotionSelectMenu;
+    if (this->levels)
+        delete this->levels;
+    delete this->PotionSelectMenu;
+    delete this->BookSelectMenu;
 }

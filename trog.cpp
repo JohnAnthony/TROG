@@ -8,6 +8,7 @@
 #include <signal.h>
 
 Game *g = NULL;
+Character *c;
 
 static void
 resize_handler(int sign) {
@@ -22,12 +23,13 @@ interrupt_handler(int sign) {
     erase();
     endwin();
     puts("SIGINT received; exiting cleanly.");
+    delete g;
+    delete c;
     exit(0);
 }
 
 int main(int argc, char** argv) {
     bool playagain;
-    Character *c;
 
     srand(time(NULL));
     initscr();

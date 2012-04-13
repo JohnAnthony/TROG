@@ -24,3 +24,6 @@ Item::GetName(void) {
     else
         return "Unknown";
 }
+
+Item::~Item(void) {
+}

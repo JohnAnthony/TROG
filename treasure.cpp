@@ -18,3 +18,6 @@ std::string
 Treasure::GetName(void) {
     return name;
 }
+
+Treasure::~Treasure(void) {
+}

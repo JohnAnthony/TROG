@@ -7,6 +7,7 @@
 class Treasure : public Item {
     public:
     Treasure(int n);
+    ~Treasure(void);
     std::string GetName(void);
 
     int quantity;

@@ -27,6 +27,7 @@ class Potion : public Item {
     };
 
     Potion(Potion::Potency inPot, Potion::Category inCat);
+    ~Potion();
     void ApplyEffects(Character *c);
     std::string GetName(void);
 

@@ -68,3 +68,6 @@ Potion::GetName(void) {
     ss << CATEGORIES[this->category];
     return ss.str();
 }
+
+Potion::~Potion(void) {
+}

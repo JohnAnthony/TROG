@@ -715,9 +715,26 @@ Level::CheckForRoomText(Character *c) {
 }
 
 Level::~Level(void) {
+    Item *item;
     for (std::list<Item*>::iterator it = this->items.begin();
     it != this->items.end(); it++) {
-        delete &**it;
+        item = &**it;
+        switch (item->type) {
+            case Item::POTION:
+                delete (Potion*) item;
+                break;
+            case Item::STAT_TOME:
+                delete (StatTome*) item;
+                break;
+            case Item::TREASURE_T:
+                delete (Treasure*) item;
+                break;
+            case Item::GENERIC:
+            case Item::LAST_TYPE:
+            default:
+                delete item;
+                break;
+        }
     }
     if (this->next)
         delete this->next;
