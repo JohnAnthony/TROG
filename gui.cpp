@@ -691,3 +691,49 @@ GUI::CharacterStatusLine(Character *c) {
 
     GUI::SetStatus(ss.str());
 }
+
+void
+GUI::ShowInfoScreen(Game *g) {
+    WINDOW *w;
+    Rect pos;
+    std::stringstream ss;
+    std::string s;
+
+    pos.w = 80;
+    pos.h = 25;
+    pos.x = (COLS - pos.w) / 2;
+    pos.y = (LINES - pos.h) / 2;
+
+    w = newwin(pos.h, pos.w, pos.y, pos.x);
+    box(w, 0, 0);
+
+    //Make our box shape
+    //Horizontal lines
+    wmove(w, 0, 1);
+    for (int i = 0; i < pos.w - 2; ++i) {
+        if ((i - 1) % 3 == 0)
+            waddch(w, '|');
+        else
+            waddch(w, '=');
+    }
+    wmove(w, pos.h - 1, 1);
+    for (int i = 0; i < pos.w - 2; ++i) {
+        if ((i - 1) % 3 == 0)
+            waddch(w, '|');
+        else
+            waddch(w, '=');
+    }
+
+    //header
+    mvwprintw(w, 1, 2, "MAP INFO");
+
+    //List of attributes
+    ss << "Level :: " << g->cur_level->depth << " below ground";
+    s = ss.str();
+    mvwprintw(w, 3, 3, s.c_str());
+
+    wrefresh(w);
+    delwin(w);
+}
+
+

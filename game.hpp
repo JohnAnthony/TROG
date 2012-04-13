@@ -39,9 +39,6 @@ class Game {
     void MoveLookTarget(Direction::Type d);
     void DrawAsOverlay(Point p, char c, int col);
     void DoPickup(void);
-    void ShowCharacterScreen(void);
-    void ShowInventoryScreen(void);
-    void ShowInfoScreen(void);
     void HandleResize(int signal);
     void QuitDialogue(void);
     void DoAttack(Character *c, Enemy *e);
