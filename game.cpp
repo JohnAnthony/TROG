@@ -630,28 +630,56 @@ Game::ShowCharacterScreen(void) {
     p.y = 10;
     ss.str("");
     ss << "HEAD   :: " << c->getEquipmentName(HEAD);
+    ss << " (q:" << c->getEquipmentQuality(HEAD) << ")";
     s = ss.str();
     mvwprintw(w, p.y, p.x, s.c_str());
 
-    s = "BODY   :: NONE";
+    ss.str("");
+    ss << "BODY   :: " << c->getEquipmentName(BODY);
+    ss << " (q:" << c->getEquipmentQuality(BODY) << ")";
+    s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    s = "WEAPON :: NONE";
+    ss.str("");
+    ss << "WEAPON :: " << c->getEquipmentName(WEAPON);
+    ss << " (q:" << c->getEquipmentQuality(WEAPON) << ")";
+    s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    s = "HANDS  :: NONE";
+    ss.str("");
+    ss << "SHIELD :: " << c->getEquipmentName(SHIELD);
+    ss << " (q:" << c->getEquipmentQuality(SHIELD) << ")";
+    s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    s = "FEET   :: NONE";
+    ss.str("");
+    ss << "GLOVES :: " << c->getEquipmentName(GLOVES);
+    ss << " (q:" << c->getEquipmentQuality(GLOVES) << ")";
+    s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    s = "RING1  :: NONE";
+    ss.str("");
+    ss << "BOOTS  :: " << c->getEquipmentName(BOOTS);
+    ss << " (q:" << c->getEquipmentQuality(BOOTS) << ")";
+    s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    s = "RING2  :: NONE";
+    ss.str("");
+    ss << "RING1  :: " << c->getEquipmentName(RING1);
+    ss << " (q:" << c->getEquipmentQuality(RING1) << ")";
+    s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
-    s = "NECK   :: NONE";
+    ss.str("");
+    ss << "RING2  :: " << c->getEquipmentName(RING2);
+    ss << " (q:" << c->getEquipmentQuality(RING2) << ")";
+    s = ss.str();
+    mvwprintw(w, ++p.y, p.x, s.c_str());
+
+    ss.str("");
+    ss << "NECK   :: " << c->getEquipmentName(NECK);
+    ss << " (q:" << c->getEquipmentQuality(NECK) << ")";
+    s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 
     //Output all done

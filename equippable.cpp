@@ -48,5 +48,17 @@ Equippable::getName(void) {
 
 int
 Equippable::getQuality(void) {
-    return 5;
+    int ret;
+
+    ret = 0;
+    ret += this->modHP;
+    ret += this->modMP;
+    ret += this->modSTR;
+    ret += this->modTOU;
+    ret += this->modATT;
+    ret += this->modDEF;
+    ret += this->modMAG;
+    ret += this->modWIL;
+
+    return ret;
 }

@@ -407,11 +407,15 @@ Character::RecalcEffective(void) {
 
 std::string 
 Character::getEquipmentName(EquipLocations el) {
+    if (!this->equipment[el])
+        return "NONE";
     return this->equipment[el]->getName();
 }
 
 int 
 Character::getEquipmentQuality(EquipLocations el) {
+    if (!this->equipment[el])
+        return 0;
     return this->equipment[el]->getQuality();
 }
 
