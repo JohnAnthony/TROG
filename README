@@ -43,7 +43,9 @@ Arrow Keys = Move Camera
 
 , = Pickup gold/items
 p = Drink a potion
-r = Read book/scroll (Not implemented)
+r = Read book/scroll
+m = Cast magic (Not implemented)
+b = View spellbook (Not implemented)
 
 Map Look Mode
 -------------

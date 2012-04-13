@@ -492,6 +492,7 @@ Game::DoPickup(void) {
             this->character->ItemToInventory(item);
         GUI::AddMessage(ss.str());
         this->cur_level->items.erase(it);
+        this->cur_level->GiveEnemiesTurn(this->character);
     }
 }
 
