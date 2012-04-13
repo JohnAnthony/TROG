@@ -24,7 +24,7 @@ Game::Game(Character *c) {
     this->game_mode = GameMode::MAP_WALK;
     this->running = true;
 
-    this->PotionSelectMenu = new ScrollableMenu("Potion Select");
+    this->PotionSelectMenu = new ScrollableMenu("Drink Selection");
 
     //Give the player a few starting potions for luck
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
@@ -752,7 +752,7 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
     if (dam < 0)
         ss << " but misses";
     else {
-        dam += rand() % (c->curSTR * 2) - rand() % e->curTOU;
+        dam += rand() % (c->curSTR * 1.5) - rand() % e->curTOU;
         if (dam <= 0)
             ss << " but fails to do any damage";
         else

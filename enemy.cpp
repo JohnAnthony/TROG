@@ -58,7 +58,7 @@ Enemy::Attack(Character *c) {
     if (dmg <= 0)
         ss << " but misses";
     else
-        dmg += rand() % (this->curSTR * 2) - rand() % c->curTOU;
+        dmg += rand() % (this->curSTR * 1.5) - rand() % c->curTOU;
 
     //The damage
     if (dmg <= 0)

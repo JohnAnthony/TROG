@@ -43,6 +43,7 @@ Arrow Keys = Move Camera
 
 , = Pickup gold/items
 p = Drink a potion
+r = Read book/scroll (Not implemented)
 
 Map Look Mode
 -------------
