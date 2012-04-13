@@ -358,6 +358,6 @@ GUI::FancyClear(void) {
         for (int e = 0; e < COLS; ++e) {
             waddch(stdscr, ' ');
         }
-        refresh();
     }
+    refresh();
 }
