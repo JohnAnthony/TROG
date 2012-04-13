@@ -531,7 +531,7 @@ Level::EnemySpawn(Rect *r) {
 void
 Level::RemoveEnemy(Enemy *e) {
     for (std::list<Enemy>::iterator it = this->enemies.begin();
-            it != this->enemies.end(); it++) {
+    it != this->enemies.end(); it++) {
         if (&*it == e) {
             this->enemies.erase(it);
             return;
@@ -544,7 +544,7 @@ Level::RemoveEnemy(Enemy *e) {
 void
 Level::GiveEnemiesTurn(Character *c) {
     for (std::list<Enemy>::iterator it = this->enemies.begin();
-            it != this->enemies.end(); it++) {
+    it != this->enemies.end(); it++) {
         if (!it->isActive && CalculateDistance(it->pos, c->pos) <= it->sight_range)
             it->isActive = true;
         if (it->isActive)

@@ -69,7 +69,9 @@ class Character : public Entity {
     void ReadBookOrScroll(int n);
     void RandomCurse(int potency);
 
-    int XP;
+    //Getters(!)
+    int getXP(void);
+
     int next_level;
     int Level;
     Class cclass;
@@ -85,6 +87,9 @@ class Character : public Entity {
     Item *ring1;
     Item *ring2;
     Item *neck;
+
+    private:
+    int XP;
 };
 
 #endif

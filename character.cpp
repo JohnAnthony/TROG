@@ -224,7 +224,7 @@ Character::ItemToInventory(Item *i) {
 
 void
 Character::DrinkPotion(int n) {
-    Item *item;
+    Item *item = NULL;
     Potion *potion;
     std::list<Item*>::iterator it;
 
@@ -240,7 +240,7 @@ Character::DrinkPotion(int n) {
         }
     }
 
-    if (n != 0) {
+    if (n != 0 || !item) {
         GUI::Alert("Something went wrong trying to find the selected potion...");
         return;
     }
@@ -284,7 +284,7 @@ Character::RecoverMP(int n) {
 
 void
 Character::ReadBookOrScroll(int n) {
-    Item *item;
+    Item *item = NULL;
     StatTome *stattome;
     std::list<Item*>::iterator it;
 
@@ -300,7 +300,7 @@ Character::ReadBookOrScroll(int n) {
         }
     }
 
-    if (n != 0) {
+    if (n != 0 || !item) {
         GUI::Alert("Something went wrong trying to find the selected potion...");
         return;
     }
@@ -325,6 +325,11 @@ Character::RandomCurse(int potency) {
     ss << "Amnesia -- You forget some of your recent adventures!";
     ss << " (" << effect << "XP lost)";
     GUI::Alert(ss.str());
+}
+
+int
+Character::getXP(void) {
+    return this->XP;
 }
 
 Character::~Character(void) {

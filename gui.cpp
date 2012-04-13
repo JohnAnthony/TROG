@@ -247,7 +247,7 @@ GUI::GetString(std::string prompt) {
 
 void
 GUI::ShowSplash(void) {
-    GUI::ShowSplash(COL_PURPLE);
+    GUI::ShowSplash(COL_BLUE);
 }
 
 void

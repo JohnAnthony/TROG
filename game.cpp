@@ -620,7 +620,7 @@ Game::ShowCharacterScreen(void) {
     mvwprintw(w, p.y, p.x, s.c_str());
 
     ss.str("");
-    ss << "XP    :: " << c->XP << "/" << c->next_level;
+    ss << "XP    :: " << c->getXP() << "/" << c->next_level;
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 

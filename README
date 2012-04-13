@@ -46,6 +46,7 @@ p = Drink a potion
 r = Read book/scroll
 m = Cast magic (Not implemented)
 b = View spellbook (Not implemented)
+t = Talk/Interact with shopkeeper (Not implemented)
 
 Map Look Mode
 -------------
