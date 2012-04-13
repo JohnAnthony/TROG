@@ -78,10 +78,19 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
 
     switch(this->cclass) {
         case Character::BARBARIAN:
+            this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
+            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
+            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
             break;
         case Character::CLERIC:
+            this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
+            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
+            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
             break;
         case Character::DRUID:
+            this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
+            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
+            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
             break;
         case Character::FIGHTER:
             this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
@@ -95,8 +104,14 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
             this->equipment[NECK] = new Equippable(Equippable::HOLY_SYMBOL, 1);
             break;
         case Character::SAGE:
+            this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
+            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
+            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
             break;
         case Character::THIEF:
+            this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
+            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
+            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
             break;
         case Character::WIZARD:
             this->equipment[WEAPON] = new Equippable(Equippable::STAFF, 1);
