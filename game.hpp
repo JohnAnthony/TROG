@@ -34,13 +34,11 @@ class Game {
     void MoveCamera(Direction::Type d);
     void DoRedraw(void);
     void MoveCharacter(Direction::Type d);
-    void CharacterStatusLine(void);
     void DrawLookTarget(void);
     void MoveLookTarget(Direction::Type d);
     void DrawAsOverlay(Point p, char c, int col);
     void DoPickup(void);
     void HandleResize(int signal);
-    void QuitDialogue(void);
     void DoAttack(Character *c, Enemy *e);
     void DoWait(void);
     void RepopulatePotionMenu(void);

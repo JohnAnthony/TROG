@@ -30,6 +30,7 @@ class GUI {
     static void ShowInventoryScreen(Character *c);
     static void CharacterStatusLine(Character *c);
     static void ShowInfoScreen(Game *g);
+    static void QuitDialogue(Game *g);
 
     private:
     static std::string status_line;

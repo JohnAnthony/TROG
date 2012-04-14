@@ -44,7 +44,7 @@ Game::Run(void) {
 
         //Handle mode changes
         if (c == KEY_F(12))
-            this->QuitDialogue();
+            GUI::QuitDialogue(this);
         else if (c == 'l')
             new_gamemode = GameMode::MAP_LOOK;
         else if (c == 'i')
@@ -483,15 +483,6 @@ void
 Game::HandleResize(int signal) {
     refresh();
     this->DoRedraw();
-}
-
-void
-Game::QuitDialogue(void) {
-    GUI::FancyClear();
-    GUI::ShowSplash();
-    this->running = !GUI::BinaryChoice("Are you sure you want to quit?", 'y', 'n');
-    if (this->running)
-        this->DoRedraw();
 }
 
 void

@@ -736,4 +736,13 @@ GUI::ShowInfoScreen(Game *g) {
     delwin(w);
 }
 
+void
+GUI::QuitDialogue(Game *g) {
+    GUI::FancyClear();
+    GUI::ShowSplash();
+    g->running = !GUI::BinaryChoice("Are you sure you want to quit?", 'y', 'n');
+    if (g->running)
+        g->DoRedraw();
+}
+
 
