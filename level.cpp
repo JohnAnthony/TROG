@@ -16,7 +16,7 @@ namespace SpecialRooms {
     };
 }
 
-Point Level::cam;
+Point GUI::cam;
 Character* Level::character;
 
 Level::Level(Level* parent) {
@@ -71,8 +71,8 @@ Level::Draw(Game *g) {
     //Floor tiles
     for (int e = 0; e < LINES - 1; ++e) { //Save space for the status line
         for (int i = 0; i < COLS; ++i) {
-            i2 = i + this->cam.x;
-            e2 = e + this->cam.y;
+            i2 = i + GUI::cam.x;
+            e2 = e + GUI::cam.y;
             t = &this->tiles[i2][e2];
             if (i2 >= MAP_W || i2 < 0 || e2 >= MAP_H || e2 < 0)
                 c = ' ';
@@ -117,7 +117,7 @@ Level::Draw(Game *g) {
 
 void
 Level::DrawObjectRelative(Point p, char c) {
-    mvaddch(p.y - this->cam.y, p.x - this->cam.x, c);
+    mvaddch(p.y - GUI::cam.y, p.x - GUI::cam.x, c);
 }
 
 void
@@ -293,23 +293,9 @@ Level::TileIsVisible(Point p) {
     return this->tiles[p.x][p.y].isVisible;
 }
 
-bool
-Level::IsOnScreen(Point p) {
-    if (p.x - this->cam.x < 0)
-        return false;
-    if (p.y - this->cam.y < 0)
-        return false;
-    if (p.x - this->cam.x >= COLS)
-        return false;
-    if (p.y - this->cam.y >= LINES - 1) // -1 gives space for the status bar
-        return false;
-
-    return true;
-}
-
 void
 Level::ConditionallyShowObject(Point p, char c, int col) {
-    if (!this->IsOnScreen(p))
+    if (!GUI::isOnScreen(p))
         return;
     if (!this->TileIsVisible(p))
         return;
@@ -369,8 +355,8 @@ Level::DoSightBeam(Direction::Type d, int x, int y, float ttl) {
 
 void
 Level::CentreCam(Point p) {
-    this->cam.x = p.x - COLS / 2;
-    this->cam.y = p.y - LINES / 2;
+    GUI::cam.x = p.x - COLS / 2;
+    GUI::cam.y = p.y - LINES / 2;
 }
 
 void

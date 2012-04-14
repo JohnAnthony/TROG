@@ -36,7 +36,6 @@ class Game {
     void MoveCharacter(Direction::Type d);
     void DrawLookTarget(void);
     void MoveLookTarget(Direction::Type d);
-    void DrawAsOverlay(Point p, char c, int col);
     void DoPickup(void);
     void HandleResize(int signal);
     void DoAttack(Character *c, Enemy *e);

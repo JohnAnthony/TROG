@@ -745,4 +745,27 @@ GUI::QuitDialogue(Game *g) {
         g->DoRedraw();
 }
 
+void
+GUI::DrawAsOverlay(Point p, char c, int col) {
+    if (!GUI::isOnScreen(p))
+        return;
+    attron(COLOR_PAIR(col));
+    mvaddch(p.y - GUI::cam.y, p.x - GUI::cam.x, c);
+    attroff(COLOR_PAIR(col));
+}
+
+bool
+GUI::isOnScreen(Point p) {
+    if (p.x - GUI::cam.x < 0)
+        return false;
+    if (p.y - GUI::cam.y < 0)
+        return false;
+    if (p.x - GUI::cam.x >= COLS)
+        return false;
+    if (p.y - GUI::cam.y >= LINES - 1) // -1 gives space for the status bar
+        return false;
+
+    return true;
+}
+
 

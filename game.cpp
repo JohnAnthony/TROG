@@ -268,23 +268,22 @@ void
 Game::MoveCamera(Direction::Type d) {
     int step_x;
     int step_y;
-    Level *l = this->cur_level;
 
     step_x = MAX(COLS / 3, 1);
     step_y = MAX(LINES / 3, 1);
 
     switch (d) {
         case Direction::NORTH:
-            l->cam.y -= step_y;
+            GUI::cam.y -= step_y;
             break;
         case Direction::SOUTH:
-            l->cam.y += step_y;
+            GUI::cam.y += step_y;
             break;
         case Direction::EAST:
-            l->cam.x += step_x;
+            GUI::cam.x += step_x;
             break;
         case Direction::WEST:
-            l->cam.x -= step_x;
+            GUI::cam.x -= step_x;
             break;
         default:
             break;
@@ -391,19 +390,19 @@ Game::DrawLookTarget(void) {
     Point p;
     static Color col = COL_PURPLE;
 
-    if (!this->cur_level->IsOnScreen(target))
+    if (!GUI::isOnScreen(target))
         return;
 
     p.y = target.y;
     p.x = target.x - 1;
-    this->DrawAsOverlay(p, '-', col);
+    GUI::DrawAsOverlay(p, '-', col);
     p.x = target.x + 1;
-    this->DrawAsOverlay(p, '-', col);
+    GUI::DrawAsOverlay(p, '-', col);
     p.x = target.x;
     p.y = target.y - 1;
-    this->DrawAsOverlay(p, '|', col);
+    GUI::DrawAsOverlay(p, '|', col);
     p.y = target.y + 1;
-    this->DrawAsOverlay(p, '|', col);
+    GUI::DrawAsOverlay(p, '|', col);
 }
 
 void
@@ -437,15 +436,6 @@ Game::MoveLookTarget(Direction::Type d) {
 
     this->cur_level->CentreCam(this->target);
     this->DoRedraw();
-}
-
-void
-Game::DrawAsOverlay(Point p, char c, int col) {
-    if (!this->cur_level->IsOnScreen(p))
-        return;
-    attron(COLOR_PAIR(col));
-    mvaddch(p.y - this->cur_level->cam.y, p.x - this->cur_level->cam.x, c);
-    attroff(COLOR_PAIR(col));
 }
 
 void

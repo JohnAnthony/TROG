@@ -3,6 +3,7 @@
 
 #include "game.hpp"
 #include "character.hpp"
+#include "geometry.hpp"
 #include <ncurses.h>
 #include <string>
 #include <list>
@@ -31,6 +32,10 @@ class GUI {
     static void CharacterStatusLine(Character *c);
     static void ShowInfoScreen(Game *g);
     static void QuitDialogue(Game *g);
+    static void DrawAsOverlay(Point p, char c, int col);
+    static bool isOnScreen(Point p);
+
+    static Point cam;
 
     private:
     static std::string status_line;

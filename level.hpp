@@ -35,7 +35,6 @@ class Level {
     ~Level(void);
     void Draw(Game *g);
     void DrawObjectRelative(Point p, char c);
-    bool IsOnScreen(Point p);
     bool TileIsVisible(Point p);
     void ConditionallyShowObject(Point p, char c, int col);
     void RevealSight(Entity* e);
@@ -62,7 +61,6 @@ class Level {
     std::vector<RoomText> roomtexts;
     unsigned int        maximal_enemy;
 
-    static Point        cam;
     static Character    *character;
 
     private:
