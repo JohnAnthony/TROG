@@ -29,6 +29,8 @@ Game::Game(Character *c) {
     //Give the player a few starting potions for luck
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
+
+    GUI::AttachTo(this);
 }
 
 bool
@@ -89,12 +91,12 @@ Game::SwitchGameMode(GameMode::Type gmt) {
     switch (gmt) {
         case (GameMode::MAP_WALK):
             this->cur_level->CentreCam(this->character->pos);
-            this->DoRedraw();
+            GUI::DoRedraw();
             GUI::CharacterStatusLine(this->character);
             break;
         case (GameMode::MAP_LOOK):
             this->target = this->character->pos;
-            this->DoRedraw();
+            GUI::DoRedraw();
             break;
         case (GameMode::INFO_SCREEN):
             GUI::ShowInfoScreen(this);
@@ -140,13 +142,13 @@ Game::HandleInput(int c) {
                     GUI::RedrawStatus();
             }
             else if (c == KEY_UP)
-                this->MoveCamera(Direction::NORTH);
+                GUI::MoveCamera(Direction::NORTH);
             else if (c == KEY_DOWN)
-                this->MoveCamera(Direction::SOUTH);
+                GUI::MoveCamera(Direction::SOUTH);
             else if (c == KEY_RIGHT)
-                this->MoveCamera(Direction::EAST);
+                GUI::MoveCamera(Direction::EAST);
             else if (c == KEY_LEFT)
-                this->MoveCamera(Direction::WEST);
+                GUI::MoveCamera(Direction::WEST);
             else if (c == '8' || c == 'w')
                 this->MoveCharacter(Direction::NORTH);
             else if (c == '2' || c == 'x')
@@ -172,13 +174,13 @@ Game::HandleInput(int c) {
             break;
         case GameMode::MAP_LOOK:
             if (c == KEY_UP)
-                this->MoveCamera(Direction::NORTH);
+                GUI::MoveCamera(Direction::NORTH);
             else if (c == KEY_DOWN)
-                this->MoveCamera(Direction::SOUTH);
+                GUI::MoveCamera(Direction::SOUTH);
             else if (c == KEY_RIGHT)
-                this->MoveCamera(Direction::EAST);
+                GUI::MoveCamera(Direction::EAST);
             else if (c == KEY_LEFT)
-                this->MoveCamera(Direction::WEST);
+                GUI::MoveCamera(Direction::WEST);
             else if (c == '8' || c == 'w')
                 this->MoveLookTarget(Direction::NORTH);
             else if (c == '2' || c == 'x')
@@ -211,7 +213,7 @@ Game::HandleInput(int c) {
             else if (c == '\n') {
                 this->character->DrinkPotion(this->PotionSelectMenu->Selection());
                 this->cur_level->GiveEnemiesTurn(this->character);
-                this->DoRedraw();
+                GUI::DoRedraw();
                 return GameMode::MAP_WALK;
             }
             break;
@@ -227,7 +229,7 @@ Game::HandleInput(int c) {
             else if (c == '\n') {
                 this->character->ReadBookOrScroll(this->BookSelectMenu->Selection());
                 this->cur_level->GiveEnemiesTurn(this->character);
-                this->DoRedraw();
+                GUI::DoRedraw();
                 return GameMode::MAP_WALK;
             }
             break;
@@ -248,7 +250,7 @@ Game::GoUpALevel(void) {
     this->character->MoveTo(this->cur_level->stairs_down);
     this->cur_level->RevealSight(this->character);
     this->cur_level->CentreCam(this->character->pos);
-    this->DoRedraw();
+    GUI::DoRedraw();
 }
 
 void
@@ -261,59 +263,7 @@ Game::GoDownALevel(void) {
     this->character->MoveTo(this->cur_level->stairs_up);
     this->cur_level->RevealSight(this->character);
     this->cur_level->CentreCam(this->character->pos);
-    this->DoRedraw();
-}
-
-void
-Game::MoveCamera(Direction::Type d) {
-    int step_x;
-    int step_y;
-
-    step_x = MAX(COLS / 3, 1);
-    step_y = MAX(LINES / 3, 1);
-
-    switch (d) {
-        case Direction::NORTH:
-            GUI::cam.y -= step_y;
-            break;
-        case Direction::SOUTH:
-            GUI::cam.y += step_y;
-            break;
-        case Direction::EAST:
-            GUI::cam.x += step_x;
-            break;
-        case Direction::WEST:
-            GUI::cam.x -= step_x;
-            break;
-        default:
-            break;
-    }
-
-    this->DoRedraw();
-}
-
-void
-Game::DoRedraw(void) {
-    if (this->game_mode == GameMode::MAP_WALK) {
-        this->cur_level->Draw(this);
-        GUI::RedrawStatus();
-    }
-    else if (this->game_mode == GameMode::MAP_LOOK){
-        GUI::SetStatus(this->cur_level->DescriptionOfTile(this->target, this));
-        this->cur_level->Draw(this);
-        GUI::RedrawStatus();
-        this->DrawLookTarget();
-    }
-    else if (this->game_mode == GameMode::INFO_SCREEN)
-        GUI::ShowInfoScreen(this);
-    else if (this->game_mode == GameMode::CHARACTER_SCREEN)
-        GUI::ShowCharacterScreen(this->character);
-    else if (this->game_mode == GameMode::INVENTORY_SCREEN)
-        GUI::ShowInventoryScreen(this->character);
-    else if (this->game_mode == GameMode::POTION_SELECT)
-        this->PotionSelectMenu->Show();
-    else if (this->game_mode == GameMode::READING_SELECT)
-        this->BookSelectMenu->Show();
+    GUI::DoRedraw();
 }
 
 void
@@ -380,9 +330,9 @@ Game::MoveCharacter(Direction::Type d) {
     else                                                        // Invalid move
         return;
 
-    this->DoRedraw();
+    GUI::DoRedraw();
     this->cur_level->GiveEnemiesTurn(c);
-    this->DoRedraw();
+    GUI::DoRedraw();
 }
 
 void
@@ -435,7 +385,7 @@ Game::MoveLookTarget(Direction::Type d) {
         return; //Given a bad direction
 
     this->cur_level->CentreCam(this->target);
-    this->DoRedraw();
+    GUI::DoRedraw();
 }
 
 void
@@ -472,7 +422,7 @@ Game::DoPickup(void) {
 void
 Game::HandleResize(int signal) {
     refresh();
-    this->DoRedraw();
+    GUI::DoRedraw();
 }
 
 void
@@ -504,7 +454,7 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
             // Don't need this.
             //Level::RedrawEnemy should just redraw the one tile
             //But this is the quick and dirty way
-            this->DoRedraw(); 
+            GUI::DoRedraw(); 
         }
     }
 
@@ -514,7 +464,7 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
 void
 Game::DoWait(void) {
     this->cur_level->GiveEnemiesTurn(this->character);
-    this->DoRedraw();
+    GUI::DoRedraw();
 }
 
 void

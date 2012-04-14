@@ -8,6 +8,7 @@
 
 #define NOISE_CHARACTER  '#'
 
+Game *GUI::g;
 std::string GUI::status_line;
 std::vector<std::string> GUI::messages;
 const char *GUI::SplashStr = "\
@@ -36,6 +37,11 @@ const char *GUI::SplashStr = "\
 \n\
 \n\
 ";
+
+void
+GUI::AttachTo(Game *g) {
+    GUI::g = g;
+}
 
 void
 GUI::RedrawStatus(void) {
@@ -742,7 +748,7 @@ GUI::QuitDialogue(Game *g) {
     GUI::ShowSplash();
     g->running = !GUI::BinaryChoice("Are you sure you want to quit?", 'y', 'n');
     if (g->running)
-        g->DoRedraw();
+        GUI::DoRedraw();
 }
 
 void
@@ -768,4 +774,54 @@ GUI::isOnScreen(Point p) {
     return true;
 }
 
+void
+GUI::MoveCamera(Direction::Type d) {
+    int step_x;
+    int step_y;
 
+    step_x = MAX(COLS / 3, 1);
+    step_y = MAX(LINES / 3, 1);
+
+    switch (d) {
+        case Direction::NORTH:
+            GUI::cam.y -= step_y;
+            break;
+        case Direction::SOUTH:
+            GUI::cam.y += step_y;
+            break;
+        case Direction::EAST:
+            GUI::cam.x += step_x;
+            break;
+        case Direction::WEST:
+            GUI::cam.x -= step_x;
+            break;
+        default:
+            break;
+    }
+
+    GUI::DoRedraw();
+}
+
+void
+GUI::DoRedraw(void) {
+    if (g->game_mode == GameMode::MAP_WALK) {
+        g->cur_level->Draw(g);
+        GUI::RedrawStatus();
+    }
+    else if (g->game_mode == GameMode::MAP_LOOK){
+        GUI::SetStatus(g->cur_level->DescriptionOfTile(g->target, g));
+        g->cur_level->Draw(g);
+        GUI::RedrawStatus();
+        g->DrawLookTarget();
+    }
+    else if (g->game_mode == GameMode::INFO_SCREEN)
+        GUI::ShowInfoScreen(g);
+    else if (g->game_mode == GameMode::CHARACTER_SCREEN)
+        GUI::ShowCharacterScreen(g->character);
+    else if (g->game_mode == GameMode::INVENTORY_SCREEN)
+        GUI::ShowInventoryScreen(g->character);
+    else if (g->game_mode == GameMode::POTION_SELECT)
+        g->PotionSelectMenu->Show();
+    else if (g->game_mode == GameMode::READING_SELECT)
+        g->BookSelectMenu->Show();
+}

@@ -10,6 +10,7 @@
 
 class GUI {
     public:
+    static void AttachTo(Game *g);
     static void SetStatus(std::string);
     static void RedrawStatus(void);
     static void AddMessage(std::string str);
@@ -34,10 +35,13 @@ class GUI {
     static void QuitDialogue(Game *g);
     static void DrawAsOverlay(Point p, char c, int col);
     static bool isOnScreen(Point p);
+    static void MoveCamera(Direction::Type d);
+    static void DoRedraw(void);
 
     static Point cam;
 
     private:
+    static Game *g;
     static std::string status_line;
     static std::vector<std::string> messages;
     static const char* SplashStr;

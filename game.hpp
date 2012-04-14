@@ -31,8 +31,6 @@ class Game {
     void GoUpALevel(void);
     void GoDownALevel(void);
     void SwitchGameMode(GameMode::Type gmt);
-    void MoveCamera(Direction::Type d);
-    void DoRedraw(void);
     void MoveCharacter(Direction::Type d);
     void DrawLookTarget(void);
     void MoveLookTarget(Direction::Type d);
