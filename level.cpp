@@ -372,8 +372,8 @@ Level::DescriptionOfTile(Point p, Game *g) {
         ss << "Granite floor";
     else if (t->c == WALL_CHAR)
         return prefix + "A granite wall";
-    else if (t->c == WALL_CHAR)
-        return prefix + "A granite wall";
+    else if (t->c == PILLAR_CHAR)
+        return prefix + "A granite column";
     else if (t->c == CLOSED_DOOR_CHAR )
         ss << "Closed door";
     else if (t->c == OPEN_DOOR_CHAR)

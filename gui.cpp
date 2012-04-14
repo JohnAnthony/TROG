@@ -914,5 +914,3 @@ GUI::CentreCam(Point p) {
     GUI::cam.x = p.x - COLS / 2;
     GUI::cam.y = p.y - LINES / 2;
 }
-
-

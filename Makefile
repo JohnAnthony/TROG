@@ -14,4 +14,7 @@ trog: ${OBJECTS}
 clean:
 	-rm -f $(OBJECTS) trog
 
+install: trog
+	cp -v trog /usr/bin/
+
 .PHONY: clean
