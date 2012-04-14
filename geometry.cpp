@@ -1,5 +1,4 @@
 #include "geometry.hpp"
-#include <ncurses.h>
 
 // extern std::string status_line;
 // 

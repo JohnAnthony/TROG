@@ -4,12 +4,13 @@
 #include "game.hpp"
 #include "character.hpp"
 #include "geometry.hpp"
-#include <ncurses.h>
 #include <string>
 #include <list>
 
 class GUI {
     public:
+    static void Init(void);
+    static void End(void);
     static void AttachTo(Game *g);
     static void SetStatus(std::string);
     static void RedrawStatus(void);

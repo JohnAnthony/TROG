@@ -3,7 +3,6 @@
 #include "stattome.hpp"
 #include "equippable.hpp"
 #include <cstdlib>
-#include <ncurses.h>
 #include <sstream>
 
 #define CORRIDOR_TRIES      30

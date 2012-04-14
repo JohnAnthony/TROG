@@ -40,6 +40,27 @@ const char *GUI::SplashStr = "\
 ";
 
 void
+GUI::Init(void) {
+    initscr();
+	cbreak();
+	keypad(stdscr, TRUE);
+    noecho();
+    curs_set(0);
+    start_color();
+
+    if (COLS < 80 || LINES < 25) {
+        endwin();
+        std::cout << "ERROR: This game requires a terminal size of at least 80x25\n";
+        exit(1);
+    }
+}
+
+void
+GUI::End(void) {
+    endwin();
+}
+
+void
 GUI::AttachTo(Game *g) {
     GUI::g = g;
 }

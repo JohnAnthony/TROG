@@ -1,4 +1,3 @@
-#include "enemy.hpp"
 #include "geometry.hpp"
 #include "gui.hpp"
 #include <sstream>
