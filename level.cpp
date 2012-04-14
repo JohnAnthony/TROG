@@ -16,9 +16,6 @@ namespace SpecialRooms {
     };
 }
 
-Point GUI::cam;
-Character* Level::character;
-
 Level::Level(Level* parent) {
     Room r;
 
@@ -57,67 +54,6 @@ Level::Level(Level* parent) {
     this->stairs_down.x = -1;   //While this is -1 it means we haven't placed it
 
     this->ApplyRoom(&r, true);
-}
-
-void
-Level::Draw(Game *g) {
-    int e2, i2;
-    Item *item;
-    Tile *t;
-    char c;
-
-    move(0,0);
-
-    //Floor tiles
-    for (int e = 0; e < LINES - 1; ++e) { //Save space for the status line
-        for (int i = 0; i < COLS; ++i) {
-            i2 = i + GUI::cam.x;
-            e2 = e + GUI::cam.y;
-            t = &this->tiles[i2][e2];
-            if (i2 >= MAP_W || i2 < 0 || e2 >= MAP_H || e2 < 0)
-                c = ' ';
-            else if (!t->isVisible)
-                c = ' ';
-            else
-                c = t->c;
-
-            if (c == CLOSED_DOOR_CHAR || c == OPEN_DOOR_CHAR) {
-                attron(COLOR_PAIR(COL_RED));
-                addch(c);
-                attroff(COLOR_PAIR(COL_RED));
-            }
-            else
-                addch(c);
-        }
-    }
-
-    for (std::list<Item*>::iterator it = this->items.begin();
-            it != this->items.end(); it++) {
-        item = &**it;
-        ConditionallyShowObject(item->pos, item->symbol, item->colour);
-    }
-
-    //Special objects
-    ConditionallyShowObject(stairs_up, '<', COL_BLUE);
-    ConditionallyShowObject(stairs_down, '>', COL_BLUE);
-
-    //Enemies
-    for (std::list<Enemy>::iterator it = this->enemies.begin();
-            it != this->enemies.end(); it++) {
-        ConditionallyShowObject(it->pos, it->symbol, it->colour);
-    }
-
-    //Character
-    ConditionallyShowObject(character->pos, this->character->symbol,
-        this->character->colour);
-
-    //Tidy us back to white as default
-    refresh();
-}
-
-void
-Level::DrawObjectRelative(Point p, char c) {
-    mvaddch(p.y - GUI::cam.y, p.x - GUI::cam.x, c);
 }
 
 void
@@ -300,7 +236,7 @@ Level::ConditionallyShowObject(Point p, char c, int col) {
     if (!this->TileIsVisible(p))
         return;
     attron(COLOR_PAIR(col));
-    DrawObjectRelative(p, c);
+    GUI::DrawObjectRelative(p, c);
     attroff(COLOR_PAIR(col));
 }
 
@@ -351,12 +287,6 @@ Level::DoSightBeam(Direction::Type d, int x, int y, float ttl) {
         DoSightBeam(Direction::SW, x - 1, y + 1, ttl - 1.41);
     else if (d == Direction::SE)
         DoSightBeam(Direction::SE, x + 1, y + 1, ttl - 1.41);
-}
-
-void
-Level::CentreCam(Point p) {
-    GUI::cam.x = p.x - COLS / 2;
-    GUI::cam.y = p.y - LINES / 2;
 }
 
 void

@@ -9,6 +9,7 @@
 #define NOISE_CHARACTER  '#'
 
 Game *GUI::g;
+Point GUI::cam;
 std::string GUI::status_line;
 std::vector<std::string> GUI::messages;
 const char *GUI::SplashStr = "\
@@ -805,12 +806,12 @@ GUI::MoveCamera(Direction::Type d) {
 void
 GUI::DoRedraw(void) {
     if (g->game_mode == GameMode::MAP_WALK) {
-        g->cur_level->Draw(g);
+        GUI::DrawLevel(g->cur_level);
         GUI::RedrawStatus();
     }
     else if (g->game_mode == GameMode::MAP_LOOK){
         GUI::SetStatus(g->cur_level->DescriptionOfTile(g->target, g));
-        g->cur_level->Draw(g);
+        GUI::DrawLevel(g->cur_level);
         GUI::RedrawStatus();
         g->DrawLookTarget();
     }
@@ -825,3 +826,72 @@ GUI::DoRedraw(void) {
     else if (g->game_mode == GameMode::READING_SELECT)
         g->BookSelectMenu->Show();
 }
+
+void
+GUI::DrawLevel(Level *l) {
+    int e2, i2;
+    Item *item;
+    Tile *t;
+    char c;
+
+    move(0,0);
+
+    //Floor tiles
+    for (int e = 0; e < LINES - 1; ++e) { //Save space for the status line
+        for (int i = 0; i < COLS; ++i) {
+            i2 = i + GUI::cam.x;
+            e2 = e + GUI::cam.y;
+            t = &l->tiles[i2][e2];
+            if (i2 >= MAP_W || i2 < 0 || e2 >= MAP_H || e2 < 0)
+                c = ' ';
+            else if (!t->isVisible)
+                c = ' ';
+            else
+                c = t->c;
+
+            if (c == CLOSED_DOOR_CHAR || c == OPEN_DOOR_CHAR) {
+                attron(COLOR_PAIR(COL_RED));
+                addch(c);
+                attroff(COLOR_PAIR(COL_RED));
+            }
+            else
+                addch(c);
+        }
+    }
+
+    for (std::list<Item*>::iterator it = l->items.begin();
+            it != l->items.end(); it++) {
+        item = &**it;
+        l->ConditionallyShowObject(item->pos, item->symbol, item->colour);
+    }
+
+    //Special objects
+    l->ConditionallyShowObject(l->stairs_up, '<', COL_BLUE);
+    l->ConditionallyShowObject(l->stairs_down, '>', COL_BLUE);
+
+    //Enemies
+    for (std::list<Enemy>::iterator it = l->enemies.begin();
+            it != l->enemies.end(); it++) {
+        l->ConditionallyShowObject(it->pos, it->symbol, it->colour);
+    }
+
+    //Character
+    l->ConditionallyShowObject(GUI::g->character->pos, GUI::g->character->symbol,
+        GUI::g->character->colour);
+
+    //Tidy us back to white as default
+    refresh();
+}
+
+void
+GUI::DrawObjectRelative(Point p, char c) {
+    mvaddch(p.y - GUI::cam.y, p.x - GUI::cam.x, c);
+}
+
+void
+GUI::CentreCam(Point p) {
+    GUI::cam.x = p.x - COLS / 2;
+    GUI::cam.y = p.y - LINES / 2;
+}
+
+

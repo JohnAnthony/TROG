@@ -37,14 +37,16 @@ class GUI {
     static bool isOnScreen(Point p);
     static void MoveCamera(Direction::Type d);
     static void DoRedraw(void);
-
-    static Point cam;
+    static void DrawLevel(Level *l);
+    static void DrawObjectRelative(Point p, char c);
+    static void CentreCam(Point p);
 
     private:
     static Game *g;
     static std::string status_line;
     static std::vector<std::string> messages;
     static const char* SplashStr;
+    static Point cam;
 };
 
 #endif

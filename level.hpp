@@ -33,12 +33,9 @@ class Level {
     public:
     Level(Level* parent);
     ~Level(void);
-    void Draw(Game *g);
-    void DrawObjectRelative(Point p, char c);
     bool TileIsVisible(Point p);
     void ConditionallyShowObject(Point p, char c, int col);
     void RevealSight(Entity* e);
-    void CentreCam(Point p);
     void DoSightBeam(Direction::Type d, int x, int y, float ttl);
     void EnemySpawn(Rect *r);
     void RemoveEnemy(Enemy *e);
@@ -60,8 +57,6 @@ class Level {
     std::list<Enemy>    enemies;
     std::vector<RoomText> roomtexts;
     unsigned int        maximal_enemy;
-
-    static Character    *character;
 
     private:
     void ApplyRoom(Room * const r, bool isFirstRoom);

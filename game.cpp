@@ -13,9 +13,8 @@
 Game::Game(Character *c) {
     this->character = c;
     this->levels = this->cur_level = new Level(NULL);
-    this->levels->character = character;
     this->character->MoveTo(this->cur_level->stairs_up);
-    this->levels->CentreCam(character->pos);
+    GUI::CentreCam(character->pos);
 
     this->levels->RevealSight(this->character);
     GUI::SetStatus("Welcome to TROG! Try not to die.");
@@ -39,7 +38,7 @@ Game::Run(void) {
     GameMode::Type new_gamemode;
 
     new_gamemode = this->game_mode;
-    this->cur_level->Draw(this);
+    GUI::DrawLevel(this->cur_level);
 
     while (this->running) {
         c = getch();
@@ -90,7 +89,7 @@ Game::SwitchGameMode(GameMode::Type gmt) {
 
     switch (gmt) {
         case (GameMode::MAP_WALK):
-            this->cur_level->CentreCam(this->character->pos);
+            GUI::CentreCam(this->character->pos);
             GUI::DoRedraw();
             GUI::CharacterStatusLine(this->character);
             break;
@@ -249,7 +248,7 @@ Game::GoUpALevel(void) {
 
     this->character->MoveTo(this->cur_level->stairs_down);
     this->cur_level->RevealSight(this->character);
-    this->cur_level->CentreCam(this->character->pos);
+    GUI::CentreCam(this->character->pos);
     GUI::DoRedraw();
 }
 
@@ -262,7 +261,7 @@ Game::GoDownALevel(void) {
 
     this->character->MoveTo(this->cur_level->stairs_up);
     this->cur_level->RevealSight(this->character);
-    this->cur_level->CentreCam(this->character->pos);
+    GUI::CentreCam(this->character->pos);
     GUI::DoRedraw();
 }
 
@@ -317,7 +316,7 @@ Game::MoveCharacter(Direction::Type d) {
     else if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR) {    // An empty space
             c->MoveTo(target);
             this->cur_level->RevealSight(c);
-            this->cur_level->CentreCam(c->pos);
+            GUI::CentreCam(c->pos);
             this->cur_level->CheckForRoomText(c);
     }
     else if (t->c == CLOSED_DOOR_CHAR) {                        // A closed door
@@ -384,7 +383,7 @@ Game::MoveLookTarget(Direction::Type d) {
     else
         return; //Given a bad direction
 
-    this->cur_level->CentreCam(this->target);
+    GUI::CentreCam(this->target);
     GUI::DoRedraw();
 }
 
