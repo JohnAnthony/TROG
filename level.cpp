@@ -78,13 +78,13 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
             if (rand() % 100 < 5)
                 this->AddPillars(r);
 
-            if (rand() % 100 < 50)
+            if (rand() % 100 < 20)
                 this->AddGold(r);
 
             if (rand() % 100 < 20)
                 this->AddPotion(r);
 
-            if (rand() % 100 < 50)
+            if (rand() % 100 < 20)
                 this->AddEquippable(r);
 
             if (rand() % 100 < 80)
@@ -308,6 +308,10 @@ Level::AddGold(Rect *r) {
     tres->SetPosition(p.x, p.y);
 
     this->items.push_back((Item*) tres);
+
+    //Chance of a chain happening
+    if (rand() % 100 <= 10)
+        this->AddGold(r);
 }
 
 void
@@ -343,6 +347,10 @@ Level::AddPotion(Rect *r) {
     potion->SetPosition(p.x, p.y);
 
     this->items.push_back((Item*) potion);
+
+    //Chance of a chain happening
+    if (rand() % 100 <= 10)
+        this->AddPotion(r);
 }
 
 
@@ -662,6 +670,10 @@ Level::AddEquippable(Rect *r) {
     equippable->SetPosition(p.x, p.y);
 
     this->items.push_back((Item*) equippable);
+
+    //Chance of a chain happening
+    if (rand() % 100 <= 10)
+        this->AddEquippable(r);
 }
 
 Level::~Level(void) {
