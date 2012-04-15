@@ -75,6 +75,7 @@ class Character : public Entity {
     std::string getEquipmentNameWithQuality(EquipLocations el);
     int getEquipmentQuality(EquipLocations el);
     void TakeDamage(int n);
+    void HandleHalflingLuck(void);
 
     //Getters(!)
     int getXP(void);

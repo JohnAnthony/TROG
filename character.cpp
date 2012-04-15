@@ -457,7 +457,27 @@ Character::getEquipmentQuality(EquipLocations el) {
 
 void
 Character::TakeDamage(int n) {
+    //Halfling luck
+    if (this->race == Character::HALFLING && this->curHP - n <= 0) {
+        if (rand() % 100 <= 50) {
+            this->HandleHalflingLuck();
+            return;
+        }
+    }
+
     this->curHP -= n;
+}
+
+void
+Character::HandleHalflingLuck(void) {
+    static char const * const msg[] = {
+        "You dodge a blow that by rights should hvae killed you.",
+        "What miraculous halfling luck!",
+        NULL
+    };
+
+    GUI::Alert2(msg);
+    GUI::AddMessage("Previous damage notification negated (halfling luck)");
 }
 
 Character::~Character(void) {
