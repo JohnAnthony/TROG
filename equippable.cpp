@@ -32,6 +32,7 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
     this->modDEF = 0;
     this->modMAG = 0;
     this->modWIL = 0;
+    this->colour = COL_CYAN;
 
     switch (inCat) {
         case Equippable::DAGGER:
@@ -103,6 +104,35 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
             GUI::Alert("Error generating item!");
             break;
     }
+
+    switch (this->location) {
+        case HEAD:
+            this->symbol = 'h';
+            break;
+        case BODY:
+            this->symbol = 'a';
+            break;
+        case WEAPON:
+            this->symbol = 'w';
+            break;
+        case GLOVES:
+            this->symbol = 'g';
+            break;
+        case BOOTS:
+            this->symbol = 'b';
+            break;
+        case RING1:
+        case RING2:
+            this->symbol = 'r';
+            break;
+        case NECK:
+            this->symbol = 'n';
+            break;
+        case LAST_EQUIP_LOCATION:
+        default:
+            this->symbol = 'i';
+    }
+
 }
 
 std::string 
