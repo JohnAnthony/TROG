@@ -56,15 +56,16 @@ Enemy::Attack(Character *c) {
     dmg = rand() % this->ATT - rand() % c->curDEF;
     if (dmg <= 0)
         ss << " but misses";
-    else
+    else {
         dmg += rand() % (int)(this->STR) - rand() % c->curTOU;
 
-    //The damage
-    if (dmg <= 0)
-        ss << " but it does no damage";
-    else {
-        ss << " and does " << dmg << " damage";
-        c->curHP -= dmg;
+        //The damage
+        if (dmg <= 0)
+            ss << " but it does no damage";
+        else {
+            ss << " and does " << dmg << " damage";
+            c->curHP -= dmg;
+        }
     }
 
     gui.AddMessage(ss.str());
