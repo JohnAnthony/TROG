@@ -9,6 +9,7 @@
 #include "treasure.hpp"
 #include "stattome.hpp"
 #include "scrollable_menu.hpp"
+#include "debug.hpp"
 
 Game::Game(Character *c) {
     this->character = c;
@@ -53,6 +54,8 @@ Game::Run(void) {
         //Handle mode changes
         if (c == KEY_F(12))
             GUI::QuitDialogue(this);
+        else if (c == KEY_F(8))
+            Debug::DebugConsole(this);
         else if (c == 'l')
             new_gamemode = GameMode::MAP_LOOK;
         else if (c == 'i')
