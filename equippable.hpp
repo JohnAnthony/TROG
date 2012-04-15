@@ -7,11 +7,21 @@
 class Equippable : public Item {
     public:
     enum Category {
+        DAGGER,
         SHORT_SWORD,
-        LIGHT_SHIELD,
-        LIGHT_CHAIN,
-        HOLY_SYMBOL,
+        LONGSWORD,
+        MACE,
+        FLAIL,
         STAFF,
+        TWO_HANDED_SWORD,
+        TWO_HANDED_AXE,
+        LIGHT_SHIELD,
+        HEAVY_SHIELD,
+        ROBES,
+        LEATHER_ARMOUR,
+        CHAINMAIL,
+        PLATEMAIL,
+        HOLY_SYMBOL,
         LAST_CATEGORY
     };
 

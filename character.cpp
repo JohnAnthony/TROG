@@ -79,43 +79,50 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
 
     switch(this->cclass) {
         case Character::BARBARIAN:
-            this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
-            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
-            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
+            if (rand() % 2)
+                this->equipment[WEAPON] = new Equippable(Equippable::TWO_HANDED_AXE, 1);
+            else
+                this->equipment[WEAPON] = new Equippable(Equippable::TWO_HANDED_SWORD, 1);
+            this->equipment[BODY] = new Equippable(Equippable::CHAINMAIL, 1);
             break;
         case Character::CLERIC:
-            this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
-            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
-            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
+            if (rand() % 2)
+                this->equipment[WEAPON] = new Equippable(Equippable::MACE, 1);
+            else
+                this->equipment[WEAPON] = new Equippable(Equippable::FLAIL, 1);
+            this->equipment[SHIELD] = new Equippable(Equippable::HEAVY_SHIELD, 1);
+            this->equipment[BODY] = new Equippable(Equippable::CHAINMAIL, 1);
             break;
         case Character::DRUID:
-            this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
-            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
-            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
+            this->equipment[WEAPON] = new Equippable(Equippable::STAFF, 1);
+            this->equipment[BODY] = new Equippable(Equippable::LEATHER_ARMOUR, 1);
             break;
         case Character::FIGHTER:
-            this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
+            this->equipment[WEAPON] = new Equippable(Equippable::LONGSWORD, 1);
             this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
-            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
+            this->equipment[BODY] = new Equippable(Equippable::CHAINMAIL, 1);
             break;
         case Character::PALADIN:
-            this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
+            this->equipment[WEAPON] = new Equippable(Equippable::LONGSWORD, 1);
             this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
-            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
+            this->equipment[BODY] = new Equippable(Equippable::CHAINMAIL, 1);
             this->equipment[NECK] = new Equippable(Equippable::HOLY_SYMBOL, 1);
             break;
         case Character::SAGE:
-            this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
-            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
-            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
+            this->equipment[WEAPON] = new Equippable(Equippable::STAFF, 1);
+            this->equipment[BODY] = new Equippable(Equippable::ROBES, 1);
             break;
         case Character::THIEF:
-            this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
+            if (rand() % 2)
+                this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
+            else
+                this->equipment[WEAPON] = new Equippable(Equippable::DAGGER, 1);
             this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
-            this->equipment[BODY] = new Equippable(Equippable::LIGHT_CHAIN, 1);
+            this->equipment[BODY] = new Equippable(Equippable::LEATHER_ARMOUR, 1);
             break;
         case Character::WIZARD:
             this->equipment[WEAPON] = new Equippable(Equippable::STAFF, 1);
+            this->equipment[BODY] = new Equippable(Equippable::ROBES, 1);
             break;
         case Character::LAST_CLASS:
         default:
