@@ -129,16 +129,18 @@ Game::HandleInput(int c) {
     switch (this->game_mode) {
         case GameMode::MAP_WALK:
             if (c == '>') {
-                if (this->character->pos == this->cur_level->stairs_down)
+                if (this->character->pos == this->cur_level->stairs_down) {
                     this->GoDownALevel();
                     GUI::AddMessage("You descend deeper...");
                     GUI::RedrawStatus();
+                }
             }
             else if (c == '<') {
-                if (this->character->pos == this->cur_level->stairs_up)
+                if (this->character->pos == this->cur_level->stairs_up) {
                     this->GoUpALevel();
                     GUI::AddMessage("You ascend the stairs.");
                     GUI::RedrawStatus();
+                }
             }
             else if (c == KEY_UP)
                 GUI::MoveCamera(Direction::NORTH);
