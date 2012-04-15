@@ -29,6 +29,7 @@ class Equippable : public Item {
     std::string GetName(void);
     std::string getNameWithQuality(void);
     int getQuality(void);
+    static Equippable* RandomEquippable(int pot);
 
     EquipLocations location;
     Equippable::Category category;

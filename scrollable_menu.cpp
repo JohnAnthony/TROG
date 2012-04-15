@@ -3,14 +3,16 @@
 #include <sstream>
 #include <cstring>
 
-#define DEFAULT_HEIGHT 6
+#define DEFAULT_HEIGHT 20
+#define TOP_BUFFER     3
+#define BOTTOM_BUFFER  2
 
 ScrollableMenu::ScrollableMenu(std::string inTitle) {
     this->sz.x = this->title.length() + 8;
     this->sz.y = DEFAULT_HEIGHT;
     this->window = GUI::NewCentredWindow(sz.x, sz.y);
     this->SetTitle(inTitle);
-    this->max_size = 0;
+    this->max_shown_options = sz.y - TOP_BUFFER - BOTTOM_BUFFER;
 }
 
 void
@@ -36,11 +38,6 @@ ScrollableMenu::AddItem(std::string str) {
     if (this->sz.x < (int) str.length() + 10)
         sz.x = str.length() + 10;
 
-    if (this->sz.y < LINES && this->max_size == 0)
-        this->sz.y++;
-    else if (this->sz.y < this->max_size)
-        this->sz.y++;
-
     this->Resize(this->sz.x, this->sz.y);
 }
 
@@ -50,6 +47,10 @@ ScrollableMenu::Show(void) {
     std::string str;
     std::stringstream ss;
     static char const * const empty_string = "* E M P T Y *";
+    static char const * const upmsg =  "<PAGE UP>";
+    static char const * const upmask = "         ";
+    static char const * const downmsg =  "<PAGE DOWN>";
+    static char const * const downmask = "           ";
 
     box(this->window, 0, 0);
 
@@ -62,15 +63,33 @@ ScrollableMenu::Show(void) {
         mvwprintw(this->window, 2, (this->sz.x - strlen(empty_string)) / 2, empty_string);
     }
     else {
+        // Our up and down indicators
+        if (this->scroll_offset != 0)
+            mvwprintw(this->window, 1, this->sz.x - strlen(upmsg) - 1, upmsg);
+        else
+            mvwprintw(this->window, 1, this->sz.x - strlen(upmask) - 1, upmask);
+        if ((int)this->Options.size() > this->scroll_offset + this->max_shown_options + 1)
+            mvwprintw(this->window, this->sz.y - 2, this->sz.x - strlen(downmsg) - 1, downmsg);
+        else
+            mvwprintw(this->window, this->sz.y - 2, this->sz.x - strlen(downmask) - 1, downmask);
+
+        // Loop over our options
         i = 0;
         for (std::list<std::string>::iterator it = this->Options.begin();
           it != this->Options.end(); ++it, ++i) {
+
+            // Only show the current page of stuff
+            if (i < this->scroll_offset)
+                continue;
+            if (i > this->max_shown_options + this->scroll_offset)
+                break;
+
             str = *it;
 
-            if (i == this->pointer - this->scroll_offset)
-                mvwprintw(this->window, 3+i, 2, "-->  ");
+            if (i == this->pointer)
+                mvwprintw(this->window, 2+i - this->scroll_offset, 2, "-->  ");
             else
-                mvwprintw(this->window, 3+i, 2, "    ");
+                mvwprintw(this->window, 2+i - this->scroll_offset, 2, "    ");
 
             wprintw(this->window, str.c_str());
 
@@ -86,8 +105,10 @@ ScrollableMenu::Show(void) {
 void
 ScrollableMenu::PtrUp(void) {
     this->pointer--;
-    if (pointer < 0)
-        pointer = 0;
+    if (this->pointer < 0)
+        this->pointer = 0;
+    else if (this->pointer < this->scroll_offset)
+        this->PageUp();
     this->Show();
 }
 
@@ -96,17 +117,30 @@ ScrollableMenu::PtrDown(void) {
     this->pointer++;
     if (pointer >= (int) this->Options.size())
         pointer = this->Options.size() - 1;
+    else if (this->pointer > this->scroll_offset + this->max_shown_options)
+        this->PageDown();
     this->Show();
 }
 
 void
 ScrollableMenu::PageUp(void) {
-
+    if ((int)this->Options.size() < this->max_shown_options)
+        return;
+    this->scroll_offset -= this->max_shown_options / 2;
+    this->scroll_offset = MAX(0, this->scroll_offset);
+    this->SnapPointer();
+    this->Show();
 }
 
 void
 ScrollableMenu::PageDown(void) {
-
+    if ((int)this->Options.size() < this->max_shown_options)
+        return;
+    this->scroll_offset += this->max_shown_options / 2;
+    this->scroll_offset = MIN(this->scroll_offset, (int)this->Options.size() - 
+            this->max_shown_options - 1);
+    this->SnapPointer();
+    this->Show();
 }
 
 void
@@ -119,6 +153,14 @@ ScrollableMenu::Selection(void) {
     if (this->Options.size() == 0)
         return -1;
     return pointer;
+}
+
+void
+ScrollableMenu::SnapPointer(void) {
+    if (this->pointer < this->scroll_offset)
+        this->pointer = this->scroll_offset;
+    else if (this->pointer > this->scroll_offset + this->max_shown_options)
+        this->pointer = this->scroll_offset + this->max_shown_options;
 }
 
 ScrollableMenu::~ScrollableMenu(void) {

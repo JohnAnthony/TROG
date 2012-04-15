@@ -20,6 +20,7 @@ class ScrollableMenu {
     void AddItem(std::string str);
     void SetTitle(std::string str);
     int Selection(void);
+    void SnapPointer(void);
 
     WINDOW *window;
     int pointer;
@@ -28,6 +29,7 @@ class ScrollableMenu {
     std::string title;
     Point sz;
     int max_size;
+    int max_shown_options;
 };
 
 #endif

@@ -171,3 +171,9 @@ Equippable::getQuality(void) {
 
     return ret;
 }
+
+Equippable*
+Equippable::RandomEquippable(int pot) {
+    return new Equippable((Equippable::Category)(rand() % 
+      Equippable::LAST_CATEGORY), pot);
+}
