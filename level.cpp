@@ -84,6 +84,9 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
             if (rand() % 100 < 20)
                 this->AddPotion(r);
 
+            if (rand() % 100 < 50)
+                this->AddEquippable(r);
+
             if (rand() % 100 < 80)
                 this->EnemySpawn(r);
         }
@@ -632,6 +635,33 @@ Level::CheckForRoomText(Character *c) {
         it->seen = true;
         GUI::Alert2(it->text);
     }
+}
+
+void
+Level::AddEquippable(Rect *r) {
+    Equippable *equippable;
+    Equippable::Category category;
+    int potency;
+    int TTL;
+    Point p;
+
+    category = (Equippable::Category)(rand() % Equippable::LAST_CATEGORY);
+
+    potency = rand() % this->depth + 1;
+    
+    TTL = 0;
+    do {
+        p.x = r->x + rand() % r->w;
+        p.y = r->y + rand() % r->h;
+    } while (this->GetItem(p) && TTL++ < TTL_MAX);
+
+    if (TTL >= TTL_MAX) // We're out of space
+        return;
+
+    equippable = new Equippable(category, potency);
+    equippable->SetPosition(p.x, p.y);
+
+    this->items.push_back((Item*) equippable);
 }
 
 Level::~Level(void) {

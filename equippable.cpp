@@ -33,6 +33,7 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
     this->modMAG = 0;
     this->modWIL = 0;
     this->colour = COL_CYAN;
+    this->type = Item::EQUIPPABLE;
 
     switch (inCat) {
         case Equippable::DAGGER:
@@ -115,6 +116,9 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
         case WEAPON:
             this->symbol = 'w';
             break;
+        case SHIELD:
+            this->symbol = 's';
+            break;
         case GLOVES:
             this->symbol = 'g';
             break;
@@ -131,12 +135,13 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
         case LAST_EQUIP_LOCATION:
         default:
             this->symbol = 'i';
+            break;
     }
 
 }
 
 std::string 
-Equippable::getName(void) {
+Equippable::GetName(void) {
     std::stringstream ss;
     ss << EquippableNames[this->category];
     return ss.str();
@@ -145,7 +150,7 @@ Equippable::getName(void) {
 std::string
 Equippable::getNameWithQuality(void) {
     std::stringstream ss;
-    ss << this->getName();
+    ss << this->GetName();
     ss << " (q:" << this->getQuality() << ")";
     return ss.str();
 }

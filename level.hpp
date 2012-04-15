@@ -46,6 +46,7 @@ class Level {
     Item* GetItem(Point p);
     void AddPotion(Rect *r);
     void CheckForRoomText(Character *c);
+    void AddEquippable(Rect *r);
 
     unsigned int        depth;
     Tile                tiles[MAP_W][MAP_H];

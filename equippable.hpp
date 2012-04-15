@@ -26,7 +26,7 @@ class Equippable : public Item {
     };
 
     Equippable(Equippable::Category inCat, int pot);
-    std::string getName(void);
+    std::string GetName(void);
     std::string getNameWithQuality(void);
     int getQuality(void);
 

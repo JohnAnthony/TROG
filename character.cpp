@@ -438,7 +438,7 @@ std::string
 Character::getEquipmentName(EquipLocations el) {
     if (!this->equipment[el])
         return "NONE";
-    return this->equipment[el]->getName();
+    return this->equipment[el]->GetName();
 }
 
 std::string 
@@ -497,6 +497,7 @@ Character::~Character(void) {
                 break;
             case Item::EQUIPPABLE:
                 delete (Equippable*) item;
+                break;
             case Item::GENERIC:
             case Item::LAST_TYPE:
             default:

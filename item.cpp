@@ -23,7 +23,7 @@ Item::GetName(void) {
     else if (this->type == Item::STAT_TOME)
         return ((StatTome*)this)->GetName();
     else if (this->type == Item::EQUIPPABLE)
-        return ((Equippable*)this)->GetName();
+        return ((Equippable*)this)->getNameWithQuality();
     else
         return "Unknown";
 }
