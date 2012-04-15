@@ -455,6 +455,11 @@ Character::getEquipmentQuality(EquipLocations el) {
     return this->equipment[el]->getQuality();
 }
 
+void
+Character::TakeDamage(int n) {
+    this->curHP -= n;
+}
+
 Character::~Character(void) {
     Item *item;
     for (std::list<Item*>::iterator it = this->Inventory.begin();

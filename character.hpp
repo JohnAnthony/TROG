@@ -74,9 +74,11 @@ class Character : public Entity {
     std::string getEquipmentName(EquipLocations el);
     std::string getEquipmentNameWithQuality(EquipLocations el);
     int getEquipmentQuality(EquipLocations el);
+    void TakeDamage(int n);
 
     //Getters(!)
     int getXP(void);
+    int getCurHP(void);
 
     int next_level;
     int Level;

@@ -64,7 +64,7 @@ Enemy::Attack(Character *c) {
             ss << " but it does no damage";
         else {
             ss << " and does " << dmg << " damage";
-            c->curHP -= dmg;
+            c->TakeDamage(dmg);
         }
     }
 
