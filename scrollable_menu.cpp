@@ -46,7 +46,6 @@ ScrollableMenu::Show(void) {
     int i;
     std::string str;
     std::stringstream ss;
-    static char const * const empty_string = "* E M P T Y *";
     static char const * const upmsg =  "<PAGE UP>";
     static char const * const upmask = "         ";
     static char const * const downmsg =  "<PAGE DOWN>";
@@ -59,43 +58,38 @@ ScrollableMenu::Show(void) {
 
     mvwprintw(this->window, 0, (this->sz.x - str.length()) / 2, str.c_str());
 
-    if (this->Options.size() == 0) {
-        mvwprintw(this->window, 2, (this->sz.x - strlen(empty_string)) / 2, empty_string);
-    }
-    else {
-        // Our up and down indicators
-        if (this->scroll_offset != 0)
-            mvwprintw(this->window, 1, this->sz.x - strlen(upmsg) - 1, upmsg);
+    // Our up and down indicators
+    if (this->scroll_offset != 0)
+        mvwprintw(this->window, 1, this->sz.x - strlen(upmsg) - 1, upmsg);
+    else
+        mvwprintw(this->window, 1, this->sz.x - strlen(upmask) - 1, upmask);
+    if ((int)this->Options.size() > this->scroll_offset + this->max_shown_options + 1)
+        mvwprintw(this->window, this->sz.y - 2, this->sz.x - strlen(downmsg) - 1, downmsg);
+    else
+        mvwprintw(this->window, this->sz.y - 2, this->sz.x - strlen(downmask) - 1, downmask);
+
+    // Loop over our options
+    i = 0;
+    for (std::list<std::string>::iterator it = this->Options.begin();
+            it != this->Options.end(); ++it, ++i) {
+
+        // Only show the current page of stuff
+        if (i < this->scroll_offset)
+            continue;
+        if (i > this->max_shown_options + this->scroll_offset)
+            break;
+
+        str = *it;
+
+        if (i == this->pointer)
+            mvwprintw(this->window, 2+i - this->scroll_offset, 2, "-->  ");
         else
-            mvwprintw(this->window, 1, this->sz.x - strlen(upmask) - 1, upmask);
-        if ((int)this->Options.size() > this->scroll_offset + this->max_shown_options + 1)
-            mvwprintw(this->window, this->sz.y - 2, this->sz.x - strlen(downmsg) - 1, downmsg);
-        else
-            mvwprintw(this->window, this->sz.y - 2, this->sz.x - strlen(downmask) - 1, downmask);
+            mvwprintw(this->window, 2+i - this->scroll_offset, 2, "    ");
 
-        // Loop over our options
-        i = 0;
-        for (std::list<std::string>::iterator it = this->Options.begin();
-          it != this->Options.end(); ++it, ++i) {
+        wprintw(this->window, str.c_str());
 
-            // Only show the current page of stuff
-            if (i < this->scroll_offset)
-                continue;
-            if (i > this->max_shown_options + this->scroll_offset)
-                break;
-
-            str = *it;
-
-            if (i == this->pointer)
-                mvwprintw(this->window, 2+i - this->scroll_offset, 2, "-->  ");
-            else
-                mvwprintw(this->window, 2+i - this->scroll_offset, 2, "    ");
-
-            wprintw(this->window, str.c_str());
-
-            for (int e = str.length(); e < this->sz.x - 9; ++e)
-                waddch(this->window, ' ');
-        }
+        for (int e = str.length(); e < this->sz.x - 9; ++e)
+            waddch(this->window, ' ');
     }
 
     wrefresh(this->window);
