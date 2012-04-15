@@ -16,9 +16,7 @@ going to guarantee backwards compatibility for anything older than libncurses
 
 IF YOU HAVE PROBLEMS PLEASE MAKE SURE YOUR GCC AND LIBNCURSES ARE UP TO DATE
 
-
-            --> PAGE BREAK <--
-
+---------------------------------------
 
 KEYBINDINGS
 ===========
@@ -26,43 +24,43 @@ KEYBINDINGS
 Mode Independent / Mode Change
 ------------------------------
 
-`   = Switch to Movement Mode
-l   = Look around
-@   = Character Screen
-i   = Inventory Screen
-?   = Game Info
-F1  = Help text (Not implemented)
-F12 = Quit
+    `   = Switch to Movement Mode
+    l   = Look around
+    @   = Character Screen
+    i   = Inventory Screen
+    ?   = Game Info
+    F1  = Help text (Not implemented)
+    F12 = Quit
 
 Movement Mode
 -------------
 
-qwe 789
-asd 456 = Movement
-zxc 123
+    qwe 789
+    asd 456 = Movement
+    zxc 123
 
-Arrow Keys = Move Camera
-<  = Go up stairs
->  = Go down stairs
+    Arrow Keys = Move Camera
+    <  = Go up stairs
+    >  = Go down stairs
 
-, = Pickup gold/items
-p = Drink a potion
-r = Read book/scroll
-m = Cast magic (Not implemented)
-b = View spellbook (Not implemented)
-t = Talk/Interact with shopkeeper (Not implemented)
+    , = Pickup gold/items
+    p = Drink a potion
+    r = Read book/scroll
+    m = Cast magic (Not implemented)
+    b = View spellbook (Not implemented)
+    t = Talk/Interact with shopkeeper (Not implemented)
 
 Map Look Mode
 -------------
 
-qwe 789
-asd 456 = Move reticle
-zxc 123
+    qwe 789
+    asd 456 = Move reticle
+    zxc 123
+    
+    Arrow Keys = Move Camera
 
-Arrow Keys = Move Camera
 
-
-            --> PAGE BREAK <--
+---------------------------------------
 
 RACES
 =====
@@ -129,7 +127,7 @@ minutes or, reputedly, even hours at a time without surfacing for air.
 
 Though barbarous, their clans include shamen and priests.
 
-            --> PAGE BREAK <--
+---------------------------------------
 
 ITEMS
 =====
