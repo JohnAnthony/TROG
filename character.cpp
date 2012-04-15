@@ -6,25 +6,25 @@
 
 static Affinity ClassAffinities[Character::LAST_CLASS] {
     //HP    MP  STR TOU ATT DEF MAG WIL MV  SIGHT
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //BARBARIAN
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //CLERIC
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //DRUID
+    {24,    0,  12, 12, 10, 10, 0,  8,  0,  0},  //BARBARIAN
+    {16,    16, 8,  8,  8,  8,  20, 12, 0,  0},  //CLERIC
+    {16,    16, 8,  8,  8,  8,  20, 12, 0,  0},  //DRUID
     {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //FIGHTER
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //PALADIN
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //SAGE
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //THIEF
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //WIZARD
+    {20,    4,  10, 10, 10, 10, 10, 12, 0,  0},  //PALADIN
+    {12,    16, 6,  6,  6,  6,  20, 10, 0,  0},  //SAGE
+    {16,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //THIEF
+    {12,    20, 10, 10, 10, 10, 24, 10, 0,  0},  //WIZARD
 };
 static Affinity RaceAffinities[Character::LAST_RACE] {
-    //HP    MP  STR TOU ATT DEF MAG WIL MV  SIGHT
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //DWARF
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //ELF
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //GREY ORC
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //HALFLING
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //HALF_ELF
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //HALF_ORC
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //HUMAN
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  5},  //LIZARDFOLK
+    //HP    MP  STR TOU ATT DEF MAG WIL MV      SIGHT
+    {26,    -99,10, 14, 10, 10, -99,14, 200,    8},  //DWARF
+    {14,    2,  10, 6,  14, 12, 0,  10, -100,   8},  //ELF
+    {24,    0,  14, 12, 10, 10, 0,  8,  0,      7},  //GREY ORC
+    {16,    0,  8,  8,  10, 14, 0,  12, 100,    6},  //HALFLING
+    {17,    1,  12, 8,  12, 11, 0,  10, -50,    6},  //HALF_ELF
+    {22,    0,  12, 11, 10, 10, 0,  9,  0,      6},  //HALF_ORC
+    {20,    0,  10, 10, 10, 10, 0,  10, 0,      5},  //HUMAN
+    {22,    0,  12, 12, 11, 11, 0,  8,  0,      6},  //LIZARDFOLK
 };
 
 Character::Character(std::string inName, Character::Race inRace, Character::Class inClass) {
@@ -281,6 +281,13 @@ Character::SumAffinities(Race inRace, Class inClass) {
 
 void
 Character::GiveXP(unsigned int quant) {
+    if (this->race == Character::HUMAN)
+        quant *= 1.10;
+    else if (this->race == Character::HALF_ELF)
+        quant *= 1.05;
+    else if (this->race == Character::HALF_ORC)
+        quant *= 1.05;
+
     this->XP += quant;
     if (this->XP >= this->next_level)
         this->LevelUp();

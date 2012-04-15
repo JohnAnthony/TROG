@@ -64,6 +64,72 @@ Arrow Keys = Move Camera
 
             --> PAGE BREAK <--
 
+RACES
+=====
+
+Dwarves
+-------
+
+Dwarves are hardy and resilient, but their stockyness makes them slow. They are
+accustomed to the dark and their eyes see as far as any races in the dungeon
+halls. Dwarves are known for being particularly stubborn and their will and
+innate magic resistance combine to make them particularly strong against magic.
+They are never able to use magic themselves, however, regardless of class.
+
+Elves
+-----
+
+Agile and alert, all elves possess an innate ability with magic. Their slight
+frames makes them less hardy than the other races. Their keen senses give them
+vision in the dark equalled only by the cave-dwelling dwarves.
+
+Grey Orcs
+---------
+
+Traditionally barbarians from the wastelands, the noble Grey Orc is a creature
+of cunning and strength -- their brutal nature makes them susceptible to magical
+influence, however. Born as servants to a dark lord millenea ago, the race is
+blessed with a good degree of low-light vision.
+
+The clans often include shamen, sages and other magic users -- the orcs prize
+strength above all, but strength has many more subtle forms than simply brawn.
+
+Halflings
+---------
+
+Although physically unimposing, halflings are nimble and willful. Between their
+short stature and love of good, home-cooked meals, they move slightly slower
+than all but the stocky dwarves. They are favoured by luck, however, and on many
+occasions a halfling has been known to miraculously avoid a danger that would
+otherwise certainly have spelt their doom.
+
+Half-Elf / Half Orc
+-------------------
+
+Children of mixed human and other racial heritage have half of their non-human
+ancestor's traits and half of their human side's adaptability.
+
+Humans
+------
+
+Humans, while less naturally talented in areas than the other races, also
+suffer none particular disadvantages. They are incredibly adaptable and learn
+to master their professions slightly faster than the other races.
+
+Of all the races, however, humans are the least adapted to travelling without
+a light source in the dark.
+
+Lizardfolk
+----------
+
+Denizens of the swamps, lizardfolk are strong, resilient and skilled with
+weapons. Their barbarous nature makes them susceptible to magic to a degree,
+although not amazingly so. They can't breathe underwater, but they can dive for
+minutes or, reputedly, even hours at a time without surfacing for air.
+
+Though barbarous, their clans include shamen and priests.
+
+            --> PAGE BREAK <--
 
 ITEMS
 =====
