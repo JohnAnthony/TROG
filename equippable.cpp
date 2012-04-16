@@ -23,6 +23,15 @@ static char const * const EquippableNames[Equippable::LAST_CATEGORY] = {
     //LAST_CATEGORY
 };
 
+static char const * const ShiningVerbs[] = {
+    "Glowing",
+    "Shining",
+    "Radiant",
+    "Bright",
+    "Brilliant",
+    "Magnificent"
+};
+
 Equippable::Equippable(Equippable::Category inCat, int pot) {
     this->potency = pot;
     this->category = inCat;
@@ -155,7 +164,7 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
     //Special case symbols
     if (this->category == Equippable::TORCH) {
         this->symbol = 't';
-        this->symbol = COL_YELLOW;
+        this->colour = COL_YELLOW;
     }
 }
 
@@ -166,7 +175,7 @@ Equippable::GetName(void) {
     //Special qualifiers
     if (this->modSIGHT != 0)
         if (this->category != Equippable::TORCH)
-            ss << "Shining ";
+            ss << ShiningVerbs[this->modSIGHT] << ' ';
 
     ss << EquippableNames[this->category];
     return ss.str();
