@@ -505,10 +505,25 @@ Character::GrantLevel(void) {
 
 void
 Character::Unequip(EquipLocations loc) {
+    std::stringstream ss;
+
     if (!this->equipment[loc])
         return;
+
+    ss << "Unequip " << this->equipment[loc]->GetName() << " ?";
+
+    if (! GUI::BinaryChoice(ss.str(), 'y', 'n') )
+        return;
+
     this->ItemToInventory(this->equipment[loc]);
     this->equipment[loc] = NULL;
+
+    return;
+}
+
+bool
+Character::isEquipSlotFree(EquipLocations loc) {
+    return !this->equipment[loc];
 }
 
 Character::~Character(void) {

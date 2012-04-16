@@ -850,6 +850,10 @@ GUI::DoRedraw(void) {
         g->PotionSelectMenu->Show();
     else if (g->game_mode == GameMode::READING_SELECT)
         g->BookSelectMenu->Show();
+    else if (g->game_mode == GameMode::GEAR_SELECT) {
+        GUI::ShowSplash(); //We need this because the equip menu can change size
+        g->EquipSelectMenu->Show();
+    }
 }
 
 void

@@ -542,7 +542,7 @@ Game::RepopulateEquipMenu(void) {
     for (int i = 0; i < (int)LAST_EQUIP_LOCATION; ++i) {
         if (c->equipment[i]) {
             ss.str("");
-            ss << "E:" << c->equipment[i]->GetName();
+            ss << "E:" << c->equipment[i]->getNameWithQuality();
             this->EquipSelectMenu->AddItem(ss.str());
         }
     }
@@ -557,14 +557,20 @@ Game::RepopulateEquipMenu(void) {
 
 void
 Game::HandleEquipSelection(int n) {
+    Character *c;
+
+    c = this->character;
     n++;
+
     for (int i = 0; i < (int)LAST_EQUIP_LOCATION; ++i) {
-        if (this->character->equipment[i])
+        if (c->equipment[i])
             --n;
         if (n == 0) {
-            this->character->Unequip((EquipLocations) i);
-            this->EquipSelectMenu->Reset();
-            this->RepopulateEquipMenu();
+            c->Unequip((EquipLocations) i);
+            if (c->isEquipSlotFree((EquipLocations) i)) {
+                this->EquipSelectMenu->Reset();
+                this->RepopulateEquipMenu();
+            }
             return;
         }
     }
