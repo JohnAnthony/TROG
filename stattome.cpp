@@ -104,7 +104,7 @@ StatTome::ApplyEffects(Character *c) {
         case StatTome::XP:
             effect *= 10;
             c->GiveXP(effect);
-            ss << "mind takes in new sighs and sounds -- your experience";
+            ss << "your experience";
             break;
         case StatTome::LAST_CATEGORY:
         default:
