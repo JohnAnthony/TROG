@@ -26,6 +26,10 @@ Debug::DebugConsole(Game *g) {
             g->GoDownALevel();
         else if (cmd == "GoUp")
             g->GoUpALevel();
+        else if (cmd == "RevealAll") {
+            g->cur_level->RevealAll();
+            break;
+        }
         else {
             GUI::Alert("Unknown debug command.");
             break;

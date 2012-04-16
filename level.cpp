@@ -676,6 +676,15 @@ Level::AddEquippable(Rect *r) {
         this->AddEquippable(r);
 }
 
+void
+Level::RevealAll(void) {
+    for (int e = 0; e < MAP_H; ++e) {
+        for (int i = 0; i < MAP_W; ++i) {
+            this->tiles[i][e].isVisible = true;
+        }
+    }
+}
+
 Level::~Level(void) {
     Item *item;
     for (std::list<Item*>::iterator it = this->items.begin();
