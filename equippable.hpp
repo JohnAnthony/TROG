@@ -31,6 +31,7 @@ class Equippable : public Item {
     std::string getNameWithQuality(void);
     int getQuality(void);
     static Equippable* NewRandomEquippable(int pot);
+    void ShiningChance(void);
 
     EquipLocations location;
     Equippable::Category category;

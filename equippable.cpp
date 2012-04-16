@@ -19,7 +19,8 @@ static char const * const EquippableNames[Equippable::LAST_CATEGORY] = {
     "Chainmail",
     "Platemail",
     "Holy Symbol",
-    "Torch"
+    "Torch",
+    //LAST_CATEGORY
 };
 
 Equippable::Equippable(Equippable::Category inCat, int pot) {
@@ -40,22 +41,26 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
         case Equippable::DAGGER:
             this->modSTR = (5 + DICEROLL(pot, 10)) / 4;
             this->modATT = 5 + DICEROLL(pot, 10);
+            this->ShiningChance();
             this->location = WEAPON;
             break;
         case Equippable::SHORT_SWORD:
             this->modSTR = (5 + DICEROLL(pot, 10)) / 2;
             this->modATT = 5 + DICEROLL(pot, 10);
+            this->ShiningChance();
             this->location = WEAPON;
             break;
         case Equippable::LONGSWORD:
             this->modSTR = 5 + DICEROLL(pot, 10);
             this->modATT = (5 + DICEROLL(pot, 10)) / 2;
+            this->ShiningChance();
             this->location = WEAPON;
             break;
         case Equippable::MACE:
         case Equippable::FLAIL:
             this->modSTR = (5 + DICEROLL(pot, 10)) / 2;
             this->modATT = (5 + DICEROLL(pot, 10)) / 2;
+            this->ShiningChance();
             this->location = WEAPON;
             break;
         case Equippable::STAFF:
@@ -68,15 +73,18 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
         case Equippable::TWO_HANDED_AXE:
             this->modSTR = (5 + DICEROLL(pot, 10)) * 1.5;
             this->modATT = 5 + DICEROLL(pot, 10);
+            this->ShiningChance();
             this->location = WEAPON;
             break;
         case Equippable::LIGHT_SHIELD:
             this->modDEF = 5 + DICEROLL(pot, 10);
+            this->ShiningChance();
             this->location = SHIELD;
             break;
         case Equippable::HEAVY_SHIELD:
             this->modDEF = 5 + DICEROLL(pot, 10) / 2;
             this->modTOU = 5 + DICEROLL(pot, 10) / 2;
+            this->ShiningChance();
             this->location = SHIELD;
             break;
         case Equippable::ROBES:
@@ -103,7 +111,7 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
             this->location = NECK;
             break;
         case Equippable::TORCH:
-            this->modSIGHT = 2;
+            this->modSIGHT = 3;
             this->location = SHIELD;
             break;
         case Equippable::LAST_CATEGORY:
@@ -149,12 +157,17 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
         this->symbol = 't';
         this->symbol = COL_YELLOW;
     }
-
 }
 
 std::string 
 Equippable::GetName(void) {
     std::stringstream ss;
+
+    //Special qualifiers
+    if (this->modSIGHT != 0)
+        if (this->category != Equippable::TORCH)
+            ss << "Shining ";
+
     ss << EquippableNames[this->category];
     return ss.str();
 }
@@ -193,4 +206,20 @@ Equippable*
 Equippable::NewRandomEquippable(int pot) {
     return new Equippable((Equippable::Category)(rand() % 
       Equippable::LAST_CATEGORY), pot);
+}
+
+void
+Equippable::ShiningChance(void) {
+    int maxBONUS;
+    if (rand() % 1000 <= MAX(this->potency, 100) && this->modSIGHT <= 5) {
+        if (this->potency < 10)
+            maxBONUS = 2;
+        else if (this->potency < 20)
+            maxBONUS = 3;
+        else if (this->potency < 30)
+            maxBONUS = 4;
+        else
+            maxBONUS = 5;
+        this->modSIGHT = rand() % maxBONUS + 1;
+    }
 }
