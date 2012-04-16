@@ -28,6 +28,7 @@ Mode Independent / Mode Change
     l   = Look around
     @   = Character Screen
     i   = Inventory Screen
+    g   = Gear Screen (Switching up equipment)
     ?   = Game Info
     F1  = Help text (Not implemented)
     F12 = Quit
