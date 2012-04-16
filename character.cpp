@@ -505,20 +505,41 @@ Character::GrantLevel(void) {
 
 void
 Character::Unequip(EquipLocations loc) {
-    std::stringstream ss;
-
     if (!this->equipment[loc])
-        return;
-
-    ss << "Unequip " << this->equipment[loc]->GetName() << " ?";
-
-    if (! GUI::BinaryChoice(ss.str(), 'y', 'n') )
         return;
 
     this->ItemToInventory(this->equipment[loc]);
     this->equipment[loc] = NULL;
 
     return;
+}
+
+bool //Return true only if the new item is equipped
+Character::Equip(Equippable *e) {
+    std::stringstream ss;
+    bool twohanded = false;
+
+    if (e->category == Equippable::TWO_HANDED_AXE)
+        twohanded = true;
+    if (e->category == Equippable::TWO_HANDED_SWORD)
+        twohanded = true;
+    if (e->category == Equippable::STAFF)
+        twohanded = true;
+
+    if (!this->isEquipSlotFree(e->location)) {
+        ss << "Unequip " << this->equipment[e->location]->GetName() << " ?";
+
+        if (! GUI::BinaryChoice(ss.str(), 'y', 'n') )
+            return false;
+        this->Unequip(e->location);
+    }
+
+    if (!this->isEquipSlotFree(e->location))
+        return false;
+
+    this->equipment[e->location] = e;
+    this->RecalcEffective();
+    return true;
 }
 
 bool

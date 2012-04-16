@@ -557,7 +557,10 @@ Game::RepopulateEquipMenu(void) {
 
 void
 Game::HandleEquipSelection(int n) {
+    std::list<Item*>::iterator it;
     Character *c;
+    Equippable *e;
+    Item *item;
 
     c = this->character;
     n++;
@@ -575,7 +578,28 @@ Game::HandleEquipSelection(int n) {
         }
     }
 
-    GUI::Alert("Handle equip here!");
+    //get the item we want to equip
+    for (it = c->Inventory.begin(); it != c->Inventory.end(); ++it) {
+        item = &**it;
+        if (item->type == Item::EQUIPPABLE)
+            --n;
+        if (n == 0) {
+            e = (Equippable*) item;
+            break;
+        }
+    }
+
+    if (n != 0) {
+        GUI::Alert("Error syncing up equip/deequip selection!");
+        return;
+    }
+
+    if ( !c->Equip(e) )
+        return;
+
+    c->Inventory.erase(it);
+    this->EquipSelectMenu->Reset();
+    this->RepopulateEquipMenu();
 }
 
 Game::~Game(void) {

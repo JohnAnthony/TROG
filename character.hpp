@@ -78,6 +78,7 @@ class Character : public Entity {
     void HandleHalflingLuck(void);
     void GrantLevel(void);
     void Unequip(EquipLocations loc);
+    bool Equip(Equippable *e);
     bool isEquipSlotFree(EquipLocations loc);
 
     //Getters(!)
