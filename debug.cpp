@@ -1,17 +1,35 @@
 #include "debug.hpp"
 #include "gui.hpp"
+#include <iostream>
+#include <sstream>
 
 void
 Debug::DebugConsole(Game *g) {
     std::string s;
-    int i;
+    std::string cmd;
+    int arg;
 
+    arg = 0;
     s = GUI::GetString("Debug Command:");
+    std::stringstream iss(s);
+    iss >> cmd;
+    if (iss)
+        iss >> arg;
 
-    //Basic commands with no arguments
-    if (s == "LevelUp") {
-        i = g->character->next_level - g->character->getXP();
-        g->character->GiveXP(i);
+    if (arg == 0)
+        arg = 1;
+
+    for (; arg > 0; --arg) {
+        if (cmd == "LevelUp")
+            g->character->GrantLevel();
+        else if (cmd == "GoDown")
+            g->GoDownALevel();
+        else if (cmd == "GoUp")
+            g->GoUpALevel();
+        else {
+            GUI::Alert("Unknown debug command.");
+            break;
+        }
     }
 
     GUI::DoRedraw();

@@ -480,6 +480,11 @@ Character::HandleHalflingLuck(void) {
     GUI::AddMessage("Previous damage notification negated (halfling luck)");
 }
 
+void
+Character::GrantLevel(void) {
+    this->GiveXP(this->next_level - this->getXP());
+}
+
 Character::~Character(void) {
     Item *item;
     for (std::list<Item*>::iterator it = this->Inventory.begin();

@@ -76,6 +76,7 @@ class Character : public Entity {
     int getEquipmentQuality(EquipLocations el);
     void TakeDamage(int n);
     void HandleHalflingLuck(void);
+    void GrantLevel(void);
 
     //Getters(!)
     int getXP(void);
