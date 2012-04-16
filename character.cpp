@@ -503,6 +503,14 @@ Character::GrantLevel(void) {
     this->GiveXP(this->next_level - this->getXP());
 }
 
+void
+Character::Unequip(EquipLocations loc) {
+    if (!this->equipment[loc])
+        return;
+    this->ItemToInventory(this->equipment[loc]);
+    this->equipment[loc] = NULL;
+}
+
 Character::~Character(void) {
     Item *item;
     for (std::list<Item*>::iterator it = this->Inventory.begin();

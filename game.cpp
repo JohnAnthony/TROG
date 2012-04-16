@@ -536,8 +536,17 @@ void
 Game::RepopulateEquipMenu(void) {
     Character *c;
     Item* item;
+    std::stringstream ss;
 
     c = this->character;
+
+    for (int i = 0; i < (int)LAST_EQUIP_LOCATION; ++i) {
+        if (c->equipment[i]) {
+            ss.str("");
+            ss << "E:" << c->equipment[i]->GetName();
+            this->EquipSelectMenu->AddItem(ss.str());
+        }
+    }
 
     for (std::list<Item*>::iterator it = c->Inventory.begin();
             it != c->Inventory.end(); ++it) {
@@ -549,7 +558,19 @@ Game::RepopulateEquipMenu(void) {
 
 void
 Game::HandleEquipSelection(int n) {
-    GUI::Alert("Handle equip/unequip here!");
+    n++;
+    for (int i = 0; i < (int)LAST_EQUIP_LOCATION; ++i) {
+        if (this->character->equipment[i])
+            --n;
+        if (n == 0) {
+            this->character->Unequip((EquipLocations) i);
+            this->EquipSelectMenu->Reset();
+            this->RepopulateEquipMenu();
+            return;
+        }
+    }
+
+    GUI::Alert("Handle equip here!");
 }
 
 Game::~Game(void) {
