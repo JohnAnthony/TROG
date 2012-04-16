@@ -231,3 +231,14 @@ Equippable::ShiningChance(void) {
         this->modSIGHT = rand() % maxBONUS + 1;
     }
 }
+
+bool
+Equippable::isTwoHanded(void) {
+    if (this->category == Equippable::TWO_HANDED_AXE)
+        return true;
+    if (this->category == Equippable::TWO_HANDED_SWORD)
+        return true;
+    if (this->category == Equippable::STAFF)
+        return true;
+    return false;
+}

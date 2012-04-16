@@ -32,6 +32,7 @@ class Equippable : public Item {
     int getQuality(void);
     static Equippable* NewRandomEquippable(int pot);
     void ShiningChance(void);
+    bool isTwoHanded(void);
 
     EquipLocations location;
     Equippable::Category category;

@@ -511,27 +511,32 @@ Character::Unequip(EquipLocations loc) {
     this->ItemToInventory(this->equipment[loc]);
     this->equipment[loc] = NULL;
 
+    this->RecalcEffective();
     return;
 }
 
 bool //Return true only if the new item is equipped
 Character::Equip(Equippable *e) {
     std::stringstream ss;
-    bool twohanded = false;
 
-    if (e->category == Equippable::TWO_HANDED_AXE)
-        twohanded = true;
-    if (e->category == Equippable::TWO_HANDED_SWORD)
-        twohanded = true;
-    if (e->category == Equippable::STAFF)
-        twohanded = true;
+    if (e->location == SHIELD) {
+        if (this->equipment[WEAPON]->isTwoHanded()) {
+            GUI::Alert("You can't equip this with a two-handed weapon.");
+            return false;
+        }
+    }
 
     if (!this->isEquipSlotFree(e->location)) {
-        ss << "Unequip " << this->equipment[e->location]->GetName() << " ?";
+        ss << "Unequip " << this->equipment[e->location]->getNameWithQuality();
+        if (e->isTwoHanded() && this->equipment[SHIELD])
+            ss << " and " << this->equipment[SHIELD]->getNameWithQuality();
+        ss << " ?";
 
         if (! GUI::BinaryChoice(ss.str(), 'y', 'n') )
             return false;
         this->Unequip(e->location);
+        if (e->isTwoHanded() && this->equipment[SHIELD])
+            this->Unequip(SHIELD);
     }
 
     if (!this->isEquipSlotFree(e->location))
