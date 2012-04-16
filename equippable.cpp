@@ -23,13 +23,12 @@ static char const * const EquippableNames[Equippable::LAST_CATEGORY] = {
     //LAST_CATEGORY
 };
 
-static char const * const ShiningVerbs[] = {
+static char const * const ShiningAdjectives[] = {
     "Glowing",
     "Shining",
     "Radiant",
-    "Bright",
-    "Brilliant",
-    "Magnificent"
+    "Gleaming",
+    "Brilliant"
 };
 
 Equippable::Equippable(Equippable::Category inCat, int pot) {
@@ -175,7 +174,7 @@ Equippable::GetName(void) {
     //Special qualifiers
     if (this->modSIGHT != 0)
         if (this->category != Equippable::TORCH)
-            ss << ShiningVerbs[this->modSIGHT] << ' ';
+            ss << ShiningAdjectives[this->modSIGHT - 1] << ' ';
 
     ss << EquippableNames[this->category];
     return ss.str();
@@ -220,7 +219,7 @@ Equippable::NewRandomEquippable(int pot) {
 void
 Equippable::ShiningChance(void) {
     int maxBONUS;
-    if (rand() % 1000 <= MIN(this->potency, 50) && this->modSIGHT <= 5) {
+    if (rand() % 100 < 1 && this->modSIGHT <= 5) {
         if (this->potency < 10)
             maxBONUS = 2;
         else if (this->potency < 20)
