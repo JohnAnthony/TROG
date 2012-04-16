@@ -24,8 +24,6 @@ static char const * const EquippableNames[Equippable::LAST_CATEGORY] = {
 Equippable::Equippable(Equippable::Category inCat, int pot) {
     this->potency = pot;
     this->category = inCat;
-    this->modHP = 0;
-    this->modMP = 0;
     this->modSTR = 0;
     this->modTOU = 0;
     this->modATT = 0;
@@ -162,14 +160,14 @@ Equippable::getQuality(void) {
     int ret;
 
     ret = 0;
-    ret += this->modHP;
-    ret += this->modMP;
     ret += this->modSTR;
     ret += this->modTOU;
     ret += this->modATT;
     ret += this->modDEF;
     ret += this->modMAG;
     ret += this->modWIL;
+    ret += this->modSIGHT * 10;
+    ret -= this->modMV;
 
     return ret;
 }

@@ -34,8 +34,6 @@ class Equippable : public Item {
     EquipLocations location;
     Equippable::Category category;
     int potency;
-    int modHP;
-    int modMP;
     int modSTR;
     int modTOU;
     int modATT;
