@@ -25,6 +25,7 @@ Game::Game(Character *c) {
 
     this->PotionSelectMenu = new ScrollableMenu("Drink what?");
     this->BookSelectMenu = new ScrollableMenu("Read what?");
+    this->EquipSelectMenu = new ScrollableMenu("Equipment");
 
     //Give the player a few starting potions for luck
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
@@ -69,6 +70,8 @@ Game::Run(void) {
             new_gamemode = GameMode::POTION_SELECT;
         else if (c == 'r')
             new_gamemode = GameMode::READING_SELECT;
+        else if (c == 'g')
+            new_gamemode = GameMode::GEAR_SELECT;
         else    // Not a mode change. Handle input based upon mode
             new_gamemode = this->HandleInput(c);
 
@@ -128,6 +131,13 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             this->BookSelectMenu->Reset();
             this->RepopulateBookMenu();
             this->BookSelectMenu->Show();
+            break;
+        case (GameMode::GEAR_SELECT):
+            GUI::FancyClear();
+            GUI::ShowSplash();
+            this->EquipSelectMenu->Reset();
+            this->RepopulateEquipMenu();
+            this->EquipSelectMenu->Show();
             break;
     }
 }
@@ -238,6 +248,21 @@ Game::HandleInput(int c) {
                 this->BookSelectMenu->PageDown();
             else if (c == '\n') {
                 this->character->ReadBookOrScroll(this->BookSelectMenu->Selection());
+                this->cur_level->GiveEnemiesTurn(this->character);
+                GUI::DoRedraw();
+                return GameMode::MAP_WALK;
+            }
+        case GameMode::GEAR_SELECT:
+            if (c == KEY_UP)
+                this->EquipSelectMenu->PtrUp();
+            else if (c == KEY_DOWN)
+                this->EquipSelectMenu->PtrDown();
+            else if (c == KEY_PPAGE)
+                this->EquipSelectMenu->PageUp();
+            else if (c == KEY_NPAGE)
+                this->EquipSelectMenu->PageDown();
+            else if (c == '\n') {
+                this->HandleEquipSelection(this->EquipSelectMenu->Selection());
                 this->cur_level->GiveEnemiesTurn(this->character);
                 GUI::DoRedraw();
                 return GameMode::MAP_WALK;
@@ -505,6 +530,26 @@ Game::RepopulateBookMenu(void) {
         if (item->type == Item::STAT_TOME)
             this->BookSelectMenu->AddItem(item->GetName());
     }
+}
+
+void
+Game::RepopulateEquipMenu(void) {
+    Character *c;
+    Item* item;
+
+    c = this->character;
+
+    for (std::list<Item*>::iterator it = c->Inventory.begin();
+            it != c->Inventory.end(); ++it) {
+        item = &**it;
+        if (item->type == Item::EQUIPPABLE)
+            this->EquipSelectMenu->AddItem(item->GetName());
+    }
+}
+
+void
+Game::HandleEquipSelection(int n) {
+    GUI::Alert("Handle equip/unequip here!");
 }
 
 Game::~Game(void) {

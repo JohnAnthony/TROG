@@ -18,7 +18,8 @@ namespace GameMode {
         CHARACTER_SCREEN,
         INVENTORY_SCREEN,
         POTION_SELECT,
-        READING_SELECT
+        READING_SELECT,
+        GEAR_SELECT
     } Type;
 }
 
@@ -40,6 +41,8 @@ class Game {
     void DoWait(void);
     void RepopulatePotionMenu(void);
     void RepopulateBookMenu(void);
+    void RepopulateEquipMenu(void);
+    void HandleEquipSelection(int n);
 
     Level*              levels;
     Level*              cur_level;
@@ -50,6 +53,7 @@ class Game {
     Point               target; //Look target
     ScrollableMenu      *PotionSelectMenu;
     ScrollableMenu      *BookSelectMenu;
+    ScrollableMenu      *EquipSelectMenu;
 };
 
 #endif
