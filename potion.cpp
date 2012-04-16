@@ -22,6 +22,9 @@ Potion::Potion(Potion::Potency inPot, Potion::Category inCat) {
     this->type = Item::POTION;
     this->symbol = 'p';
 
+    if (this->potency >= Potion::LAST_POTENCY)
+        this->potency = (Potion::Potency)((int)Potion::LAST_POTENCY - 1);
+
     switch (this->category) {
         case Potion::HEALING:
             this->colour = COL_RED;
