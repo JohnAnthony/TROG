@@ -265,7 +265,6 @@ Game::HandleInput(int c) {
                 this->HandleEquipSelection(this->EquipSelectMenu->Selection());
                 this->cur_level->GiveEnemiesTurn(this->character);
                 GUI::DoRedraw();
-                return GameMode::MAP_WALK;
             }
             break;
 

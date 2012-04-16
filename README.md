@@ -28,6 +28,8 @@ Mode Independent / Mode Change
     l   = Look around
     @   = Character Screen
     i   = Inventory Screen
+    p   = Drink a potion
+    r   = Read book/scroll
     g   = Gear Screen (Switching up equipment)
     ?   = Game Info
     F1  = Help text (Not implemented)
@@ -45,8 +47,6 @@ Movement Mode
     >  = Go down stairs
 
     , = Pickup gold/items
-    p = Drink a potion
-    r = Read book/scroll
     m = Cast magic (Not implemented)
     b = View spellbook (Not implemented)
     t = Talk/Interact with shopkeeper (Not implemented)
@@ -60,6 +60,21 @@ Map Look Mode
     
     Arrow Keys = Move Camera
 
+Drink Menu
+----------
+
+    Return = Drink this potion / beverage
+
+Read Menu
+----------
+
+    Return = Read this book / scroll
+
+Gear Screen
+-----------
+
+    Return = Equip / unequip this item
+    v = View this item in more detail (Not implemented)
 
 ---------------------------------------
 
@@ -75,7 +90,7 @@ halls. Dwarves are known for being particularly stubborn and their will and
 innate magic resistance combine to make them particularly strong against magic.
 They are never able to use magic themselves, however, regardless of class.
 
-Dwarf vision does NOT benefit from light-producing items.
+Dwarves love alcohol.
 
 Elves
 -----
