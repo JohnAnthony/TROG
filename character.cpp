@@ -48,6 +48,9 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
     this->baseDEF = this->affinity.def;
     this->baseMAG = this->affinity.mag;
     this->baseWIL = this->affinity.wil;
+    this->baseSIGHT = this->affinity.sight;
+    this->baseMV = 1000 + this->affinity.mv;
+
 
     if (this->affinity.hp > 0)
         this->baseHP += rand() % this->affinity.hp + 1;
@@ -128,9 +131,6 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
         default:
             break;
     }
-
-    this->sight_range = this->affinity.sight;
-    this->mv_cost = 1000 + this->affinity.mv;
 
     this->FullyRestore();
 }
@@ -421,6 +421,8 @@ Character::RecalcEffective(void) {
     this->curDEF = this->baseDEF;
     this->curMAG = this->baseMAG;
     this->curWIL = this->baseWIL;
+    this->curSIGHT = this->baseSIGHT;
+    this->curMV = this->baseMV;
 
     for (unsigned int i = 0; i < (int) LAST_EQUIP_LOCATION; ++i) {
         if (!this->equipment[i])
@@ -431,7 +433,11 @@ Character::RecalcEffective(void) {
         this->curDEF += this->equipment[i]->modDEF;
         this->curMAG += this->equipment[i]->modMAG;
         this->curWIL += this->equipment[i]->modWIL;
+        this->curSIGHT += this->equipment[i]->modSIGHT;
+        this->curMV += this->equipment[i]->modMV;
     }
+
+    this->curMV = MAX(this->curMV, 500);
 }
 
 std::string 

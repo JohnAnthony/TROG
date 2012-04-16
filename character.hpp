@@ -92,14 +92,14 @@ class Character : public Entity {
     Equippable *equipment[LAST_EQUIP_LOCATION];
     int gold;
 
-    int baseHP, curHP;
-    int baseMP, curMP;
-    int baseSTR, curSTR;
-    int baseTOU, curTOU;
-    int baseATT, curATT;
-    int baseDEF, curDEF;
-    int baseMAG, curMAG;
-    int baseWIL, curWIL;
+    int curSTR;
+    int curTOU;
+    int curATT;
+    int curDEF;
+    int curMAG;
+    int curWIL;
+    int curMV;
+    int curSIGHT;
 
     private:
     int XP;

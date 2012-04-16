@@ -572,12 +572,16 @@ GUI::ShowCharacterScreen(Character *c) {
     mvwprintw(w, p.y += 2, p.x -1, "=|==|==|==|==|==|==|==|==|==|==|==|=");
 
     ss.str("");
-    ss << "SIGHT RANGE :: " << c->sight_range;
+    ss << "SIGHT RANGE :: " << c->curSIGHT;
+    if (c->curSIGHT != c->baseSIGHT)
+        ss << "\t(Base :: " << c->baseSIGHT << ")";
     s = ss.str();
     mvwprintw(w, p.y += 2, p.x, s.c_str());
 
     ss.str("");
-    ss << "MV COST     :: " << c->mv_cost;
+    ss << "MV COST     :: " << c->curMV;
+    if (c->curMV != c->baseMV)
+        ss << "\t(Base :: " << c->baseMV << ")";
     s = ss.str();
     mvwprintw(w, ++p.y, p.x, s.c_str());
 

@@ -244,10 +244,10 @@ Level::ConditionallyShowObject(Point p, char c, int col) {
 
 void
 Level::RevealSight(Entity *e) {
-    DoSightBeam(Direction::NORTH, e->pos.x, e->pos.y, e->sight_range);
-    DoSightBeam(Direction::SOUTH, e->pos.x, e->pos.y, e->sight_range);
-    DoSightBeam(Direction::EAST, e->pos.x, e->pos.y, e->sight_range);
-    DoSightBeam(Direction::WEST, e->pos.x, e->pos.y, e->sight_range);
+    DoSightBeam(Direction::NORTH, e->pos.x, e->pos.y, e->baseSIGHT);
+    DoSightBeam(Direction::SOUTH, e->pos.x, e->pos.y, e->baseSIGHT);
+    DoSightBeam(Direction::EAST, e->pos.x, e->pos.y, e->baseSIGHT);
+    DoSightBeam(Direction::WEST, e->pos.x, e->pos.y, e->baseSIGHT);
 }
 
 void
@@ -472,11 +472,11 @@ void
 Level::GiveEnemiesTurn(Character *c) {
     for (std::list<Enemy>::iterator it = this->enemies.begin();
     it != this->enemies.end(); it++) {
-        if (!it->isActive && CalculateDistance(it->pos, c->pos) <= it->sight_range)
+        if (!it->isActive && CalculateDistance(it->pos, c->pos) <= it->baseSIGHT)
             it->isActive = true;
         if (it->isActive)
-            it->mv_energy += c->mv_cost;
-        if (it->mv_energy >= it->mv_cost)
+            it->mv_energy += c->curMV;
+        if (it->mv_energy >= it->baseMV)
             this->EnemyAdvance(&*it, c);
     }
 }
@@ -487,8 +487,8 @@ Level::EnemyAdvance(Enemy *e, Character *c) {
     Direction::Type tries[3];
     Tile *t;
 
-    while(e->mv_energy >= e->mv_cost) {
-        e->mv_energy -= e->mv_cost;
+    while(e->mv_energy >= e->baseMV) {
+        e->mv_energy -= e->baseMV;
 
         //Target x
         if (e->pos.x > c->pos.x) {

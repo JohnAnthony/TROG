@@ -11,16 +11,16 @@ Enemy::Enemy(unsigned int inLVL, char inSymbol, Color inCol, int inSight,
   int inMV, unsigned int inXP, const char *inName, const char *inDescript) {
     this->symbol = inSymbol;
     this->colour = inCol;
-    this->sight_range = inSight;
-    this->maxHP = this->curHP = hp;
-    this->MP = mp;
-    this->STR = str;
-    this->TOU = tou;
-    this->ATT = att;
-    this->DEF = def;
-    this->MAG = mag;
-    this->WIL = wil;
-    this->mv_cost = inMV;
+    this->baseSIGHT = inSight;
+    this->baseHP = this->curHP = hp;
+    this->baseMP = mp;
+    this->baseSTR = str;
+    this->baseTOU = tou;
+    this->baseATT = att;
+    this->baseDEF = def;
+    this->baseMAG = mag;
+    this->baseWIL = wil;
+    this->baseMV = inMV;
     this->XP_value = inXP;
     this->name = inName;
     this->descriptor = inDescript;
@@ -53,11 +53,11 @@ Enemy::Attack(Character *c) {
     ss << c->name;
 
     // The attack
-    dmg = rand() % this->ATT - rand() % c->curDEF;
+    dmg = rand() % this->baseATT - rand() % c->curDEF;
     if (dmg <= 0)
         ss << " but misses";
     else {
-        dmg += rand() % (int)(this->STR) - rand() % c->curTOU;
+        dmg += rand() % (int)(this->baseSTR) - rand() % c->curTOU;
 
         //The damage
         if (dmg <= 0)

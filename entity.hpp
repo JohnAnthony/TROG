@@ -10,8 +10,18 @@ class Entity {
     Point pos;
     char symbol;
     Color colour;
-    int sight_range;
-    int mv_cost;
+    int baseHP;
+    int baseMP;
+    int curHP;
+    int curMP;
+    int baseSTR;
+    int baseTOU;
+    int baseATT;
+    int baseDEF;
+    int baseMAG;
+    int baseWIL;
+    int baseSIGHT;
+    int baseMV;
 };
 
 #endif

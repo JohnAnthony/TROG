@@ -32,6 +32,8 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
     this->modDEF = 0;
     this->modMAG = 0;
     this->modWIL = 0;
+    this->modSIGHT = 0;
+    this->modMV = 0;
     this->colour = COL_CYAN;
     this->type = Item::EQUIPPABLE;
 

@@ -444,11 +444,11 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
     ss << c->name << " attacks "  << e->Description();
 
     // Handle the attack
-    dam = rand() % c->curATT - rand() % e->DEF;
+    dam = rand() % c->curATT - rand() % e->baseDEF;
     if (dam < 0)
         ss << " but misses";
     else {
-        dam += rand() % (int)(c->curSTR * 1.5) - rand() % e->TOU;
+        dam += rand() % (int)(c->curSTR * 1.5) - rand() % e->baseTOU;
         if (dam <= 0)
             ss << " but fails to do any damage";
         else

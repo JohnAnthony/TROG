@@ -24,16 +24,6 @@ class Enemy : public Entity {
     const char *name;
     const char *descriptor;
     bool isActive;
-    int maxHP;
-    int curHP;
-    int MP;
-    int STR;
-    int TOU;
-    int ATT;
-    int DEF;
-    int MAG;
-    int WIL;
-
 };
 
 static Enemy EnemyList[] = {

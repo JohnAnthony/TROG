@@ -42,6 +42,8 @@ class Equippable : public Item {
     int modDEF;
     int modMAG;
     int modWIL;
+    int modSIGHT;
+    int modMV;
 };
 
 #endif
