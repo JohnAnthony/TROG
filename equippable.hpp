@@ -22,14 +22,15 @@ class Equippable : public Item {
         CHAINMAIL,
         PLATEMAIL,
         HOLY_SYMBOL,
-        LAST_CATEGORY
+        TORCH,
+        LAST_CATEGORY,
     };
 
     Equippable(Equippable::Category inCat, int pot);
     std::string GetName(void);
     std::string getNameWithQuality(void);
     int getQuality(void);
-    static Equippable* RandomEquippable(int pot);
+    static Equippable* NewRandomEquippable(int pot);
 
     EquipLocations location;
     Equippable::Category category;

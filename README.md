@@ -70,10 +70,12 @@ Dwarves
 -------
 
 Dwarves are hardy and resilient, but their stockyness makes them slow. They are
-accustomed to the dark and their eyes see as far as any races in the dungeon
+accustomed to the dark and their eyes see as far as any race's in the dungeon
 halls. Dwarves are known for being particularly stubborn and their will and
 innate magic resistance combine to make them particularly strong against magic.
 They are never able to use magic themselves, however, regardless of class.
+
+Dwarf vision does NOT benefit from light-producing items.
 
 Elves
 -----

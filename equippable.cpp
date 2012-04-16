@@ -10,15 +10,16 @@ static char const * const EquippableNames[Equippable::LAST_CATEGORY] = {
     "Mace",
     "Flail",
     "Staff",
-    "Two-Handed Sword",
-    "Two-Handed Axe",
+    "Greatsword",
+    "Greataxe",
     "Light Shield",
     "Heavy Shield",
     "Robes",
     "Leather Armour",
     "Chainmail",
     "Platemail",
-    "Holy Symbol"
+    "Holy Symbol",
+    "Torch"
 };
 
 Equippable::Equippable(Equippable::Category inCat, int pot) {
@@ -101,7 +102,12 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
             this->modWIL = 5 + DICEROLL(pot, 10);
             this->location = NECK;
             break;
+        case Equippable::TORCH:
+            this->modSIGHT = 2;
+            this->location = SHIELD;
+            break;
         case Equippable::LAST_CATEGORY:
+        default:
             GUI::Alert("Error generating item!");
             break;
     }
@@ -138,6 +144,12 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
             break;
     }
 
+    //Special case symbols
+    if (this->category == Equippable::TORCH) {
+        this->symbol = 't';
+        this->symbol = COL_YELLOW;
+    }
+
 }
 
 std::string 
@@ -159,6 +171,11 @@ int
 Equippable::getQuality(void) {
     int ret;
 
+    //Special cases
+    if (this->category == TORCH)
+        return 0;
+
+    //Procedurally generated cases
     ret = 0;
     ret += this->modSTR;
     ret += this->modTOU;
@@ -173,7 +190,7 @@ Equippable::getQuality(void) {
 }
 
 Equippable*
-Equippable::RandomEquippable(int pot) {
+Equippable::NewRandomEquippable(int pot) {
     return new Equippable((Equippable::Category)(rand() % 
       Equippable::LAST_CATEGORY), pot);
 }

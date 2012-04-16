@@ -132,6 +132,10 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
             break;
     }
 
+    //Races sometimes start with extra stuff. Humans get torches, elves get bows etc.
+    if (this->race == Character::HUMAN)
+        this->ItemToInventory((Item*) new Equippable(Equippable::TORCH, 1));
+
     this->FullyRestore();
 }
 
@@ -438,6 +442,14 @@ Character::RecalcEffective(void) {
     }
 
     this->curMV = MAX(this->curMV, 500);
+
+    //Dwarves don't get any bonuses for using a torch
+    if (this->equipment[SHIELD]) {
+        if (this->equipment[SHIELD]->category == Equippable::TORCH && this->race ==
+        Character::DWARF) {
+            this->curSIGHT -= 2;
+        }
+    }
 }
 
 std::string 
