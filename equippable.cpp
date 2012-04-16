@@ -211,7 +211,7 @@ Equippable::NewRandomEquippable(int pot) {
 void
 Equippable::ShiningChance(void) {
     int maxBONUS;
-    if (rand() % 1000 <= MAX(this->potency, 100) && this->modSIGHT <= 5) {
+    if (rand() % 1000 <= MIN(this->potency, 50) && this->modSIGHT <= 5) {
         if (this->potency < 10)
             maxBONUS = 2;
         else if (this->potency < 20)

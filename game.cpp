@@ -32,10 +32,9 @@ Game::Game(Character *c) {
 
 
     //Debug
-    // for (int i = 0; i < 400; ++i) {
-    //     this->character->ItemToInventory((Item*) Equippable::RandomEquippable(1));
-    //     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
-    // }
+    for (int i = 0; i < 400; ++i) {
+        this->character->ItemToInventory((Item*) Equippable::NewRandomEquippable(1000));
+    }
 
     GUI::AttachTo(this);
 }
