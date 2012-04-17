@@ -243,11 +243,11 @@ Level::ConditionallyShowObject(Point p, char c, int col) {
 }
 
 void
-Level::RevealSight(Entity *e) {
-    DoSightBeam(Direction::NORTH, e->pos.x, e->pos.y, e->curSIGHT);
-    DoSightBeam(Direction::SOUTH, e->pos.x, e->pos.y, e->curSIGHT);
-    DoSightBeam(Direction::EAST, e->pos.x, e->pos.y, e->curSIGHT);
-    DoSightBeam(Direction::WEST, e->pos.x, e->pos.y, e->curSIGHT);
+Level::RevealSight(Point p, int distance) {
+    DoSightBeam(Direction::NORTH, p.x, p.y, distance);
+    DoSightBeam(Direction::SOUTH, p.x, p.y, distance);
+    DoSightBeam(Direction::EAST, p.x, p.y, distance);
+    DoSightBeam(Direction::WEST, p.x, p.y, distance);
 }
 
 void

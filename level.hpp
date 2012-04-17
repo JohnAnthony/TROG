@@ -35,7 +35,7 @@ class Level {
     ~Level(void);
     bool TileIsVisible(Point p);
     void ConditionallyShowObject(Point p, char c, int col);
-    void RevealSight(Entity* e);
+    void RevealSight(Point p, int distance);
     void DoSightBeam(Direction::Type d, int x, int y, float ttl);
     void EnemySpawn(Rect *r);
     void RemoveEnemy(Enemy *e);

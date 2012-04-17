@@ -38,6 +38,7 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
     this->affinity = this->SumAffinities(inRace, inClass);
     this->next_level = 1000;
     this->gold = 0;
+    this->deepest_visited = 1;
 
     //Startign stats
     this->baseHP  = this->affinity.hp;

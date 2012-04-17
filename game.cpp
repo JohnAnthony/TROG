@@ -17,7 +17,7 @@ Game::Game(Character *c) {
     this->character->MoveTo(this->cur_level->stairs_up);
     GUI::CentreCam(character->pos);
 
-    this->levels->RevealSight(this->character);
+    this->levels->RevealSight(this->character->pos, this->character->curSIGHT);
     GUI::SetStatus("Welcome to TROG! Try not to die.");
 
     this->game_mode = GameMode::MAP_WALK;
@@ -294,7 +294,7 @@ Game::GoUpALevel(void) {
     this->cur_level = this->cur_level->prev;
 
     this->character->MoveTo(this->cur_level->stairs_down);
-    this->cur_level->RevealSight(this->character);
+    this->cur_level->RevealSight(this->character->pos, this->character->curSIGHT);
     GUI::CentreCam(this->character->pos);
     GUI::DoRedraw();
 }
@@ -305,9 +305,11 @@ Game::GoDownALevel(void) {
         this->cur_level->next = new Level(this->cur_level);
 
     this->cur_level = this->cur_level->next;
+    this->character->deepest_visited = MAX(this->character->deepest_visited,
+            this->cur_level->depth);
 
     this->character->MoveTo(this->cur_level->stairs_up);
-    this->cur_level->RevealSight(this->character);
+    this->cur_level->RevealSight(this->character->pos, this->character->curSIGHT);
     GUI::CentreCam(this->character->pos);
     GUI::DoRedraw();
 }
@@ -362,14 +364,14 @@ Game::MoveCharacter(Direction::Type d) {
     }
     else if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR) {    // An empty space
             c->MoveTo(target);
-            this->cur_level->RevealSight(c);
+            this->cur_level->RevealSight(c->pos, c->curSIGHT);
             GUI::CentreCam(c->pos);
             this->cur_level->CheckForRoomText(c);
     }
     else if (t->c == CLOSED_DOOR_CHAR) {                        // A closed door
         if (GUI::BinaryChoice("This door is closed. Open?", 'y', 'n')) {
             t->c = OPEN_DOOR_CHAR;
-            this->cur_level->RevealSight(c);
+            this->cur_level->RevealSight(c->pos, c->curSIGHT);
             GUI::AddMessage("You push the door open with a creak.");
         }
     }

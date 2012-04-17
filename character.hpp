@@ -109,6 +109,8 @@ class Character : public Entity {
     int curMV;
     int curSIGHT;
 
+    unsigned int deepest_visited;
+
     private:
     int XP;
 };
