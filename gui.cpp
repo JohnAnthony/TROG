@@ -10,6 +10,7 @@
 
 Game *GUI::g;
 Point GUI::cam;
+int GUI::NUM_COLOURS;
 std::string GUI::status_line;
 std::vector<std::string> GUI::messages;
 const char *GUI::SplashStr = "\
@@ -54,7 +55,7 @@ GUI::Init(void) {
         exit(1);
     }
 
-    for (int i = 0; i < 16; ++i) 
+    for (int i = 0; i < NUM_COLOURS; ++i) 
         init_pair(i, i, COLOR_BLACK);
 }
 

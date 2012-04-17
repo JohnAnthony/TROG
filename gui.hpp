@@ -46,6 +46,8 @@ class GUI {
     static void InfoScreen(Potion *p);
     static void InfoScreen(StatTome *st);
 
+    static int NUM_COLOURS;
+
     private:
     static Game *g;
     static std::string status_line;

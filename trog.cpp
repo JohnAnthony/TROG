@@ -4,9 +4,11 @@
 #include "character.hpp"
 #include "gui.hpp"
 #include <signal.h>
+#include <unistd.h>
 
 Game *g = NULL;
 Character *c;
+static int colours;
 
 static void
 resize_handler(int sign) {
@@ -26,10 +28,33 @@ interrupt_handler(int sign) {
     exit(0);
 }
 
-int main(int argc, char** argv) {
+static void
+handle_args(int argc, char **argv) {
+    int i;
+
+    colours = 16;
+    while ((i = getopt (argc, argv, "8")) != -1)
+        switch (i) {
+            case '8':
+                colours = 8;
+                break;
+            case '?':
+                if (isprint (optopt))
+                    fprintf (stderr, "Unknown option `-%c'.\n", optopt);
+                else
+                    fprintf (stderr, "Unknown option character `\\x%x'.\n", optopt);
+                exit(1);
+            default:
+                exit(1);
+        }
+    GUI::NUM_COLOURS = colours;
+}
+
+int main(int argc, char **argv) {
     bool playagain;
 
     srand(time(NULL));
+    handle_args(argc, argv);
     GUI::Init();
 
     signal(SIGINT, interrupt_handler);
