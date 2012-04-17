@@ -150,12 +150,19 @@ Character::FullyRestore(void) {
 void
 Character::LevelUp(void) {
     std::stringstream ss;
+    int i;
 
     this->Level++;
-    if (this->affinity.hp > 0)
-        this->baseHP += rand() % this->affinity.hp + 1;
-    if (this->affinity.mp > 0)
-        this->baseMP += rand() % this->affinity.mp + 1;
+    if (this->affinity.hp > 0) {
+        i = rand() % this->affinity.hp + 1;
+        this->baseHP += i;
+        this->curHP += i;
+    }
+    if (this->affinity.mp > 0) {
+        i = rand() % this->affinity.mp + 1;
+        this->baseMP += i;
+        this->curMP += i;
+    }
     if (this->affinity.str > 0)
         this->baseSTR += rand() % this->affinity.str + 1;
     if (this->affinity.tou > 0)
@@ -171,7 +178,7 @@ Character::LevelUp(void) {
     // Note that mv and sight don't get modified with everythign else
 
     this->next_level += this->Level * 1000;
-    this->FullyRestore();
+    this->RecalcEffective();
 
     ss << this->name << " hits level " << this->Level << "!";
     GUI::Alert(ss.str().c_str());
