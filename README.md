@@ -86,7 +86,7 @@ Gear Screen
 -----------
 
     Return = Equip / unequip this item
-    v = View this item in more detail (Not implemented)
+    v = View this item in more detail
     d = Drop item (Not implemented)
 
 
