@@ -16,7 +16,9 @@ going to guarantee backwards compatibility for anything older than libncurses
 
 IF YOU HAVE PROBLEMS PLEASE MAKE SURE YOUR GCC AND LIBNCURSES ARE UP TO DATE
 
+
 ---------------------------------------
+
 
 KEYBINDINGS
 ===========
@@ -90,7 +92,35 @@ Gear Screen
 Inventory Screen
 ----------------
 
+
 ---------------------------------------
+
+
+ITEMS
+=====
+
+Potions
+-------
+
+Potions come in varying potencies and varying effects. Potencies are, from least
+to most,
+
+    Minor,
+    Lesser,
+    Light,
+    Moderate,
+    Average,
+    Strong
+
+Effects are
+
+    Healing         --  Recovers HP
+    Enervation      --  Recovers MP
+    Rejuvenation    --  Recovers both
+
+
+---------------------------------------
+
 
 RACES
 =====
@@ -159,26 +189,5 @@ minutes or, reputedly, even hours at a time without surfacing for air.
 
 Though barbarous, their clans include shamen and priests.
 
+
 ---------------------------------------
-
-ITEMS
-=====
-
-Potions
--------
-
-Potions come in varying potencies and varying effects. Potencies are, from least
-to most,
-
-    Minor,
-    Lesser,
-    Light,
-    Moderate,
-    Average,
-    Strong
-
-Effects are
-
-    Healing         --  Recovers HP
-    Enervation      --  Recovers MP
-    Rejuvenation    --  Recovers both

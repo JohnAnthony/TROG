@@ -6,7 +6,7 @@ typedef struct {
     char const * const smell;
 } PotionDescription;
 
-static const char* PRELUDE = "Potion of ";
+static const char* PRELUDE = "Draught of ";
 static const char* POTENCIES[Potion::LAST_POTENCY] = {
     "Minor",
     "Lesser",

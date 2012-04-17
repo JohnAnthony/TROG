@@ -3,16 +3,21 @@
 #include "gui.hpp"
 #include <sstream>
 
-static char const * const CategoryTexts[StatTome::LAST_CATEGORY] = {
-    "bodily vigour",
-    "enervation",
-    "bodily strength",
-    "rhino's hide",
-    "the swordsman",
-    "the acrobat",
-    "sorcerer's might",
-    "dwarven courage",
-    "higher learning"
+typedef struct {
+    char const * const name;
+    char const * const cover;
+} StatTomeDescription;
+
+static StatTomeDescription CategoryTexts[StatTome::LAST_CATEGORY] = {
+    {"bodily vigour", "A red book with an oliphant on the cover"},
+    {"enervation", "A blue book whose cover depicts a raksha being decapitated"},
+    {"bodily strength", "A red book whose cover depicts a man holding open a portcullis"},
+    {"rhino's hide", "A book bound in what appears to be worked grey leather"},
+    {"the swordsman", "A plain grey book with a steel spine"},
+    {"the acrobat", "A book whose cover is a blue-and-white sketch of acrobats in motion"},
+    {"sorcerer's might", "A black book whose cover bears the symbol of magic in stark white"},
+    {"dwarven courage", "A ruddy red-orange book whose cover depicts dwarves standing against a dragon"},
+    {"higher learning", "A green book whose cover depicts, in surgical detail, a cross-sectioned brain"}
 };
 
 StatTome::StatTome(unsigned int pot) {
@@ -41,7 +46,7 @@ StatTome::GetName(void) {
     else
         ss << "grand grimoire";
     
-    ss << " of " << CategoryTexts[this->category];
+    ss << " of " << CategoryTexts[this->category].name;
     return ss.str();
 }
 
@@ -49,6 +54,8 @@ void
 StatTome::ApplyEffects(Character *c) {
     std::stringstream ss;
     int effect;
+
+    GUI::Alert("You turn the pages of the book over carefully...");
 
     // Chance of a curse
     if (rand() % (100 + c->curMAG + c->curWIL) < 10 + (int)this->potency) {
@@ -58,7 +65,7 @@ StatTome::ApplyEffects(Character *c) {
     }
 
     effect = rand() % this->potency + 1;
-    ss << "Success! Your ";
+    ss << "The book's magic empowers you. Your ";
 
     switch(this->category) {
         case StatTome::HEALTH:
@@ -104,14 +111,23 @@ StatTome::ApplyEffects(Character *c) {
         case StatTome::XP:
             effect *= 10;
             c->GiveXP(effect);
-            ss << "your experience";
+            ss << "experience";
             break;
         case StatTome::LAST_CATEGORY:
         default:
             break;
     }
 
-    ss << " has increased by " << effect;
+    ss << " has increased by " << effect << " !";
 
     GUI::Alert(ss.str());
+}
+
+std::string
+StatTome::GetLongDescription(void) {
+    std::stringstream ss;
+
+    ss << CategoryTexts[this->category].cover;
+
+    return ss.str();
 }

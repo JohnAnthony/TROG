@@ -961,5 +961,5 @@ void
 GUI::InfoScreen(StatTome *st) {
     if (!st)
         return;
-    GUI::Alert("It's a book!");
+    GUI::Alert(st->GetLongDescription());
 }

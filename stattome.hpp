@@ -23,6 +23,7 @@ class StatTome : public Item {
     StatTome(unsigned int pot);
     std::string GetName(void);
     void ApplyEffects(Character *c);
+    std::string GetLongDescription(void);
 
     Category category;
     unsigned int potency;
