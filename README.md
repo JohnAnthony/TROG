@@ -72,14 +72,14 @@ Drink Menu
 ----------
 
     Return = Drink this potion / beverage
-    v = View this item in more detail (Not implemented)
+    v = View this item in more detail
     d = Drop item (Not implemented)
 
 Read Menu
 ----------
 
     Return = Read this book / scroll
-    v = View this item in more detail (Not implemented)
+    v = View this item in more detail
     d = Drop item (Not implemented)
 
 Gear Screen
@@ -88,9 +88,6 @@ Gear Screen
     Return = Equip / unequip this item
     v = View this item in more detail (Not implemented)
     d = Drop item (Not implemented)
-
-Inventory Screen
-----------------
 
 
 ---------------------------------------
