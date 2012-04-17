@@ -71,10 +71,10 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
         }
     }
 
-    if (!isFirstRoom) {                                 // Don't put any stuff in first room
+    if (!isFirstRoom) {                 // Don't put any stuff in first room
         if (rand() % 100 < 1)
             this->MakeSpecialRoom(r);
-        else {                                          // Standard room
+        else {                           
             if (rand() % 100 < 5)
                 this->AddPillars(r);
 

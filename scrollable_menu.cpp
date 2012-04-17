@@ -119,7 +119,7 @@ ScrollableMenu::PtrDown(void) {
 
 void
 ScrollableMenu::PageUp(void) {
-    if ((int)this->Options.size() < this->max_shown_options)
+    if ((int)this->Options.size() <= this->max_shown_options)
         return;
     this->scroll_offset -= this->max_shown_options / 2;
     this->scroll_offset = MAX(0, this->scroll_offset);
@@ -129,7 +129,7 @@ ScrollableMenu::PageUp(void) {
 
 void
 ScrollableMenu::PageDown(void) {
-    if ((int)this->Options.size() < this->max_shown_options)
+    if ((int)this->Options.size() <= this->max_shown_options)
         return;
     this->scroll_offset += this->max_shown_options / 2;
     this->scroll_offset = MIN(this->scroll_offset, (int)this->Options.size() - 
