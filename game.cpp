@@ -619,4 +619,5 @@ Game::~Game(void) {
         delete this->levels;
     delete this->PotionSelectMenu;
     delete this->BookSelectMenu;
+    delete this->EquipSelectMenu;
 }

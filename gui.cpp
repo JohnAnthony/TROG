@@ -381,7 +381,7 @@ GUI::Alert2(char const * const * const msg) {
     }
 
     pos.w = MIN(maxlen + 4, 80);
-    pos.h = 5 + LENGTH(msg);
+    pos.h = 5 + lines - 1;
     pos.x = (COLS - pos.w) / 2;
     pos.y = (LINES - pos.h) / 2;
 
@@ -945,9 +945,90 @@ GUI::InfoScreen(Item *i) {
 }
 void
 GUI::InfoScreen(Equippable *e) {
+    std::stringstream ss;
+    int nummods;
+    char **fullmsg;
+    int i;
+
     if (!e)
         return;
-    GUI::Alert(e->GetLongDescription());
+
+    nummods = 0;
+    if (e->modSTR)
+        nummods++;
+    if (e->modTOU)
+        nummods++;
+    if (e->modATT)
+        nummods++;
+    if (e->modDEF)
+        nummods++;
+    if (e->modMAG)
+        nummods++;
+    if (e->modWIL)
+        nummods++;
+    if (e->modSIGHT)
+        nummods++;
+    if (e->modMV)
+        nummods++;
+
+    fullmsg = new char* [nummods + 3];
+    fullmsg[0] = (char*) e->GetLongDescription();
+    fullmsg[1] = (char*) "";
+    i = 2;
+    if (e->modSTR) {
+        ss.str("");
+        ss << "STR :: " << e->modSTR;
+        fullmsg[i] = strdup(ss.str().c_str());
+        i++;
+    }
+    if (e->modTOU) {
+        ss.str("");
+        ss << "TOU :: " << e->modTOU;
+        fullmsg[i] = strdup(ss.str().c_str());
+        i++;
+    }
+    if (e->modATT) {
+        ss.str("");
+        ss << "ATT :: " << e->modATT;
+        fullmsg[i] = strdup(ss.str().c_str());
+        i++;
+    }
+    if (e->modDEF) {
+        ss.str("");
+        ss << "DEF :: " << e->modDEF;
+        fullmsg[i] = strdup(ss.str().c_str());
+        i++;
+    }
+    if (e->modMAG) {
+        ss.str("");
+        ss << "MAG :: " << e->modMAG;
+        fullmsg[i] = strdup(ss.str().c_str());
+        i++;
+    }
+    if (e->modWIL) {
+        ss.str("");
+        ss << "WIL :: " << e->modWIL;
+        fullmsg[i] = strdup(ss.str().c_str());
+        i++;
+    }
+    if (e->modSIGHT) {
+        ss.str("");
+        ss << "SIGHT :: " << e->modSIGHT;
+        fullmsg[i] = strdup(ss.str().c_str());
+        i++;
+    }
+    if (e->modMV) {
+        ss.str("");
+        ss << "MV :: " << e->modMV;
+        fullmsg[i] = strdup(ss.str().c_str());
+        i++;
+    }
+    fullmsg[nummods + 2] = NULL;
+
+    GUI::Alert2(fullmsg);
+    for (int i = 0; i < nummods; ++i)
+        free(fullmsg[i+2]);
+    delete fullmsg;
 }
 
 void
