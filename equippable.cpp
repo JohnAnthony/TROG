@@ -116,7 +116,7 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
             break;
         case Equippable::PLATEMAIL:
             this->modTOU = 5 + DICEROLL(pot, 10) * 1.5;
-            this->modDEF = 5 + DICEROLL(pot, 10) * (-0.5);
+            this->modDEF = - (5 + DICEROLL(pot, 10) / 2);
             this->location = BODY;
             break;
         case Equippable::HOLY_SYMBOL:
