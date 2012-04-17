@@ -56,6 +56,13 @@ Game::Run(void) {
             GUI::QuitDialogue(this);
         else if (c == KEY_F(8))
             Debug::DebugConsole(this);
+        else if (c == KEY_F(4)) {
+            erase();
+            clear();
+            endwin();
+            refresh();
+            GUI::DoRedraw();
+        }
         else if (c == 'l')
             new_gamemode = GameMode::MAP_LOOK;
         else if (c == 'i')

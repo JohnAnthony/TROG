@@ -25,9 +25,9 @@ terminal you can pass TROG the flag -8 to make it play nice. The game also
 expects at least an 80x25 terminal and can't operate on sizes smaller than that.
 The program will gracefully quit in such a situation.
 
-Resizing isn't supported. Please get your terminal to the size you want it
-before you start playing, else you will suffer from graphical anomalies.
-
+Resizing can cause graphical anomalies. if you really have to resize your
+terminal while you're playing you can force a hard redraw by pressing F4 at any
+of the main play mode screens.
 
 ---------------------------------------
 
@@ -47,6 +47,7 @@ Mode Independent / Mode Change
     g   = Gear Screen (Switching up equipment)
     ?   = Game Info
     F1  = Help text (Not implemented)
+    F4  = Force Redraw
     F12 = Quit
 
 Movement Mode
@@ -197,6 +198,3 @@ although not amazingly so. They can't breathe underwater, but they can dive for
 minutes or, reputedly, even hours at a time without surfacing for air.
 
 Though barbarous, their clans include shamen and priests.
-
-
----------------------------------------
