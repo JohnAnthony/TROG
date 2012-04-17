@@ -922,3 +922,46 @@ GUI::CentreCam(Point p) {
     GUI::cam.x = p.x - COLS / 2;
     GUI::cam.y = p.y - LINES / 2;
 }
+
+void
+GUI::InfoScreen(Item *i) {
+    if (!i)
+        return;
+
+    switch (i->type) {
+        case Item::POTION:
+            GUI::InfoScreen((Potion*) i);
+            return;
+        case Item::STAT_TOME:
+            GUI::InfoScreen((StatTome*) i);
+            return;
+        case Item::EQUIPPABLE:
+            GUI::InfoScreen((Equippable*) i);
+            return;
+        case Item::LAST_TYPE:
+        case Item::GENERIC:
+        case Item::TREASURE_T:
+            GUI::Alert("Asked to describe something but I don't know what it is!");
+            return;
+    }
+}
+void
+GUI::InfoScreen(Equippable *e) {
+    if (!e)
+        return;
+    GUI::Alert("You can wear this!");
+}
+
+void
+GUI::InfoScreen(Potion *p) {
+    if (!p)
+        return;
+    GUI::Alert("It's a potion!");
+}
+
+void
+GUI::InfoScreen(StatTome *st) {
+    if (!st)
+        return;
+    GUI::Alert("It's a book!");
+}

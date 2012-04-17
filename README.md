@@ -60,21 +60,35 @@ Map Look Mode
     
     Arrow Keys = Move Camera
 
+Inventory Screen
+----------------
+
+    v = View this item in more detail (Not implemented)
+    d = Drop item (Not implemented)
+
 Drink Menu
 ----------
 
     Return = Drink this potion / beverage
+    v = View this item in more detail (Not implemented)
+    d = Drop item (Not implemented)
 
 Read Menu
 ----------
 
     Return = Read this book / scroll
+    v = View this item in more detail (Not implemented)
+    d = Drop item (Not implemented)
 
 Gear Screen
 -----------
 
     Return = Equip / unequip this item
     v = View this item in more detail (Not implemented)
+    d = Drop item (Not implemented)
+
+Inventory Screen
+----------------
 
 ---------------------------------------
 

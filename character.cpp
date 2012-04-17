@@ -552,6 +552,65 @@ Character::isEquipSlotFree(EquipLocations loc) {
     return !this->equipment[loc];
 }
 
+Potion* 
+Character::PotionFromInventory(int n) {
+    std::list<Item*>::iterator it;
+    Item* item;
+
+    for (it = this->Inventory.begin(); it != this->Inventory.end(); it++) {
+        item = &**it;
+        if (item->type != Item::POTION)
+            continue;
+        if (n == 0)
+            return (Potion*) item;
+        --n;
+    }
+
+    return NULL;
+}
+
+Equippable* 
+Character::EquippableFromInventory(int n) {
+    std::list<Item*>::iterator it;
+    Item* item;
+
+    for (int i = 0; i < (int) LAST_EQUIP_LOCATION; ++i) {
+        if (!this->equipment[i])
+            continue;
+        if (n == 0)
+            return (Equippable*) this->equipment[i];
+        --n;
+    }
+
+    for (it = this->Inventory.begin(); it != this->Inventory.end(); it++) {
+        item = &**it;
+        if (item->type != Item::EQUIPPABLE)
+            continue;
+        if (n == 0)
+            return (Equippable*) item;
+        --n;
+    }
+
+    return NULL;
+}
+
+StatTome* 
+Character::StatTomeFromInventory(int n) {
+    std::list<Item*>::iterator it;
+    Item* item;
+
+    for (it = this->Inventory.begin(); it != this->Inventory.end(); it++) {
+        item = &**it;
+        if (item->type != Item::STAT_TOME)
+            continue;
+        if (n == 0)
+            return (StatTome*) item;
+        --n;
+    }
+
+    return NULL;
+}
+
 Character::~Character(void) {
     Item *item;
     for (std::list<Item*>::iterator it = this->Inventory.begin();

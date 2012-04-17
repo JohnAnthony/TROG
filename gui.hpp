@@ -41,6 +41,10 @@ class GUI {
     static void DrawLevel(Level *l);
     static void DrawObjectRelative(Point p, char c);
     static void CentreCam(Point p);
+    static void InfoScreen(Item *i);
+    static void InfoScreen(Equippable *e);
+    static void InfoScreen(Potion *p);
+    static void InfoScreen(StatTome *st);
 
     private:
     static Game *g;

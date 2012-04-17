@@ -230,6 +230,11 @@ Game::HandleInput(int c) {
                 this->PotionSelectMenu->PageUp();
             else if (c == KEY_NPAGE)
                 this->PotionSelectMenu->PageDown();
+            else if (c == 'v') {
+                c = this->PotionSelectMenu->Selection();
+                GUI::InfoScreen( this->character->PotionFromInventory( c ) );
+                GUI::DoRedraw();
+            }
             else if (c == '\n') {
                 this->character->DrinkPotion(this->PotionSelectMenu->Selection());
                 this->cur_level->GiveEnemiesTurn(this->character);
@@ -246,6 +251,11 @@ Game::HandleInput(int c) {
                 this->BookSelectMenu->PageUp();
             else if (c == KEY_NPAGE)
                 this->BookSelectMenu->PageDown();
+            else if (c == 'v') {
+                c = this->BookSelectMenu->Selection();
+                GUI::InfoScreen( this->character->StatTomeFromInventory( c ) );
+                GUI::DoRedraw();
+            }
             else if (c == '\n') {
                 this->character->ReadBookOrScroll(this->BookSelectMenu->Selection());
                 this->cur_level->GiveEnemiesTurn(this->character);
@@ -261,6 +271,11 @@ Game::HandleInput(int c) {
                 this->EquipSelectMenu->PageUp();
             else if (c == KEY_NPAGE)
                 this->EquipSelectMenu->PageDown();
+            else if (c == 'v') {
+                c = this->EquipSelectMenu->Selection();
+                GUI::InfoScreen( this->character->EquippableFromInventory( c ) );
+                GUI::DoRedraw();
+            }
             else if (c == '\n') {
                 this->HandleEquipSelection(this->EquipSelectMenu->Selection());
                 this->cur_level->GiveEnemiesTurn(this->character);

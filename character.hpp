@@ -25,6 +25,8 @@ typedef struct {
 } Affinity;
 
 class Enemy;
+class Potion;
+class StatTome;
 
 class Character : public Entity {
     public:
@@ -80,6 +82,9 @@ class Character : public Entity {
     void Unequip(EquipLocations loc);
     bool Equip(Equippable *e);
     bool isEquipSlotFree(EquipLocations loc);
+    Potion* PotionFromInventory(int n);
+    Equippable* EquippableFromInventory(int n);
+    StatTome* StatTomeFromInventory(int n);
 
     //Getters(!)
     int getXP(void);
