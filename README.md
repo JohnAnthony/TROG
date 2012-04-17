@@ -23,7 +23,7 @@ TROG assumes you have at least a 16-colour terminal. You may find it to your
 liking to tweak colours to match how you like to play. If you are on an 8-colour
 terminal you can pass TROG the flag -8 to make it play nice. The game also
 expects at least an 80x25 terminal and can't operate on sizes smaller than that.
-the program will gracefully quit in such a situation.
+The program will gracefully quit in such a situation.
 
 Resizing isn't supported. Please get your terminal to the size you want it
 before you start playing, else you will suffer from graphical anomalies.
