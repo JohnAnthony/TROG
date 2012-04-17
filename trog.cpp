@@ -35,9 +35,6 @@ int main(int argc, char** argv) {
     signal(SIGINT, interrupt_handler);
     signal(SIGWINCH, resize_handler);
 
-    for (int i = 0; i < 8; ++i) 
-        init_pair(i, i, COLOR_BLACK);
-
     do {
         erase();
         GUI::StartScreen();

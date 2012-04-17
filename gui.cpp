@@ -53,6 +53,9 @@ GUI::Init(void) {
         std::cout << "ERROR: This game requires a terminal size of at least 80x25\n";
         exit(1);
     }
+
+    for (int i = 0; i < 16; ++i) 
+        init_pair(i, i, COLOR_BLACK);
 }
 
 void
@@ -883,6 +886,11 @@ GUI::DrawLevel(Level *l) {
                 attron(COLOR_PAIR(COL_RED));
                 addch(c);
                 attroff(COLOR_PAIR(COL_RED));
+            }
+            else if (c == FLOOR_CHAR) {
+                attron(COLOR_PAIR(COL_GREY));
+                addch(c);
+                attroff(COLOR_PAIR(COL_GREY));
             }
             else
                 addch(c);

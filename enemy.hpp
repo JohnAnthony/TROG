@@ -39,7 +39,7 @@ Enemy(5,    's',    COL_PURPLE, 6,      70, 0,  70, 70, 70, 70, 0,  70, 1000,   
 Enemy(6,    'O',    COL_YELLOW, 6,      80, 0,  80, 80, 80, 80, 0,  70, 1200,   850,    "Owlbear"),
 Enemy(7,    'g',    COL_PURPLE, 6,      90, 0,  90, 90, 90, 90, 0,  90, 1000,   900,    "Doppelganger"),
 Enemy(8,    'n',    COL_RED,    6,      100,0,  100,100,100,100,0,  100,1000,   1050,   "Fire Newt"),
-Enemy(9,    'R',    COL_RED,    6,      110,0,  110,110,110,110,0,  110,1200,   1200,   "Grave Robber"),
+Enemy(9,    'R',    COL_WHITE,  6,      110,0,  110,110,110,110,0,  110,1200,   1200,   "Grave Robber"),
 Enemy(10,   'T',    COL_GREEN,  6,      200,0,  120,120,120,120,0,  120,1000,   1000,   "Cave Troll")
 
 };
