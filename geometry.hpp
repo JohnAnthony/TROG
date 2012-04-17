@@ -63,7 +63,8 @@ enum Color {
     COL_BLUE = 4,
     COL_PURPLE = 5,
     COL_CYAN = 6,
-    COL_GREY = 8
+    COL_GREY = 8,
+    COL_GREYWHITE = 15
 };
 
 bool IsOnScreen(Point p);
