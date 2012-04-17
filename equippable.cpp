@@ -3,23 +3,28 @@
 #include "geometry.hpp"
 #include <sstream>
 
-static char const * const EquippableNames[Equippable::LAST_CATEGORY] = {
-    "Dagger",
-    "Short Sword",
-    "Longsword",
-    "Mace",
-    "Flail",
-    "Staff",
-    "Greatsword",
-    "Greataxe",
-    "Light Shield",
-    "Heavy Shield",
-    "Robes",
-    "Leather Armour",
-    "Chainmail",
-    "Platemail",
-    "Holy Symbol",
-    "Torch",
+typedef struct {
+    char const * const name;
+    char const * const description;
+} EquippableInfo;
+
+static EquippableInfo EQUIPPABLE_INFO[Equippable::LAST_CATEGORY] = {
+    {"Dagger", "A short knife with a wicked, jagged blade"},
+    {"Short Sword", "A short stabbing blade"},
+    {"Longsword", "A long, straight sword with a weighted pommel"},
+    {"Mace", "A metal shaft with a spiked steel ball on the end"},
+    {"Flail", "A metal shaft with a spiked steel ball hanging from a chain"},
+    {"Staff", "A length of gnarled wood with a knob on the end"},
+    {"Greatsword", "A huge sword suitable for use with two hands"},
+    {"Greataxe", "A huge axe suitable for use with two hands"},
+    {"Light Shield", "A two-foot disc of wood covered in felt"},
+    {"Heavy Shield", "A three-foot disc of wood covered in steel rivets"},
+    {"Robes", "Long, elaborate flowing garments"},
+    {"Leather Armour", "Tanned animal hides crafted into armous"},
+    {"Chainmail", "A full set of linked chain armour"},
+    {"Platemail", "A full set of head-to-toe heavy plates. Very strong but cumbersome"},
+    {"Holy Symbol", "A symbol of the goddess Aerwin attached to a fine, light chain"},
+    {"Torch", "A 3-foot shaft of wood. The end is wrapped in flammable cloth and oil"},
     //LAST_CATEGORY
 };
 
@@ -176,7 +181,7 @@ Equippable::GetName(void) {
         if (this->category != Equippable::TORCH)
             ss << ShiningAdjectives[this->modSIGHT - 1] << ' ';
 
-    ss << EquippableNames[this->category];
+    ss << EQUIPPABLE_INFO[this->category].name;
     return ss.str();
 }
 
@@ -241,4 +246,9 @@ Equippable::isTwoHanded(void) {
     if (this->category == Equippable::STAFF)
         return true;
     return false;
+}
+
+char const * const
+Equippable::GetLongDescription(void) {
+    return EQUIPPABLE_INFO[this->category].description;
 }

@@ -908,7 +908,6 @@ GUI::DrawLevel(Level *l) {
     l->ConditionallyShowObject(GUI::g->character->pos, GUI::g->character->symbol,
         GUI::g->character->colour);
 
-    //Tidy us back to white as default
     refresh();
 }
 
@@ -949,7 +948,7 @@ void
 GUI::InfoScreen(Equippable *e) {
     if (!e)
         return;
-    GUI::Alert("You can wear this!");
+    GUI::Alert(e->GetLongDescription());
 }
 
 void
