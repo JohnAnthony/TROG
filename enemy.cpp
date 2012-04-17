@@ -8,7 +8,7 @@ Enemy::Enemy(void) {}
 
 Enemy::Enemy(unsigned int inLVL, char inSymbol, Color inCol, int inSight,
   int hp, int mp, int str, int tou, int att, int def, int mag, int wil,
-  int inMV, unsigned int inXP, const char *inName, const char *inDescript) {
+  int inMV, unsigned int inXP, const char *inName) {
     this->symbol = inSymbol;
     this->colour = inCol;
     this->baseSIGHT = inSight;
@@ -23,7 +23,6 @@ Enemy::Enemy(unsigned int inLVL, char inSymbol, Color inCol, int inSight,
     this->baseMV = inMV;
     this->XP_value = inXP;
     this->name = inName;
-    this->descriptor = inDescript;
     this->isActive = false;
     this->mv_energy = 0;
     this->Level = inLVL;
@@ -34,12 +33,12 @@ Enemy::Description(void) {
     std::stringstream ss;
     char c;
 
-    c = this->descriptor[0];
+    c = this->name[0];
     if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
         ss << "an ";
     else
         ss << "a ";
-    ss << this->descriptor << " " << this->name;
+    ss << this->name;
     return ss.str();
 }
 
@@ -49,7 +48,7 @@ Enemy::Attack(Character *c) {
     std::stringstream ss;
     int dmg;
 
-    ss << "The " << this->descriptor << " " << this->name << " attacks ";
+    ss << "The " << this->name << " attacks ";
     ss << c->name;
 
     // The attack
