@@ -30,6 +30,7 @@ class Potion : public Item {
     ~Potion();
     void ApplyEffects(Character *c);
     std::string GetName(void);
+    std::string GetLongDescription(void);
 
     Potency potency;
     Category category;

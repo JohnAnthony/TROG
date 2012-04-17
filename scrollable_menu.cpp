@@ -51,6 +51,7 @@ ScrollableMenu::Show(void) {
     static char const * const downmsg =  "<PAGE DOWN>";
     static char const * const downmask = "           ";
 
+    GUI::ShowSplash();
     box(this->window, 0, 0);
 
     ss << ":: " << this->title << " ::";

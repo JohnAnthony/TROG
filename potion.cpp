@@ -1,6 +1,11 @@
 #include "potion.hpp"
 #include <sstream>
 
+typedef struct {
+    char const * const colour;
+    char const * const smell;
+} PotionDescription;
+
 static const char* PRELUDE = "Potion of ";
 static const char* POTENCIES[Potion::LAST_POTENCY] = {
     "Minor",
@@ -14,6 +19,12 @@ static const char* CATEGORIES[Potion::LAST_CATEGORY] = {
     "Healing",
     "Enervation",
     "Rejuvenation",
+};
+
+static PotionDescription DESCRIPTIONS[Potion::LAST_CATEGORY] = {
+    {"red", "broth"},              //Healing
+    {"blue", "cinnamon"},          //Enervation
+    {"purple", "liquorice"},       //Rejuvenation
 };
 
 Potion::Potion(Potion::Potency inPot, Potion::Category inCat) {
@@ -67,6 +78,17 @@ Potion::GetName(void) {
     ss << POTENCIES[this->potency];
     ss << ' ';
     ss << CATEGORIES[this->category];
+    return ss.str();
+}
+
+std::string
+Potion::GetLongDescription(void) {
+    std::stringstream ss;
+    PotionDescription *ds;
+
+    ds = &DESCRIPTIONS[this->category];
+    ss << "A vial of " << ds->colour << " liquid that smells of " << ds->smell;
+
     return ss.str();
 }
 

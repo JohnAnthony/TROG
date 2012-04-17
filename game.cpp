@@ -120,21 +120,18 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             break;
         case (GameMode::POTION_SELECT):
             GUI::FancyClear();
-            GUI::ShowSplash();
             this->PotionSelectMenu->Reset();
             this->RepopulatePotionMenu();
             this->PotionSelectMenu->Show();
             break;
         case (GameMode::READING_SELECT):
             GUI::FancyClear();
-            GUI::ShowSplash();
             this->BookSelectMenu->Reset();
             this->RepopulateBookMenu();
             this->BookSelectMenu->Show();
             break;
         case (GameMode::GEAR_SELECT):
             GUI::FancyClear();
-            GUI::ShowSplash();
             this->EquipSelectMenu->Reset();
             this->RepopulateEquipMenu();
             this->EquipSelectMenu->Show();

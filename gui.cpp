@@ -851,7 +851,6 @@ GUI::DoRedraw(void) {
     else if (g->game_mode == GameMode::READING_SELECT)
         g->BookSelectMenu->Show();
     else if (g->game_mode == GameMode::GEAR_SELECT) {
-        GUI::ShowSplash(); //We need this because the equip menu can change size
         g->EquipSelectMenu->Show();
     }
 }
@@ -955,7 +954,7 @@ void
 GUI::InfoScreen(Potion *p) {
     if (!p)
         return;
-    GUI::Alert("It's a potion!");
+    GUI::Alert(p->GetLongDescription());
 }
 
 void
