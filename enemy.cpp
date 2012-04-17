@@ -6,7 +6,7 @@
 
 Enemy::Enemy(void) {}
 
-Enemy::Enemy(unsigned int inLVL, char inSymbol, Color inCol, int inSight,
+Enemy::Enemy(unsigned int inLVL, char inSymbol, Colour inCol, int inSight,
   int hp, int mp, int str, int tou, int att, int def, int mag, int wil,
   int inMV, unsigned int inXP, const char *inName) {
     this->symbol = inSymbol;

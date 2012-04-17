@@ -55,7 +55,7 @@ class Point {
     int y;
 };
 
-enum Color {
+enum Colour {
     COL_WHITE = 0,
     COL_RED = 1,
     COL_GREEN = 2,

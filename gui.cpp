@@ -297,7 +297,7 @@ GUI::ShowSplash(void) {
 }
 
 void
-GUI::ShowSplash(Color col) {
+GUI::ShowSplash(Colour col) {
     WINDOW *w;
 
     refresh();
@@ -867,6 +867,7 @@ GUI::DrawLevel(Level *l) {
     Item *item;
     Tile *t;
     char c;
+    Colour colour;
 
     move(0,0);
 
@@ -889,9 +890,13 @@ GUI::DrawLevel(Level *l) {
                 attroff(COLOR_PAIR(COL_RED));
             }
             else if (c == FLOOR_CHAR) {
-                attron(COLOR_PAIR(COL_GREY));
+                if (GUI::NUM_COLOURS < 16)
+                    colour = COL_WHITE;
+                else
+                    colour = COL_GREY;
+                attron(COLOR_PAIR(colour));
                 addch(c);
-                attroff(COLOR_PAIR(COL_GREY));
+                attroff(COLOR_PAIR(colour));
             }
             else
                 addch(c);
@@ -905,8 +910,8 @@ GUI::DrawLevel(Level *l) {
     }
 
     //Special objects
-    l->ConditionallyShowObject(l->stairs_up, '<', COL_BLUE);
-    l->ConditionallyShowObject(l->stairs_down, '>', COL_BLUE);
+    l->ConditionallyShowObject(l->stairs_up, '<', COL_CYAN);
+    l->ConditionallyShowObject(l->stairs_down, '>', COL_CYAN);
 
     //Enemies
     for (std::list<Enemy>::iterator it = l->enemies.begin();

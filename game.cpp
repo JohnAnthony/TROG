@@ -386,7 +386,7 @@ Game::MoveCharacter(Direction::Type d) {
 void
 Game::DrawLookTarget(void) {
     Point p;
-    static Color col = COL_PURPLE;
+    static Colour col = COL_PURPLE;
 
     if (!GUI::isOnScreen(target))
         return;

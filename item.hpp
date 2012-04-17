@@ -23,7 +23,7 @@ class Item {
     Type type;
     Point pos;
     char symbol;
-    Color colour;
+    Colour colour;
 
     private:
     const char *name;

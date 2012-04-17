@@ -9,7 +9,7 @@ class Entity {
 
     Point pos;
     char symbol;
-    Color colour;
+    Colour colour;
     int baseHP;
     int baseMP;
     int curHP;
