@@ -764,7 +764,7 @@ GUI::ShowInfoScreen(Game *g) {
     mvwprintw(w, 1, 2, "MAP INFO");
 
     //List of attributes
-    ss << "Level           :: " << g->cur_level->depth << " below ground";
+    ss << "Current Depth   :: " << g->cur_level->depth;
     mvwprintw(w, 3, 3, ss.str().c_str());
     ss.str("");
     ss << "Deepest Visited :: " << g->character->deepest_visited;

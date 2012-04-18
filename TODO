@@ -1,0 +1,41 @@
+-- More enemies (up to level 20) and more difficulty rebalancing
+-- New name?
+-- Random character names
+-- Shift character attacks to character class
+-- Inventory screen should be its own class
+-- Basic healing magic
+-- Basic missile attacks
+-- Basic missile attack magic
+-- Simple monster "can see" function
+-- Shops (and an excuse for there to be shops in a dungeon)
+-- Alcoholic drinks and dwarven affinity for them
+-- Allow mid-game name change?
+-- Item inspection in inventory
+-- Death screen
+-- Optional character dump after death
+-- Enemies drop treasure?
+-- GUI::Alert() to handle long messages gracefully
+-- Rework potion potency?
+-- Definitely rework potion potioncy chances
+-- Boots of speed
+-- Rings
+-- Helms
+-- Gloves
+-- Temple special rooms (similar to shops but with immediate healing
+-- Status effects as a LL (ability mod or other special effects and TTL)
+-- Status effects from alcohol
+-- Debug option: "Kill" to kill all enemies
+-- Debug option: "Clear" to clear all walls and doors
+-- Limit equipment by class
+-- Add the ability to drop items
+---- Inventory screen
+---- Drink Screen
+---- Read Screen
+---- gear Screen
+-- More curses
+-- Rework spawn algorithm (specifically in regardsto appropriate character level)
+-- PageUp/Down scrolls cursor and the page follows in ScrollableMenus rather
+   than the other way around
+-- Damage Types attached to weapons and in the "TakeDamage" section
+-- Split enemies into base type and instance
+-- Reverse inventory order to show most recent first
