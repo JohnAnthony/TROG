@@ -916,7 +916,7 @@ GUI::DrawLevel(Level *l) {
     //Enemies
     for (std::list<Enemy>::iterator it = l->enemies.begin();
             it != l->enemies.end(); it++) {
-        l->ConditionallyShowObject(it->pos, it->symbol, it->colour);
+        l->ConditionallyShowObject(it->pos, it->getSymbol(), it->getColour());
     }
 
     //Character

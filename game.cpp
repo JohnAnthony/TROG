@@ -485,11 +485,11 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
     ss << c->name << " attacks "  << e->Description();
 
     // Handle the attack
-    dam = rand() % c->curATT - rand() % e->baseDEF;
+    dam = rand() % c->curATT - rand() % e->parent_type->baseDEF;
     if (dam < 0)
         ss << " but misses";
     else {
-        dam += rand() % (int)(c->curSTR * 1.5) - rand() % e->baseTOU;
+        dam += rand() % (int)(c->curSTR * 1.5) - rand() % e->parent_type->baseTOU;
         if (dam <= 0)
             ss << " but fails to do any damage";
         else
@@ -502,7 +502,7 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
         if (e->curHP <= 0) {
             ss << " ... and kills it!";
             this->cur_level->RemoveEnemy(e);
-            c->GiveXP(e->XP_value);
+            c->GiveXP(e->parent_type->XP_value);
             // Don't need this.
             //Level::RedrawEnemy should just redraw the one tile
             //But this is the quick and dirty way

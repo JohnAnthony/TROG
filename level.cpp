@@ -2,6 +2,7 @@
 #include "gui.hpp"
 #include "stattome.hpp"
 #include "equippable.hpp"
+#include "enemy_type.hpp"
 #include <cstdlib>
 #include <sstream>
 
@@ -38,8 +39,8 @@ Level::Level(Level* parent) {
         this->maximal_enemy = parent->maximal_enemy;
     else
         this->maximal_enemy = 0;
-    while ((&EnemyList[this->maximal_enemy])->Level <= this->depth &&
-      this->maximal_enemy < LENGTH(EnemyList)) {
+    while ((&EnemyTypeList[this->maximal_enemy])->Level <= this->depth &&
+      this->maximal_enemy < LENGTH(EnemyTypeList)) {
         this->maximal_enemy++;
     }
 
@@ -425,6 +426,7 @@ Level::DescriptionOfTile(Point p, Game *g) {
 
 void
 Level::EnemySpawn(Rect *r) {
+    EnemyType *et;
     Enemy e;
     int type;
     int total_level;
@@ -435,7 +437,8 @@ Level::EnemySpawn(Rect *r) {
     while (total_level > 0) {
         type = rand() % this->maximal_enemy;
 
-        e = EnemyList[type];
+        et = &EnemyTypeList[type];
+        e = Enemy(et);
         TTL = 0;
         do {
             e.pos.x = r->x + rand() % r->w;
@@ -450,7 +453,7 @@ Level::EnemySpawn(Rect *r) {
         if (e.pos == this->stairs_up)
             continue;
 
-        total_level -= e.Level;
+        total_level -= et->Level;
         this->enemies.push_back(e);
     }
 }
@@ -472,11 +475,12 @@ void
 Level::GiveEnemiesTurn(Character *c) {
     for (std::list<Enemy>::iterator it = this->enemies.begin();
     it != this->enemies.end(); it++) {
-        if (!it->isActive && CalculateDistance(it->pos, c->pos) <= it->baseSIGHT)
+        if (!it->isActive && CalculateDistance(it->pos, c->pos) <=
+        it->parent_type->baseSIGHT)
             it->isActive = true;
         if (it->isActive)
             it->mv_energy += c->curMV;
-        if (it->mv_energy >= it->baseMV)
+        if (it->mv_energy >= it->parent_type->baseMV)
             this->EnemyAdvance(&*it, c);
     }
 }
@@ -487,8 +491,8 @@ Level::EnemyAdvance(Enemy *e, Character *c) {
     Direction::Type tries[3];
     Tile *t;
 
-    while(e->mv_energy >= e->baseMV) {
-        e->mv_energy -= e->baseMV;
+    while(e->mv_energy >= e->parent_type->baseMV) {
+        e->mv_energy -= e->parent_type->baseMV;
 
         //Target x
         if (e->pos.x > c->pos.x) {

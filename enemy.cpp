@@ -6,26 +6,12 @@
 
 Enemy::Enemy(void) {}
 
-Enemy::Enemy(unsigned int inLVL, char inSymbol, Colour inCol, int inSight,
-  int hp, int mp, int str, int tou, int att, int def, int mag, int wil,
-  int inMV, unsigned int inXP, const char *inName) {
-    this->symbol = inSymbol;
-    this->colour = inCol;
-    this->baseSIGHT = inSight;
-    this->baseHP = this->curHP = hp;
-    this->baseMP = mp;
-    this->baseSTR = str;
-    this->baseTOU = tou;
-    this->baseATT = att;
-    this->baseDEF = def;
-    this->baseMAG = mag;
-    this->baseWIL = wil;
-    this->baseMV = inMV;
-    this->XP_value = inXP;
-    this->name = inName;
+Enemy::Enemy(EnemyType *et) {
+    this->parent_type = et;
+    this->curHP = this->parent_type->baseHP;
+    this->curMP = this->parent_type->baseMP;
     this->isActive = false;
     this->mv_energy = 0;
-    this->Level = inLVL;
 }
 
 std::string
@@ -33,12 +19,12 @@ Enemy::Description(void) {
     std::stringstream ss;
     char c;
 
-    c = this->name[0];
+    c = this->parent_type->name[0];
     if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
         ss << "an ";
     else
         ss << "a ";
-    ss << this->name;
+    ss << this->parent_type->name;
     return ss.str();
 }
 
@@ -48,15 +34,15 @@ Enemy::Attack(Character *c) {
     std::stringstream ss;
     int dmg;
 
-    ss << "The " << this->name << " attacks ";
+    ss << "The " << this->parent_type->name << " attacks ";
     ss << c->name;
 
     // The attack
-    dmg = rand() % this->baseATT - rand() % c->curDEF;
+    dmg = rand() % this->parent_type->baseATT - rand() % c->curDEF;
     if (dmg <= 0)
         ss << " but misses";
     else {
-        dmg += rand() % (int)(this->baseSTR) - rand() % c->curTOU;
+        dmg += rand() % (int)(this->parent_type->baseSTR) - rand() % c->curTOU;
 
         //The damage
         if (dmg <= 0)
@@ -79,4 +65,14 @@ Enemy::TakeDamage(int amt) {
 bool
 Enemy::isAlive(void) {
     return curHP > 0;
+}
+
+char
+Enemy::getSymbol(void) {
+    return this->parent_type->symbol;
+}
+
+Colour
+Enemy::getColour(void) {
+    return this->parent_type->colour;
 }

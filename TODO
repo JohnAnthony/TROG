@@ -37,5 +37,5 @@
 -- PageUp/Down scrolls cursor and the page follows in ScrollableMenus rather
    than the other way around
 -- Damage Types attached to weapons and in the "TakeDamage" section
--- Split enemies into base type and instance
 -- Reverse inventory order to show most recent first
+-- Remove Entity class completely
