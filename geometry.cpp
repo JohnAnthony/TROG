@@ -104,3 +104,25 @@ DICEROLL(int num, int sz) {
         return rand() % sz + 1;
     return DICEROLL(num - 1, sz) + rand() % sz + 1;
 }
+
+Direction::Type // really crude. Could be much mroe efficient
+DirectionFromAToB(Point p1, Point p2) {
+    if (p1.x == p2.x && p2.y < p1.y)
+        return Direction::NORTH;
+    if (p2.x == p1.x && p2.y > p1.y)
+        return Direction::SOUTH;
+    if (p2.x < p1.x && p2.y == p1.y)
+        return Direction::WEST;
+    if (p2.x > p1.x && p2.y == p1.y)
+        return Direction::EAST;
+    if (p2.x > p1.x && p2.y > p1.y)
+        return Direction::SE;
+    if (p2.x < p1.x && p2.y > p1.y)
+        return Direction::SW;
+    if (p2.x < p1.x && p2.y < p1.y)
+        return Direction::NE;
+    if (p2.x > p1.x && p2.y < p1.y)
+        return Direction::NW;
+
+    return Direction::LAST_DIRECTION;
+}

@@ -475,9 +475,14 @@ void
 Level::GiveEnemiesTurn(Character *c) {
     for (std::list<Enemy>::iterator it = this->enemies.begin();
     it != this->enemies.end(); it++) {
+
+        //For activating monsters
         if (!it->isActive && CalculateDistance(it->pos, c->pos) <=
-        it->parent_type->baseSIGHT)
-            it->isActive = true;
+        it->parent_type->baseSIGHT) {
+            if (this->CanSee(it->pos, c->pos))
+                it->isActive = true;
+        }
+
         if (it->isActive)
             it->mv_energy += c->curMV;
         if (it->mv_energy >= it->parent_type->baseMV)
@@ -687,6 +692,21 @@ Level::RevealAll(void) {
             this->tiles[i][e].isVisible = true;
         }
     }
+}
+
+bool //Really rudamentary
+Level::CanSee(Point p1, Point p2) {
+    Direction::Type d;
+    Tile *t;
+
+    while (p1.x != p2.x || p1.y != p2.y) {
+        t = &this->tiles[p1.x][p1.y];
+        if (!t->SeeThrough())
+            return false;
+        d = DirectionFromAToB(p1, p2);    
+        p1 = GetRelativePoint(d, p1);
+    }
+    return true;
 }
 
 Level::~Level(void) {

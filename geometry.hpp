@@ -74,5 +74,6 @@ float CalculateDistance(Point p1, Point p2);
 Direction::Type MoveCardinal(Direction::Type turn_to, Direction::Type d);
 Point GetRelativePoint(Direction::Type d, Point p);
 int DICEROLL(int num, int sz);
+Direction::Type DirectionFromAToB(Point p1, Point p2);
 
 #endif

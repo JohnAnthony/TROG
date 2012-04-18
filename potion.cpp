@@ -41,7 +41,7 @@ Potion::Potion(Potion::Potency inPot, Potion::Category inCat) {
             this->colour = COL_RED;
             break;
         case Potion::ENERVATION:
-            this->colour = COL_CYAN;
+            this->colour = COL_BLUE;
             break;
         case Potion::REJUVENATION:
             this->colour = COL_PURPLE;

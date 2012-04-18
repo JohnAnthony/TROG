@@ -48,6 +48,7 @@ class Level {
     void CheckForRoomText(Character *c);
     void AddEquippable(Rect *r);
     void RevealAll(void);
+    bool CanSee(Point p1, Point p2);
 
     unsigned int        depth;
     Tile                tiles[MAP_W][MAP_H];
