@@ -9,9 +9,8 @@
 -- Basic missile attack magic
 -- Basic missile attacks
 -- Boots of speed
--- Damage Types attached to weapons and in the "TakeDamage" section
+-- Damage Types attached to weapons and in the "TakeDamage" class
 -- Death screen
--- Debug option: "Clear" to clear all walls and doors
 -- Debug option: GiveGold
 -- Debug option: "Kill" to kill all enemies
 -- Definitely rework potion potioncy chances
