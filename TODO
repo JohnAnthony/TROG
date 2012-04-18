@@ -38,4 +38,3 @@
    than the other way around
 -- Damage Types attached to weapons and in the "TakeDamage" section
 -- Reverse inventory order to show most recent first
--- Remove Entity class completely
