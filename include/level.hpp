@@ -49,6 +49,7 @@ class Level {
     void AddEquippable(Rect *r);
     void RevealAll(void);
     bool CanSee(Point p1, Point p2);
+    void ClearObstacles(void);
 
     unsigned int        depth;
     Tile                tiles[MAP_W][MAP_H];

@@ -22,6 +22,7 @@ static void
 interrupt_handler(int sign) {
     erase();
     endwin();
+    g->running = false;
     GUI::Alert("SIGINT received. The game will qui cleanly ASAP.");
     exit(0);
 }

@@ -709,6 +709,15 @@ Level::CanSee(Point p1, Point p2) {
     return true;
 }
 
+void
+Level::ClearObstacles(void) {
+    for (int e = 0; e < MAP_H; ++e) {
+        for (int i = 0; i < MAP_W; ++i) {
+            this->tiles[i][e].c = FLOOR_CHAR;
+        }
+    }
+}
+
 Level::~Level(void) {
     Item *item;
     for (std::list<Item*>::iterator it = this->items.begin();

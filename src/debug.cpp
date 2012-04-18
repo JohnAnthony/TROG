@@ -30,6 +30,10 @@ Debug::DebugConsole(Game *g) {
             g->cur_level->RevealAll();
             break;
         }
+        else if (cmd == "ClearObstacles") {
+            g->cur_level->ClearObstacles();
+            break;
+        }
         else {
             GUI::Alert("Unknown debug command.");
             break;
