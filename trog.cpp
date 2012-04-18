@@ -13,7 +13,7 @@ static int colours;
 static void
 resize_handler(int sign) {
     if (g)
-        g->HandleResize(sign);
+        g->need_hard_redraw = true;
     else
         refresh();
 }
@@ -22,9 +22,7 @@ static void
 interrupt_handler(int sign) {
     erase();
     endwin();
-    puts("SIGINT received; exiting cleanly.");
-    delete g;
-    delete c;
+    GUI::Alert("SIGINT received. The game will qui cleanly ASAP.");
     exit(0);
 }
 

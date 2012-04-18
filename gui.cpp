@@ -1060,3 +1060,12 @@ GUI::InfoScreen(StatTome *st) {
         return;
     GUI::Alert(st->GetLongDescription());
 }
+
+void
+GUI::HardRedraw(void) {
+    erase();
+    clear();
+    endwin();
+    refresh();
+    GUI::DoRedraw();
+}

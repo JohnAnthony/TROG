@@ -31,11 +31,7 @@ Game::Game(Character *c) {
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
 
-
-    //Debug
-    // for (int i = 0; i < 400; ++i) {
-    //     this->character->ItemToInventory((Item*) Equippable::NewRandomEquippable(1000));
-    // }
+    this->need_hard_redraw = false;
 
     GUI::AttachTo(this);
 }
@@ -57,11 +53,7 @@ Game::Run(void) {
         else if (c == KEY_F(8))
             Debug::DebugConsole(this);
         else if (c == KEY_F(4)) {
-            erase();
-            clear();
-            endwin();
-            refresh();
-            GUI::DoRedraw();
+            GUI::HardRedraw();
         }
         else if (c == 'l')
             new_gamemode = GameMode::MAP_LOOK;
@@ -91,6 +83,11 @@ Game::Run(void) {
         if (!this->character->isAlive()) {
             running = false;
             GUI::Alert("You have died!");
+        }
+
+        if (this->need_hard_redraw) {
+            this->need_hard_redraw = false;
+            GUI::HardRedraw();
         }
     }
 

@@ -49,6 +49,7 @@ class Game {
     Character*          character;
     int                 cur_floor;
     bool                running;
+    bool                need_hard_redraw;
     GameMode::Type      game_mode;
     Point               target; //Look target
     ScrollableMenu      *PotionSelectMenu;

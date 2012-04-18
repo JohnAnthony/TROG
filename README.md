@@ -25,9 +25,11 @@ terminal you can pass TROG the flag -8 to make it play nice. The game also
 expects at least an 80x25 terminal and can't operate on sizes smaller than that.
 The program will gracefully quit in such a situation.
 
-Resizing can cause graphical anomalies. if you really have to resize your
+Resizing can cause graphical anomalies. If you really have to resize your
 terminal while you're playing you can force a hard redraw by pressing F4 at any
-of the main play mode screens.
+of the main play mode screens. The game MAY automatically handle this itself,
+but it relies upon your libncurses being compiled with the --enable-sigwinch
+flag and I bet you don't know if it is or not.
 
 ---------------------------------------
 
