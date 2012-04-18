@@ -298,7 +298,7 @@ Level::AddGold(Rect *r) {
     int quantity;
     Point p;
 
-    quantity = rand() % ((this->depth * this->depth) + 5) + 1;
+    quantity = rand() % (this->depth * 10) + 1;
 
     do {
         p.x = r->x + rand() % r->w;
