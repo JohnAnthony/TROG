@@ -1,7 +1,6 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include "entity.hpp"
 #include "geometry.hpp"
 #include "item.hpp"
 #include "enemy.hpp"
@@ -28,7 +27,7 @@ class Enemy;
 class Potion;
 class StatTome;
 
-class Character : public Entity {
+class Character {
     public:
     typedef enum {
         BARBARIAN,
@@ -90,6 +89,9 @@ class Character : public Entity {
     int getXP(void);
     int getCurHP(void);
 
+    char symbol;
+    Colour colour;
+    Point pos;
     int next_level;
     int Level;
     Class cclass;
@@ -100,14 +102,16 @@ class Character : public Entity {
     Equippable *equipment[LAST_EQUIP_LOCATION];
     int gold;
 
-    int curSTR;
-    int curTOU;
-    int curATT;
-    int curDEF;
-    int curMAG;
-    int curWIL;
-    int curMV;
-    int curSIGHT;
+    int baseHP, curHP;
+    int baseMP, curMP;
+    int baseSTR, curSTR;
+    int baseTOU, curTOU;
+    int baseATT, curATT;
+    int baseDEF, curDEF;
+    int baseMAG, curMAG;
+    int baseWIL, curWIL;
+    int baseMV, curMV;
+    int baseSIGHT, curSIGHT;
 
     unsigned int deepest_visited;
 

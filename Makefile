@@ -1,7 +1,7 @@
 CFLAGS+= -std=c++0x -Wall -pedantic -O0 -ggdb
-OBJECTS= trog.o level.o game.o character.o entity.o enemy.o geometry.o tile.o \
-item.o gui.o potion.o scrollable_menu.o treasure.o stattome.o equippable.o\
-debug.o enemy_type.o
+OBJECTS= trog.o level.o game.o character.o enemy.o geometry.o tile.o item.o \
+gui.o potion.o scrollable_menu.o treasure.o stattome.o equippable.o debug.o \
+enemy_type.o
 LIBS= -lncurses
 CXX ?= g++
 
