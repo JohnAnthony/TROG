@@ -4,6 +4,8 @@
 ---- Inventory screen
 ---- Read Screen
 -- Add treasure piles (lists of treasure as an item type)
+---- Make items that spawn on top of other items into a treasure pile
+---- Make treasure that spawns on top of treasure into a single entity
 -- Alcoholic drinks and dwarven affinity for them
 -- Allow mid-game name change?
 -- Basic healing magic
@@ -14,7 +16,7 @@
 -- Death screen
 -- Debug option: GiveGold
 -- Debug option: "Kill" to kill all enemies
--- Definitely rework potion potioncy chances
+-- Definitely rework potion potency chances
 -- Enemies drop treasure?
 -- Gloves
 -- GUI::Alert() to handle long messages gracefully
@@ -28,7 +30,6 @@
 -- Optional character dump after death
 -- PageUp/Down scrolls cursor and the page follows in ScrollableMenus rather than the other way around
 -- Random character names
--- Reverse inventory order to show most recent first
 -- Rework potion potency?
 -- Rework spawn algorithm (specifically in regardsto appropriate character level)
 -- Rings

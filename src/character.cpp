@@ -289,7 +289,7 @@ Character::GiveXP(unsigned int quant) {
 
 void
 Character::ItemToInventory(Item *i) {
-    Inventory.push_back(i);
+    Inventory.push_front(i);
 }
 
 void
