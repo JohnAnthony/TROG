@@ -12,7 +12,6 @@
 -- Basic missile attack magic
 -- Basic missile attacks
 -- Boots of speed
-** Change stat tome enhancement amounts
 -- Damage Types attached to weapons and in the "TakeDamage" class
 -- Death screen
 -- Debug option: GiveGold
@@ -37,4 +36,5 @@
 -- Shops (and an excuse for there to be shops in a dungeon)
 -- Status effects as a LL (ability mod or other special effects and TTL)
 -- Status effects from alcohol
+-- Standing on top of items should automatically tell you what you're standing on top of
 -- Temple special rooms (similar to shops but with immediate healing
