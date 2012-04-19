@@ -336,7 +336,7 @@ Level::AddPotion(Rect *r) {
         potency = Potion::LAST_POTENCY;
     else {
         for (potency = 0; potency < (int) Potion::LAST_POTENCY - 1; potency ++) {
-            if (rand() % 100 + this->depth <= 95)
+            if (rand() % 100 + this->depth <= 70)
                 break;
         }
     }

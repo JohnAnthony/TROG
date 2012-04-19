@@ -12,11 +12,11 @@
 -- Basic missile attack magic
 -- Basic missile attacks
 -- Boots of speed
+** Change stat tome enhancement amounts
 -- Damage Types attached to weapons and in the "TakeDamage" class
 -- Death screen
 -- Debug option: GiveGold
 -- Debug option: "Kill" to kill all enemies
--- Definitely rework potion potency chances
 -- Enemies drop treasure?
 -- Gloves
 -- GUI::Alert() to handle long messages gracefully
