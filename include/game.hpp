@@ -19,7 +19,8 @@ namespace GameMode {
         INVENTORY_SCREEN,
         POTION_SELECT,
         READING_SELECT,
-        GEAR_SELECT
+        GEAR_SELECT,
+        LAST_MODE
     } Type;
 }
 

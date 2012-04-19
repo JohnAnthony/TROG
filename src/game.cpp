@@ -11,6 +11,15 @@
 #include "scrollable_menu.hpp"
 #include "debug.hpp"
 
+#define KEYS_INVENTORY          'i'
+#define KEYS_LOOK               'l'
+#define KEYS_INFO               '?'
+#define KEYS_CHARACTER_SCREEN   '@'
+#define KEYS_ESCAPE             '`'
+#define KEYS_POTION_SELECT      'p'
+#define KEYS_READING_SELECT     'r'
+#define KEYS_GEAR_SELECT        'g'
+
 Game::Game(Character *c) {
     this->character = c;
     this->levels = this->cur_level = new Level(NULL);
@@ -41,7 +50,7 @@ Game::Run(void) {
     int c;
     GameMode::Type new_gamemode;
 
-    new_gamemode = this->game_mode;
+    new_gamemode = GameMode::LAST_MODE;
     GUI::DrawLevel(this->cur_level);
 
     while (this->running) {
@@ -55,26 +64,29 @@ Game::Run(void) {
         else if (c == KEY_F(4)) {
             GUI::HardRedraw();
         }
-        else if (c == 'l')
+        else if (c == KEYS_LOOK)
             new_gamemode = GameMode::MAP_LOOK;
-        else if (c == 'i')
+        else if (c == KEYS_INVENTORY)
             new_gamemode = GameMode::INVENTORY_SCREEN;
-        else if (c == '?')
+        else if (c == KEYS_INFO)
             new_gamemode = GameMode::INFO_SCREEN;
-        else if (c == '@')
+        else if (c == KEYS_CHARACTER_SCREEN)
             new_gamemode = GameMode::CHARACTER_SCREEN;
-        else if (c == '`')
+        else if (c == KEYS_ESCAPE)
             new_gamemode = GameMode::MAP_WALK;
-        else if (c == 'p')
+        else if (c == KEYS_POTION_SELECT)
             new_gamemode = GameMode::POTION_SELECT;
-        else if (c == 'r')
+        else if (c == KEYS_READING_SELECT)
             new_gamemode = GameMode::READING_SELECT;
-        else if (c == 'g')
+        else if (c == KEYS_GEAR_SELECT)
             new_gamemode = GameMode::GEAR_SELECT;
         else    // Not a mode change. Handle input based upon mode
             new_gamemode = this->HandleInput(c);
 
-        if (new_gamemode != this->game_mode)
+        if (new_gamemode == this->game_mode)
+            new_gamemode = GameMode::MAP_WALK;
+
+        if (new_gamemode != GameMode::LAST_MODE)
             this->SwitchGameMode(new_gamemode);
 
         if (this->game_mode == GameMode::MAP_WALK)
@@ -104,41 +116,45 @@ Game::SwitchGameMode(GameMode::Type gmt) {
     this->game_mode = gmt;
 
     switch (gmt) {
-        case (GameMode::MAP_WALK):
+        case GameMode::MAP_WALK:
             GUI::CentreCam(this->character->pos);
             GUI::DoRedraw();
             GUI::CharacterStatusLine(this->character);
             break;
-        case (GameMode::MAP_LOOK):
+        case GameMode::MAP_LOOK:
             this->target = this->character->pos;
             GUI::DoRedraw();
             break;
-        case (GameMode::INFO_SCREEN):
+        case GameMode::INFO_SCREEN:
             GUI::ShowInfoScreen(this);
             break;
-        case (GameMode::CHARACTER_SCREEN):
+        case GameMode::CHARACTER_SCREEN:
             GUI::ShowCharacterScreen(this->character);
             break;
-        case (GameMode::INVENTORY_SCREEN):
+        case GameMode::INVENTORY_SCREEN:
             GUI::ShowInventoryScreen(this->character);
             break;
-        case (GameMode::POTION_SELECT):
+        case GameMode::POTION_SELECT:
             GUI::FancyClear();
             this->PotionSelectMenu->Reset();
             this->RepopulatePotionMenu();
             this->PotionSelectMenu->Show();
             break;
-        case (GameMode::READING_SELECT):
+        case GameMode::READING_SELECT:
             GUI::FancyClear();
             this->BookSelectMenu->Reset();
             this->RepopulateBookMenu();
             this->BookSelectMenu->Show();
             break;
-        case (GameMode::GEAR_SELECT):
+        case GameMode::GEAR_SELECT:
             GUI::FancyClear();
             this->EquipSelectMenu->Reset();
             this->RepopulateEquipMenu();
             this->EquipSelectMenu->Show();
+            break;
+        case GameMode::LAST_MODE:
+        default:
+            GUI::Alert("Error: Asked to switch to an unknown game mode");
             break;
     }
 }
@@ -220,6 +236,7 @@ Game::HandleInput(int c) {
                 this->MoveLookTarget(Direction::SE);
             break;
         case GameMode::INFO_SCREEN:
+            break;
         case GameMode::CHARACTER_SCREEN:
             break;
         case GameMode::POTION_SELECT:
