@@ -306,7 +306,7 @@ Level::AddGold(Rect *r) {
         p.x = r->x + rand() % r->w;
         p.y = r->y + rand() % r->h;
         TTL --;
-    } while (this->GetItem(p) && !this->tiles[p.x][p.y].isPassable() && TTL > 0);
+    } while ((this->GetItem(p) || !this->tiles[p.x][p.y].isPassable()) && TTL > 0);
 
     if (TTL == 0)
         return;
@@ -345,7 +345,7 @@ Level::AddPotion(Rect *r) {
     do {
         p.x = r->x + rand() % r->w;
         p.y = r->y + rand() % r->h;
-    } while (this->GetItem(p) && TTL++ < TTL_MAX && !this->tiles[p.x][p.y].isPassable());
+    } while ((this->GetItem(p) || !this->tiles[p.x][p.y].isPassable()) && TTL++ < TTL_MAX);
 
     if (TTL >= TTL_MAX) // We're out of space
         return;
@@ -451,7 +451,8 @@ Level::EnemySpawn(Rect *r) {
             e.pos.y = r->y + rand() % r->h;
             if (TTL++ >= TTL_MAX)   //If this happens we're probably out of space
                 break;
-        } while (GetEnemy(e.pos) || e.pos == this->stairs_up);
+        } while (GetEnemy(e.pos) || e.pos == this->stairs_up
+                 || !this->tiles[e.pos.x][e.pos.y].isPassable());
 
         if (TTL >= TTL_MAX) // Out of space
             return;
@@ -676,7 +677,7 @@ Level::AddEquippable(Rect *r) {
     do {
         p.x = r->x + rand() % r->w;
         p.y = r->y + rand() % r->h;
-    } while (this->GetItem(p) && TTL++ < TTL_MAX && !this->tiles[p.x][p.y].isPassable());
+    } while ((this->GetItem(p) || !this->tiles[p.x][p.y].isPassable()) && TTL++ < TTL_MAX);
 
     if (TTL >= TTL_MAX) // We're out of space
         return;
