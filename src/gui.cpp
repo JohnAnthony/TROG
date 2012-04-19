@@ -882,7 +882,7 @@ GUI::DrawLevel(Level *l) {
             else if (!t->isVisible)
                 c = ' ';
             else
-                c = t->c;
+                c = t->getTileType();
 
             if (c == CLOSED_DOOR_CHAR || c == OPEN_DOOR_CHAR) {
                 attron(COLOR_PAIR(COL_RED));

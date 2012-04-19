@@ -12,10 +12,15 @@ class Tile {
     public:
     Tile(void);
     Tile(bool vis, char inC);
-    bool SeeThrough(void);
+    bool isSeeThrough(void);
+    bool isPassable(void);
+    char getTileType(void);
+    void setTileType(char in); 
 
-    char c;
     bool isVisible;
+
+    private:
+    char c;
 };
 
 #endif

@@ -68,7 +68,7 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
     //Floor
     for (int e = 0; e < r->h; ++e) {
         for (int i = 0; i < r->w; ++i) {
-            this->tiles[ i + r->x ][ e + r->y ].c = FLOOR_CHAR;
+            this->tiles[ i + r->x ][ e + r->y ].setTileType(FLOOR_CHAR);
         }
     }
 
@@ -112,7 +112,7 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
             this->stairs_down.x = r->x + rand() % (r->w - 2) + 1;
             this->stairs_down.y = r->y + rand() % (r->h - 2) + 1;
             t = &this->tiles[this->stairs_down.x][this->stairs_down.y];
-        } while (t->c != FLOOR_CHAR);
+        } while (t->getTileType() != FLOOR_CHAR);
     }
 }
 
@@ -139,7 +139,7 @@ Level::RoomFits(Room const * const r) {
 
     for (int e = MAX(r->y - 1, 0); e <= r->y + r->h; ++e) {
         for (int i = MAX(r->x - 1, 0); i <= r->x + r->w; ++i) {
-            if (this->tiles[i][e].c == FLOOR_CHAR)
+            if (this->tiles[i][e].getTileType() == FLOOR_CHAR)
                 return false;
         }
     }
@@ -149,15 +149,15 @@ Level::RoomFits(Room const * const r) {
 
 void
 Level::ApplyCorridor(Corridor const * const c) {
-    this->tiles[c->pos.x][c->pos.y].c = CLOSED_DOOR_CHAR;
-    this->tiles[c->pos.x + c->pos.w][c->pos.y + c->pos.h].c = CLOSED_DOOR_CHAR;
+    this->tiles[c->pos.x][c->pos.y].setTileType(CLOSED_DOOR_CHAR);
+    this->tiles[c->pos.x + c->pos.w][c->pos.y + c->pos.h].setTileType(CLOSED_DOOR_CHAR);
     if (c->direction == Direction::EAST || c->direction == Direction::WEST) {
         for (int i = 1; i < c->pos.w; ++i)
-            this->tiles[i + c->pos.x ][c->pos.y].c = FLOOR_CHAR;
+            this->tiles[i + c->pos.x ][c->pos.y].setTileType(FLOOR_CHAR);
     }
     else {
         for (int i = 1; i < c->pos.h; ++i)
-            this->tiles[c->pos.x][ i + c->pos.y ].c = FLOOR_CHAR;
+            this->tiles[c->pos.x][ i + c->pos.y ].setTileType(FLOOR_CHAR);
     }
 }
 
@@ -259,7 +259,7 @@ Level::DoSightBeam(Direction::Type d, int x, int y, float ttl) {
         return;
     t = &this->tiles[x][y];
     t->isVisible = true;
-    if (!t->SeeThrough())
+    if (!t->isSeeThrough())
         return;
 
     if (d == Direction::NORTH) {
@@ -296,14 +296,20 @@ void
 Level::AddGold(Rect *r) {
     Treasure *tres;
     int quantity;
+    int TTL;
     Point p;
 
     quantity = rand() % (this->depth * 10) + 1;
 
+    TTL = 5;
     do {
         p.x = r->x + rand() % r->w;
         p.y = r->y + rand() % r->h;
-    } while (this->GetItem(p));
+        TTL --;
+    } while (this->GetItem(p) && !this->tiles[p.x][p.y].isPassable() && TTL > 0);
+
+    if (TTL == 0)
+        return;
 
     tres = new Treasure(quantity);
     tres->SetPosition(p.x, p.y);
@@ -339,7 +345,7 @@ Level::AddPotion(Rect *r) {
     do {
         p.x = r->x + rand() % r->w;
         p.y = r->y + rand() % r->h;
-    } while (this->GetItem(p) && TTL++ < TTL_MAX);
+    } while (this->GetItem(p) && TTL++ < TTL_MAX && !this->tiles[p.x][p.y].isPassable());
 
     if (TTL >= TTL_MAX) // We're out of space
         return;
@@ -380,17 +386,17 @@ Level::DescriptionOfTile(Point p, Game *g) {
         ss << "Stairs up";
     else if (p == this->stairs_down)
         ss << "Stairs down";
-    else if (t->c == FLOOR_CHAR)
+    else if (t->getTileType() == FLOOR_CHAR)
         ss << "Granite floor";
-    else if (t->c == WALL_CHAR)
+    else if (t->getTileType() == WALL_CHAR)
         return prefix + "A granite wall";
-    else if (t->c == PILLAR_CHAR)
+    else if (t->getTileType() == PILLAR_CHAR)
         return prefix + "A granite column";
-    else if (t->c == CLOSED_DOOR_CHAR )
+    else if (t->getTileType() == CLOSED_DOOR_CHAR )
         ss << "Closed door";
-    else if (t->c == OPEN_DOOR_CHAR)
+    else if (t->getTileType() == OPEN_DOOR_CHAR)
         ss << "Open door";
-    else if (t->c == OPEN_DOOR_CHAR)
+    else if (t->getTileType() == OPEN_DOOR_CHAR)
         ss << "Open door";
 
     //Character
@@ -556,7 +562,7 @@ Level::EnemyAdvance(Enemy *e, Character *c) {
 
             t = &this->tiles[target.x][target.y];
 
-            if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR) {
+            if (t->getTileType() == FLOOR_CHAR || t->getTileType() == OPEN_DOOR_CHAR) {
                 e->pos = target;
                 return;
             }
@@ -626,13 +632,13 @@ Level::AddPillars(Rect *r) {
 
     p.x = r->x + 1;
     p.y = r->y + 1;
-    this->tiles[p.x][p.y].c = PILLAR_CHAR;
+    this->tiles[p.x][p.y].setTileType(PILLAR_CHAR);
     p.y = r->y + r->h - 2;
-    this->tiles[p.x][p.y].c = PILLAR_CHAR;
+    this->tiles[p.x][p.y].setTileType(PILLAR_CHAR);
     p.x = r->x + r->w - 2;
-    this->tiles[p.x][p.y].c = PILLAR_CHAR;
+    this->tiles[p.x][p.y].setTileType(PILLAR_CHAR);
     p.y = r->y + 1;
-    this->tiles[p.x][p.y].c = PILLAR_CHAR;
+    this->tiles[p.x][p.y].setTileType(PILLAR_CHAR);
 }
 
 void
@@ -670,7 +676,7 @@ Level::AddEquippable(Rect *r) {
     do {
         p.x = r->x + rand() % r->w;
         p.y = r->y + rand() % r->h;
-    } while (this->GetItem(p) && TTL++ < TTL_MAX);
+    } while (this->GetItem(p) && TTL++ < TTL_MAX && !this->tiles[p.x][p.y].isPassable());
 
     if (TTL >= TTL_MAX) // We're out of space
         return;
@@ -701,7 +707,7 @@ Level::CanSee(Point p1, Point p2) {
 
     while (p1.x != p2.x || p1.y != p2.y) {
         t = &this->tiles[p1.x][p1.y];
-        if (!t->SeeThrough())
+        if (!t->isSeeThrough())
             return false;
         d = DirectionFromAToB(p1, p2);    
         p1 = GetRelativePoint(d, p1);
@@ -713,7 +719,7 @@ void
 Level::ClearObstacles(void) {
     for (int e = 0; e < MAP_H; ++e) {
         for (int i = 0; i < MAP_W; ++i) {
-            this->tiles[i][e].c = FLOOR_CHAR;
+            this->tiles[i][e].setTileType(FLOOR_CHAR);
         }
     }
 }

@@ -359,22 +359,22 @@ Game::MoveCharacter(Direction::Type d) {
     for (it = this->cur_level->enemies.begin();
             it != this->cur_level->enemies.end(); it++) {
         if (target == it->pos) {
-            this->DoAttack(this->character, &*it);              //We're attacking instead
+            this->DoAttack(this->character, &*it);            //We're attacking instead
             break;
         }
     }
 
-    if (it != this->cur_level->enemies.end()) {                  // We did combat
+    if (it != this->cur_level->enemies.end()) {                // We did combat
     }
-    else if (t->c == FLOOR_CHAR || t->c == OPEN_DOOR_CHAR) {    // An empty space
+    else if (t->getTileType() == FLOOR_CHAR || t->getTileType() == OPEN_DOOR_CHAR) { 
             c->MoveTo(target);
             this->cur_level->RevealSight(c->pos, c->curSIGHT);
             GUI::CentreCam(c->pos);
             this->cur_level->CheckForRoomText(c);
     }
-    else if (t->c == CLOSED_DOOR_CHAR) {                        // A closed door
+    else if (t->getTileType() == CLOSED_DOOR_CHAR) {           // A closed door
         if (GUI::BinaryChoice("This door is closed. Open?", 'y', 'n')) {
-            t->c = OPEN_DOOR_CHAR;
+            t->setTileType(OPEN_DOOR_CHAR);
             this->cur_level->RevealSight(c->pos, c->curSIGHT);
             GUI::AddMessage("You push the door open with a creak.");
         }
