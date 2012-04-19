@@ -118,12 +118,27 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
 
 bool
 Level::CorridorFits(Corridor const * const c) {
+    Rect r;
+
     if (c->pos.x <= 1 || c->pos.y <= 1)
         return false;
     if (c->pos.x + c->pos.w >= MAP_W)
         return false;
     if (c->pos.y + c->pos.h >= MAP_H)
         return false;
+
+    r = c->pos;
+    if (c->direction == Direction::EAST)
+        r.x ++;
+    else if (c->direction == Direction::SOUTH)
+        r.y ++;
+
+    for (int e = MAX(r.y - 1, 0); e <= r.y + r.h; ++e) {
+        for (int i = MAX(r.x - 1, 0); i <= r.x + r.w; ++i) {
+            if (this->tiles[i][e].getTileType() == FLOOR_CHAR)
+                return false;
+        }
+    }
 
     return true;
 }
