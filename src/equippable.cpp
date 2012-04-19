@@ -52,75 +52,75 @@ Equippable::Equippable(Equippable::Category inCat, int pot) {
 
     switch (inCat) {
         case Equippable::DAGGER:
-            this->modSTR = (5 + DICEROLL(pot, 10)) / 4;
-            this->modATT = 5 + DICEROLL(pot, 10);
+            this->modSTR = (2 + DICEROLL(pot, 2)) / 4;
+            this->modATT = 2 + DICEROLL(pot, 2);
             this->ShiningChance();
             this->location = WEAPON;
             break;
         case Equippable::SHORT_SWORD:
-            this->modSTR = (5 + DICEROLL(pot, 10)) / 2;
-            this->modATT = 5 + DICEROLL(pot, 10);
+            this->modSTR = (2 + DICEROLL(pot, 2)) / 2;
+            this->modATT = 2 + DICEROLL(pot, 2);
             this->ShiningChance();
             this->location = WEAPON;
             break;
         case Equippable::LONGSWORD:
-            this->modSTR = 5 + DICEROLL(pot, 10);
-            this->modATT = (5 + DICEROLL(pot, 10)) / 2;
+            this->modSTR = 2 + DICEROLL(pot, 2);
+            this->modATT = (2 + DICEROLL(pot, 2)) / 2;
             this->ShiningChance();
             this->location = WEAPON;
             break;
         case Equippable::MACE:
         case Equippable::FLAIL:
-            this->modSTR = (5 + DICEROLL(pot, 10)) / 2;
-            this->modATT = (5 + DICEROLL(pot, 10)) / 2;
+            this->modSTR = (2 + DICEROLL(pot, 2)) / 2;
+            this->modATT = (2 + DICEROLL(pot, 2)) / 2;
             this->ShiningChance();
             this->location = WEAPON;
             break;
         case Equippable::STAFF:
-            this->modSTR = (5 + DICEROLL(pot, 10)) / 4;
-            this->modATT = (5 + DICEROLL(pot, 10)) / 4;
-            this->modMAG = 5 + DICEROLL(pot, 10);
+            this->modSTR = (2 + DICEROLL(pot, 2)) / 4;
+            this->modATT = (2 + DICEROLL(pot, 2)) / 4;
+            this->modMAG = 2 + DICEROLL(pot, 2);
             this->location = WEAPON;
             break;
         case Equippable::TWO_HANDED_SWORD:
         case Equippable::TWO_HANDED_AXE:
-            this->modSTR = (5 + DICEROLL(pot, 10)) * 1.5;
-            this->modATT = 5 + DICEROLL(pot, 10);
+            this->modSTR = (2 + DICEROLL(pot, 2)) * 1.5;
+            this->modATT = 2 + DICEROLL(pot, 2);
             this->ShiningChance();
             this->location = WEAPON;
             break;
         case Equippable::LIGHT_SHIELD:
-            this->modDEF = 5 + DICEROLL(pot, 10);
+            this->modDEF = 2 + DICEROLL(pot, 2);
             this->ShiningChance();
             this->location = SHIELD;
             break;
         case Equippable::HEAVY_SHIELD:
-            this->modDEF = 5 + DICEROLL(pot, 10) / 2;
-            this->modTOU = 5 + DICEROLL(pot, 10) / 2;
+            this->modDEF = 2 + DICEROLL(pot, 2) / 2;
+            this->modTOU = 2 + DICEROLL(pot, 2) / 2;
             this->ShiningChance();
             this->location = SHIELD;
             break;
         case Equippable::ROBES:
-            this->modMAG = 5 + DICEROLL(pot, 10) / 2;
-            this->modWIL = 5 + DICEROLL(pot, 10) / 2;
+            this->modMAG = 2 + DICEROLL(pot, 2) / 2;
+            this->modWIL = 2 + DICEROLL(pot, 2) / 2;
             this->location = BODY;
             break;
         case Equippable::LEATHER_ARMOUR:
-            this->modTOU = 5 + DICEROLL(pot, 10) / 2;
+            this->modTOU = 2 + DICEROLL(pot, 2) / 2;
             this->location = BODY;
             this->location = BODY;
             break;
         case Equippable::CHAINMAIL:
-            this->modTOU = 5 + DICEROLL(pot, 10);
+            this->modTOU = 2 + DICEROLL(pot, 2);
             this->location = BODY;
             break;
         case Equippable::PLATEMAIL:
-            this->modTOU = 5 + DICEROLL(pot, 10) * 1.5;
-            this->modDEF = - (5 + DICEROLL(pot, 10) / 2);
+            this->modTOU = (2 + DICEROLL(pot, 2)) * 1.5;
+            this->modDEF = - (2 + DICEROLL(pot, 2) / 2);
             this->location = BODY;
             break;
         case Equippable::HOLY_SYMBOL:
-            this->modWIL = 5 + DICEROLL(pot, 10);
+            this->modWIL = 2 + DICEROLL(pot, 2);
             this->location = NECK;
             break;
         case Equippable::TORCH:

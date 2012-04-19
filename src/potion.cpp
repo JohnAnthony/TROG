@@ -53,20 +53,19 @@ Potion::Potion(Potion::Potency inPot, Potion::Category inCat) {
 
 void
 Potion::ApplyEffects(Character *c) {
-    std::stringstream ss;
     int effect;
 
     //Healing
     if (this->category == HEALING || this->category == REJUVENATION) {
-        effect = 10;
-        effect += DICEROLL(potency + 1, 20);
+        effect = 4;
+        effect += DICEROLL(potency + 1, 8);
         c->Heal(effect);
     }
 
     //Mana restoration
     if (this->category == ENERVATION || this->category == REJUVENATION) {
-        effect = 10;
-        effect += DICEROLL(potency + 1, 20);
+        effect = 4;
+        effect += DICEROLL(potency + 1, 8);
         c->RecoverMP(effect);
     }
 }

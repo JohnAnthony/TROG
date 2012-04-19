@@ -5,26 +5,26 @@
 #include <cstdlib>
 
 static Affinity ClassAffinities[Character::LAST_CLASS] {
-    //HP    MP  STR TOU ATT DEF MAG WIL MV  SIGHT
-    {24,    0,  12, 12, 10, 10, 0,  8,  0,  0},  //BARBARIAN
-    {16,    16, 8,  8,  8,  8,  20, 12, 0,  0},  //CLERIC
-    {16,    16, 8,  8,  8,  8,  20, 12, 0,  0},  //DRUID
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //FIGHTER
-    {20,    4,  10, 10, 10, 10, 10, 12, 0,  0},  //PALADIN
-    {12,    16, 6,  6,  6,  6,  20, 10, 0,  0},  //SAGE
-    {16,    0,  10, 10, 10, 10, 0,  10, 0,  0},  //THIEF
-    {12,    20, 10, 10, 10, 10, 24, 10, 0,  0},  //WIZARD
+    //HP    MP  STR TOU ATT DEF MAG WIL MV      SIGHT
+    {10,    0,  8,  4,  8,  3,  0,  2,  0,      0},  //BARBARIAN
+    {5,     8,  5,  3,  5,  3,  8,  5,  0,      0},  //CLERIC
+    {5,     8,  5,  3,  5,  3,  10, 4,  0,      0},  //DRUID
+    {8,     0,  8,  3,  9,  3,  0,  3,  0,      0},  //FIGHTER
+    {8,     2,  8,  3,  8,  2,  4,  5,  0,      0},  //PALADIN
+    {4,     8,  3,  2,  2,  2,  10, 4,  0,      0},  //SAGE
+    {6,     0,  5,  3,  9,  5,  0,  2,  0,      0},  //THIEF
+    {4,     10, 2,  2,  2,  2,  12, 4,  0,      0},  //WIZARD
 };
 static Affinity RaceAffinities[Character::LAST_RACE] {
     //HP    MP  STR TOU ATT DEF MAG WIL MV      SIGHT
-    {26,    -99,10, 14, 10, 10, -99,14, 200,    8},  //DWARF
-    {14,    2,  10, 6,  14, 12, 0,  10, -100,   8},  //ELF
-    {24,    0,  14, 12, 10, 10, 0,  8,  0,      7},  //GREY ORC
-    {16,    0,  8,  8,  10, 14, 0,  12, 100,    6},  //HALFLING
-    {17,    1,  12, 8,  12, 11, 0,  10, -50,    6},  //HALF_ELF
-    {22,    0,  12, 11, 10, 10, 0,  9,  0,      6},  //HALF_ORC
-    {20,    0,  10, 10, 10, 10, 0,  10, 0,      5},  //HUMAN
-    {22,    0,  12, 12, 11, 11, 0,  8,  0,      6},  //LIZARDFOLK
+    {10,    -99,2,  4,  2,  2,  -99,5,  200,    8},  //DWARF
+    {4,     2,  2,  1,  4,  4,  0,  3, -100,    8},  //ELF
+    {8,     0,  4,  3,  2,  3,  0,  1,  0,      7},  //GREY ORC
+    {6,     0,  1,  1,  4,  5,  0,  4,  100,    6},  //HALFLING
+    {7,     1,  2,  2,  3,  3,  0,  3,  -50,    6},  //HALF_ELF
+    {8,     0,  3,  2,  3,  3,  0,  2,  0,      6},  //HALF_ORC
+    {8,     0,  2,  2,  3,  3,  0,  3,  0,      5},  //HUMAN
+    {9,     0,  3,  2,  3,  3,  0,  2,  0,      6},  //LIZARDFOLK
 };
 
 Character::Character(std::string inName, Character::Race inRace, Character::Class inClass) {
@@ -51,24 +51,6 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
     this->baseWIL = this->affinity.wil;
     this->baseSIGHT = this->affinity.sight;
     this->baseMV = 1000 + this->affinity.mv;
-
-
-    if (this->affinity.hp > 0)
-        this->baseHP += rand() % this->affinity.hp + 1;
-    if (this->affinity.mp > 0)
-        this->baseMP += rand() % this->affinity.mp + 1;
-    if (this->affinity.str > 0)
-        this->baseSTR += rand() % this->affinity.str + 1;
-    if (this->affinity.tou > 0)
-        this->baseTOU += rand() % this->affinity.tou + 1;
-    if (this->affinity.att > 0)
-        this->baseATT += rand() % this->affinity.att + 1;
-    if (this->affinity.def > 0)
-        this->baseDEF += rand() % this->affinity.def + 1;
-    if (this->affinity.mag > 0)
-        this->baseMAG += rand() % this->affinity.mag + 1;
-    if (this->affinity.wil > 0)
-        this->baseWIL += rand() % this->affinity.wil + 1;
 
     // Handle equipment for different classes
     this->equipment[HEAD] = NULL;
