@@ -21,7 +21,7 @@ static StatTomeDescription CategoryTexts[StatTome::LAST_CATEGORY] = {
 };
 
 StatTome::StatTome(unsigned int pot) {
-    this->potency = rand() % pot + 5;
+    this->potency = rand() % pot + 1;
     this->type = Item::STAT_TOME;
     this->category = (StatTome::Category)(rand() % StatTome::LAST_CATEGORY);
     this->symbol = 'B';
@@ -33,15 +33,15 @@ StatTome::GetName(void) {
     std::stringstream ss;
     ss << "A ";
 
-    if (this->potency < 10)
+    if (this->potency < 5)
         ss << "book";
-    else if (this->potency < 15)
-        ss << "grand book";
-    else if (this->potency < 20)
+    else if (this->potency < 8)
+        ss << "large book";
+    else if (this->potency < 12)
         ss << "tome";
-    else if (this->potency < 25)
+    else if (this->potency < 15)
         ss << "grand tome";
-    else if (this->potency < 30)
+    else if (this->potency < 20)
         ss << "grimoire";
     else
         ss << "grand grimoire";
