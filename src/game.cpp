@@ -304,7 +304,7 @@ Game::HandleInput(int c) {
         default:
             break;
     }
-    return this->game_mode;
+    return GameMode::LAST_MODE;
 }
 
 void

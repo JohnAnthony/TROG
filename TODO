@@ -6,6 +6,7 @@
 -- Add treasure piles (lists of treasure as an item type)
 ---- Make items that spawn on top of other items into a treasure pile
 ---- Make treasure that spawns on top of treasure into a single entity
+-- Add "view to view info" class descriptions in character creation screen
 -- Alcoholic drinks and dwarven affinity for them
 -- Allow mid-game name change?
 -- Basic healing magic
