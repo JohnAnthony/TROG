@@ -499,6 +499,8 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
     std::stringstream ss;
     int dam;
 
+    e->isActive = true;
+
     ss << c->name << " attacks "  << e->Description();
 
     // Handle the attack

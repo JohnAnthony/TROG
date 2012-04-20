@@ -120,9 +120,9 @@ DirectionFromAToB(Point p1, Point p2) {
     if (p2.x < p1.x && p2.y > p1.y)
         return Direction::SW;
     if (p2.x < p1.x && p2.y < p1.y)
-        return Direction::NE;
-    if (p2.x > p1.x && p2.y < p1.y)
         return Direction::NW;
+    if (p2.x > p1.x && p2.y < p1.y)
+        return Direction::NE;
 
     return Direction::LAST_DIRECTION;
 }

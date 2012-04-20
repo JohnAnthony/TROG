@@ -510,6 +510,7 @@ Level::GiveEnemiesTurn(Character *c) {
         if (it->mv_energy >= it->parent_type->baseMV)
             this->EnemyAdvance(&*it, c);
     }
+    GUI::DoRedraw();
 }
 
 void

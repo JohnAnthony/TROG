@@ -3,9 +3,11 @@
 ---- Gear Screen
 ---- Inventory screen
 ---- Read Screen
--- Add treasure piles (lists of treasure as an item type)
+-- Add item piles (lists of items as an item type)
 ---- Make items that spawn on top of other items into a treasure pile
 ---- Make treasure that spawns on top of treasure into a single entity
+---- Handle picking up from a pile
+---- A pile reduced to a single item is replaced simply with the item
 -- Add "view to view info" class descriptions in character creation screen
 -- Alcoholic drinks and dwarven affinity for them
 -- Allow mid-game name change?
@@ -14,7 +16,7 @@
 -- Basic missile attacks
 -- Boots of speed
 -- Damage Types attached to weapons and in the "TakeDamage" class
--- Death screen
+** Death screen
 -- Debug option: GiveGold
 -- Debug option: "Kill" to kill all enemies
 -- Enemies drop treasure?
