@@ -8,7 +8,8 @@
 ---- Make treasure that spawns on top of treasure into a single entity
 ---- Handle picking up from a pile
 ---- A pile reduced to a single item is replaced simply with the item
--- Add "view to view info" class descriptions in character creation screen
+-- Add "v to view info" class descriptions in character creation screen
+-- Add MINIMUM level to monster spawn algorithm
 -- Alcoholic drinks and dwarven affinity for them
 -- Allow mid-game name change?
 -- Basic healing magic
@@ -33,7 +34,6 @@
 -- PageUp/Down scrolls cursor and the page follows in ScrollableMenus rather than the other way around
 -- Random character names
 -- Rework potion potency?
--- Rework spawn algorithm (specifically in regardsto appropriate character level)
 -- Rings
 -- Shift character attacks to character class
 -- Shops (and an excuse for there to be shops in a dungeon)

@@ -19,7 +19,6 @@ const char *GUI::SplashStr = "\
 \n\
 \n\
 \n\
-\n\
  .ddhddddmdddhhdddddm/                          ....              -oydNMMMNNmd: \
  :No:...`/MMM:.````.ysodNNdyyyhddy/       ./sddhyyydmmy+.        sMNs:.``.-omM: \
  +       -MMm``     ` `+MMy``  `oNh+.   .yMNo-```   `:hMMh:    :NMh.``      .m. \
@@ -49,9 +48,9 @@ GUI::Init(void) {
     curs_set(0);
     start_color();
 
-    if (COLS < 80 || LINES < 25) {
+    if (COLS < 80 || LINES < 24) {
         endwin();
-        std::cout << "ERROR: This game requires a terminal size of at least 80x25\n";
+        std::cout << "ERROR: This game requires a terminal size of at least 80x24\n";
         exit(1);
     }
 
@@ -302,7 +301,7 @@ GUI::ShowSplash(Colour col) {
 
     refresh();
 
-    w = GUI::NewCentredWindow(80, 25);
+    w = GUI::NewCentredWindow(80, 24);
     wattron(w, COLOR_PAIR(col));
     mvwprintw(w, 0, 0, SplashStr);
 
@@ -474,7 +473,7 @@ GUI::ShowCharacterScreen(Character *c) {
     Point p;
 
     pos.w = 80;
-    pos.h = 25;
+    pos.h = 24;
     pos.x = (COLS - pos.w) / 2;
     pos.y = (LINES - pos.h) / 2;
 
@@ -666,7 +665,7 @@ GUI::ShowInventoryScreen(Character *c) {
     int i;
 
     pos.w = 80;
-    pos.h = 25;
+    pos.h = 24;
     pos.x = (COLS - pos.w) / 2;
     pos.y = (LINES - pos.h) / 2;
 
@@ -736,7 +735,7 @@ GUI::ShowInfoScreen(Game *g) {
     std::string s;
 
     pos.w = 80;
-    pos.h = 25;
+    pos.h = 24;
     pos.x = (COLS - pos.w) / 2;
     pos.y = (LINES - pos.h) / 2;
 
