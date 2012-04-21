@@ -4,6 +4,8 @@
 #include <sstream>
 #include <cstdlib>
 
+typedef Equippable EQ;
+
 static Affinity ClassAffinities[Character::LAST_CLASS] {
     //HP    MP  STR TOU ATT DEF MAG WIL MV      SIGHT
     {10,    0,  8,  4,  8,  3,  0,  2,  0,      0},  //BARBARIAN
@@ -27,7 +29,8 @@ static Affinity RaceAffinities[Character::LAST_RACE] {
     {9,     0,  3,  2,  3,  3,  0,  2,  0,      6},  //LIZARDFOLK
 };
 
-Character::Character(std::string inName, Character::Race inRace, Character::Class inClass) {
+Character::Character(std::string inName, Character::Race inRace,
+Character::Class inClass) {
     this->name = inName;
     this->cclass = inClass;
     this->race = inRace;
@@ -66,58 +69,58 @@ Character::Character(std::string inName, Character::Race inRace, Character::Clas
     switch(this->cclass) {
         case Character::BARBARIAN:
             if (rand() % 2)
-                this->equipment[WEAPON] = new Equippable(Equippable::TWO_HANDED_AXE, 1);
+                this->equipment[WEAPON] = new EQ(EQ::TWO_HANDED_AXE, 1);
             else
-                this->equipment[WEAPON] = new Equippable(Equippable::TWO_HANDED_SWORD, 1);
-            this->equipment[BODY] = new Equippable(Equippable::CHAINMAIL, 1);
+                this->equipment[WEAPON] = new EQ(EQ::TWO_HANDED_SWORD, 1);
+            this->equipment[BODY] = new EQ(EQ::CHAINMAIL, 1);
             break;
         case Character::CLERIC:
             if (rand() % 2)
-                this->equipment[WEAPON] = new Equippable(Equippable::MACE, 1);
+                this->equipment[WEAPON] = new EQ(EQ::MACE, 1);
             else
-                this->equipment[WEAPON] = new Equippable(Equippable::FLAIL, 1);
-            this->equipment[SHIELD] = new Equippable(Equippable::HEAVY_SHIELD, 1);
-            this->equipment[BODY] = new Equippable(Equippable::CHAINMAIL, 1);
+                this->equipment[WEAPON] = new EQ(EQ::FLAIL, 1);
+            this->equipment[SHIELD] = new EQ(EQ::HEAVY_SHIELD, 1);
+            this->equipment[BODY] = new EQ(EQ::CHAINMAIL, 1);
             break;
         case Character::DRUID:
-            this->equipment[WEAPON] = new Equippable(Equippable::STAFF, 1);
-            this->equipment[BODY] = new Equippable(Equippable::LEATHER_ARMOUR, 1);
+            this->equipment[WEAPON] = new EQ(EQ::STAFF, 1);
+            this->equipment[BODY] = new EQ(EQ::LEATHER_ARMOUR, 1);
             break;
         case Character::FIGHTER:
-            this->equipment[WEAPON] = new Equippable(Equippable::LONGSWORD, 1);
-            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
-            this->equipment[BODY] = new Equippable(Equippable::CHAINMAIL, 1);
+            this->equipment[WEAPON] = new EQ(EQ::LONGSWORD, 1);
+            this->equipment[SHIELD] = new EQ(EQ::LIGHT_SHIELD, 1);
+            this->equipment[BODY] = new EQ(EQ::CHAINMAIL, 1);
             break;
         case Character::PALADIN:
-            this->equipment[WEAPON] = new Equippable(Equippable::LONGSWORD, 1);
-            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
-            this->equipment[BODY] = new Equippable(Equippable::CHAINMAIL, 1);
-            this->equipment[NECK] = new Equippable(Equippable::HOLY_SYMBOL, 1);
+            this->equipment[WEAPON] = new EQ(EQ::LONGSWORD, 1);
+            this->equipment[SHIELD] = new EQ(EQ::LIGHT_SHIELD, 1);
+            this->equipment[BODY] = new EQ(EQ::CHAINMAIL, 1);
+            this->equipment[NECK] = new EQ(EQ::HOLY_SYMBOL, 1);
             break;
         case Character::SAGE:
-            this->equipment[WEAPON] = new Equippable(Equippable::STAFF, 1);
-            this->equipment[BODY] = new Equippable(Equippable::ROBES, 1);
+            this->equipment[WEAPON] = new EQ(EQ::STAFF, 1);
+            this->equipment[BODY] = new EQ(EQ::ROBES, 1);
             break;
         case Character::THIEF:
             if (rand() % 2)
-                this->equipment[WEAPON] = new Equippable(Equippable::SHORT_SWORD, 1);
+                this->equipment[WEAPON] = new EQ(EQ::SHORT_SWORD, 1);
             else
-                this->equipment[WEAPON] = new Equippable(Equippable::DAGGER, 1);
-            this->equipment[SHIELD] = new Equippable(Equippable::LIGHT_SHIELD, 1);
-            this->equipment[BODY] = new Equippable(Equippable::LEATHER_ARMOUR, 1);
+                this->equipment[WEAPON] = new EQ(EQ::DAGGER, 1);
+            this->equipment[SHIELD] = new EQ(EQ::LIGHT_SHIELD, 1);
+            this->equipment[BODY] = new EQ(EQ::LEATHER_ARMOUR, 1);
             break;
         case Character::WIZARD:
-            this->equipment[WEAPON] = new Equippable(Equippable::STAFF, 1);
-            this->equipment[BODY] = new Equippable(Equippable::ROBES, 1);
+            this->equipment[WEAPON] = new EQ(EQ::STAFF, 1);
+            this->equipment[BODY] = new EQ(EQ::ROBES, 1);
             break;
         case Character::LAST_CLASS:
         default:
             break;
     }
 
-    //Races sometimes start with extra stuff. Humans get torches, elves get bows etc.
+    //Races sometimes start with extra stuff. Humans get torches, elves get bows
     if (this->race == Character::HUMAN)
-        this->ItemToInventory((Item*) new Equippable(Equippable::TORCH, 1));
+        this->ItemToInventory((Item*) new EQ(EQ::TORCH, 1));
 
     this->FullyRestore();
 }
@@ -435,8 +438,8 @@ Character::RecalcEffective(void) {
 
     //Dwarves don't get any bonuses for using a torch
     if (this->equipment[SHIELD]) {
-        if (this->equipment[SHIELD]->category == Equippable::TORCH && this->race ==
-        Character::DWARF) {
+        if (this->equipment[SHIELD]->category == EQ::TORCH 
+        && this->race == Character::DWARF) {
             this->curSIGHT -= 2;
         }
     }
@@ -506,7 +509,7 @@ Character::Unequip(EquipLocations loc) {
 }
 
 bool //Return true only if the new item is equipped
-Character::Equip(Equippable *e) {
+Character::Equip(EQ *e) {
     std::stringstream ss;
 
     if (e->location == SHIELD) {
@@ -559,7 +562,7 @@ Character::PotionFromInventory(int n) {
     return NULL;
 }
 
-Equippable* 
+EQ* 
 Character::EquippableFromInventory(int n) {
     std::list<Item*>::iterator it;
     Item* item;
@@ -568,7 +571,7 @@ Character::EquippableFromInventory(int n) {
         if (!this->equipment[i])
             continue;
         if (n == 0)
-            return (Equippable*) this->equipment[i];
+            return (EQ*) this->equipment[i];
         --n;
     }
 
@@ -577,7 +580,7 @@ Character::EquippableFromInventory(int n) {
         if (item->type != Item::EQUIPPABLE)
             continue;
         if (n == 0)
-            return (Equippable*) item;
+            return (EQ*) item;
         --n;
     }
 
@@ -617,7 +620,7 @@ Character::~Character(void) {
                 delete (Treasure*) item;
                 break;
             case Item::EQUIPPABLE:
-                delete (Equippable*) item;
+                delete (EQ*) item;
                 break;
             case Item::GENERIC:
             case Item::LAST_TYPE:
