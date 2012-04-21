@@ -39,6 +39,32 @@ const char *GUI::SplashStr = "\
 \n\
 ";
 
+const char *GUI::TombStr = "\
+            ___________________________________________________________\n\
+           /                                                          /|\n\
+          /                                                          / |\n\
+         /                                                          /  |\n\
+        /__________________________________________________________/   |\n\
+        |                                                          |   |\n\
+        |                       R . I . P .                        |   |\n\
+        |                                                          |   |\n\
+        |                                                          |   |\n\
+        |                                                          |   |\n\
+        |                                                          |   |\n\
+        |                                                          |   |\n\
+        |                                                          |   |\n\
+        |                                                          |   |\n\
+        |                                                          |   |\n\
+        |                                                          |   |\n\
+        |                                                          |   |\n\
+        |                                                          |   |\n\
+        |                                                          |   |\n\
+        |                                                          |  /\n\
+        |                                                          | /\n\
+        |                                                          |/\n\
+       \\//_____\\//_________\\//________________\\//_____\\\\/________\\//\n\
+";
+
 void
 GUI::Init(void) {
     initscr();
@@ -1067,4 +1093,17 @@ GUI::HardRedraw(void) {
     endwin();
     refresh();
     GUI::DoRedraw();
+}
+
+void
+GUI::ShowTombstone(void) {
+    WINDOW *w;
+
+    w = GUI::NewCentredWindow(80, 24);
+    wprintw(w, GUI::TombStr);
+
+    GUI::FancyClear();
+    wrefresh(w);
+    refresh();
+    delwin(w);
 }

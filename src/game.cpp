@@ -98,6 +98,8 @@ Game::Run(void) {
         if (!this->character->isAlive()) {
             running = false;
             GUI::Alert("You have died!");
+            GUI::ShowTombstone();
+            getch();
         }
 
         if (this->need_hard_redraw) {

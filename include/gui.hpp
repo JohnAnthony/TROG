@@ -46,6 +46,7 @@ class GUI {
     static void InfoScreen(Potion *p);
     static void InfoScreen(StatTome *st);
     static void HardRedraw(void);
+    static void ShowTombstone(void);
 
     static int NUM_COLOURS;
 
@@ -54,6 +55,7 @@ class GUI {
     static std::string status_line;
     static std::vector<std::string> messages;
     static const char* SplashStr;
+    static const char* TombStr;
     static Point cam;
 };
 
