@@ -328,7 +328,7 @@ Level::AddGold(Rect *r) {
         p.y = r->y + rand() % r->h;
         if (TTL-- <= 0)
             break;
-    } while ((this->GetItem(p) || !this->tiles[p.x][p.y].isPassable()));
+    } while (this->GetItem(p) || !this->tiles[p.x][p.y].isPassable());
 
     if (TTL == 0)
         return;
@@ -357,7 +357,7 @@ Level::AddPotion(Rect *r) {
     if (this->depth >= 100)
         potency = Potion::LAST_POTENCY;
     else {
-        for (potency = 0; potency < (int) Potion::LAST_POTENCY - 1; potency ++) {
+        for (potency = 0; potency < (int)Potion::LAST_POTENCY - 1; potency ++) {
             if (rand() % 100 + this->depth <= 70)
                 break;
         }
@@ -367,7 +367,9 @@ Level::AddPotion(Rect *r) {
     do {
         p.x = r->x + rand() % r->w;
         p.y = r->y + rand() % r->h;
-    } while ((this->GetItem(p) || !this->tiles[p.x][p.y].isPassable()) && TTL++ < TTL_MAX);
+        if (TTL++ >= TTL+MAX)
+            break;
+    } while (this->GetItem(p) || !this->tiles[p.x][p.y].isPassable());
 
     if (TTL >= TTL_MAX) // We're out of space
         return;
@@ -471,7 +473,7 @@ Level::EnemySpawn(Rect *r) {
         do {
             e.pos.x = r->x + rand() % r->w;
             e.pos.y = r->y + rand() % r->h;
-            if (TTL++ >= TTL_MAX)   //If this happens we're probably out of space
+            if (TTL++ >= TTL_MAX)   //we're probably out of space
                 break;
         } while (GetEnemy(e.pos) || e.pos == this->stairs_up
                  || !this->tiles[e.pos.x][e.pos.y].isPassable());
@@ -586,7 +588,8 @@ Level::EnemyAdvance(Enemy *e, Character *c) {
 
             t = &this->tiles[target.x][target.y];
 
-            if (t->getTileType() == FLOOR_CHAR || t->getTileType() == OPEN_DOOR_CHAR) {
+            if (t->getTileType() == FLOOR_CHAR
+            || t->getTileType() == OPEN_DOOR_CHAR) {
                 e->pos = target;
                 return;
             }
@@ -700,9 +703,11 @@ Level::AddEquippable(Rect *r) {
     do {
         p.x = r->x + rand() % r->w;
         p.y = r->y + rand() % r->h;
-    } while ((this->GetItem(p) || !this->tiles[p.x][p.y].isPassable()) && TTL++ < TTL_MAX);
+        if (TTL++ >= TTL_MAX)
+            break;
+    } while (this->GetItem(p) || !this->tiles[p.x][p.y].isPassable());
 
-    if (TTL >= TTL_MAX) // We're out of space
+    if (TTL >= TTL_MAX) // We're probably out of space
         return;
 
     equippable = new Equippable(category, potency);
@@ -741,11 +746,9 @@ Level::CanSee(Point p1, Point p2) {
 
 void
 Level::ClearObstacles(void) {
-    for (int e = 0; e < MAP_H; ++e) {
-        for (int i = 0; i < MAP_W; ++i) {
+    for (int e = 0; e < MAP_H; ++e)
+        for (int i = 0; i < MAP_W; ++i)
             this->tiles[i][e].setTileType(FLOOR_CHAR);
-        }
-    }
 }
 
 Level::~Level(void) {
