@@ -1,7 +1,5 @@
 #include "geometry.hpp"
 
-// extern std::string status_line;
-// 
 bool
 Point::operator==(Point const& other) {
     return this->x == other.x && this->y == other.y;
@@ -105,7 +103,7 @@ DICEROLL(int num, int sz) {
     return DICEROLL(num - 1, sz) + rand() % sz + 1;
 }
 
-Direction::Type // really crude. Could be much mroe efficient
+Direction::Type // really crude. Could be much more efficient
 DirectionFromAToB(Point p1, Point p2) {
     if (p1.x == p2.x && p2.y < p1.y)
         return Direction::NORTH;

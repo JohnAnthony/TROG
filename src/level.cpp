@@ -107,7 +107,7 @@ Level::ApplyRoom(Room * const r, bool isFirstRoom) {
         this->ApplyRoom(&r_child, false);
     }
 
-    if (this->stairs_down.x == -1 && exits == 0) { // We need to place stairs here
+    if (this->stairs_down.x == -1 && exits == 0) { // We need to place stairs
         do {
             this->stairs_down.x = r->x + rand() % (r->w - 2) + 1;
             this->stairs_down.y = r->y + rand() % (r->h - 2) + 1;
@@ -164,15 +164,21 @@ Level::RoomFits(Room const * const r) {
 
 void
 Level::ApplyCorridor(Corridor const * const c) {
-    this->tiles[c->pos.x][c->pos.y].setTileType(CLOSED_DOOR_CHAR);
-    this->tiles[c->pos.x + c->pos.w][c->pos.y + c->pos.h].setTileType(CLOSED_DOOR_CHAR);
-    if (c->direction == Direction::EAST || c->direction == Direction::WEST) {
-        for (int i = 1; i < c->pos.w; ++i)
-            this->tiles[i + c->pos.x ][c->pos.y].setTileType(FLOOR_CHAR);
+    Rect r;
+    Direction::Type d;
+
+    r = c->pos;
+    d = c->direction;
+
+    this->tiles[r.x][r.y].setTileType(CLOSED_DOOR_CHAR);
+    this->tiles[r.x + r.w][r.y + r.h].setTileType(CLOSED_DOOR_CHAR);
+    if (d == Direction::EAST || d == Direction::WEST) {
+        for (int i = 1; i < r.w; ++i)
+            this->tiles[i + r.x][r.y].setTileType(FLOOR_CHAR);
     }
     else {
-        for (int i = 1; i < c->pos.h; ++i)
-            this->tiles[c->pos.x][ i + c->pos.y ].setTileType(FLOOR_CHAR);
+        for (int i = 1; i < r.h; ++i)
+            this->tiles[r.x][i + r.y].setTileType(FLOOR_CHAR);
     }
 }
 
@@ -320,8 +326,9 @@ Level::AddGold(Rect *r) {
     do {
         p.x = r->x + rand() % r->w;
         p.y = r->y + rand() % r->h;
-        TTL --;
-    } while ((this->GetItem(p) || !this->tiles[p.x][p.y].isPassable()) && TTL > 0);
+        if (TTL-- <= 0)
+            break;
+    } while ((this->GetItem(p) || !this->tiles[p.x][p.y].isPassable()));
 
     if (TTL == 0)
         return;
