@@ -31,7 +31,6 @@
 -- More enemies (up to level 20) and more difficulty rebalancing
 -- New name?
 -- Optional character dump after death
--- PageUp/Down scrolls cursor and the page follows in ScrollableMenus rather than the other way around
 -- Random character names
 -- Rework potion potency?
 -- Rings
@@ -39,5 +38,5 @@
 -- Shops (and an excuse for there to be shops in a dungeon)
 -- Status effects as a LL (ability mod or other special effects and TTL)
 -- Status effects from alcohol
--- Standing on top of items should automatically tell you what you're standing on top of
 -- Temple special rooms (similar to shops but with immediate healing
+-- Tidy game.cpp (it's fucking MESSY)

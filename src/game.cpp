@@ -391,6 +391,7 @@ Game::MoveCharacter(Direction::Type d) {
             this->cur_level->RevealSight(c->pos, c->curSIGHT);
             GUI::CentreCam(c->pos);
             this->cur_level->CheckForRoomText(c);
+            this->ReportStandingOn();
     }
     else if (t->getTileType() == CLOSED_DOOR_CHAR) {           // A closed door
         if (GUI::BinaryChoice("This door is closed. Open?", 'y', 'n')) {
@@ -640,6 +641,17 @@ Game::HandleEquipSelection(int n) {
     c->Inventory.erase(it);
     this->EquipSelectMenu->Reset();
     this->RepopulateEquipMenu();
+}
+
+void
+Game::ReportStandingOn(void) {
+    Item *item;
+
+    item = this->cur_level->GetItem(this->character->pos);
+    if (!item)
+        return;
+
+    GUI::AddMessage("STANDING ON: " + item->GetName());
 }
 
 Game::~Game(void) {

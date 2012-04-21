@@ -44,6 +44,7 @@ class Game {
     void RepopulateBookMenu(void);
     void RepopulateEquipMenu(void);
     void HandleEquipSelection(int n);
+    void ReportStandingOn(void);
 
     Level*              levels;
     Level*              cur_level;
