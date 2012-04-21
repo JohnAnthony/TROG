@@ -5,7 +5,6 @@
 
 class Debug {
     public:
-    
     static void DebugConsole(Game *g);
 };
 

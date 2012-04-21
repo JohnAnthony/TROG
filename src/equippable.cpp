@@ -9,23 +9,38 @@ typedef struct {
 } EquippableInfo;
 
 static EquippableInfo EQUIPPABLE_INFO[Equippable::LAST_CATEGORY] = {
-    {"Dagger", "A short knife with a wicked, jagged blade"},
-    {"Short Sword", "A short stabbing blade"},
-    {"Longsword", "A long, straight sword with a weighted pommel"},
-    {"Mace", "A metal shaft with a spiked steel ball on the end"},
-    {"Flail", "A metal shaft with a spiked steel ball hanging from a chain"},
-    {"Staff", "A length of gnarled wood with a knob on the end"},
-    {"Greatsword", "A huge sword suitable for use with two hands"},
-    {"Greataxe", "A huge axe suitable for use with two hands"},
-    {"Light Shield", "A two-foot disc of wood covered in felt"},
-    {"Heavy Shield", "A three-foot disc of wood covered in steel rivets"},
-    {"Robes", "Long, elaborate flowing garments"},
-    {"Leather Armour", "Tanned animal hides crafted into armous"},
-    {"Chainmail", "A full set of linked chain armour"},
-    {"Platemail", "A full set of head-to-toe heavy plates. Very strong but cumbersome"},
-    {"Holy Symbol", "A symbol of the goddess Aerwin attached to a fine, light chain"},
-    {"Torch", "A 3-foot shaft of wood. The end is wrapped in flammable cloth and oil"},
-    //LAST_CATEGORY
+{"Dagger",
+    "A short knife with a wicked, jagged blade"},
+{"Short Sword",
+    "A short stabbing blade"},
+{"Longsword",
+    "A long, straight sword with a weighted pommel"},
+{"Mace",
+    "A metal shaft with a spiked steel ball on the end"},
+{"Flail",
+    "A metal shaft with a spiked steel ball hanging from a chain"},
+{"Staff",
+    "A length of gnarled wood with a knob on the end"},
+{"Greatsword",
+    "A huge sword suitable for use with two hands"},
+{"Greataxe",
+    "A huge axe suitable for use with two hands"},
+{"Light Shield",
+    "A two-foot disc of wood covered in felt"},
+{"Heavy Shield",
+    "A three-foot disc of wood covered in steel rivets"},
+{"Robes",
+    "Long, elaborate flowing garments"},
+{"Leather Armour",
+    "Tanned animal hides crafted into armous"},
+{"Chainmail",
+    "A full set of linked chain armour"},
+{"Platemail",
+    "A full set of head-to-toe heavy plates. Very strong but cumbersome"},
+{"Holy Symbol",
+    "A symbol of the goddess Aerwin attached to a fine, light chain"},
+{"Torch",
+    "A 3-foot shaft of wood. The end is wrapped in flammable cloth and oil"}
 };
 
 static char const * const ShiningAdjectives[] = {
@@ -218,7 +233,7 @@ Equippable::getQuality(void) {
 Equippable*
 Equippable::NewRandomEquippable(int pot) {
     return new Equippable((Equippable::Category)(rand() % 
-      Equippable::LAST_CATEGORY), pot);
+    Equippable::LAST_CATEGORY), pot);
 }
 
 void

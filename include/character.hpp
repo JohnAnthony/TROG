@@ -52,7 +52,8 @@ class Character {
         LAST_RACE
     } Race;
 
-    Character(std::string inName, Character::Race inRace, Character::Class inClass);
+    Character(std::string inName, Character::Race inRace,
+        Character::Class inClass);
     ~Character(void);
     void FullyRestore(void);
     void LevelUp(void);

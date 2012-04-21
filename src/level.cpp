@@ -367,7 +367,7 @@ Level::AddPotion(Rect *r) {
     do {
         p.x = r->x + rand() % r->w;
         p.y = r->y + rand() % r->h;
-        if (TTL++ >= TTL+MAX)
+        if (TTL++ >= TTL_MAX)
             break;
     } while (this->GetItem(p) || !this->tiles[p.x][p.y].isPassable());
 

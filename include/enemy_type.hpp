@@ -5,9 +5,9 @@
 
 class EnemyType {
     public:
-    EnemyType(unsigned int inLVL, char inSymbol, Colour inCol, int inSight, int hp,
-      int mp, int str, int tou, int att, int def, int mag, int wil, int inMV,
-      unsigned int inXP, const char *inName);
+    EnemyType(unsigned int inLVL, char inSymbol, Colour inCol, int inSight,
+    int hp, int mp, int str, int tou, int att, int def, int mag, int wil,
+    int inMV, unsigned int inXP, const char *inName);
 
     unsigned int Level;
     unsigned int XP_value;

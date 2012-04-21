@@ -9,15 +9,24 @@ typedef struct {
 } StatTomeDescription;
 
 static StatTomeDescription CategoryTexts[StatTome::LAST_CATEGORY] = {
-    {"bodily vigour", "A red book with an oliphant on the cover"},
-    {"enervation", "A blue book whose cover depicts a raksha being decapitated"},
-    {"bodily strength", "A red book whose cover depicts a man holding open a portcullis"},
-    {"rhino's hide", "A book bound in what appears to be worked grey leather"},
-    {"the swordsman", "A plain grey book with a steel spine"},
-    {"the acrobat", "A book whose cover is a blue-and-white sketch of acrobats in motion"},
-    {"sorcerer's might", "A black book whose cover bears the symbol of magic in stark white"},
-    {"dwarven courage", "A ruddy red-orange book whose cover depicts dwarves standing against a dragon"},
-    {"higher learning", "A green book whose cover depicts, in surgical detail, a cross-sectioned brain"}
+{"bodily vigour",
+"A red book with an oliphant on the cover"},
+{"enervation",
+"A blue book whose cover depicts a raksha being decapitated"},
+{"bodily strength",
+"A red book whose cover depicts a man holding open a portcullis"},
+{"rhino's hide",
+"A book bound in what appears to be worked grey leather"},
+{"the swordsman",
+"A plain grey book with a steel spine"},
+{"the acrobat",
+"A book whose cover is a blue-and-white sketch of acrobats in motion"},
+{"sorcerer's might",
+"A black book whose cover bears the symbol of magic in stark white"},
+{"dwarven courage",
+"A ruddy red-orange book whose cover depicts dwarves standing against a dragon"},
+{"higher learning",
+"A green book whose cover depicts, in surgical detail, a cross-sectioned brain"}
 };
 
 StatTome::StatTome(unsigned int pot) {
