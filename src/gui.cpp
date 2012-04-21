@@ -1103,6 +1103,7 @@ GUI::ShowTombstone(void) {
     wprintw(w, GUI::TombStr);
 
     GUI::FancyClear();
+    GUI::SetStatus("");
     wrefresh(w);
     refresh();
     delwin(w);
