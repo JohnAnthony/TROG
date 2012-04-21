@@ -103,7 +103,7 @@ ScrollableMenu::PtrUp(void) {
     if (this->pointer < 0)
         this->pointer = 0;
     else if (this->pointer < this->scroll_offset)
-        this->PageUp();
+        this->SnapScroll();
     this->Show();
 }
 
@@ -113,28 +113,25 @@ ScrollableMenu::PtrDown(void) {
     if (pointer >= (int) this->Options.size())
         pointer = this->Options.size() - 1;
     else if (this->pointer > this->scroll_offset + this->max_shown_options)
-        this->PageDown();
+        this->SnapScroll();
     this->Show();
 }
 
 void
 ScrollableMenu::PageUp(void) {
-    if ((int)this->Options.size() <= this->max_shown_options)
-        return;
-    this->scroll_offset -= this->max_shown_options / 2;
-    this->scroll_offset = MAX(0, this->scroll_offset);
-    this->SnapPointer();
+    this->pointer -= this->max_shown_options;
+    if (this->pointer < 0)
+        this->pointer = 0;
+    this->SnapScroll();
     this->Show();
 }
 
 void
 ScrollableMenu::PageDown(void) {
-    if ((int)this->Options.size() <= this->max_shown_options)
-        return;
-    this->scroll_offset += this->max_shown_options / 2;
-    this->scroll_offset = MIN(this->scroll_offset, (int)this->Options.size() - 
-            this->max_shown_options - 1);
-    this->SnapPointer();
+    this->pointer += this->max_shown_options;
+    if (this->pointer >= (int)this->Options.size())
+        this->pointer = this->Options.size() - 1;
+    this->SnapScroll();
     this->Show();
 }
 
@@ -151,11 +148,11 @@ ScrollableMenu::Selection(void) {
 }
 
 void
-ScrollableMenu::SnapPointer(void) {
+ScrollableMenu::SnapScroll(void) {
     if (this->pointer < this->scroll_offset)
-        this->pointer = this->scroll_offset;
-    else if (this->pointer > this->scroll_offset + this->max_shown_options)
-        this->pointer = this->scroll_offset + this->max_shown_options;
+        this->scroll_offset = this->pointer;
+    else if (this->pointer >= this->scroll_offset + this->max_shown_options)
+        this->scroll_offset = this->pointer - this->max_shown_options;
 }
 
 ScrollableMenu::~ScrollableMenu(void) {
