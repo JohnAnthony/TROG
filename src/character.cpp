@@ -42,6 +42,8 @@ Character::Class inClass) {
     this->next_level = 1000;
     this->gold = 0;
     this->deepest_visited = 1;
+    this->monsters_killed = 0;
+    this->total_gold_collected = 0;
 
     //Startign stats
     this->baseHP  = this->affinity.hp;
@@ -602,6 +604,17 @@ Character::StatTomeFromInventory(int n) {
     }
 
     return NULL;
+}
+
+void
+Character::GiveGold(unsigned int n) {
+    this->gold += n;
+    this->total_gold_collected += n;
+}
+
+int
+Character::getGold(void) {
+    return this->gold;
 }
 
 Character::~Character(void) {

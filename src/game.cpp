@@ -98,7 +98,7 @@ Game::Run(void) {
         if (!this->character->isAlive()) {
             running = false;
             GUI::Alert("You have died!");
-            GUI::ShowTombstone();
+            GUI::ShowTombstone(this);
             getch();
         }
 
@@ -483,7 +483,7 @@ Game::DoPickup(void) {
     else {
         ss << "You pick up " << item->GetName();;
         if (item->type == Item::TREASURE_T) {
-            this->character->gold += ((Treasure*)item)->quantity;
+            this->character->GiveGold(((Treasure*)item)->quantity);
             delete (Treasure*) item;
         }
         else
@@ -524,7 +524,8 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
     // Handle the effects of the attack
     if (dam > 0) {
         e->TakeDamage(dam);
-        if (e->curHP <= 0) {
+        if (!e->isAlive()) {
+            c->monsters_killed ++;
             ss << " ... and kills it!";
             this->cur_level->RemoveEnemy(e);
             c->GiveXP(e->parent_type->XP_value);

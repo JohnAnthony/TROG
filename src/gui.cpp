@@ -40,29 +40,29 @@ const char *GUI::SplashStr = "\
 ";
 
 const char *GUI::TombStr = "\
-            ___________________________________________________________\n\
-           /                                                          /|\n\
-          /                                                          / |\n\
-         /                                                          /  |\n\
-        /__________________________________________________________/   |\n\
-        |                                                          |   |\n\
-        |                       R . I . P .                        |   |\n\
-        |                                                          |   |\n\
-        |                                                          |   |\n\
-        |                                                          |   |\n\
-        |                                                          |   |\n\
-        |                                                          |   |\n\
-        |                                                          |   |\n\
-        |                                                          |   |\n\
-        |                                                          |   |\n\
-        |                                                          |   |\n\
-        |                                                          |   |\n\
-        |                                                          |   |\n\
-        |                                                          |   |\n\
-        |                                                          |  /\n\
-        |                                                          | /\n\
-        |                                                          |/\n\
-       \\//_____\\//_________\\//________________\\//_____\\\\/________\\//\n\
+                 ______________________________________________________\n\
+                /                                                     /|\n\
+               /                                                     / |\n\
+              /                                                     /  |\n\
+             /_____________________________________________________/   |\n\
+             |                                                     |   |\n\
+             |                                                     |   |\n\
+             |                                                     |   |\n\
+             |                                                     |   |\n\
+             |                                                     |   |\n\
+             |                                                     |   |\n\
+             |                                                     |   |\n\
+             |                                                     |   |\n\
+             |                                                     |   |\n\
+             |                                                     |   |\n\
+             |                                                     |   |\n\
+             |                                                     |   |\n\
+             |                                                     |   |\n\
+             |                                                     |   |\n\
+             |                                                     |  /\n\
+             |                                                     | /\n\
+             |                                                     |/\n\
+            \\//__________\\//_________\\//_______\\//_____\\\\/________\\//\n\
 ";
 
 void
@@ -725,7 +725,7 @@ GUI::ShowInventoryScreen(Character *c) {
     //header
     mvwprintw(w, 1, 2, "INVENTORY");
 
-    ss << "Wealth :: " << c->gold << "gp";
+    ss << "Wealth :: " << c->getGold() << "gp";
     s = ss.str();
     mvwprintw(w, 1, pos.w - 2 - s.length(), s.c_str());
 
@@ -747,7 +747,7 @@ GUI::CharacterStatusLine(Character *c) {
     ss <<  "HP:" << c->curHP << "/" << c->baseHP;
     if (c->baseMP > 0)
         ss << "    MP:" << c->curMP << "/" << c->baseMP;
-    ss << "    GP:" << c->gold;
+    ss << "    GP:" << c->getGold();
     ss << "    XP:" << c->getXP() << "/" << c->next_level;
 
     GUI::SetStatus(ss.str());
@@ -1096,11 +1096,42 @@ GUI::HardRedraw(void) {
 }
 
 void
-GUI::ShowTombstone(void) {
+GUI::ShowTombstone(Game *g) {
+    std::stringstream ss;
+    std::string s;
+    Character *c;
     WINDOW *w;
 
+    c = g->character;
     w = GUI::NewCentredWindow(80, 24);
     wprintw(w, GUI::TombStr);
+
+    s = "R . I . P .";
+    mvwprintw(w, 6, (80 - s.length()) / 2, s.c_str());
+    ss << c->name << ", " << c->GetRaceString() << " ";
+    ss << c->GetClassString();
+    s = ss.str();
+    mvwprintw(w, 8, (80 - s.length()) / 2, s.c_str());
+
+    ss.str("");
+    ss << "XP: " << c->getXP() << "\tLevel: " << c->Level;
+    s = ss.str();
+    mvwprintw(w, 9, (80 - s.length()) / 2, s.c_str());
+
+    ss.str("");
+    ss << "Deepest travelled: " << c->deepest_visited;
+    s = ss.str();
+    mvwprintw(w, 11, (80 - s.length()) / 2, s.c_str());
+
+    ss.str("");
+    ss << "Monsters killed: " << c->monsters_killed;
+    s = ss.str();
+    mvwprintw(w, 12, (80 - s.length()) / 2, s.c_str());
+
+    ss.str("");
+    ss << "Gold collected: " << c->total_gold_collected;
+    s = ss.str();
+    mvwprintw(w, 13, (80 - s.length()) / 2, s.c_str());
 
     GUI::FancyClear();
     GUI::SetStatus("");

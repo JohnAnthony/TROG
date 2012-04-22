@@ -10,6 +10,7 @@
 ---- A pile reduced to a single item is replaced simply with the item
 -- Add "v to view info" class descriptions in character creation screen
 -- Add MINIMUM level to monster spawn algorithm
+-- Add killcount and toughest kill stats
 -- Alcoholic drinks and dwarven affinity for them
 -- Allow mid-game name change?
 -- Basic healing magic
@@ -17,7 +18,7 @@
 -- Basic missile attacks
 -- Boots of speed
 -- Damage Types attached to weapons and in the "TakeDamage" class
-** Death screen
+** Finish death screen
 -- Debug option: GiveGold
 -- Debug option: "Kill" to kill all enemies
 -- Enemies drop treasure?
@@ -40,3 +41,4 @@
 -- Status effects from alcohol
 -- Temple special rooms (similar to shops but with immediate healing
 -- Tidy game.cpp (it's fucking MESSY)
+-- Use a different splash for the "death" screen if the character quit without dying

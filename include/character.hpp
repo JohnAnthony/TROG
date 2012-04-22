@@ -85,10 +85,12 @@ class Character {
     Potion* PotionFromInventory(int n);
     Equippable* EquippableFromInventory(int n);
     StatTome* StatTomeFromInventory(int n);
+    void GiveGold(unsigned int n);
 
     //Getters(!)
     int getXP(void);
     int getCurHP(void);
+    int getGold(void);
 
     char symbol;
     Colour colour;
@@ -101,7 +103,6 @@ class Character {
     std::string name;
     std::list<Item*> Inventory;
     Equippable *equipment[LAST_EQUIP_LOCATION];
-    int gold;
 
     int baseHP, curHP;
     int baseMP, curMP;
@@ -115,8 +116,11 @@ class Character {
     int baseSIGHT, curSIGHT;
 
     unsigned int deepest_visited;
+    unsigned int monsters_killed;
+    unsigned int total_gold_collected;
 
     private:
+    int gold;
     int XP;
 };
 

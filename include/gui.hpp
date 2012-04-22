@@ -46,7 +46,7 @@ class GUI {
     static void InfoScreen(Potion *p);
     static void InfoScreen(StatTome *st);
     static void HardRedraw(void);
-    static void ShowTombstone(void);
+    static void ShowTombstone(Game *g);
 
     static int NUM_COLOURS;
 
