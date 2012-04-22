@@ -98,8 +98,6 @@ Game::Run(void) {
         if (!this->character->isAlive()) {
             running = false;
             GUI::Alert("You have died!");
-            GUI::ShowTombstone(this);
-            getch();
         }
 
         if (this->need_hard_redraw) {
@@ -108,6 +106,8 @@ Game::Run(void) {
         }
     }
 
+    GUI::ShowTombstone(this);
+    getch();
     GUI::FancyClear();
     GUI::ShowSplash();
     return GUI::BinaryChoice("Do you wish to play again?", 'y', 'n');
