@@ -40,9 +40,6 @@ Game::Game(Character *c) {
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
 
-    for (int i = 0; i < 200; ++i)
-        this->character->ItemToInventory((Item*) Equippable::NewRandomEquippable(1));
-
     this->need_hard_redraw = false;
 
     GUI::AttachTo(this);
