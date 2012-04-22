@@ -1119,12 +1119,12 @@ GUI::ShowTombstone(Game *g) {
     mvwprintw(w, 9, (80 - s.length()) / 2, s.c_str());
 
     ss.str("");
-    ss << "Deepest travelled: " << c->deepest_visited;
+    ss << "Monsters killed: " << c->monsters_killed;
     s = ss.str();
     mvwprintw(w, 11, (80 - s.length()) / 2, s.c_str());
 
     ss.str("");
-    ss << "Monsters killed: " << c->monsters_killed;
+    ss << "Deepest travelled: " << c->deepest_visited;
     s = ss.str();
     mvwprintw(w, 12, (80 - s.length()) / 2, s.c_str());
 
@@ -1132,6 +1132,23 @@ GUI::ShowTombstone(Game *g) {
     ss << "Gold collected: " << c->total_gold_collected;
     s = ss.str();
     mvwprintw(w, 13, (80 - s.length()) / 2, s.c_str());
+
+    ss.str("");
+    ss << "Potions drunk: " << c->potions_drunk;
+    s = ss.str();
+    mvwprintw(w, 14, (80 - s.length()) / 2, s.c_str());
+
+    ss.str("");
+    ss << "Books read: " << c->books_read;
+    s = ss.str();
+    mvwprintw(w, 15, (80 - s.length()) / 2, s.c_str());
+
+    if (c->toughest_defeated) {
+        s = "Toughest monster defeated:";
+        mvwprintw(w, 17, (80 - s.length()) / 2, s.c_str());
+        s = c->toughest_defeated->name;
+        mvwprintw(w, 18, (80 - s.length()) / 2, s.c_str());
+    }
 
     GUI::FancyClear();
     GUI::SetStatus("");

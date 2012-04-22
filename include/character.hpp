@@ -118,6 +118,9 @@ class Character {
     unsigned int deepest_visited;
     unsigned int monsters_killed;
     unsigned int total_gold_collected;
+    unsigned int potions_drunk;
+    unsigned int books_read;
+    EnemyType *toughest_defeated;
 
     private:
     int gold;

@@ -41,9 +41,13 @@ Character::Class inClass) {
     this->affinity = this->SumAffinities(inRace, inClass);
     this->next_level = 1000;
     this->gold = 0;
+
     this->deepest_visited = 1;
     this->monsters_killed = 0;
     this->total_gold_collected = 0;
+    this->potions_drunk = 0;
+    this->books_read = 0;
+    this->toughest_defeated = NULL;
 
     //Startign stats
     this->baseHP  = this->affinity.hp;
@@ -324,6 +328,8 @@ Character::DrinkPotion(int n) {
     //Now we deal with the effects of the potion
     potion = (Potion*) item;
     potion->ApplyEffects(this);
+
+    this->potions_drunk ++;
     delete potion;
 }
 
@@ -376,7 +382,7 @@ Character::ReadBookOrScroll(int n) {
     }
 
     if (n != 0 || !item) {
-        GUI::Alert("Something went wrong trying to find the selected potion...");
+        GUI::Alert("Something went wrong trying to find the selected potion.");
         return;
     }
 
@@ -384,6 +390,8 @@ Character::ReadBookOrScroll(int n) {
     //Now we deal with the effects of the potion
     stattome = (StatTome*) item;
     stattome->ApplyEffects(this);
+
+    this->books_read ++;
     delete stattome;
 }
 

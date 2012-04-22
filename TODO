@@ -41,4 +41,5 @@
 -- Status effects from alcohol
 -- Temple special rooms (similar to shops but with immediate healing
 -- Tidy game.cpp (it's fucking MESSY)
+-- Update the info screen with all the new stats
 -- Use a different splash for the "death" screen if the character quit without dying

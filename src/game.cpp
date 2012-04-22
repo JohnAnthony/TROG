@@ -529,6 +529,10 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
             ss << " ... and kills it!";
             this->cur_level->RemoveEnemy(e);
             c->GiveXP(e->parent_type->XP_value);
+            if (!c->toughest_defeated)
+                c->toughest_defeated = e->parent_type;
+            else if (e->parent_type->XP_value > c->toughest_defeated->XP_value)
+                c->toughest_defeated = e->parent_type;
             // Don't need this.
             //Level::RedrawEnemy should just redraw the one tile
             //But this is the quick and dirty way
