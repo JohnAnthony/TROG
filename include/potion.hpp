@@ -16,6 +16,8 @@ class Potion : public Item {
         MODERATE,
         AVERAGE,
         STRONG,
+        MAJOR,
+        GREATER,
         LAST_POTENCY
     };
 
