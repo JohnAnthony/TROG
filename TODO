@@ -3,7 +3,7 @@
 ---- Gear Screen
 ---- Inventory screen
 ---- Read Screen
--- Add item piles (lists of items as an item type)
+-- Add item containers (lists of items as an item type) (Pile/chest)
 ---- Make items that spawn on top of other items into a treasure pile
 ---- Make treasure that spawns on top of treasure into a single entity
 ---- Handle picking up from a pile
