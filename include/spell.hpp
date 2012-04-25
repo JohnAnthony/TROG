@@ -13,7 +13,7 @@ class Spell {
     void (*function)(Game *g);
     unsigned int MPcost;
     unsigned int XPcost;
-    char *name;
+    char const * const name;
     char const * const description;
 
     //Spell-specific functions

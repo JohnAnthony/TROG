@@ -129,6 +129,7 @@ Character::Class inClass) {
         this->ItemToInventory((Item*) new EQ(EQ::TORCH, 1));
 
     //DEBUG
+    this->AddSpell(&FolkSpells[0]);
     this->AddSpell(&ArcaneSpells[1]);
     this->AddSpell(&ArcaneSpells[2]);
     this->AddSpell(&ArcaneSpells[3]);

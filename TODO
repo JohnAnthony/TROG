@@ -20,6 +20,7 @@
 -- Damage Types attached to weapons and in the "TakeDamage" class
 -- Debug option: GiveGold
 -- Debug option: "Kill" to kill all enemies
+-- Debug option: "AllSpells" to give all spells (and remove spells added for debugging from Character constructor)
 -- Enemies drop treasure?
 -- Gloves
 -- GUI::Alert() to handle long messages gracefully
