@@ -531,17 +531,20 @@ Character::Equip(EQ *e) {
         }
     }
 
+    if (e->location == WEAPON && e->isTwoHanded()) {
+        if (this->equipment[SHIELD]) {
+            GUI::Alert("You must have two hands free to equipt a two-handed weapon");
+            return false;
+        }
+    }
+
     if (!this->isEquipSlotFree(e->location)) {
         ss << "Unequip " << this->equipment[e->location]->getNameWithQuality();
-        if (e->isTwoHanded() && this->equipment[SHIELD])
-            ss << " and " << this->equipment[SHIELD]->getNameWithQuality();
         ss << " ?";
 
         if (! GUI::BinaryChoice(ss.str(), 'y', 'n') )
             return false;
         this->Unequip(e->location);
-        if (e->isTwoHanded() && this->equipment[SHIELD])
-            this->Unequip(SHIELD);
     }
 
     if (!this->isEquipSlotFree(e->location))
