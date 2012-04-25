@@ -45,6 +45,7 @@ class GUI {
     static void InfoScreen(Equippable *e);
     static void InfoScreen(Potion *p);
     static void InfoScreen(StatTome *st);
+    static void InfoScreen(Spell *sp);
     static void HardRedraw(void);
     static void ShowTombstone(Game *g);
 

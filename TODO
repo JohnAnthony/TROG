@@ -18,7 +18,6 @@
 -- Basic missile attacks
 -- Boots of speed
 -- Damage Types attached to weapons and in the "TakeDamage" class
-** Finish death screen
 -- Debug option: GiveGold
 -- Debug option: "Kill" to kill all enemies
 -- Enemies drop treasure?
@@ -43,3 +42,4 @@
 -- Tidy game.cpp (it's fucking MESSY)
 -- Update the info screen with all the new stats
 -- Use a different splash for the "death" screen if the character quit without dying
+-- Move menu repopulation functions to correct (more efficient) places

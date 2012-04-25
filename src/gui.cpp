@@ -1080,6 +1080,13 @@ GUI::InfoScreen(Potion *p) {
 }
 
 void
+GUI::InfoScreen(Spell *sp) {
+    if (!sp)
+        return;
+    GUI::Alert(sp->description);
+}
+
+void
 GUI::InfoScreen(StatTome *st) {
     if (!st)
         return;

@@ -19,6 +19,7 @@
 #define KEYS_POTION_SELECT      'p'
 #define KEYS_READING_SELECT     'r'
 #define KEYS_GEAR_SELECT        'g'
+#define KEYS_SPELL_SELECT       'm'
 
 Game::Game(Character *c) {
     this->character = c;
@@ -35,6 +36,7 @@ Game::Game(Character *c) {
     this->PotionSelectMenu = new ScrollableMenu("Drink what?");
     this->BookSelectMenu = new ScrollableMenu("Read what?");
     this->EquipSelectMenu = new ScrollableMenu("Equipment");
+    this->SpellSelectMenu = new ScrollableMenu("Cast which spell?");
 
     //Give the player a few starting potions for luck
     this->character->ItemToInventory((Item*) new Potion(Potion::MINOR, Potion::HEALING));
@@ -80,6 +82,8 @@ Game::Run(void) {
             new_gamemode = GameMode::READING_SELECT;
         else if (c == KEYS_GEAR_SELECT)
             new_gamemode = GameMode::GEAR_SELECT;
+        else if (c == KEYS_SPELL_SELECT)
+            new_gamemode = GameMode::SPELL_SELECT;
         else    // Not a mode change. Handle input based upon mode
             new_gamemode = this->HandleInput(c);
 
@@ -154,6 +158,12 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             this->RepopulateEquipMenu();
             this->EquipSelectMenu->Show();
             break;
+        case GameMode::SPELL_SELECT:
+            GUI::FancyClear();
+            this->SpellSelectMenu->Reset();
+            this->RepopulateSpellMenu();
+            this->SpellSelectMenu->Show();
+            break;
         case GameMode::LAST_MODE:
         default:
             GUI::Alert("Error: Asked to switch to an unknown game mode");
@@ -163,6 +173,7 @@ Game::SwitchGameMode(GameMode::Type gmt) {
 
 GameMode::Type
 Game::HandleInput(int c) {
+    Spell *sp;
 
     switch (this->game_mode) {
         case GameMode::MAP_WALK:
@@ -282,6 +293,7 @@ Game::HandleInput(int c) {
                 GUI::DoRedraw();
                 return GameMode::MAP_WALK;
             }
+            break;
         case GameMode::GEAR_SELECT:
             if (c == KEY_UP)
                 this->EquipSelectMenu->PtrUp();
@@ -300,6 +312,31 @@ Game::HandleInput(int c) {
                 this->HandleEquipSelection(this->EquipSelectMenu->Selection());
                 this->cur_level->GiveEnemiesTurn(this->character);
                 GUI::DoRedraw();
+            }
+            break;
+        case GameMode::SPELL_SELECT:
+            if (c == KEY_UP)
+                this->SpellSelectMenu->PtrUp();
+            else if (c == KEY_DOWN)
+                this->SpellSelectMenu->PtrDown();
+            else if (c == KEY_PPAGE)
+                this->SpellSelectMenu->PageUp();
+            else if (c == KEY_NPAGE)
+                this->SpellSelectMenu->PageDown();
+            else if (c == 'v') {
+                c = this->SpellSelectMenu->Selection();
+                sp = this->character->SpellFromList(c);
+                GUI::InfoScreen(sp);
+                GUI::DoRedraw();
+            }
+            else if (c == '\n') {
+                c = this->SpellSelectMenu->Selection();
+                sp = this->character->SpellFromList(c);
+                if (!sp)
+                    return GameMode::MAP_WALK;
+                sp->function(this);
+                GUI::DoRedraw();
+                return GameMode::MAP_WALK;
             }
             break;
 
@@ -601,6 +638,20 @@ Game::RepopulateEquipMenu(void) {
 }
 
 void
+Game::RepopulateSpellMenu(void) {
+    Character *c;
+    Spell *sp;
+
+    c = this->character;
+
+    for (std::list<Spell*>::iterator it = c->SpellList.begin();
+            it != c->SpellList.end(); ++it) {
+        sp = &**it;
+        this->SpellSelectMenu->AddItem(sp->name);
+    }
+}
+
+void
 Game::HandleEquipSelection(int n) {
     std::list<Item*>::iterator it;
     Character *c;
@@ -664,4 +715,5 @@ Game::~Game(void) {
     delete this->PotionSelectMenu;
     delete this->BookSelectMenu;
     delete this->EquipSelectMenu;
+    delete this->SpellSelectMenu;
 }

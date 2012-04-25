@@ -128,6 +128,11 @@ Character::Class inClass) {
     if (this->race == Character::HUMAN)
         this->ItemToInventory((Item*) new EQ(EQ::TORCH, 1));
 
+    //DEBUG
+    this->AddSpell(&ArcaneSpells[1]);
+    this->AddSpell(&ArcaneSpells[2]);
+    this->AddSpell(&ArcaneSpells[3]);
+
     this->FullyRestore();
 }
 
@@ -619,6 +624,19 @@ Character::StatTomeFromInventory(int n) {
     return NULL;
 }
 
+Spell* 
+Character::SpellFromList(int n) {
+    std::list<Spell*>::iterator it;
+
+    for (it = this->SpellList.begin(); it != this->SpellList.end(); it++) {
+        if (n == 0)
+            return &**it;
+        --n;
+    }
+
+    return NULL;
+}
+
 void
 Character::GiveGold(unsigned int n) {
     this->gold += n;
@@ -628,6 +646,11 @@ Character::GiveGold(unsigned int n) {
 int
 Character::getGold(void) {
     return this->gold;
+}
+
+void
+Character::AddSpell(Spell* sp) {
+    this->SpellList.push_back(sp);
 }
 
 Character::~Character(void) {

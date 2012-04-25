@@ -7,6 +7,7 @@
 #include "potion.hpp"
 #include "stattome.hpp"
 #include "equippable.hpp"
+#include "spell.hpp"
 #include <string>
 #include <list>
 
@@ -26,6 +27,7 @@ typedef struct {
 class Enemy;
 class Potion;
 class StatTome;
+class Spell;
 
 class Character {
     public:
@@ -85,7 +87,9 @@ class Character {
     Potion* PotionFromInventory(int n);
     Equippable* EquippableFromInventory(int n);
     StatTome* StatTomeFromInventory(int n);
+    Spell* SpellFromList(int n);
     void GiveGold(unsigned int n);
+    void AddSpell(Spell *sp);
 
     //Getters(!)
     int getXP(void);
@@ -102,6 +106,7 @@ class Character {
     Affinity affinity;
     std::string name;
     std::list<Item*> Inventory;
+    std::list<Spell*> SpellList;
     Equippable *equipment[LAST_EQUIP_LOCATION];
 
     int baseHP, curHP;

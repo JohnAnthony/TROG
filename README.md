@@ -64,7 +64,7 @@ Movement Mode
     >  = Go down stairs
 
     , = Pickup gold/items
-    m = Cast magic (Not implemented)
+    m = Cast magic
     b = View spellbook (Not implemented)
     t = Talk/Interact with shopkeeper (Not implemented)
 

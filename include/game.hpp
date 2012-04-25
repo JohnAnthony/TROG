@@ -20,6 +20,7 @@ namespace GameMode {
         POTION_SELECT,
         READING_SELECT,
         GEAR_SELECT,
+        SPELL_SELECT,
         LAST_MODE
     } Type;
 }
@@ -43,6 +44,7 @@ class Game {
     void RepopulatePotionMenu(void);
     void RepopulateBookMenu(void);
     void RepopulateEquipMenu(void);
+    void RepopulateSpellMenu(void);
     void HandleEquipSelection(int n);
     void ReportStandingOn(void);
 
@@ -57,6 +59,7 @@ class Game {
     ScrollableMenu      *PotionSelectMenu;
     ScrollableMenu      *BookSelectMenu;
     ScrollableMenu      *EquipSelectMenu;
+    ScrollableMenu      *SpellSelectMenu;
 };
 
 #endif
