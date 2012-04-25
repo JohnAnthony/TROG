@@ -4,6 +4,12 @@
 #include <string>
 #include "geometry.hpp"
 
+/*
+=================================================
+TROG
+Item qualities and various methods
+=================================================
+*/
 class Item {
     public:
     enum Type {

@@ -9,9 +9,16 @@
 #include <string>
 
 class Level;
-
-namespace GameMode {
-    typedef enum {
+/*
+=================================================
+TROG
+Game System 
+=================================================
+*/
+namespace GameMode
+{
+    typedef enum
+    {
         MAP_WALK,
         MAP_LOOK,
         INFO_SCREEN,
@@ -26,7 +33,8 @@ namespace GameMode {
     } Type;
 }
 
-class Game {
+class Game
+{
     public:
     Game(Character *c);
     ~Game(void);

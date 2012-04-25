@@ -5,9 +5,16 @@
 #include "character.hpp"
 #include <string>
 
+/*
+=================================================
+TROG
+Enemy creatures definitions
+=================================================
+*/
 class Character;
 
-class Enemy {
+class Enemy
+{
     public:
     Enemy(void);
     Enemy(EnemyType *et);

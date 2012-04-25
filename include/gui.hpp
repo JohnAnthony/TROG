@@ -7,7 +7,14 @@
 #include <string>
 #include <list>
 
-class GUI {
+/*
+=================================================
+TROG
+Graphical User Interface
+=================================================
+*/
+class GUI
+{
     public:
     static void Init(void);
     static void End(void);
