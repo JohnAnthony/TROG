@@ -2,7 +2,7 @@ COMPILATION INSTRUCTIONS
 ========================
 
 PLEASE use an up-to-date compiler. This project uses a bunch of C++0x features
-and older versions of GCC won't compile it. I suggest AT LEAST 4.7.0. Clang also
+and older versions of GCC won't compile it. I suggest AT LEAST 4.4.0. Clang also
 has been shown to compile from version 3.0 or later, although I'm making no
 guarantees.
 

@@ -23,7 +23,7 @@ class Equippable : public Item {
         PLATEMAIL,
         HOLY_SYMBOL,
         TORCH,
-        LAST_CATEGORY,
+        LAST_CATEGORY
     };
 
     Equippable(Equippable::Category inCat, int pot);
