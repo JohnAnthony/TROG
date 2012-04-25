@@ -523,9 +523,11 @@ Character::Equip(EQ *e) {
     std::stringstream ss;
 
     if (e->location == SHIELD) {
-        if (this->equipment[WEAPON]->isTwoHanded()) {
-            GUI::Alert("You can't equip this with a two-handed weapon.");
-            return false;
+        if (this->equipment[WEAPON]) {
+            if (this->equipment[WEAPON]->isTwoHanded()) {
+                GUI::Alert("You can't equip this with a two-handed weapon.");
+                return false;
+            }
         }
     }
 

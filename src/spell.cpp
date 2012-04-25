@@ -8,7 +8,9 @@ const char *inDescript) : description(inDescript) {
 }
 
 //Folk
-void Spell::Hearth_Heal(Game *g, Enemy *target) {}
+void Spell::Hearth_Heal(Game *g, Enemy *target) {
+    
+}
 //Elf
 void Spell::Minor_Sight(Game *g, Enemy *target) {}
 void Spell::Major_Sight(Game *g, Enemy *target) {}
