@@ -881,9 +881,10 @@ GUI::DoRedraw(void) {
         g->PotionSelectMenu->Show();
     else if (g->game_mode == GameMode::READING_SELECT)
         g->BookSelectMenu->Show();
-    else if (g->game_mode == GameMode::GEAR_SELECT) {
+    else if (g->game_mode == GameMode::GEAR_SELECT)
         g->EquipSelectMenu->Show();
-    }
+    else if (g->game_mode == GameMode::SPELL_SELECT)
+        g->SpellSelectMenu->Show();
 }
 
 void

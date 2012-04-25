@@ -334,6 +334,12 @@ Game::HandleInput(int c) {
                 sp = this->character->SpellFromList(c);
                 if (!sp)
                     return GameMode::MAP_WALK;
+                if ((int)sp->MPcost > this->character->curMP) {
+                    GUI::Alert("Not enough mana to cast this spell");
+                    GUI::DoRedraw();
+                    break;
+                }
+                this->character->curMP -= sp->MPcost;
                 sp->function(this);
                 GUI::DoRedraw();
                 return GameMode::MAP_WALK;

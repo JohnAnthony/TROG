@@ -2,8 +2,8 @@
 
 Spell::Spell(void (*infunc)(Game *g), const char *inName, int inMPCost,
 int inXPCost, const char *inDescript) :
-    description(inDescript),
-    name(inName) {
+    name(inName),
+    description(inDescript) {
     this->function = infunc;
     this->MPcost = inMPCost;
     this->XPcost = inXPCost;
