@@ -26,6 +26,8 @@ Debug::DebugConsole(Game *g) {
             g->GoDownALevel();
         else if (cmd == "GoUp")
             g->GoUpALevel();
+        else if (cmd == "AllSpells")
+            g->character->GiveAllSpells();
         else if (cmd == "RevealAll") {
             g->cur_level->RevealAll();
             break;

@@ -90,6 +90,7 @@ class Character {
     Spell* SpellFromList(int n);
     void GiveGold(unsigned int n);
     void AddSpell(Spell *sp);
+    void GiveAllSpells(void);
 
     //Getters(!)
     int getXP(void);

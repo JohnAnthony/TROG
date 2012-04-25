@@ -128,12 +128,6 @@ Character::Class inClass) {
     if (this->race == Character::HUMAN)
         this->ItemToInventory((Item*) new EQ(EQ::TORCH, 1));
 
-    //DEBUG
-    this->AddSpell(&FolkSpells[0]);
-    this->AddSpell(&ArcaneSpells[1]);
-    this->AddSpell(&ArcaneSpells[2]);
-    this->AddSpell(&ArcaneSpells[3]);
-
     this->FullyRestore();
 }
 
@@ -651,7 +645,24 @@ Character::getGold(void) {
 
 void
 Character::AddSpell(Spell* sp) {
+    for (std::list<Spell*>::iterator it = this->SpellList.begin(); it !=
+    this->SpellList.end(); it++) {
+        if (&**it == sp)
+            return;
+    }
     this->SpellList.push_back(sp);
+}
+
+void
+Character::GiveAllSpells(void) {
+    for (unsigned int i = 0; i < LENGTH(FolkSpells); ++i)
+        this->AddSpell(&FolkSpells[i]);
+    for (unsigned int i = 0; i < LENGTH(DivineSpells); ++i)
+        this->AddSpell(&DivineSpells[i]);
+    for (unsigned int i = 0; i < LENGTH(ArcaneSpells); ++i)
+        this->AddSpell(&ArcaneSpells[i]);
+    for (unsigned int i = 0; i < LENGTH(ElfSpells); ++i)
+        this->AddSpell(&ElfSpells[i]);
 }
 
 Character::~Character(void) {
