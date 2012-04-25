@@ -491,6 +491,20 @@ GUI::FancyClear(void) {
 }
 
 void
+GUI::CharacterRename(Game *g)
+{
+    std::string newname;
+    Character *chr = g->character;
+
+    newname = GUI::GetString("Enter a new character name: ");
+    if (newname == "")
+    {
+        GUI::Alert("You wasted the chance to rename your character!");
+    }
+    chr->name = newname;
+}
+
+void
 GUI::ShowCharacterScreen(Character *c) {
     WINDOW *w;
     Rect pos;

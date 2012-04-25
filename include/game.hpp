@@ -21,6 +21,7 @@ namespace GameMode {
         READING_SELECT,
         GEAR_SELECT,
         SPELL_SELECT,
+        CHARACTER_RENAME_ONCE,
         LAST_MODE
     } Type;
 }
