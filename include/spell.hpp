@@ -74,8 +74,8 @@ Spell(Spell::Turn_Undead,   "Turn Undead",      10,     1000,   "Turns all undea
 
 static Spell ArcaneSpells[] = {
 //    Function              Name                MPCost  XPCost  Description
-Spell(Spell::Fire_Touch,    "Fire Touch",       4,      40,    "A touch attack that chars the flesh"),
-Spell(Spell::Chill_Touch,   "Chill Touch",      4,      40,    "A touch attack that chills the flesh"),
+Spell(Spell::Fire_Touch,    "Fire Touch",       2,      40,    "A touch attack that chars the flesh"),
+Spell(Spell::Chill_Touch,   "Chill Touch",      2,      40,    "A touch attack that chills the flesh"),
 Spell(Spell::Fire_Bolt,     "Fire Bolt",        4,      400,   "A singular magic blast fo fire"),
 Spell(Spell::Ice_Bolt,      "Ice Bolt",         4,      400,   "A singular icy projectile"),
 Spell(Spell::Fire_Burst,    "Fire Burst",       20,     2000,  "A burst of fire engulfs all within 5 squares"),

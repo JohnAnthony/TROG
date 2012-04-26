@@ -591,7 +591,7 @@ Game::DoMagicAttack(Character *c, Enemy *e) {
     e->isActive = true;
 
     // Handle the attack
-    dam = rand() % c->curMAG + rand() % c->curMAG - rand() % e->parent_type->baseWIL;
+    dam = rand() % c->curMAG - rand() % e->parent_type->baseWIL;
     if (dam <= 0) {
         ss << "Your magical attack fails to damage " << e->Description();
         GUI::AddMessage(ss.str());
