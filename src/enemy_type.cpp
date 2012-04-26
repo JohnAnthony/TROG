@@ -3,21 +3,21 @@
 EnemyType::EnemyType(unsigned int inLVL, char inSymbol, Colour inCol,
 int inSight, int hp, int mp, int str, int tou, int att, int def, int mag,
 int wil, int inMV, unsigned int inXP, EnemyType::Category inCat,
-const char *inName) {
-    this->category = inCat;
-    this->symbol = inSymbol;
-    this->colour = inCol;
-    this->baseSIGHT = inSight;
-    this->baseHP = hp;
-    this->baseMP = mp;
-    this->baseSTR = str;
-    this->baseTOU = tou;
-    this->baseATT = att;
-    this->baseDEF = def;
-    this->baseMAG = mag;
-    this->baseWIL = wil;
-    this->baseMV = inMV;
-    this->XP_value = inXP;
-    this->name = inName;
-    this->Level = inLVL;
+const char *inName) :
+    Level(inLVL),
+    XP_value(inXP),
+    name(inName),
+    symbol(inSymbol),
+    colour(inCol),
+    baseHP(hp),
+    baseMP(mp),
+    baseSTR(str),
+    baseTOU(tou),
+    baseATT(att),
+    baseDEF(def),
+    baseMAG(mag),
+    baseWIL(wil),
+    baseMV(inMV),
+    baseSIGHT(inSight),
+    category(inCat) {
 }
