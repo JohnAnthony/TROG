@@ -1,8 +1,10 @@
 #include "enemy_type.hpp"
 
 EnemyType::EnemyType(unsigned int inLVL, char inSymbol, Colour inCol,
-  int inSight, int hp, int mp, int str, int tou, int att, int def, int mag,
-  int wil, int inMV, unsigned int inXP, const char *inName) {
+int inSight, int hp, int mp, int str, int tou, int att, int def, int mag,
+int wil, int inMV, unsigned int inXP, EnemyType::Category inCat,
+const char *inName) {
+    this->category = inCat;
     this->symbol = inSymbol;
     this->colour = inCol;
     this->baseSIGHT = inSight;
