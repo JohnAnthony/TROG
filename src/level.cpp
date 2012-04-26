@@ -503,7 +503,7 @@ Level::RemoveEnemy(Enemy *e) {
 }
 
 void
-Level::GiveEnemiesTurn(Character *c) {
+Level::GiveEnemiesTurns(Character *c, int n) {
     for (std::list<Enemy>::iterator it = this->enemies.begin();
     it != this->enemies.end(); it++) {
 
@@ -515,7 +515,7 @@ Level::GiveEnemiesTurn(Character *c) {
         }
 
         if (it->isActive)
-            it->mv_energy += c->curMV;
+            it->mv_energy += c->curMV * n;
         if (it->mv_energy >= it->parent_type->baseMV)
             this->EnemyAdvance(&*it, c);
     }

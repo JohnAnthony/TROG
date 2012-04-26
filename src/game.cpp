@@ -268,7 +268,7 @@ Game::HandleInput(int c) {
             }
             else if (c == '\n') {
                 this->character->DrinkPotion(this->PotionSelectMenu->Selection());
-                this->cur_level->GiveEnemiesTurn(this->character);
+                this->cur_level->GiveEnemiesTurns(this->character, 1);
                 GUI::DoRedraw();
                 return GameMode::MAP_WALK;
             }
@@ -289,7 +289,7 @@ Game::HandleInput(int c) {
             }
             else if (c == '\n') {
                 this->character->ReadBookOrScroll(this->BookSelectMenu->Selection());
-                this->cur_level->GiveEnemiesTurn(this->character);
+                this->cur_level->GiveEnemiesTurns(this->character, 1);
                 GUI::DoRedraw();
                 return GameMode::MAP_WALK;
             }
@@ -310,7 +310,7 @@ Game::HandleInput(int c) {
             }
             else if (c == '\n') {
                 this->HandleEquipSelection(this->EquipSelectMenu->Selection());
-                this->cur_level->GiveEnemiesTurn(this->character);
+                this->cur_level->GiveEnemiesTurns(this->character, 1);
                 GUI::DoRedraw();
             }
             break;
@@ -446,7 +446,7 @@ Game::MoveCharacter(Direction::Type d) {
         return;
 
     GUI::DoRedraw();
-    this->cur_level->GiveEnemiesTurn(c);
+    this->cur_level->GiveEnemiesTurns(c, 1);
     GUI::DoRedraw();
 }
 
@@ -530,7 +530,7 @@ Game::DoPickup(void) {
             this->character->ItemToInventory(item);
         GUI::AddMessage(ss.str());
         this->cur_level->items.erase(it);
-        this->cur_level->GiveEnemiesTurn(this->character);
+        this->cur_level->GiveEnemiesTurns(this->character, 1);
     }
 }
 
@@ -585,7 +585,7 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
 
 void
 Game::DoWait(void) {
-    this->cur_level->GiveEnemiesTurn(this->character);
+    this->cur_level->GiveEnemiesTurns(this->character, 1);
     GUI::DoRedraw();
 }
 

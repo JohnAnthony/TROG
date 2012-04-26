@@ -41,6 +41,9 @@ class Spell {
     static void Ice_Bolt(Game *g);
     static void Fire_Burst(Game *g);
     static void Ice_Burst(Game *g);
+
+    //Helper generic spells
+    static void GenericHeal(Character *c, int potency);
 };
 
 static Spell FolkSpells[] = {

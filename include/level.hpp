@@ -40,7 +40,7 @@ class Level {
     void EnemySpawn(Rect *r);
     void RemoveEnemy(Enemy *e);
     std::string DescriptionOfTile(Point p, Game *g);
-    void GiveEnemiesTurn(Character *c);
+    void GiveEnemiesTurns(Character *c, int n);
     void EnemyAdvance(Enemy *e, Character *c);
     Enemy* GetEnemy(Point p);
     Item* GetItem(Point p);

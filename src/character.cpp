@@ -665,6 +665,11 @@ Character::GiveAllSpells(void) {
         this->AddSpell(&ElfSpells[i]);
 }
 
+int
+Character::getCurHP(void) {
+    return this->curHP;
+}
+
 Character::~Character(void) {
     Item *item;
     for (std::list<Item*>::iterator it = this->Inventory.begin();
