@@ -18,22 +18,22 @@ class EnemyType {
     int hp, int mp, int str, int tou, int att, int def, int mag, int wil,
     int inMV, unsigned int inXP, EnemyType::Category inCat, const char *inName);
 
-    unsigned int Level;
-    unsigned int XP_value;
+    const unsigned int Level;
+    const unsigned int XP_value;
     const char *name;
-    char symbol;
-    Colour colour;
-    int baseHP;
-    int baseMP;
-    int baseSTR;
-    int baseTOU;
-    int baseATT;
-    int baseDEF;
-    int baseMAG;
-    int baseWIL;
-    int baseMV;
-    int baseSIGHT;
-    EnemyType::Category category;
+    const char symbol;
+    const Colour colour;
+    const int baseHP;
+    const int baseMP;
+    const int baseSTR;
+    const int baseTOU;
+    const int baseATT;
+    const int baseDEF;
+    const int baseMAG;
+    const int baseWIL;
+    const int baseMV;
+    const int baseSIGHT;
+    const EnemyType::Category category;
 };
 
 static EnemyType EnemyTypeList[] = {
