@@ -47,6 +47,7 @@ Mode Independent / Mode Change
     p   = Drink a potion
     r   = Read book/scroll
     g   = Gear Screen (Switching up equipment)
+    R   = Rename character
     ?   = Game Info
     F1  = Help text (Not implemented)
     F4  = Force Redraw

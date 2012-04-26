@@ -3,14 +3,23 @@
 
 #include <string>
 
+/* Useful macros */
 #define MAX(x, y)   ((x > y) ? x : y )
 #define MIN(x, y)   ((x < y) ? x : y )
 #define LENGTH(X)   (sizeof X / sizeof X[0])
 #define ABS(x)  ((x < 0) ? -x : x)
 #define RANDOM_IN_RANGE(min, max)   ((rand() % (max - min)) + min)
 
-namespace Direction {
-    typedef enum {
+/*
+=================================================
+TROG
+Direction, Inventory Slots
+=================================================
+*/
+namespace Direction
+{
+    typedef enum
+    {
         NORTH,
         SOUTH,
         EAST,
@@ -23,7 +32,8 @@ namespace Direction {
     } Type;
 }
 
-typedef enum {
+typedef enum
+{
     HEAD,
     BODY,
     WEAPON,
@@ -36,26 +46,30 @@ typedef enum {
     LAST_EQUIP_LOCATION
 } EquipLocations;
 
-struct Rect {
+struct Rect
+{
     int x;
     int y;
     int w;
     int h;
 };
 
-struct Range {
+struct Range
+{
     int start;
     int end;
 };
 
-class Point {
+class Point
+{
     public:
     bool operator==(Point const& other);
     int x;
     int y;
 };
 
-enum Colour {
+enum Colour
+{
     COL_WHITE = 0,
     COL_RED = 1,
     COL_GREEN = 2,

@@ -4,9 +4,17 @@
 #include "item.hpp"
 #include <string>
 
-class Equippable : public Item {
+/*
+=================================================
+TROG
+Equippable ingame items
+=================================================
+*/
+class Equippable : public Item
+{
     public:
-    enum Category {
+    enum Category
+    {
         DAGGER,
         SHORT_SWORD,
         LONGSWORD,

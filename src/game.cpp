@@ -20,6 +20,7 @@
 #define KEYS_READING_SELECT     'r'
 #define KEYS_GEAR_SELECT        'g'
 #define KEYS_SPELL_SELECT       'm'
+#define KEYS_RENAME_ONCE        'R'
 
 Game::Game(Character *c) {
     this->character = c;
@@ -50,8 +51,9 @@ Game::Game(Character *c) {
 bool
 Game::Run(void) {
     int c;
+    int rename_counter = 0;
     GameMode::Type new_gamemode;
-
+    
     new_gamemode = GameMode::LAST_MODE;
     GUI::DrawLevel(this->cur_level);
 
@@ -84,6 +86,12 @@ Game::Run(void) {
             new_gamemode = GameMode::GEAR_SELECT;
         else if (c == KEYS_SPELL_SELECT)
             new_gamemode = GameMode::SPELL_SELECT;
+        else if (c == KEYS_RENAME_ONCE && rename_counter < 2)
+        {
+            /* One rename, that's all you get per game. */
+            rename_counter++;
+            new_gamemode = GameMode::CHARACTER_RENAME_ONCE;
+        }
         else    // Not a mode change. Handle input based upon mode
             new_gamemode = this->HandleInput(c);
 
@@ -163,6 +171,9 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             this->SpellSelectMenu->Reset();
             this->RepopulateSpellMenu();
             this->SpellSelectMenu->Show();
+            break;
+        case GameMode::CHARACTER_RENAME_ONCE:
+            GUI::CharacterRename(this);
             break;
         case GameMode::LAST_MODE:
         default:

@@ -14,22 +14,31 @@
 #define MAP_W   100
 #define MAP_H   50
 
+/*
+=================================================
+TROG
+InGame depth level methods
+=================================================
+*/
 typedef Rect Room;
 
 class Game;
 
-struct Corridor {
+struct Corridor
+{
     Rect pos;
     Direction::Type direction;
 };
 
-struct RoomText {
+struct RoomText
+{
     Rect pos;
     char const * const * text;
     bool seen;
 };
 
-class Level {
+class Level
+{
     public:
     Level(Level* parent);
     ~Level(void);

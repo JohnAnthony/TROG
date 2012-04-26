@@ -11,7 +11,14 @@
 #include <string>
 #include <list>
 
-typedef struct {
+/*
+=================================================
+TROG
+Character Attributes and Stats
+=================================================
+*/
+typedef struct
+{
     int hp;
     int mp;
     int str;
@@ -29,9 +36,17 @@ class Potion;
 class StatTome;
 class Spell;
 
-class Character {
+/*
+=================================================
+TROG
+Character system
+=================================================
+*/
+class Character
+{
     public:
-    typedef enum {
+    typedef enum
+    {
         BARBARIAN,
         CLERIC,
         DRUID,
@@ -41,8 +56,11 @@ class Character {
         THIEF,
         WIZARD,
         LAST_CLASS
-    } Class;
-    typedef enum {
+    }
+    Class;
+
+    typedef enum
+    {
         DWARF,
         ELF,
         GREY_ORC,
@@ -92,11 +110,9 @@ class Character {
     void AddSpell(Spell *sp);
     void GiveAllSpells(void);
 
-    //Getters(!)
     int getXP(void);
     int getCurHP(void);
     int getGold(void);
-
     char symbol;
     Colour colour;
     Point pos;
@@ -110,15 +126,15 @@ class Character {
     std::list<Spell*> SpellList;
     Equippable *equipment[LAST_EQUIP_LOCATION];
 
-    int baseHP, curHP;
-    int baseMP, curMP;
+    int baseHP,  curHP;
+    int baseMP,  curMP;
     int baseSTR, curSTR;
     int baseTOU, curTOU;
     int baseATT, curATT;
     int baseDEF, curDEF;
     int baseMAG, curMAG;
     int baseWIL, curWIL;
-    int baseMV, curMV;
+    int baseMV,  curMV;
     int baseSIGHT, curSIGHT;
 
     unsigned int deepest_visited;
