@@ -541,7 +541,7 @@ Game::HandleResize(int signal) {
 }
 
 void
-Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
+Game::DoAttack(Character *c, Enemy *e) {
     std::stringstream ss;
     int dam;
 
@@ -582,6 +582,45 @@ Game::DoAttack(Character *c, Enemy *e) { // Player -> Enemy version
 
     GUI::AddMessage(ss.str());
 }
+
+void
+Game::DoMagicAttack(Character *c, Enemy *e) {
+    std::stringstream ss;
+    int dam;
+
+    e->isActive = true;
+
+    // Handle the attack
+    dam = rand() % c->curMAG + rand() % c->curMAG - rand() % e->parent_type->baseWIL;
+    if (dam <= 0) {
+        ss << "Your magical attack fails to damage " << e->Description();
+        GUI::AddMessage(ss.str());
+        return;
+    }
+
+    // Handle the effects of the attack
+    if (dam > 0) {
+        ss << "Your magic does " << dam << " damage to " << e->Description();
+        e->TakeDamage(dam);
+        if (!e->isAlive()) {
+            c->monsters_killed ++;
+            if (!c->toughest_defeated)
+                c->toughest_defeated = e->parent_type;
+            else if (e->parent_type->XP_value > c->toughest_defeated->XP_value)
+                c->toughest_defeated = e->parent_type;
+            ss << " ... and kills it!";
+            this->cur_level->RemoveEnemy(e);
+            c->GiveXP(e->parent_type->XP_value);
+            // Don't need this.
+            //Level::RedrawEnemy should just redraw the one tile
+            //But this is the quick and dirty way
+            GUI::DoRedraw(); 
+        }
+    }
+
+    GUI::AddMessage(ss.str());
+}
+
 
 void
 Game::DoWait(void) {

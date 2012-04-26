@@ -40,6 +40,7 @@ class Game {
     void DoPickup(void);
     void HandleResize(int signal);
     void DoAttack(Character *c, Enemy *e);
+    void DoMagicAttack(Character *c, Enemy *e);
     void DoWait(void);
     void RepopulatePotionMenu(void);
     void RepopulateBookMenu(void);

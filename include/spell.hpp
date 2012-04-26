@@ -7,40 +7,40 @@ class Game;
 
 class Spell {
     public:
-    Spell(void (*infunc)(Game *g), const char *inName, int inMPCost,
+    Spell(const void (*infunc)(Game *g), const char *inName, int inMPCost,
         int inXPCost, const char *inDescript);
 
-    void (*function)(Game *g);
-    unsigned int MPcost;
-    unsigned int XPcost;
+    const void (*function)(Game *g);
+    const unsigned int MPcost;
+    const unsigned int XPcost;
     char const * const name;
     char const * const description;
 
     //Spell-specific functions
     //Folk
-    static void Hearth_Heal(Game *g);
+    static const void Hearth_Heal(Game *g);
     //Elf
-    static void Minor_Sight(Game *g);
-    static void Major_Sight(Game *g);
-    static void Greater_Sight(Game *g);
+    static const void Minor_Sight(Game *g);
+    static const void Major_Sight(Game *g);
+    static const void Greater_Sight(Game *g);
     //Divine
-    static void Minor_Heal(Game *g);
-    static void Lesser_Heal(Game *g);
-    static void Light_Heal(Game *g);
-    static void Moderate_Heal(Game *g);
-    static void Average_Heal(Game *g);
-    static void Strong_Heal(Game *g);
-    static void Major_Heal(Game *g);
-    static void Greater_Heal(Game *g);
-    static void Turning_Touch(Game *g);
-    static void Turn_Undead(Game *g);
+    static const void Minor_Heal(Game *g);
+    static const void Lesser_Heal(Game *g);
+    static const void Light_Heal(Game *g);
+    static const void Moderate_Heal(Game *g);
+    static const void Average_Heal(Game *g);
+    static const void Strong_Heal(Game *g);
+    static const void Major_Heal(Game *g);
+    static const void Greater_Heal(Game *g);
+    static const void Turning_Touch(Game *g);
+    static const void Turn_Undead(Game *g);
     //Arcane
-    static void Fire_Touch(Game *g);
-    static void Chill_Touch(Game *g);
-    static void Fire_Bolt(Game *g);
-    static void Ice_Bolt(Game *g);
-    static void Fire_Burst(Game *g);
-    static void Ice_Burst(Game *g);
+    static const void Fire_Touch(Game *g);
+    static const void Chill_Touch(Game *g);
+    static const void Fire_Bolt(Game *g);
+    static const void Ice_Bolt(Game *g);
+    static const void Fire_Burst(Game *g);
+    static const void Ice_Burst(Game *g);
 
     //Helper generic spells
     static void GenericHeal(Character *c, int potency);
@@ -68,7 +68,7 @@ Spell(Spell::Average_Heal,  "Average Heal",     50,     5000,   "Average instant
 Spell(Spell::Strong_Heal,   "Strong Heal",      80,     8000,   "Strong instant healing"),
 Spell(Spell::Major_Heal,    "Major Heal",       100,    10000,  "Major instant healing"),
 Spell(Spell::Greater_Heal,  "Greater Heal",     150,    15000,  "Greater instant healing"),
-Spell(Spell::Turning_Touch, "Turning Touch",    150,    180,    "Turns a single touched undead"),
+Spell(Spell::Turning_Touch, "Turning Touch",    2,      180,    "Turns a single touched undead"),
 Spell(Spell::Turn_Undead,   "Turn Undead",      10,     1000,   "Turns all undead within 5 squares")
 };
 

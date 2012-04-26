@@ -37,7 +37,7 @@ class EnemyType {
 };
 
 static EnemyType EnemyTypeList[] = {
-        //lvl   sym     col         sight   hp  mp  str tou att def mag wil mv      xp      name
+        //lvl   sym     col         sight   hp  mp  str tou att def mag wil mv      xp      category            name
 EnemyType(1,    'z',    COL_GREEN,  10,     5,  0,  10, 5,  10, 5,  0,  5,  1500,   55,     EnemyType::UNDEAD,  "Decrepit Zombie"),
 EnemyType(1,    'r',    COL_YELLOW, 10,     5,  0,  10, 5,  10, 5,  0,  5,  1100,   65,     EnemyType::MAMMAL,  "Giant Rat"),
 EnemyType(1,    'a',    COL_RED,    10,     5,  0,  10, 5,  10, 5,  0,  5,  1100,   65,     EnemyType::INSECT,  "Giant Fire Ant"),

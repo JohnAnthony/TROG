@@ -48,6 +48,7 @@ class GUI {
     static void InfoScreen(Spell *sp);
     static void HardRedraw(void);
     static void ShowTombstone(Game *g);
+    static Direction::Type GetDirection(void);
 
     static int NUM_COLOURS;
 

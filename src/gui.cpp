@@ -1164,3 +1164,43 @@ GUI::ShowTombstone(Game *g) {
     refresh();
     delwin(w);
 }
+
+Direction::Type
+GUI::GetDirection(void) {
+    int c;
+
+    GUI::DrawLevel(g->cur_level);
+    GUI::SetStatus("Cast in which direction?");
+    while (1) {
+        c = getch();
+        switch (c) {
+            case '7':
+            case 'q':
+                return Direction::NW;
+            case '8':
+            case 'w':
+                return Direction::NORTH;
+            case '9':
+            case 'e':
+                return Direction::NE;
+            case '4':
+            case 'a':
+                return Direction::WEST;
+            case '6':
+            case 'd':
+                return Direction::EAST;
+            case '1':
+            case 'z':
+                return Direction::SW;
+            case '2':
+            case 'x':
+                return Direction::SOUTH;
+            case '3':
+            case 'c':
+                return Direction::SE;
+            default:
+                break;
+        }
+    }
+    return Direction::LAST_DIRECTION;
+}
