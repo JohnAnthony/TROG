@@ -106,10 +106,38 @@ Spell::Turn_Undead(Game *g) {}
 //Arcane
 const void
 Spell::Fire_Touch(Game *g) {
+    Direction::Type d;
+    Point p;
+    Enemy *target;
+
+    d = GUI::GetDirection();
+    p = GetRelativePoint(d, g->character->pos);
+    target = g->cur_level->GetEnemy(p);
+
+    if (!target) {
+        GUI::AddMessage("Your spell finds no target");
+        return;
+    }
+
+    g->DoMagicAttack(g->character, target);
 }
 
 const void
 Spell::Chill_Touch(Game *g) {
+    Direction::Type d;
+    Point p;
+    Enemy *target;
+
+    d = GUI::GetDirection();
+    p = GetRelativePoint(d, g->character->pos);
+    target = g->cur_level->GetEnemy(p);
+
+    if (!target) {
+        GUI::AddMessage("Your spell finds no target");
+        return;
+    }
+
+    g->DoMagicAttack(g->character, target);
 }
 
 const void
