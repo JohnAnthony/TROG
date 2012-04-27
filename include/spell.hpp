@@ -44,6 +44,7 @@ class Spell {
 
     //Helper generic spells
     static void GenericHeal(Character *c, int potency);
+    static void GenericTouch(Game *g);
 };
 
 static Spell FolkSpells[] = {

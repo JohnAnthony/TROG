@@ -19,11 +19,13 @@ IF YOU HAVE PROBLEMS PLEASE MAKE SURE YOUR GCC AND LIBNCURSES ARE UP TO DATE
 Your Terminal And You
 ---------------------
 
-TROG assumes you have at least a 16-colour terminal. You may find it to your
-liking to tweak colours to match how you like to play. If you are on an 8-colour
-terminal you can pass TROG the flag -8 to make it play nice. The game also
-expects at least an 80x25 terminal and can't operate on sizes smaller than that.
-The program will gracefully quit in such a situation.
+Most terminals have colour 8 set as a plain black. If your terminal is set up
+with colour 8 as a shade of grey and you would like your floor tiles to be a
+different colour to the walls you can enable this by passing TROG the -8 flag.
+TROG will default to only using the basic 8 colours, however.
+
+The game also expects at least an 80x25 terminal and can't operate on sizes
+smaller than that. The program will gracefully quit in such a situation.
 
 Resizing can cause graphical anomalies. If you really have to resize your
 terminal while you're playing you can force a hard redraw by pressing F4 at any

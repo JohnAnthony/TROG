@@ -16,7 +16,7 @@ int inXPCost, const char *inDescript) :
 const void
 Spell::Hearth_Heal(Game *g) {
     Spell::GenericHeal(g->character, 1);
-    g->cur_level->GiveEnemiesTurns(g->character, 10);   
+    g->cur_level->GiveEnemiesTurns(g->character, 10);
 }
 
 //Elf
@@ -44,37 +44,37 @@ Spell::Lesser_Heal(Game *g) {
 const void
 Spell::Light_Heal(Game *g) {
     Spell::GenericHeal(g->character, 3);
-    g->cur_level->GiveEnemiesTurns(g->character, 1);   
+    g->cur_level->GiveEnemiesTurns(g->character, 1);
 }
 
 const void
 Spell::Moderate_Heal(Game *g) {
     Spell::GenericHeal(g->character, 4);
-    g->cur_level->GiveEnemiesTurns(g->character, 1);   
+    g->cur_level->GiveEnemiesTurns(g->character, 1);
 }
 
 const void
 Spell::Average_Heal(Game *g) {
     Spell::GenericHeal(g->character, 5);
-    g->cur_level->GiveEnemiesTurns(g->character, 1);   
+    g->cur_level->GiveEnemiesTurns(g->character, 1);
 }
 
 const void
 Spell::Strong_Heal(Game *g) {
     Spell::GenericHeal(g->character, 6);
-    g->cur_level->GiveEnemiesTurns(g->character, 1);   
+    g->cur_level->GiveEnemiesTurns(g->character, 1);
 }
 
 const void
 Spell::Major_Heal(Game *g) {
     Spell::GenericHeal(g->character, 7);
-    g->cur_level->GiveEnemiesTurns(g->character, 1);   
+    g->cur_level->GiveEnemiesTurns(g->character, 1);
 }
 
 const void
 Spell::Greater_Heal(Game *g) {
     Spell::GenericHeal(g->character, 8);
-    g->cur_level->GiveEnemiesTurns(g->character, 1);   
+    g->cur_level->GiveEnemiesTurns(g->character, 1);
 }
 
 const void
@@ -106,38 +106,12 @@ Spell::Turn_Undead(Game *g) {}
 //Arcane
 const void
 Spell::Fire_Touch(Game *g) {
-    Direction::Type d;
-    Point p;
-    Enemy *target;
-
-    d = GUI::GetDirection();
-    p = GetRelativePoint(d, g->character->pos);
-    target = g->cur_level->GetEnemy(p);
-
-    if (!target) {
-        GUI::AddMessage("Your spell finds no target");
-        return;
-    }
-
-    g->DoMagicAttack(g->character, target);
+    Spell::GenericTouch(g);
 }
 
 const void
 Spell::Chill_Touch(Game *g) {
-    Direction::Type d;
-    Point p;
-    Enemy *target;
-
-    d = GUI::GetDirection();
-    p = GetRelativePoint(d, g->character->pos);
-    target = g->cur_level->GetEnemy(p);
-
-    if (!target) {
-        GUI::AddMessage("Your spell finds no target");
-        return;
-    }
-
-    g->DoMagicAttack(g->character, target);
+    Spell::GenericTouch(g);
 }
 
 const void
@@ -166,4 +140,22 @@ Spell::GenericHeal(Character *c, int potency) {
         effect += rand() % 8 + 1;
 
     c->Heal(effect);
+}
+
+void
+Spell::GenericTouch(Game *g) {
+    Direction::Type d;
+    Point p;
+    Enemy *target;
+
+    d = GUI::GetDirection();
+    p = GetRelativePoint(d, g->character->pos);
+    target = g->cur_level->GetEnemy(p);
+
+    if (!target) {
+        GUI::AddMessage("Your spell finds no target");
+        return;
+    }
+
+    g->DoMagicAttack(g->character, target);
 }

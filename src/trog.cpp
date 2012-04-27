@@ -31,11 +31,14 @@ static void
 handle_args(int argc, char **argv) {
     int i;
 
-    colours = 16;
-    while ((i = getopt (argc, argv, "8")) != -1)
+    colours = 8;
+    while ((i = getopt (argc, argv, "86")) != -1)
         switch (i) {
             case '8':
                 colours = 8;
+                break;
+            case '6':
+                colours = 16;
                 break;
             case '?':
                 if (isprint (optopt))
