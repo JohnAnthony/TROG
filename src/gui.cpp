@@ -491,6 +491,19 @@ GUI::FancyClear(void) {
 }
 
 void
+GUI::CharacterRename(Game *g) {
+    std::string newname;
+    Character *chr = g->character;
+
+    newname = GUI::GetString("Enter the new character name: ");
+    if (newname == "") {
+        GUI::Alert("You can't have an empty name. Using the old name.");
+        newname = g->character->name;
+    }
+    chr->name = newname;
+}
+
+void
 GUI::ShowCharacterScreen(Character *c) {
     WINDOW *w;
     Rect pos;
