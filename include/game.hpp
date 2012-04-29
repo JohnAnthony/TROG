@@ -20,7 +20,6 @@ namespace GameMode {
         POTION_SELECT,
         READING_SELECT,
         GEAR_SELECT,
-        RENAME_CHARACTER,
         SPELL_SELECT,
         LAST_MODE
     } Type;

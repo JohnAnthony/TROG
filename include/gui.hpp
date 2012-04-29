@@ -33,7 +33,7 @@ class GUI {
     static void ShowInventoryScreen(Character *c);
     static void CharacterStatusLine(Character *c);
     static void ShowInfoScreen(Game *g);
-    static void CharacterRename(Game *g);
+    static void CharacterRename(Character *c);
     static void QuitDialogue(Game *g);
     static void DrawAsOverlay(Point p, char c, int col);
     static bool isOnScreen(Point p);

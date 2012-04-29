@@ -20,7 +20,6 @@
 #define KEYS_READING_SELECT     'r'
 #define KEYS_GEAR_SELECT        'g'
 #define KEYS_SPELL_SELECT       'm'
-#define KEYS_RENAME_CHARACTER   'R'
 
 Game::Game(Character *c) {
     this->character = c;
@@ -85,8 +84,6 @@ Game::Run(void) {
             new_gamemode = GameMode::GEAR_SELECT;
         else if (c == KEYS_SPELL_SELECT)
             new_gamemode = GameMode::SPELL_SELECT;
-        else if (c == KEYS_RENAME_CHARACTER)
-            new_gamemode = GameMode::RENAME_CHARACTER;
         else    // Not a mode change. Handle input based upon mode
             new_gamemode = this->HandleInput(c);
 
@@ -166,9 +163,6 @@ Game::SwitchGameMode(GameMode::Type gmt) {
             this->SpellSelectMenu->Reset();
             this->RepopulateSpellMenu();
             this->SpellSelectMenu->Show();
-            break;
-        case GameMode::RENAME_CHARACTER:
-            GUI::CharacterRename(this);
             break;
         case GameMode::LAST_MODE:
         default:
@@ -257,6 +251,10 @@ Game::HandleInput(int c) {
         case GameMode::INFO_SCREEN:
             break;
         case GameMode::CHARACTER_SCREEN:
+            if (c == 'R') {
+                GUI::CharacterRename(this->character);
+                GUI::DoRedraw();
+            }
             break;
         case GameMode::POTION_SELECT:
             if (c == KEY_UP)
