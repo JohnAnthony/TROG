@@ -2,9 +2,10 @@ COMPILATION INSTRUCTIONS
 ========================
 
 PLEASE use an up-to-date compiler. This project uses a bunch of C++0x features
-and older versions of GCC won't compile it. I suggest AT LEAST 4.4.0. Clang also
-has been shown to compile from version 3.0 or later, although I'm making no
-guarantees.
+and older versions of GCC won't compile it. I suggest AT LEAST 4.4.0. That's a
+three year old compiler so you shouldn't (hopefully) be using anything older 
+than that. Debian Stable ships with 4.4.4. Clang also has been shown to compile 
+from version 3.0 or later, although I'm making no guarantees.
 
 Dependencies
 ------------
