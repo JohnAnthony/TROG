@@ -5,7 +5,6 @@
 #include <sstream>
 #include <cstring>
 #include <iostream>
-#include "algorithms.hpp"
 
 #define NOISE_CHARACTER  '#'
 
@@ -149,7 +148,7 @@ GUI::CharacterCreation(void) {
 
     if (name == "") {
         GUI::Alert("You can't have a nameless character. A name will be generated for you!");
-        name = RandomNameGenerator();
+        name = Character::MakeRandomName();
     }
 
     return new Character(name, race, cclass);
