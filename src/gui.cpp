@@ -5,6 +5,7 @@
 #include <sstream>
 #include <cstring>
 #include <iostream>
+#include "algorithms.hpp"
 
 #define NOISE_CHARACTER  '#'
 
@@ -147,8 +148,8 @@ GUI::CharacterCreation(void) {
     name = GUI::GetString("Please enter a name:");
 
     if (name == "") {
-        GUI::Alert("You can't have no name. Setting your name to the default: 'Anonymous Trogger'.");
-        name = "Anonymous Trogger";
+        GUI::Alert("You can't have a nameless character. A name will be generated for you!");
+        name = RandomNameGenerator();
     }
 
     return new Character(name, race, cclass);
