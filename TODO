@@ -33,6 +33,7 @@
 -- Optional character dump after death
 -- Rework potion potency?
 -- Rings
+-- Round out our new random name generation with a chance for surnames and race-specific coolness
 -- Shift character attacks to character class
 -- Shops (and an excuse for there to be shops in a dungeon)
 -- Status effects as a LL (ability mod or other special effects and TTL)
