@@ -137,6 +137,7 @@ Character*
 GUI::CharacterCreation(void) {
     Character::Race race;
     Character::Class cclass;
+    Character *c;
     std::string name;
 
     GUI::ShowSplash();
@@ -146,12 +147,13 @@ GUI::CharacterCreation(void) {
     GUI::ShowSplash();
     name = GUI::GetString("Please enter a name:");
 
-    if (name == "") {
+    c = new Character(name, race, cclass);
+    if (c->name == "") {
         GUI::Alert("You can't have a nameless character. A name will be generated for you!");
-        name = Character::MakeRandomName();
+        c->GiveRandomName();
     }
 
-    return new Character(name, race, cclass);
+    return c;
 }
 
 Character::Race

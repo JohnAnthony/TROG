@@ -91,7 +91,7 @@ class Character {
     void GiveGold(unsigned int n);
     void AddSpell(Spell *sp);
     void GiveAllSpells(void);
-    static std::string MakeRandomName(void);
+    void GiveRandomName(void);
 
     //Getters(!)
     int getXP(void);

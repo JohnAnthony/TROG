@@ -715,52 +715,49 @@ Character::~Character(void) {
         delete this->equipment[NECK];
 }
 
-std::string
-Character::MakeRandomName(void) {
+void
+Character::GiveRandomName(void) {
     const char Vowels[]  = { 'a', 'e', 'i', 'o', 'u' };
     const char Conson[] = { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 
         'n', 'p', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'};
-    std::string str;
     char ch;
 
     /* The form of the names will be VCC-VCV or CVC-CVC. */
-    str = "";
+    this->name = "";
 
     int j = rand() % 2;
-    while (str.size() < 7) {
+    while (this->name.size() < 7) {
         /* Name starts with a vowel. */
         if (j) {
             ch = toupper(Vowels[(rand() % 5)]);
-            str.append(1, ch);
+            this->name.append(1, ch);
             ch = Conson[(rand() % 19)];
-            str.append(1, ch);
+            this->name.append(1, ch);
             ch = Conson[(rand() % 19)];
-            str.append(1, ch);
+            this->name.append(1, ch);
             ch = Vowels[(rand() % 5)];
-            str.append(1, ch);
+            this->name.append(1, ch);
             ch = Conson[(rand() % 19)];
-            str.append(1, ch);
+            this->name.append(1, ch);
             ch = Vowels[(rand() % 5)];
-            str.append(1, ch);
+            this->name.append(1, ch);
             break;
         }
         else {
-            /* str starts with a consonate. */
+            /* this->name starts with a consonate. */
             ch = toupper(Conson[(rand() % 19)]);
-            str.append(1, ch);
+            this->name.append(1, ch);
             ch = Vowels[(rand() % 5)];
-            str.append(1, ch);
+            this->name.append(1, ch);
             ch = Conson[(rand() % 19)];
-            str.append(1, ch);
+            this->name.append(1, ch);
             ch = Conson[(rand() % 19)];
-            str.append(1, ch);
+            this->name.append(1, ch);
             ch = Vowels[(rand() % 5)];
-            str.append(1, ch);
+            this->name.append(1, ch);
             ch = Conson[(rand() % 19)];
-            str.append(1, ch);
+            this->name.append(1, ch);
             break;
         }
     }
-
-    return str;
 }
