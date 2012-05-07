@@ -11,6 +11,7 @@
 -- Add "v to view info" class descriptions in character creation screen
 -- Add MINIMUM level to monster spawn algorithm
 -- Add killcount and toughest kill stats
+-- Add kobolds and goblins because no RPG is complete without them
 -- Alcoholic drinks and dwarven affinity for them
 -- Basic healing magic
 -- Basic missile attack magic
