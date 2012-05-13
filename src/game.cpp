@@ -63,9 +63,8 @@ Game::Run(void) {
             GUI::QuitDialogue(this);
         else if (c == KEY_F(8))
             Debug::DebugConsole(this);
-        else if (c == KEY_F(4)) {
+        else if (c == KEY_F(4))
             GUI::HardRedraw();
-        }
         else if (c == KEYS_LOOK)
             new_gamemode = GameMode::MAP_LOOK;
         else if (c == KEYS_INVENTORY)
