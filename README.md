@@ -1,38 +1,18 @@
-COMPILATION INSTRUCTIONS
-========================
-
-PLEASE use an up-to-date compiler. This project uses a bunch of C++0x features
-and older versions of GCC won't compile it. I suggest AT LEAST 4.4.0. That's a
-three year old compiler so you shouldn't (hopefully) be using anything older 
-than that. Debian Stable ships with 4.4.4. Clang also has been shown to compile 
-from version 3.0 or later, although I'm making no guarantees.
-
-Dependencies
-------------
-
-Any version of ncurses from the last 10 years should do you. Do remember to get
-the -devel package if you're using a Debian-based system (i.e. Ubuntu). I'm not
-going to guarantee backwards compatibility for anything older than libncurses
-5.9, though.
-
-IF YOU HAVE PROBLEMS PLEASE MAKE SURE YOUR GCC AND LIBNCURSES ARE UP TO DATE
-
 Your Terminal And You
----------------------
+=====================
 
 Most terminals have colour 8 set as a plain black. If your terminal is set up
 with colour 8 as a shade of grey and you would like your floor tiles to be a
 different colour to the walls you can enable this by passing TROG the -8 flag.
-TROG will default to only using the basic 8 colours, however.
+TROG will then use the basic 8 colours.
 
 The game also expects at least an 80x25 terminal and can't operate on sizes
 smaller than that. The program will gracefully quit in such a situation.
 
-Resizing can cause graphical anomalies. If you really have to resize your
-terminal while you're playing you can force a hard redraw by pressing F4 at any
-of the main play mode screens. The game MAY automatically handle this itself,
-but it relies upon your libncurses being compiled with the --enable-sigwinch
-flag and I bet you don't know if it is or not.
+Resizing can cause graphical anomalies. You can force a hard redraw by pressing
+F4 at any of the main play mode screens. The game may automatically handle this
+itself, but it relies upon your libncurses being compiled with the
+--enable-sigwinch flag, which can vary between distributions.
 
 ---------------------------------------
 
