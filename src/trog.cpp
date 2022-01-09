@@ -32,7 +32,7 @@ handle_args(int argc, char **argv) {
     int i;
 
     colours = 8;
-    while ((i = getopt (argc, argv, "86")) != -1)
+    while ((i = getopt (argc, argv, "86h")) != -1)
         switch (i) {
             case '8':
                 colours = 8;
@@ -47,6 +47,8 @@ handle_args(int argc, char **argv) {
                     fprintf(stderr, "Unknown option character `\\x%x'.\n",
                         optopt);
                 }
+            case 'h':
+                fprintf(stderr, "    8: 8 colors\n    6: 16 colors\n    h: print this message");
                 exit(1);
             default:
                 exit(1);
