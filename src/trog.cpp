@@ -44,11 +44,24 @@ handle_args(int argc, char **argv) {
                 if (isprint (optopt))
                     fprintf(stderr, "Unknown option `-%c'.\n", optopt);
                 else {
-                    fprintf(stderr, "Unknown option character `\\x%x'.\n",
+                    fprintf(stderr, "Unknown option character `\\x%x'.\n\n",
                         optopt);
                 }
             case 'h':
-                fprintf(stderr, "    8: 8 colors\n    6: 16 colors\n    h: print this message");
+                fprintf(stderr, "Switches:\n  -8: 8 colors\n");
+                fprintf(stderr, "  -6: 16 colors\n");
+                fprintf(stderr, "  -h: print this message\n\n");
+                fprintf(stderr, "Keys:\n  `   = Switch to Movement Mode\n");
+                fprintf(stderr, "  l   = Look around\n");
+                fprintf(stderr, "  @   = Character Screen\n");
+                fprintf(stderr, "  i   = Inventory Screen\n");
+                fprintf(stderr, "  p   = Drink a potion\n");
+                fprintf(stderr, "  r   = Read book/scroll\n");
+                fprintf(stderr, "  g   = Gear Screen (Switching up equipment)\n");
+                fprintf(stderr, "  ?   = Game Info\n");
+                fprintf(stderr, "  F1  = Help text (Not implemented)\n");
+                fprintf(stderr, "  F4  = Force Redraw\n");
+                fprintf(stderr, "  F12 = Quit\n");
                 exit(1);
             default:
                 exit(1);
