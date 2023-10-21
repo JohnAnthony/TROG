@@ -11,6 +11,7 @@
 #include "scrollable_menu.hpp"
 #include "debug.hpp"
 
+#define KEYS_QUIT               27
 #define KEYS_INVENTORY          'i'
 #define KEYS_LOOK               'l'
 #define KEYS_INFO               '?'
@@ -60,6 +61,8 @@ Game::Run(void) {
 
         //Handle mode changes
         if (c == KEY_F(12))
+            GUI::QuitDialogue(this);
+        else if (c == KEYS_QUIT)
             GUI::QuitDialogue(this);
         else if (c == KEY_F(8))
             Debug::DebugConsole(this);
